@@ -1,0 +1,27 @@
+{
+  "recommendations": [
+    // Python tooling (Astral stack)
+    "astral-sh.ty",
+    "charliermarsh.ruff",
+    "ms-python.python",
+
+    // Jupyter & Quarto
+    "ms-toolsai.jupyter",
+    "quarto.quarto",
+
+    // Marimo widgets
+    "marimo-team.vscode-marimo",
+
+    // Git tools
+    "waderyan.gitblame",
+    "mhutchie.git-graph"
+  ],
+  "unwantedRecommendations": [
+    // Pylance is proprietary and we use ty instead
+    "ms-python.vscode-pylance",
+
+    // AI assistants - keep environment distraction-free
+    "github.copilot",
+    "github.copilot-chat"
+  ]
+}

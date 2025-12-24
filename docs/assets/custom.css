@@ -1,0 +1,36 @@
+/* Fix marimo slider visibility in Quarto */
+.marimo input[type="range"],
+input[type="range"] {
+  -webkit-appearance: auto !important;
+  appearance: auto !important;
+  width: 200px !important;
+  height: auto !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.navbar-logo {
+  max-height: 40px;
+}
+
+/* Schedule table: completed weeks styling */
+.completed-weeks table tbody tr {
+  background-color: #f5f5f5;
+}
+.completed-weeks table tbody tr:hover {
+  background-color: #ebebeb;
+}
+
+/* Hide header of the upcoming table so it looks like one continuous table */
+.completed-weeks + table thead {
+  display: none;
+}
+
+/* Future weeks: reduced opacity */
+.future-weeks table tbody tr {
+  opacity: 0.5;
+}
+
+/* Hide header of future table */
+.future-weeks table thead {
+  display: none;
+}

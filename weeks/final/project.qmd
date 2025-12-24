@@ -1,0 +1,108 @@
+---
+sidebar: weeks
+title: "Final Project"
+---
+
+## Overview
+
+The final project is your opportunity to apply the statistical modeling skills you've learned throughout the course to a research question of your choice.
+
+## Timeline
+
+| Date | Milestone |
+|------|-----------|
+| Week 8 (Feb 27) | Project proposal due |
+| Week 10 (Mar 13) | Draft analysis due (optional feedback) |
+| Final Exam Week (Mar 21) | Final project due |
+
+## Requirements
+
+### 1. Research Question
+
+Formulate a clear, answerable research question that requires statistical analysis.
+
+### 2. Data
+
+- Use a publicly available dataset OR
+- Use data from your own research (with appropriate permissions)
+- Minimum 100 observations recommended
+
+### 3. Analysis
+
+Your analysis should include:
+
+1. **Exploratory Data Analysis**
+   - Summary statistics
+   - Visualizations
+   - Data quality assessment
+
+2. **Statistical Modeling**
+   - At least one model from the course (GLM, LMM, etc.)
+   - Model diagnostics
+   - Model comparison (if appropriate)
+
+3. **Inference or Prediction**
+   - Parameter estimates with uncertainty
+   - Hypothesis tests or confidence intervals
+   - OR cross-validated prediction performance
+
+4. **Interpretation**
+   - What do the results mean?
+   - Limitations
+   - Future directions
+
+### 4. Deliverables
+
+1. **Rendered .qmd file** (HTML or PDF)
+   - Introduction and research question
+   - Methods
+   - Results (with code)
+   - Discussion
+
+2. **Data and code**
+   - All code should be reproducible
+   - Include data or instructions for obtaining it
+
+## Grading Rubric
+
+| Component | Points |
+|-----------|--------|
+| Research question clarity | 10 |
+| Data preparation and EDA | 15 |
+| Appropriate model choice | 20 |
+| Model fitting and diagnostics | 20 |
+| Interpretation and conclusions | 20 |
+| Code quality and reproducibility | 10 |
+| Writing and presentation | 5 |
+| **Total** | **100** |
+
+## Proposal Template
+
+Submit a 1-page proposal including:
+
+1. **Research question** (1-2 sentences)
+2. **Data source** (what data, where from, sample size)
+3. **Proposed analysis** (what models/methods)
+4. **Expected challenges** (what might be tricky?)
+
+## Example Projects
+
+Past successful projects have included:
+
+- Predicting movie ratings with mixed models (repeated measures per user)
+- Analyzing experimental psychology data with factorial ANOVA/LMM
+- Logistic regression for predicting customer churn
+- Power analysis for a planned study
+- Factor analysis of survey responses
+
+## Resources
+
+- Office hours: TBD
+- Course materials: All previous weeks
+- Statistical consulting: TBD
+
+## Submission
+
+Submit via GitHub Classroom by **Saturday, March 21, 2026**.
+
+Good luck!

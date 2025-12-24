@@ -1,0 +1,63 @@
+[project]
+name = "psyc201b-w26"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "altair>=6.0.0",
+    "jupyter>=1.1.1",
+    "jupyter-cache>=1.0.1",
+    "lintquarto>=0.7.0",
+    "marimo>=0.18.4",
+    "matplotlib>=3.10.8",
+    "numpy>=2.4.0",
+    "poethepoet>=0.38.0",
+    "polars>=1.36.1",
+    "ruff>=0.14.10",
+    "scipy>=1.16.3",
+    "seaborn>=0.13.2",
+    "tqdm>=4.67.1",
+    "ty>=0.0.7",
+    "wigglystuff>=0.2.6",
+]
+
+[tool.poe.tasks.marimo]
+help = "Edit a python file interactively with marimo"
+shell  = """marimo edit $1""" 
+
+[tool.poe.tasks.quarto]
+help = "Start quarto preview server"
+shell  = """quarto preview""" 
+
+[tool.poe.tasks.render]
+help = "Render project to HTML"
+shell  = """quarto render"""
+
+[tool.poe.tasks.lint]
+help = "Lint Python code in .qmd files with ruff"
+shell = "lintquarto -l ruff -p ."
+
+[tool.poe.tasks.setup]
+help = "One-time setup: register Jupyter kernel for Quarto (run after uv sync)"
+shell = """python -m ipykernel install --user --name w26-201b --display-name "PSYC 201B" """
+
+# Ruff configuration
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+ignore = [
+    "W292",  # no newline at end of file
+    "E501",  # line too long (handled by line-length setting)
+    "E703",  # statement ends with semicolon
+    "E731",  # do not assign a lambda expression
+    "E741",  # ambiguous variable name (l, O, I)
+    "E402",  # module level import not at top of file (pedagogical)
+]
+
+[dependency-groups]
+dev = [
+    "poethepoet>=0.38.0",
+]

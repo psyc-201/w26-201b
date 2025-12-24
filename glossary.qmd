@@ -1,0 +1,21 @@
+---
+sidebar: "weeks"
+title: "Course Terminology"
+---
+
+:::{.callout-note}
+We'll keep this page updated as we come across new technical and statistical terms for easy reference
+:::
+
+<!-- Register terms defined in _quarto.yml -->
+
+<!-- {{< glossary command-line-program >}} -->  
+
+<!-- {{< glossary homebrew >}} -->  
+
+<!-- {{< glossary ide >}} -->  
+
+<!-- {{< glossary terminal >}} -->
+
+<!-- Render table -->
+{{< glossary table=true >}}

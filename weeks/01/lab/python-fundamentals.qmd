@@ -1,0 +1,464 @@
+---
+sidebar: weeks
+title: "Python Core Concepts"
+author: "Eshin Jolly"
+date: "Jan 7, 2026"
+code-line-numbers: false
+code-fold: show
+code-overflow: wrap
+execute:
+  warning: false
+---
+
+This notebook is designed to teach you the **essence** of Python building upon your understanding of R. We'll skip some programming basics (see the quickstart in the assignment repo for that) but add references resources to the course website. We've structured this notebook to focus on the **key bits** of Python that might give you trouble coming from R and how to handle them gracefully.
+
+## Variables and Types
+
+```{python}
+# We assign variables using `=`
+first_name = 'Eshin'
+first_name
+```
+
+```{python}
+# Strings can use single or double quotes
+last_name = "Jolly"
+last_name
+```
+
+```{python}
+# Integers
+my_number = 3
+my_number
+```
+
+```{python}
+# Floats contain decimal points
+my_decimal = 3.1
+my_decimal
+```
+
+What happens if you do this?
+
+```python
+# What happens if you do this?
+my_variable
+= 3
+```
+
+:::{.callout-important title="SyntaxError"}
+The most common error message you'll encounter early on.
+It just means you mistyped something and Python doesn't understand it.
+:::
+
+## Comparisons
+
+```{python}
+# We can make comparisons
+my_decimal > my_number
+```
+
+```{python}
+# Not equal
+my_decimal != my_number
+```
+
+```{python}
+# We can intuitively combine comparisons with `and`
+my_number > 2 and my_number < 10
+```
+
+```{python}
+# Using `or`
+my_number > 0 or my_number < 1000
+```
+
+```{python}
+#| error: true
+# What happens here?
+my_number > first_name
+```
+
+:::{.callout-important title="TypeError"}
+Another common message telling you that you're not providing the expected input to the operation you're trying.
+In this case Python has no way to check a number is greater than a string!
+:::
+
+## Types and Functions
+
+```{python}
+# We call functions using `function(inputs)`
+type(first_name)
+```
+
+```{python}
+# the type function tells us what kind of object something is
+# the variable we defined above
+type(my_number)
+```
+
+```{python}
+# Float
+type(1.2)
+```
+
+:::{.callout-note title="Integers vs Floats"}
+Python like many programming languages distinguishes between numerical values that do or do not require decimal-point precision. Python will always convert to the highest precision it can for you.
+:::
+
+```{python}
+# Integer + Float = Float
+type(my_number + my_decimal)
+```
+
+```{python}
+# You can always get help on variables and functions using the `help()` function
+
+# What is print?
+help(print)
+```
+
+## Lists
+
+```{python}
+# We can put multiple variables in a list using square brackets `[]`
+my_list = [first_name, last_name, 'third_name', 'fourth_name']
+my_list
+```
+
+:::{.callout-note title="Note: 0-based indexing"}
+Notice how the variables in the list start at 0?
+That's because unlike R, Python counts starting from 0 not from 1!
+This is usually the first major difference to get used to and applies to all Python libraries and tools.
+For example, the first row of a dataframe is *row 0* not row 1.
+:::
+
+```{python}
+# We can index into the list to get a single item using `[]`
+my_list[0]
+```
+
+```{python}
+# 2nd item
+my_list[1]
+```
+
+```{python}
+# We can use negative position to index items backwards
+# last item
+my_list[-1]
+```
+
+```{python}
+# 2nd-to-last item
+my_list[-2]
+```
+
+```{python}
+#| error: true
+# What happens if we try this?
+my_list[4]
+```
+
+:::{.callout-important title="IndexError"}
+One the most common error messages is just telling you're trying to retrieve an item in a position that doesn't exist.
+In other words the list has too few items and Python doesn't know what to do.
+:::
+
+```{python}
+# We can use the `len` function to get the size of the list
+len(my_list)
+```
+
+## Slicing
+
+```{python}
+# To retrieve multiple items we can use `[start:stop]` to index the list
+my_list[0:3]
+```
+
+:::{.callout-note title="Note: Slicing doesn't include `stop`"}
+By default Python slices *up-to* but **not-including** the `stop` value.
+Notice how the 3rd index (`"fourth name"`) was not included even though we used `3`.
+:::
+
+```{python}
+# Leaving off the `start` or `stop` will get all items from-the-start or until-the-end
+# from-the-start
+my_list[:3]
+```
+
+```{python}
+# until-the-end
+my_list[1:]
+```
+
+```{python}
+# We can optionally control `step` size using a third value
+# from-the-start -> 3rd index -> by two (every other)
+my_list[0:3:2]
+```
+
+```{python}
+# If we use a negative `step` we can slice backwards
+# from-the-start -> until-the-end -> backwards
+my_list[::-1]
+```
+
+:::{.callout-tip}
+Using `list[::-1]` is a very common pattern for quickly reversing a list in Python
+:::
+
+## Control Flow
+
+```{python}
+# We use indentation and `:` to create blocks of logic (control flow)
+if my_number > 0:
+    print("Greater than 0")
+```
+
+:::{.callout-note title="Note: Indentation"}
+Python is often loved for being very *readable* in part because it doesn't use `{}` to surround code-block like R, Javascript and other languages.
+However, that means you need to carefully **indent** or **deindent** to accomplish the same thing.
+:::
+
+```{python}
+# We can create branches of logic using indentation with `if/else` and `elif`
+if my_number > 0:
+    print("Greater than 0")
+else:
+    print("Less than 0")
+```
+
+What happens here?
+
+```python
+# What happens here?
+if my_number > 0:
+print("Greater than 0")
+```
+
+:::{.callout-important title="IndentationError"}
+Python will let you know if your spacing is off and where it's happening.
+You'll mostly encounter this when you're editing code, because VSCode will try to be helpful and *automatically* indent correctly as you're writing code.
+:::
+
+```{python}
+# We can keep branching with `elif`
+if my_number < 0:
+    print("Less that 0")
+elif 4 > my_number > 0: # notice how we can express this like in English
+    print("Between 4 and 0")
+else:
+    print("Very large")
+```
+
+## Loops
+
+```{python}
+# We can loop in the same way using `for`, indentation and `:`
+for elem in my_list:
+    # Everything indented at this level happens for EACH item
+    print(elem)
+```
+
+```{python}
+# The name of the looping variable is arbitrary. Using `elem` is just a convention
+for boogity_bop in my_list:
+    print(boogity_bop)
+```
+
+```{python}
+# To operate on each item AND its position/index we use the `enumerate()` function
+help(enumerate)
+```
+
+:::{.callout-tip title="Your Turn"}
+Try using `help()` and the examples above to figure out how to use the `enumerate()` function to print out each item and its position.
+*If the notebook gives you an error about reusing a variable name (e.g. `elem`) just call your looping variable something else.*
+:::
+
+```{python}
+#| eval: false
+# Your code below
+for ...
+```
+
+:::{.callout-note title="Solution" collapse="true"}
+```{python}
+for idx, item in enumerate(my_list):
+    print(f"Position {idx}: {item}")
+```
+:::
+
+## Functions
+
+:::{.callout-note title="Creating functions"}
+Python makes it easy to write your own functions to create usable blocks of code using the `def` keyword (not `function` like in R).
+Then we just use indentation like before:
+
+```python
+def myfunction(first_argument, second_argument...):
+  # Everything indented is inside the function
+  print("I'm calculating...")
+  output = first_argument + second_argument
+  # Optionally return something
+  return output
+```
+:::
+
+```{python}
+# Running this code cell defines the function for use anywhere in the notebook
+
+def myfunction(first_argument, second_argument):
+    """This is optional documentation string for function help"""
+
+    print("I'm calculating...")
+    output = first_argument + second_argument
+    return output
+```
+
+```{python}
+# Now lets use it like any other function
+myfunction(1, 2)
+```
+
+```{python}
+myfunction(4, 5)
+```
+
+```{python}
+# We can even get help on our function
+help(myfunction)
+```
+
+## Methods
+
+```{python}
+# Unlike R sometimes we use "functions" attached to objects with the `.` syntax
+first_name.upper()
+```
+
+:::{.callout-note title="Methods are functions attached to objects called with `.`"}
+
+Unlike R, Python is an *object-oriented-language* which means functions can be *attached* to objects.
+
+We call these **methods** but you can intuitively treat them the same.
+
+In the example above, Python doesn't have an `upper()` *function*, but strings have a `.upper()` *method*.
+In your head when you see `first_name.upper()` just think `upper(first_name)`.
+
+This allows for **method-chaining** which is Python's alternative to R's `%>%` syntax.
+
+In R we might do: `function() %>% function() %>% function()`
+
+In Python we'll often do: `object.method().method().method()` to achieve the same effect.
+
+:::
+
+```{python}
+# This is a method-chain
+first_name.upper().lower()
+```
+
+```{python}
+# We can use the `dir()` function to see all the methods that belong to an object
+# Since our variable is a list this show all list methods
+dir(my_list)
+```
+
+```{python}
+# Using the `.append()` method
+my_list.append("another_item")
+```
+
+:::{.callout-important title="Not all methods are chainable"}
+Notice how `.append()` didn't return anything?
+Some methods cannot be chained because they modify the object **in-place**
+
+Run the cell below to see how the value of the variable `my_list` has **changed**
+Then run the cell below that to `.append()` a second time and see what happens
+:::
+
+```{python}
+# my_list was updated in place
+print(f"There are {len(my_list)} items:\n{my_list}")
+```
+
+```{python}
+# Let's append again
+my_list.append("add_another")
+```
+
+```{python}
+# Now what does it show?
+print(f"There are {len(my_list)} items:\n{my_list}")
+```
+
+---
+
+## Importing Libraries
+
+```{python}
+# We use the `import` keyword to bring in functionality from other libraries
+import polars
+
+# Use something from the module with `.`
+my_empty_dataframe = polars.DataFrame()
+my_empty_dataframe
+```
+
+:::{.callout-note title="Importing libraries with `import` and `as` "}
+Whereas in R you might use `library(lme4)` to import a library and automatically get all it's functions (e.g. `lmer`), in Python you **have to be more explicit.**
+This is because in Python *everything is an object* including other libraries, which means you can do accidental things like overwrite a library you imported with a variable:
+
+```python
+# Import the library
+import mylibrary
+
+# Use it
+mylibrary.myfunction()
+
+# Oops Python will let you do this but DONT
+mylibrary = "Eshin"
+
+# This doesn't work anymore!
+mylibrary.myfunction()
+```
+:::
+
+```{python}
+# We use typically using `as` to shorten common library names by convention
+import polars as pl
+
+# Less typing, fewer mistakes!
+new_df = pl.DataFrame()
+
+# Show it
+new_df
+```
+
+```{python}
+# Or to just import specific functionality
+from polars import DataFrame
+
+# Use it
+another_df = DataFrame()
+
+# Show it
+another_df
+```
+
+```{python}
+# Here's a convention Eshin likes, but make sure to never create a variable called `c`
+# (you shouldn't be doing that anyway)
+from polars import col as c
+
+help(c)
+```
+
+## Pro-tips
+
+- Reference help docs often
+- Change-and-rerun often
+- Don't reuse variable names (the notebook won't let you!)

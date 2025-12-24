@@ -1,0 +1,4 @@
+---
+sidebar: weeks
+title: General Coding & Debugging Tips
+---

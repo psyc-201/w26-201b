@@ -1,0 +1,47 @@
+---
+sidebar: "weeks"
+title: "Course Terminology"
+---
+
+:::{.callout-note}
+We'll keep this page updated as we come across new technical and statistical terms for easy reference
+:::
+
+<!-- List terms defined in glossary.yml otherwise table doesn't render -->
+
+<!-- {{< glossary command-line-program >}} -->  
+
+<!-- {{< glossary homebrew >}} -->  
+
+<!-- {{< glossary terminal >}} -->
+
+<!-- {{< glossary shell >}} -->
+
+<!-- {{< glossary quarto >}} -->
+
+<!-- {{< glossary uv >}} -->
+
+<!-- {{< glossary environment >}} -->
+
+<!-- {{< glossary git >}} -->
+
+<!-- {{< glossary github >}} -->
+
+<!-- {{< glossary github-userid >}} -->
+
+<!-- {{< glossary ide >}} -->  
+
+<!-- {{< glossary rstudio >}} -->
+
+<!-- {{< glossary vscode >}} -->
+
+<!-- {{< glossary quarto-doc >}} -->
+
+<!-- {{< glossary python-notebook >}} -->
+
+<!-- {{< glossary quarto-doc >}} -->
+
+<!-- {{< glossary marimo >}} -->
+
+<!-- Render table -->
+{{< glossary table=true >}}

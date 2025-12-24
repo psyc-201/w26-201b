@@ -1,0 +1,192 @@
+{
+  // ==========================================================================
+  // PSYC 201B - VSCode/Codium Configuration
+  // ==========================================================================
+  // These workspace settings provide a consistent, distraction-free environment.
+  // Students can override any setting in their personal User Settings.
+  // ==========================================================================
+
+  // ============================================
+  // THEME
+  // ============================================
+  "workbench.colorTheme": "Visual Studio Dark",
+
+  // ============================================
+  // TELEMETRY & DATA COLLECTION - All off
+  // ============================================
+  "telemetry.telemetryLevel": "off",
+  "workbench.enableExperiments": false,
+  "redhat.telemetry.enabled": false,
+
+  // ============================================
+  // AI / COPILOT - Disabled for distraction-free learning
+  // ============================================
+  "chat.disableAIFeatures": false,
+  "github.copilot.enable": {
+    "*": false
+  },
+
+  // ============================================
+  // EXTENSION RECOMMENDATIONS - Suppress popups
+  // ============================================
+  "extensions.ignoreRecommendations": true,
+  "extensions.autoCheckUpdates": false,
+  "extensions.autoUpdate": "onlyEnabledExtensions",
+
+  // ============================================
+  // WORKSPACE TRUST - Disabled for smooth git/GitHub auth
+  // ============================================
+  "security.workspace.trust.enabled": false,
+  "security.workspace.trust.banner": "never",
+  "security.workspace.trust.startupPrompt": "never",
+  "security.workspace.trust.untrustedFiles": "open",
+
+  // ============================================
+  // NOTIFICATIONS & POPUPS - Minimal noise
+  // ============================================
+  "workbench.tips.enabled": false,
+  "workbench.startupEditor": "none",
+  "workbench.welcomePage.walkthroughs.openOnInstall": false,
+
+  // ============================================
+  // UPDATES - Don't prompt during class
+  // ============================================
+  "update.mode": "manual",
+  "update.showReleaseNotes": false,
+
+  // ============================================
+  // EXTENSION-SPECIFIC "WHAT'S NEW" SUPPRESSION
+  // ============================================
+  "gitlens.showWelcomeOnInstall": false,
+  "gitlens.showWhatsNewAfterUpgrades": false,
+  "material-icon-theme.showWelcomeMessage": false,
+  "vsicons.dontShowNewVersionMessage": true,
+
+  // ============================================
+  // CLEAN, MINIMAL UI
+  // ============================================
+  "editor.minimap.enabled": false,
+  "breadcrumbs.enabled": false,
+  "workbench.layoutControl.enabled": false,
+  "window.commandCenter": false,
+
+  // Hide chat/AI icon in title bar
+  "chat.commandCenter.enabled": false,
+
+  // Hide activity bar badges (notification dots)
+  "workbench.activityBar.iconClickBehavior": "toggle",
+
+  // Status bar - hide items we don't need
+  // Note: Individual items can be hidden by right-clicking the status bar
+  // These settings hide what's controllable via settings.json:
+
+  // ============================================
+  // PYTHON - Astral stack (ty + Ruff)
+  // ============================================
+  // Use ty for type checking instead of Pylance
+  "python.languageServer": "None",
+
+  // Point to uv-managed virtual environment
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.terminal.activateEnvironment": false,
+
+  // ty settings - use venv version
+  "ty.path": ["${workspaceFolder}/.venv/bin/ty"],
+  "ty.diagnosticMode": "openFilesOnly",
+  "ty.showSyntaxErrors": true,
+  "ty.inlayHints.variableTypes": false,
+  "ty.inlayHints.callArgumentNames": false,
+  "ty.completions.autoImport": true,
+  "ty.importStrategy": "fromEnvironment",
+
+  // ============================================
+  // RUFF - Linting & Formatting (use venv version)
+  // ============================================
+  "ruff.path": ["${workspaceFolder}/.venv/bin/ruff"],
+
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "explicit",
+      "source.organizeImports.ruff": "explicit"
+    }
+  },
+  "ruff.nativeServer": "auto",
+
+  // Jupyter notebooks
+  "notebook.formatOnSave.enabled": true,
+  "notebook.codeActionsOnSave": {
+    "notebook.source.fixAll": "explicit",
+    "notebook.source.organizeImports": "explicit"
+  },
+
+  // ============================================
+  // QUARTO
+  // ============================================
+  "quarto.render.renderOnSave": false,
+  "quarto.render.previewType": "internal",
+
+  // Quarto file settings
+  "[quarto]": {
+    "editor.wordWrap": "on",
+    "editor.formatOnSave": false,
+    "editor.quickSuggestions": {
+      "comments": "on",
+      "strings": "on",
+      "other": "on"
+    }
+  },
+
+  // Associate .qmd files
+  "files.associations": {
+    "*.qmd": "quarto"
+  },
+
+  // Jupyter working directory for Quarto
+  "jupyter.notebookFileRoot": "${workspaceFolder}",
+
+  // ============================================
+  // GIT - Streamlined experience
+  // ============================================
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "git.autofetch": true,
+
+  // Git Blame settings
+  "gitblame.statusBarMessageFormat": "${author.name} (${time.ago})",
+  "gitblame.inlineMessageEnabled": false,
+
+  // ============================================
+  // EDITOR DEFAULTS
+  // ============================================
+  "editor.fontSize": 14,
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true,
+  "editor.rulers": [88],
+  "editor.wordWrap": "off",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+
+  // Reduce visual noise
+  "editor.lightbulb.enabled": "off",
+  "editor.hover.delay": 500,
+
+  // ============================================
+  // TERMINAL
+  // ============================================
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.defaultProfile.linux": "bash",
+
+  // ============================================
+  // FILES
+  // ============================================
+  "files.trimTrailingWhitespace": false,
+  "files.insertFinalNewline": false,
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.pytest_cache": true,
+    "**/*.pyc": true,
+    "**/.DS_Store": true
+  }
+}

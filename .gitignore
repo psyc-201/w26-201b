@@ -1,0 +1,49 @@
+*.DS*
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+weeks/**/prep/
+
+# Virtual environments
+.venv
+
+# Quarto
+/.quarto/
+**/*.quarto_ipynb
+_book/
+_extensions/
+_freeze/
+
+# Large files
+*.key
+*.pdf
+
+# Jupyter cache
+.jupyter_cache/
+_site/
+
+# Environment secrets
+.env
+.env.local
+
+# Node modules (for pocketbase scripts)
+node_modules/
+
+# Planning docs (not version controlled)
+planning/
+assets/summaries/
+assets/pdfs/
+
+# GitHub Classroom (assignments developed locally, pushed to separate repos)
+classroom/
+dev/
+specs/
+scripts/
+_widgets/
+
+# Incremental slides
+!weeks/01/slides/*.pdfscripts/

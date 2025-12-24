@@ -1,0 +1,20 @@
+# Project documentation (not part of course site)
+AGENTS.md
+CLAUDE.md
+PLAN.md
+README.md
+
+# Draft/working files
+schedule.md
+
+# Build artifacts
+_site/
+_freeze/
+.quarto/
+
+# Environment
+.venv/
+__pycache__/
+
+# Beads issue tracking
+.beads/

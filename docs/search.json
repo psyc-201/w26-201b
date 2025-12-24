@@ -1,0 +1,788 @@
+[
+  {
+    "objectID": "weeks/final/project.html",
+    "href": "weeks/final/project.html",
+    "title": "Final Project",
+    "section": "",
+    "text": "The final project is your opportunity to apply the statistical modeling skills you’ve learned throughout the course to a research question of your choice."
+  },
+  {
+    "objectID": "weeks/final/project.html#overview",
+    "href": "weeks/final/project.html#overview",
+    "title": "Final Project",
+    "section": "",
+    "text": "The final project is your opportunity to apply the statistical modeling skills you’ve learned throughout the course to a research question of your choice."
+  },
+  {
+    "objectID": "weeks/final/project.html#timeline",
+    "href": "weeks/final/project.html#timeline",
+    "title": "Final Project",
+    "section": "Timeline",
+    "text": "Timeline\n\n\n\nDate\nMilestone\n\n\n\n\nWeek 8 (Feb 27)\nProject proposal due\n\n\nWeek 10 (Mar 13)\nDraft analysis due (optional feedback)\n\n\nFinal Exam Week (Mar 21)\nFinal project due"
+  },
+  {
+    "objectID": "weeks/final/project.html#requirements",
+    "href": "weeks/final/project.html#requirements",
+    "title": "Final Project",
+    "section": "Requirements",
+    "text": "Requirements\n\n1. Research Question\nFormulate a clear, answerable research question that requires statistical analysis.\n\n\n2. Data\n\nUse a publicly available dataset OR\nUse data from your own research (with appropriate permissions)\nMinimum 100 observations recommended\n\n\n\n3. Analysis\nYour analysis should include:\n\nExploratory Data Analysis\n\nSummary statistics\nVisualizations\nData quality assessment\n\nStatistical Modeling\n\nAt least one model from the course (GLM, LMM, etc.)\nModel diagnostics\nModel comparison (if appropriate)\n\nInference or Prediction\n\nParameter estimates with uncertainty\nHypothesis tests or confidence intervals\nOR cross-validated prediction performance\n\nInterpretation\n\nWhat do the results mean?\nLimitations\nFuture directions\n\n\n\n\n4. Deliverables\n\nRendered .qmd file (HTML or PDF)\n\nIntroduction and research question\nMethods\nResults (with code)\nDiscussion\n\nData and code\n\nAll code should be reproducible\nInclude data or instructions for obtaining it"
+  },
+  {
+    "objectID": "weeks/final/project.html#grading-rubric",
+    "href": "weeks/final/project.html#grading-rubric",
+    "title": "Final Project",
+    "section": "Grading Rubric",
+    "text": "Grading Rubric\n\n\n\nComponent\nPoints\n\n\n\n\nResearch question clarity\n10\n\n\nData preparation and EDA\n15\n\n\nAppropriate model choice\n20\n\n\nModel fitting and diagnostics\n20\n\n\nInterpretation and conclusions\n20\n\n\nCode quality and reproducibility\n10\n\n\nWriting and presentation\n5\n\n\nTotal\n100"
+  },
+  {
+    "objectID": "weeks/final/project.html#proposal-template",
+    "href": "weeks/final/project.html#proposal-template",
+    "title": "Final Project",
+    "section": "Proposal Template",
+    "text": "Proposal Template\nSubmit a 1-page proposal including:\n\nResearch question (1-2 sentences)\nData source (what data, where from, sample size)\nProposed analysis (what models/methods)\nExpected challenges (what might be tricky?)"
+  },
+  {
+    "objectID": "weeks/final/project.html#example-projects",
+    "href": "weeks/final/project.html#example-projects",
+    "title": "Final Project",
+    "section": "Example Projects",
+    "text": "Example Projects\nPast successful projects have included:\n\nPredicting movie ratings with mixed models (repeated measures per user)\nAnalyzing experimental psychology data with factorial ANOVA/LMM\nLogistic regression for predicting customer churn\nPower analysis for a planned study\nFactor analysis of survey responses"
+  },
+  {
+    "objectID": "weeks/final/project.html#resources",
+    "href": "weeks/final/project.html#resources",
+    "title": "Final Project",
+    "section": "Resources",
+    "text": "Resources\n\nOffice hours: TBD\nCourse materials: All previous weeks\nStatistical consulting: TBD"
+  },
+  {
+    "objectID": "weeks/final/project.html#submission",
+    "href": "weeks/final/project.html#submission",
+    "title": "Final Project",
+    "section": "Submission",
+    "text": "Submission\nSubmit via GitHub Classroom by Saturday, March 21, 2026.\nGood luck!"
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html",
+    "href": "weeks/01/lab/polars-crash-course.html",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "",
+    "text": "In this tutorial we’ll build on your basic Python skills and immediately start working with a new kind of object: DataFrame. We’ll meet the first Python library we’ll use throughout the course polars and walkthrough all the basics in this notebook.\nPolars is very user-friendly DataFrame library for working with structured data in Python, but also R and other languages.",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#how-to-use-this-notebook",
+    "href": "weeks/01/lab/polars-crash-course.html#how-to-use-this-notebook",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "How to use this notebook",
+    "text": "How to use this notebook\nThis notebook is designed for you to work through at your own pace or use as a reference with other materials.\nAs you go through this notebook, you should regularly refer to the polars documentation to look things up and general help. Try experimenting by creating new code cells and playing around with the demonstrated functionality.\nRemember to use help() from within this notebook to look up how functionality works.",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#how-to-import-polars",
+    "href": "weeks/01/lab/polars-crash-course.html#how-to-import-polars",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "How to import Polars",
+    "text": "How to import Polars\nWe can make polars available by using the import statement. It’s convention to import polars in the following way:\n\n\nCode\nimport polars as pl",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#why-use-polars",
+    "href": "weeks/01/lab/polars-crash-course.html#why-use-polars",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "Why use Polars?",
+    "text": "Why use Polars?\nSo far we’ve made most use of Python lists and NumPy arrays. But in practice you’re probably working with some kind of structured data, i.e spreadsheet-style data with columns and rows\n\nIn Polars we call this a DataFrame, a 2d table with rows and columns of different types of data (e.g. strings, numbers, etc).\n\nEach column of a DataFrame contains the same type of data. Let’s look at an example by loading a file with the pl.read_csv() function.\nThis will return a DataFrame we can check out:\n\n\nCode\ndf = pl.read_csv('data/example.csv')\ndf\n\n\n\nshape: (3, 3)\n\n\n\nName\nAge\nSex\n\n\nstr\ni64\nstr\n\n\n\n\n\"Braund, Mr. Owen Harris\"\n22\n\"male\"\n\n\n\"Allen, Mr. William Henry\"\n35\n\"male\"\n\n\n\"Bonnell, Miss. Elizabeth\"\n58\n\"female\"\n\n\n\n\n\n\nNotice how Polars tells us the type of each column below it’s name.",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#dataframe-fundamentals",
+    "href": "weeks/01/lab/polars-crash-course.html#dataframe-fundamentals",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "DataFrame fundamentals",
+    "text": "DataFrame fundamentals\nWe can get basic information about a DataFrame by accessing its attributes using . syntax without () at the end:\n\n\nCode\ndf.shape\n\n\n(3, 3)\n\n\n\n\nCode\ndf.height\n\n\n3\n\n\n\n\nCode\ndf.width\n\n\n3\n\n\n\n\nCode\ndf.columns\n\n\n['Name', 'Age', 'Sex']\n\n\nDataFrames have various methods that we can use with . syntax with a () at the end.\nRemember that methods in Python are just functions that “belong” to some object. In this case these methods “belong” to a DataFrame object and can take arguments that operate on it.\nSome might be familiar from R or other languages:\n.head() gives us the first few rows. Since we only have 3 rows, we can pass an argument to the method to as for the first 2:\n\n\nCode\ndf.head(2)\n\n\n\nshape: (2, 3)\n\n\n\nName\nAge\nSex\n\n\nstr\ni64\nstr\n\n\n\n\n\"Braund, Mr. Owen Harris\"\n22\n\"male\"\n\n\n\"Allen, Mr. William Henry\"\n35\n\"male\"\n\n\n\n\n\n\nAnd .tail() is the opposite:\n\n\nCode\ndf.tail(2) # last 2 rows\n\n\n\nshape: (2, 3)\n\n\n\nName\nAge\nSex\n\n\nstr\ni64\nstr\n\n\n\n\n\"Allen, Mr. William Henry\"\n35\n\"male\"\n\n\n\"Bonnell, Miss. Elizabeth\"\n58\n\"female\"\n\n\n\n\n\n\nWe can use .glimpse() to transpose a DataFrame. This can sometimes make it easier to see the column names listed as rows and the values listed as columns:\n\n\nCode\ndf.glimpse()\n\n\nRows: 3\nColumns: 3\n$ Name &lt;str&gt; 'Braund, Mr. Owen Harris', 'Allen, Mr. William Henry', 'Bonnell, Miss. Elizabeth'\n$ Age  &lt;i64&gt; 22, 35, 58\n$ Sex  &lt;str&gt; 'male', 'male', 'female'\n\n\n\nAnd .describe() to get some quick summary stats:\n\n\nCode\ndf.describe()\n\n\n\nshape: (9, 4)\n\n\n\nstatistic\nName\nAge\nSex\n\n\nstr\nstr\nf64\nstr\n\n\n\n\n\"count\"\n\"3\"\n3.0\n\"3\"\n\n\n\"null_count\"\n\"0\"\n0.0\n\"0\"\n\n\n\"mean\"\nnull\n38.333333\nnull\n\n\n\"std\"\nnull\n18.230012\nnull\n\n\n\"min\"\n\"Allen, Mr. William Henry\"\n22.0\n\"female\"\n\n\n\"25%\"\nnull\n35.0\nnull\n\n\n\"50%\"\nnull\n35.0\nnull\n\n\n\"75%\"\nnull\n58.0\nnull\n\n\n\"max\"\n\"Braund, Mr. Owen Harris\"\n58.0\n\"male\"\n\n\n\n\n\n\nThere are many additional methods to calculate statistics as well. But we’ll revisit these later:\n\n\nCode\ndf.mean()\n\n\n\nshape: (1, 3)\n\n\n\nName\nAge\nSex\n\n\nstr\nf64\nstr\n\n\n\n\nnull\n38.333333\nnull\n\n\n\n\n\n\n\n\nCode\ndf.min()\n\n\n\nshape: (1, 3)\n\n\n\nName\nAge\nSex\n\n\nstr\ni64\nstr\n\n\n\n\n\"Allen, Mr. William Henry\"\n22\n\"female\"\n\n\n\n\n\n\nDataFrames also have a .sample() method that allows you resample rows from the DataFrame with or without replacement.\nYou can tell Polars to sample all rows without replacement, aka permuting:\n\n\nCode\ndf.sample(fraction=1, shuffle=True, with_replacement=False)\n\n\n\nshape: (3, 3)\n\n\n\nName\nAge\nSex\n\n\nstr\ni64\nstr\n\n\n\n\n\"Bonnell, Miss. Elizabeth\"\n58\n\"female\"\n\n\n\"Allen, Mr. William Henry\"\n35\n\"male\"\n\n\n\"Braund, Mr. Owen Harris\"\n22\n\"male\"\n\n\n\n\n\n\nOr resample with replacement, aka bootstrapping:\n\n\nCode\ndf.sample(fraction=1, shuffle=True, with_replacement=True)\n\n\n\nshape: (3, 3)\n\n\n\nName\nAge\nSex\n\n\nstr\ni64\nstr\n\n\n\n\n\"Bonnell, Miss. Elizabeth\"\n58\n\"female\"\n\n\n\"Allen, Mr. William Henry\"\n35\n\"male\"\n\n\n\"Braund, Mr. Owen Harris\"\n22\n\"male\"\n\n\n\n\n\n\nThese methods will be handy when we cover resampling statistics later in the course.",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#indexing-a-dataframe-for-simple-stuff-only",
+    "href": "weeks/01/lab/polars-crash-course.html#indexing-a-dataframe-for-simple-stuff-only",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "Indexing a DataFrame (for simple stuff only!)",
+    "text": "Indexing a DataFrame (for simple stuff only!)\nBecause a DataFrame is a 2d table, we can use the same indexing and slicing syntax but in 2d for rows and columns.\nRemember these are 0-indexed: the first row/col is at position 0, not position 1\nIf this is our DataFrame:\n\n\nCode\ndf\n\n\n\nshape: (3, 3)\n\n\n\nName\nAge\nSex\n\n\nstr\ni64\nstr\n\n\n\n\n\"Braund, Mr. Owen Harris\"\n22\n\"male\"\n\n\n\"Allen, Mr. William Henry\"\n35\n\"male\"\n\n\n\"Bonnell, Miss. Elizabeth\"\n58\n\"female\"\n\n\n\n\n\n\nWe can slice it like this:\n\n\nCode\n# 0 row index = 1st row\n# 1 col index = 2nd col (age)\ndf[0, 1]\n\n\n22\n\n\nAnd of course we can slice using start:stop:step, which is always up-to the end value we slice to:\n\n\nCode\n# 0:2 slice = rows up to, but not including 2 - just 0, 1\n# 0 col index = 1st col (name)\ndf[0:2,0]\n\n\n\nshape: (2,)\n\n\n\nName\n\n\nstr\n\n\n\n\n\"Braund, Mr. Owen Harris\"\n\n\n\"Allen, Mr. William Henry\"\n\n\n\n\n\n\nWe can also using slicing syntax to quickly refer to columns by name:\n\n\nCode\n# All rows in column 'Name'\ndf['Name']\n\n\n\nshape: (3,)\n\n\n\nName\n\n\nstr\n\n\n\n\n\"Braund, Mr. Owen Harris\"\n\n\n\"Allen, Mr. William Henry\"\n\n\n\"Bonnell, Miss. Elizabeth\"\n\n\n\n\n\n\nWhich is equivalent to:\n\n\nCode\n# Explicitly slice 'all' rows\n# 'Name' = just the Name column\ndf[:, 'Name']\n\n\n\nshape: (3,)\n\n\n\nName\n\n\nstr\n\n\n\n\n\"Braund, Mr. Owen Harris\"\n\n\n\"Allen, Mr. William Henry\"\n\n\n\"Bonnell, Miss. Elizabeth\"\n\n\n\n\n\n\n\n\nCode\n# 0:2 slice = rows up to, but not including 2\n# 'Name' = just the Name column\ndf[0:2, 'Name']\n\n\n\nshape: (2,)\n\n\n\nName\n\n\nstr\n\n\n\n\n\"Braund, Mr. Owen Harris\"\n\n\n\"Allen, Mr. William Henry\"\n\n\n\n\n\n\nNote: While you can access values this way, what makes Polars powerful is that it offers a much richer “language” or set of “patterns” for working with DataFrames, like dplyr’s verbs in R’s Tidyverse.\nWhile it doesn’t map on one-to-one, Polars offers a consistent and intuitive way of working with DataFrames that we’ll teach you in this notebook. Once the fundamentals “click” for you, you’ll be a data manipulating ninja!",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#thinking-in-polars-contexts-expressions",
+    "href": "weeks/01/lab/polars-crash-course.html#thinking-in-polars-contexts-expressions",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "Thinking in Polars: Contexts & Expressions",
+    "text": "Thinking in Polars: Contexts & Expressions\nTo understand how to “think” in polars, we need to understand 2 fundamental concepts: contexts and expressions\nA context in Polars is how you choose what data you want to operate on. There are only a few you’ll use regularly:\n\nContexts\n\ndf.select() - to subset columns\n\n\n\ndf.with_columns() - to add new columns\n\n\n\ndf.filter() - to subset rows\n\n\n\ndf.group_by().agg() - to summarize by group\n\n\n\n\nExpressions\nAn expression is any computation we do inside of a context.\nTo build an expression we first use a selector to choose one or more columns.\nThe most common selector you’ll use is pl.col() to select one or more columns by name.\nThen we used method-chaining, . syntax, to perform operations on the selected columns.\nLet’s see a simple example.",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#starting-simple",
+    "href": "weeks/01/lab/polars-crash-course.html#starting-simple",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "Starting simple",
+    "text": "Starting simple\nLet’s say we have data from some experiment that contains 3 participants, each of whom made 5 judgements about some stimuli.\nWe can use the pl.read_csv() function to load a file and get back a polars DataFrame:\n\n\nCode\ndf_1 = pl.read_csv('data/example_2.csv')\ndf_1\n\n\n\nshape: (15, 3)\n\n\n\nparticipant\naccuracy\nrt\n\n\ni64\ni64\nf64\n\n\n\n\n1\n44\n261.28435\n\n\n1\n47\n728.208489\n\n\n1\n64\n801.889016\n\n\n1\n67\n713.555026\n\n\n1\n67\n362.682105\n\n\n…\n…\n…\n\n\n3\n70\n439.524973\n\n\n3\n88\n55.11928\n\n\n3\n88\n644.801272\n\n\n3\n12\n571.800553\n\n\n3\n58\n715.224208\n\n\n\n\n\n\nWe can verify there are 15 rows and 3 columns:\n\n\nCode\ndf_1.shape\n\n\n(15, 3)",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#selecting-columns-.select",
+    "href": "weeks/01/lab/polars-crash-course.html#selecting-columns-.select",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "Selecting columns: .select()",
+    "text": "Selecting columns: .select()\nThe .select context is what you’ll use most often. It lets you apply expressions only to the specific columns you select.\n\nHere’s a simple example. Let’s say we want to calculate the average of the accuracy column.\nHow would we start?\nFirst, we need to think about our context. Since we only want the “accuracy” column we can use .select().\ndf.select(                     # &lt;- this is our context\n\n)\nSecond, we need to create an expression that means: “use the accuracy column, and calculate it’s mean”.\nWe can create an expression by combining the selector pl.col() with the operation .mean() using . syntax, i.e. method-chaining.\ndf.select(                     # &lt;- this is our context\n  pl.col('accuracy').mean()   # &lt;- this is an expression, inside this context\n)\nLet’s try this now:\n\n\nCode\n# start of context\ndf_1.select(\n    pl.col('accuracy').mean() # &lt;- this is our expression\n)\n# end of context\n\n\n\nshape: (1, 1)\n\n\n\naccuracy\n\n\nf64\n\n\n\n\n56.066667\n\n\n\n\n\n\n\n\n\n\n\n\nNoteIndentation within polars context does not matter\n\n\n\nIn this examples throughout this notebook you’ll see that we split up expressions over multiple lines within a polars context. You do not have to do this as indentation does not matter between the () We’re just trying to keep things a bit more readable for you. But the following code is exactly the same as the cell above:\ndf_1.select(pl.col('accuracy').mean())\n\n\n\n\n\n\n\n\nTipYour Turn\n\n\n\nHow would you build expression to calculate the “median” Reaction Time?\n\n\n\n\nCode\ndf_1.select()  # put your expression here!\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\n\nCode\ndf_1.select(pl.col('rt').median())\n\n\n\nshape: (1, 1)\n\n\n\nrt\n\n\nf64\n\n\n\n\n502.974663\n\n\n\n\n\n\n\n\n\nLet’s make our lives a bit easier and type less by using what we know about import from the previous tutorials:\n\n\nCode\n# now we can use col() instead of pl.col()\nfrom polars import col\n\n\nNow we can use col in place of pl.col\n\nExpressing multiple things\nWe can add as many expressions inside a context as we want. We just need to separate them with a ,.\nEach the result from each expression will be saved to a separate column.\nWe’ll use the col() selector again to perform two different operations: n_unique() and mean() on two different columns:\n\n\nCode\n# start context\ndf_1.select(\n    col('participant').n_unique(), col('accuracy').mean() # &lt;- multiple expressions separate by ,\n)\n# end context\n\n\n\nshape: (1, 2)\n\n\n\nparticipant\naccuracy\n\n\nu32\nf64\n\n\n\n\n3\n56.066667\n\n\n\n\n\n\n\n\n\n\n\n\nTipYour Turn\n\n\n\nHow would you express the following statement in polars?\nSelect only the participant and accuracy columns\nFor each participant, calculate the number of values, i.e .count()\nFor accuracy, calculate it’s standard deviation (what method do you think it is?)\n\n\n\n\nCode\n# Your code here\n\n# 1) Use the .select() context\n# 2) Use col() to create 2 expressions separated by a comma\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\n\nCode\ndf_1.select(\n    col('participant').count(),\n    col('accuracy').std()\n)\n\n\n\nshape: (1, 2)\n\n\n\nparticipant\naccuracy\n\n\nu32\nf64\n\n\n\n\n15\n27.043528\n\n\n\n\n\n\n\n\n\n\n\nRepeating the same expression across many columns\nSometimes we might find ourselves repeating the same expression for different columns.\nOne way we can do that is simply by creating multiple expressions like by before, by using col() to select each column separately:\n\n\nCode\ndf_1.select(\n    col('accuracy').median(), col('rt').median()\n    )\n\n\n\nshape: (1, 2)\n\n\n\naccuracy\nrt\n\n\nf64\nf64\n\n\n\n\n64.0\n502.974663\n\n\n\n\n\n\nBut Polars makes this much easier for us - we can condense this down to a single expression by giving our selector - col() - additional column names:\n\n\nCode\ndf_1.select(col('accuracy', 'rt').median())  # &lt;- one expression repeated for both columns\n\n\n\nshape: (1, 2)\n\n\n\naccuracy\nrt\n\n\nf64\nf64\n\n\n\n\n64.0\n502.974663\n\n\n\n\n\n\nThese both do the same thing so if you find it helpful to start explicit, building up each expression one at a time, feel free to do that!\nLater on you might find it helpful to use a single condensed expression, when you find yourself getting annoyed by repeating yourself.\n\n\nRenaming expression outputs\nLet’s try creating two expressions that operate on the the same column. In natural language:\n“Select only the accuracy column. For accuracy, calculate it’s median For accuracy, calculate it’s variance”\nLet’s try it:\n\n\nCode\ndf_1.select(col('accuracy').mean(), col('accuracy').std())\n\n\n\n---------------------------------------------------------------------------\nDuplicateError                            Traceback (most recent call last)\nCell In[30], line 1\n----&gt; 1 df_1.select(col('accuracy').mean(), col('accuracy').std())\n\nFile ~/Dropbox/docs/teaching/201b/w26/.venv/lib/python3.11/site-packages/polars/dataframe/frame.py:10150, in DataFrame.select(self, *exprs, **named_exprs)\n  10066 \"\"\"\n  10067 Select columns from this DataFrame.\n  10068 \n   (...)  10143 └───────────┘\n  10144 \"\"\"\n  10145 from polars.lazyframe.opt_flags import QueryOptFlags\n  10147 return (\n  10148     self.lazy()\n  10149     .select(*exprs, **named_exprs)\n&gt; 10150     .collect(optimizations=QueryOptFlags._eager())\n  10151 )\n\nFile ~/Dropbox/docs/teaching/201b/w26/.venv/lib/python3.11/site-packages/polars/_utils/deprecation.py:97, in deprecate_streaming_parameter.&lt;locals&gt;.decorate.&lt;locals&gt;.wrapper(*args, **kwargs)\n     93         kwargs[\"engine\"] = \"in-memory\"\n     95     del kwargs[\"streaming\"]\n---&gt; 97 return function(*args, **kwargs)\n\nFile ~/Dropbox/docs/teaching/201b/w26/.venv/lib/python3.11/site-packages/polars/lazyframe/opt_flags.py:328, in forward_old_opt_flags.&lt;locals&gt;.decorate.&lt;locals&gt;.wrapper(*args, **kwargs)\n    325         optflags = cb(optflags, kwargs.pop(key))  # type: ignore[no-untyped-call,unused-ignore]\n    327 kwargs[\"optimizations\"] = optflags\n--&gt; 328 return function(*args, **kwargs)\n\nFile ~/Dropbox/docs/teaching/201b/w26/.venv/lib/python3.11/site-packages/polars/lazyframe/frame.py:2429, in LazyFrame.collect(self, type_coercion, predicate_pushdown, projection_pushdown, simplify_expression, slice_pushdown, comm_subplan_elim, comm_subexpr_elim, cluster_with_columns, collapse_joins, no_optimization, engine, background, optimizations, **_kwargs)\n   2427 # Only for testing purposes\n   2428 callback = _kwargs.get(\"post_opt_callback\", callback)\n-&gt; 2429 return wrap_df(ldf.collect(engine, callback))\n\nDuplicateError: projections contained duplicate output name 'accuracy'. It's possible that multiple expressions are returning the same default column name. If this is the case, try renaming the columns with `.alias(\"new_name\")` to avoid duplicate column names.\n\n\n\n\n\n\n\n\n\nImportantpolars DuplicateError\n\n\n\nPolars automatically enforces the requirement that all column names are must be unique.\nBy default the results of an expression are saved using the same column name that you selected.\nIn this case we selected “accuracy” using col('accuracy') twice - once to calculate the mean and once to calculate the standard deviation. So Polars is trying to save both results into a column called accuracy causing a conflict!\nTo fix this, we can extend our expression with additional operations using method-chaining with the . syntax.\nThe operation we’re looking for is .alias() which you’ll often put at the end of an expression in order to give it a new name\n\n\n\n\nCode\ndf_1.select(\n    col('accuracy').mean().alias('acc_mean'),\n    col('accuracy').std().alias('acc_std')\n    )\n\n\n\nshape: (1, 2)\n\n\n\nacc_mean\nacc_std\n\n\nf64\nf64\n\n\n\n\n56.066667\n27.043528\n\n\n\n\n\n\n\n\n\n\n\n\nNoteTwo styles of expressing yourself\n\n\n\nYou might find this style of “method-chaining” the use of .alias() unintuitive at first. So Polars also lets rename your expressions in a different “style” using = as in other language like R.\nIn English, we could rephrase our expressions as so:\nSelect the accuracy column Create a new column named ‘acc_mean’, which is the mean of accuracy Create a new column named ‘acc_std’, which is the standard-deviation of accuracy\nAnd in code like this:\ndf_1.select(\n    acc_mean = col('accuracy').mean(),\n    acc_std = col('accuracy').std()\n)\nYou can use which ever style of “phrasing” an expression that feels more natural to you based on what you’re doing!\n\n\n\n\n\n\n\n\nTipYour turn\n\n\n\nRun the following code. Why are the values in the accuracy column being overwritten? Can you fix it?\n\n\n\n\nCode\ndf_1.select(col('participant'), col('accuracy').mean())\n\n\n\nshape: (15, 2)\n\n\n\nparticipant\naccuracy\n\n\ni64\nf64\n\n\n\n\n1\n56.066667\n\n\n1\n56.066667\n\n\n1\n56.066667\n\n\n1\n56.066667\n\n\n1\n56.066667\n\n\n…\n…\n\n\n3\n56.066667\n\n\n3\n56.066667\n\n\n3\n56.066667\n\n\n3\n56.066667\n\n\n3\n56.066667\n\n\n\n\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\nThe mean of accuracy is being saved to a column named “accuracy” which overwrites the participant values being selected. Fix by renaming:\n\n\nCode\ndf_1.select(col('participant'), col('accuracy').mean().alias('acc_mean'))\n# Or equivalently:\n# df_1.select(col('participant'), acc_mean=col('accuracy').mean())\n\n\n\nshape: (15, 2)\n\n\n\nparticipant\nacc_mean\n\n\ni64\nf64\n\n\n\n\n1\n56.066667\n\n\n1\n56.066667\n\n\n1\n56.066667\n\n\n1\n56.066667\n\n\n1\n56.066667\n\n\n…\n…\n\n\n3\n56.066667\n\n\n3\n56.066667\n\n\n3\n56.066667\n\n\n3\n56.066667\n\n\n3\n56.066667",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#aggregating-columns-.group_by",
+    "href": "weeks/01/lab/polars-crash-course.html#aggregating-columns-.group_by",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "Aggregating columns: .group_by()",
+    "text": "Aggregating columns: .group_by()\nThe .group_by('some_col') context is used for summarizing columns separately by 'some_col'.\n\nYou always follow up a .group_by() with .agg(), and place our expressions inside to tell Polars what should be calculated per group.\nUsing .group_by() will always give you a smaller DataFrame than the original. Specifically you will get back a DataFrame whose rows = number of groups\n\n\nCode\n# start of .agg context\ndf_1.group_by('participant').agg(\n    col('rt').mean(), col('accuracy').mean() # &lt;- expressions like before\n)\n\n\n\nshape: (3, 3)\n\n\n\nparticipant\nrt\naccuracy\n\n\ni64\nf64\nf64\n\n\n\n\n1\n573.523797\n57.8\n\n\n2\n496.969382\n47.2\n\n\n3\n485.294057\n63.2\n\n\n\n\n\n\n\nMaintaining group order\nUnfortunately, by default Polars doesn’t preserve the order of groups as they exist in the original DataFrame. But we can easily fix this by giving .group_by() and additional argument maintain_order=True:\n\n\nCode\ndf_1.group_by('participant', maintain_order=True).agg(\n    col('rt').mean(), col('accuracy').mean()\n    )\n\n\n\nshape: (3, 3)\n\n\n\nparticipant\nrt\naccuracy\n\n\ni64\nf64\nf64\n\n\n\n\n1\n573.523797\n57.8\n\n\n2\n496.969382\n47.2\n\n\n3\n485.294057\n63.2\n\n\n\n\n\n\n\n\n\n\n\n\nTipYour Turn\n\n\n\nCalculate each participant’s average reaction time divided by their average accuracy. Remember since there are just 3 unique participants, i.e. 3 “groups”, our result should have 3 rows; one for each participant.\nHint: you can divide 2 columns using the method-chaining style with .truediv() or simply using /\n\n\n\n\nCode\n# Your code here\n\n# Hint: use group_by on 'participant' and then create an expression\n# that divides the average 'rt' by average 'accuracy' and name it 'rt_acc_avg'\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\n\nCode\ndf_1.group_by('participant', maintain_order=True).agg(\n    rt_acc_avg = col('rt').mean() / col('accuracy').mean()\n)\n\n\n\nshape: (3, 2)\n\n\n\nparticipant\nrt_acc_avg\n\n\ni64\nf64\n\n\n\n\n1\n9.922557\n\n\n2\n10.529012\n\n\n3\n7.678703",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#creating-columns-.with_columns",
+    "href": "weeks/01/lab/polars-crash-course.html#creating-columns-.with_columns",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "Creating columns: .with_columns()",
+    "text": "Creating columns: .with_columns()\nWhenever we want to return the original DataFrame along with some new columns we can use the .with_columns context instead of .select.\n\nIt will always output the original DataFrame and the outputs of your expressions.\nIf your expression returns just a single value (e.g. the mean of a column), Polars is smart enough to automatically repeat that value over all the rows to make sure it fits inside the DataFrame.\n\n\nCode\n# start with_columns context\ndf_1.with_columns(\n    acc_mean=col('accuracy').mean() # &lt;- expression like before\n)\n\n\n\nshape: (15, 4)\n\n\n\nparticipant\naccuracy\nrt\nacc_mean\n\n\ni64\ni64\nf64\nf64\n\n\n\n\n1\n44\n261.28435\n56.066667\n\n\n1\n47\n728.208489\n56.066667\n\n\n1\n64\n801.889016\n56.066667\n\n\n1\n67\n713.555026\n56.066667\n\n\n1\n67\n362.682105\n56.066667\n\n\n…\n…\n…\n…\n\n\n3\n70\n439.524973\n56.066667\n\n\n3\n88\n55.11928\n56.066667\n\n\n3\n88\n644.801272\n56.066667\n\n\n3\n12\n571.800553\n56.066667\n\n\n3\n58\n715.224208\n56.066667\n\n\n\n\n\n\nContrast this with the .select context which will only return the mean of accuracy:\n\n\nCode\ndf_1.select(\n    acc_mean=col('accuracy').mean()\n)\n\n\n\nshape: (1, 1)\n\n\n\nacc_mean\n\n\nf64\n\n\n\n\n56.066667\n\n\n\n\n\n\nAs before we can create multiple new columns by including multiple expressions:\n\n\nCode\ndf_1.with_columns(\n    acc_mean=col('accuracy').mean(),\n    rt_scaled=col('rt') / 100\n    )\n\n\n\nshape: (15, 5)\n\n\n\nparticipant\naccuracy\nrt\nacc_mean\nrt_scaled\n\n\ni64\ni64\nf64\nf64\nf64\n\n\n\n\n1\n44\n261.28435\n56.066667\n2.612843\n\n\n1\n47\n728.208489\n56.066667\n7.282085\n\n\n1\n64\n801.889016\n56.066667\n8.01889\n\n\n1\n67\n713.555026\n56.066667\n7.13555\n\n\n1\n67\n362.682105\n56.066667\n3.626821\n\n\n…\n…\n…\n…\n…\n\n\n3\n70\n439.524973\n56.066667\n4.39525\n\n\n3\n88\n55.11928\n56.066667\n0.551193\n\n\n3\n88\n644.801272\n56.066667\n6.448013\n\n\n3\n12\n571.800553\n56.066667\n5.718006\n\n\n3\n58\n715.224208\n56.066667\n7.152242\n\n\n\n\n\n\n\n\n\n\n\n\nTipUsing .over() to perform Tidy group-by operations\n\n\n\nA very handy use for .with_columns is to combine it with the .over() operation.\nThis allows us to calculate an expression separately by group, but then save the results into a DataFrame the same size as the original.\nFor example, Polars will keep the tidy-format of the data and correctly repeat the values across rows.\n\n\n\n\nCode\ndf_1.with_columns(\n    acc_mean=col('accuracy').mean().over('participant') # &lt;- chaining .over() handles grouping!\n)\n\n\n\nshape: (15, 4)\n\n\n\nparticipant\naccuracy\nrt\nacc_mean\n\n\ni64\ni64\nf64\nf64\n\n\n\n\n1\n44\n261.28435\n57.8\n\n\n1\n47\n728.208489\n57.8\n\n\n1\n64\n801.889016\n57.8\n\n\n1\n67\n713.555026\n57.8\n\n\n1\n67\n362.682105\n57.8\n\n\n…\n…\n…\n…\n\n\n3\n70\n439.524973\n63.2\n\n\n3\n88\n55.11928\n63.2\n\n\n3\n88\n644.801272\n63.2\n\n\n3\n12\n571.800553\n63.2\n\n\n3\n58\n715.224208\n63.2\n\n\n\n\n\n\nChaining .over('some_col') to any expression is like using .group_by but preserving the shape of the original DataFrame:\n\n\nCode\ndf_1.with_columns(\n    acc_mean=col('accuracy').mean().over('participant'),\n    rt_mean=col('rt').mean().over('participant')\n)\n\n\n\nshape: (15, 5)\n\n\n\nparticipant\naccuracy\nrt\nacc_mean\nrt_mean\n\n\ni64\ni64\nf64\nf64\nf64\n\n\n\n\n1\n44\n261.28435\n57.8\n573.523797\n\n\n1\n47\n728.208489\n57.8\n573.523797\n\n\n1\n64\n801.889016\n57.8\n573.523797\n\n\n1\n67\n713.555026\n57.8\n573.523797\n\n\n1\n67\n362.682105\n57.8\n573.523797\n\n\n…\n…\n…\n…\n…\n\n\n3\n70\n439.524973\n63.2\n485.294057\n\n\n3\n88\n55.11928\n63.2\n485.294057\n\n\n3\n88\n644.801272\n63.2\n485.294057\n\n\n3\n12\n571.800553\n63.2\n485.294057\n\n\n3\n58\n715.224208\n63.2\n485.294057\n\n\n\n\n\n\nRemember that the .group_by() context will always return a smaller aggregated DataFrame:\n\n\nCode\ndf_1.group_by('participant', maintain_order=True).agg(\n    acc_mean=col('accuracy').mean(),\n    rt_mean=col('rt').mean()\n)\n\n\n\nshape: (3, 3)\n\n\n\nparticipant\nacc_mean\nrt_mean\n\n\ni64\nf64\nf64\n\n\n\n\n1\n57.8\n573.523797\n\n\n2\n47.2\n496.969382\n\n\n3\n63.2\n485.294057\n\n\n\n\n\n\nIn Polars you should only rely on .group_by if you know for sure that you want your output to be smaller than your original DataFrame - and by smaller we mean rows = number of groups.\n\n\n\n\n\n\nTipYour Turn\n\n\n\nCreate a dataframe that adds 3 new columns:\n\nAccuracy on a 0-1 scale\nRT / Accuracy\nRT / max RT, separately using each participant’s max RT\n\n\n\n\n\nCode\n# Your code here\n\n\n# Hint: you can wrap an entire expression in () and use .over()\n# on the entire wrapped expression to do things like\n# add, subtract columns multiple columns by \"participant\"\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\n\nCode\ndf_1.with_columns(\n    acc_scaled = col('accuracy') / 100,\n    rt_acc = col('rt') / col('accuracy'),\n    rt_max_scaled = (col('rt') / col('rt').max()).over('participant')\n)\n\n\n\nshape: (15, 6)\n\n\n\nparticipant\naccuracy\nrt\nacc_scaled\nrt_acc\nrt_max_scaled\n\n\ni64\ni64\nf64\nf64\nf64\nf64\n\n\n\n\n1\n44\n261.28435\n0.44\n5.938281\n0.325836\n\n\n1\n47\n728.208489\n0.47\n15.493798\n0.908116\n\n\n1\n64\n801.889016\n0.64\n12.529516\n1.0\n\n\n1\n67\n713.555026\n0.67\n10.650075\n0.889843\n\n\n1\n67\n362.682105\n0.67\n5.413166\n0.452285\n\n\n…\n…\n…\n…\n…\n…\n\n\n3\n70\n439.524973\n0.7\n6.278928\n0.614528\n\n\n3\n88\n55.11928\n0.88\n0.626355\n0.077066\n\n\n3\n88\n644.801272\n0.88\n7.327287\n0.901537\n\n\n3\n12\n571.800553\n0.12\n47.650046\n0.79947\n\n\n3\n58\n715.224208\n0.58\n12.331452\n1.0",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#selecting-rows-.filter",
+    "href": "weeks/01/lab/polars-crash-course.html#selecting-rows-.filter",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "Selecting rows: .filter()",
+    "text": "Selecting rows: .filter()\nThe .filter context is used for subsetting rows using a logical expression.\n\nInstead of returning one or more values like other expressions, a logical expression returns True/False values that we can use to filter rows that mean those criteria:\n\n\nCode\n# start filter context\ndf_1.filter(\n    col('participant') == 1 # &lt;- expression like before\n)\n\n\n\nshape: (5, 3)\n\n\n\nparticipant\naccuracy\nrt\n\n\ni64\ni64\nf64\n\n\n\n\n1\n44\n261.28435\n\n\n1\n47\n728.208489\n\n\n1\n64\n801.889016\n\n\n1\n67\n713.555026\n\n\n1\n67\n362.682105\n\n\n\n\n\n\nOr in Polars methods-style using .eq():\n\n\nCode\ndf_1.filter(\n    col('participant').eq(1)\n)\n\n\n\nshape: (5, 3)\n\n\n\nparticipant\naccuracy\nrt\n\n\ni64\ni64\nf64\n\n\n\n\n1\n44\n261.28435\n\n\n1\n47\n728.208489\n\n\n1\n64\n801.889016\n\n\n1\n67\n713.555026\n\n\n1\n67\n362.682105\n\n\n\n\n\n\nOr even the opposite: we can negate or invert any logical expression by putting a ~ in front of it.\nThis is like using not in regular Python or ! in some other languages.\n\n\nCode\ndf_1.filter(\n    ~col('participant').eq(1)\n)\n\n\n\nshape: (10, 3)\n\n\n\nparticipant\naccuracy\nrt\n\n\ni64\ni64\nf64\n\n\n\n\n2\n9\n502.974663\n\n\n2\n83\n424.866821\n\n\n2\n21\n492.355273\n\n\n2\n36\n573.594895\n\n\n2\n87\n491.05526\n\n\n3\n70\n439.524973\n\n\n3\n88\n55.11928\n\n\n3\n88\n644.801272\n\n\n3\n12\n571.800553\n\n\n3\n58\n715.224208\n\n\n\n\n\n\n\n\n\n\n\n\nImportant\n\n\n\nBut be careful. If you’re not using the method-chaining style then you need to wrap you expression in () before using ~:\n\n\n\n\nCode\ndf_1.filter(\n    ~(col('participant') == 1)   # &lt;- notice extra () around expression\n)\n\n\n\nshape: (10, 3)\n\n\n\nparticipant\naccuracy\nrt\n\n\ni64\ni64\nf64\n\n\n\n\n2\n9\n502.974663\n\n\n2\n83\n424.866821\n\n\n2\n21\n492.355273\n\n\n2\n36\n573.594895\n\n\n2\n87\n491.05526\n\n\n3\n70\n439.524973\n\n\n3\n88\n55.11928\n\n\n3\n88\n644.801272\n\n\n3\n12\n571.800553\n\n\n3\n58\n715.224208\n\n\n\n\n\n\nJust like in with other contexts (i.e. .select, .with_columns, .group_by) we can using multiple logical expressions to refine our filtering criteria.\nIf we use , Polars treats them logically as an and statement. For example, we use 2 logical expressions to filter where: participant is 1 AND accuracy is 67:\n\n\nCode\ndf_1.filter(\n    col('participant').eq(1),\n    col('accuracy').eq(67)\n)\n\n\n\nshape: (2, 3)\n\n\n\nparticipant\naccuracy\nrt\n\n\ni64\ni64\nf64\n\n\n\n\n1\n67\n713.555026\n\n\n1\n67\n362.682105\n\n\n\n\n\n\nBut you might find it clearer to use & for and expressions:\n\n\nCode\ndf_1.filter(\n    col('participant').eq(1) & col('accuracy').eq(67)\n)\n\n\n\nshape: (2, 3)\n\n\n\nparticipant\naccuracy\nrt\n\n\ni64\ni64\nf64\n\n\n\n\n1\n67\n713.555026\n\n\n1\n67\n362.682105\n\n\n\n\n\n\nThe | operator can be used for or expressions:\n\n\nCode\ndf_1.filter(\n    col('participant').eq(1) | col('participant').eq(3)\n)\n\n\n\nshape: (10, 3)\n\n\n\nparticipant\naccuracy\nrt\n\n\ni64\ni64\nf64\n\n\n\n\n1\n44\n261.28435\n\n\n1\n47\n728.208489\n\n\n1\n64\n801.889016\n\n\n1\n67\n713.555026\n\n\n1\n67\n362.682105\n\n\n3\n70\n439.524973\n\n\n3\n88\n55.11928\n\n\n3\n88\n644.801272\n\n\n3\n12\n571.800553\n\n\n3\n58\n715.224208\n\n\n\n\n\n\nTo combine more complicated logical expressions, you can wrap them in ().\nBelow we get rows where participant 1’s accuracy is 67 OR any of participant 2’s rows:\n\n\nCode\ndf_1.filter(\n    col('participant').eq(1) & col('accuracy').eq(67) | col('participant').eq(2)\n)\n\n\n\nshape: (7, 3)\n\n\n\nparticipant\naccuracy\nrt\n\n\ni64\ni64\nf64\n\n\n\n\n1\n67\n713.555026\n\n\n1\n67\n362.682105\n\n\n2\n9\n502.974663\n\n\n2\n83\n424.866821\n\n\n2\n21\n492.355273\n\n\n2\n36\n573.594895\n\n\n2\n87\n491.05526\n\n\n\n\n\n\n\n\n\n\n\n\nNoteTwo styles of logical expressions\n\n\n\nLike renaming the outputs of an expression, Polars gives us 2 styles we can use to combine logical expressions.\nWe’ve seen the first one using & and |.\nThe second one uses the method-chaining style with the . syntax. Here Polars provides a .and_() and a .or_() method.\ndf_1.filter(\n    col('participant').eq(1).and_(\n        col('accuracy').eq(67)).or_(\n            col('participant').eq(2)\n        )\n)\nFeel free to use which every style you find more intuitive and readable:",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#expressions-are-for-performing-operations",
+    "href": "weeks/01/lab/polars-crash-course.html#expressions-are-for-performing-operations",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "Expressions are for performing operations",
+    "text": "Expressions are for performing operations\nSo far we’ve see how to build up an expression that computes some value, e.g. .mean() or performs some logic, e.g. .eq().\nPolars calls these computations operations and include tons of them (accessible via . syntax). Some of the notable ones include:\nArithmetic, e.g. .add, .sub, .mul\nBoolean, e.g. .all, .any, .is_null, .is_not_null\nSummary (aggregate) stats, e.g. .mean, .median, .std, .count\nComparison, e.g. .gt, .lt, .gte, .lte, .eq, .ne.\n\n\n\n\n\n\nTipYour Turn\n\n\n\nUse the linked documentation and contexts you learned about above to complete the following exercises:\n\n\n1. Select the accuracy and RT columns from df_1 and multiply them by 10\n\n\nCode\n# Your code here\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\n\nCode\ndf_1.select(col('accuracy', 'rt') * 10)\n\n\n\nshape: (15, 2)\n\n\n\naccuracy\nrt\n\n\ni64\nf64\n\n\n\n\n440\n2612.843496\n\n\n470\n7282.084892\n\n\n640\n8018.890165\n\n\n670\n7135.550259\n\n\n670\n3626.821046\n\n\n…\n…\n\n\n700\n4395.249735\n\n\n880\n551.192796\n\n\n880\n6448.012718\n\n\n120\n5718.005529\n\n\n580\n7152.242075\n\n\n\n\n\n\n\n\n\n2. Add 2 new columns to the dataframe: rt_acc and acc_max_scaled\nFor rt_acc divide reaction time by accuracy.\nFor acc_max_scaled divide accuracy by maximum accuracy, separately by participant.\n\n\nCode\n# Your code here\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\n\nCode\ndf_1.with_columns(\n    rt_acc = col('rt') / col('accuracy'),\n    acc_max_scaled = (col('accuracy') / col('accuracy').max()).over('participant')\n)\n\n\n\nshape: (15, 5)\n\n\n\nparticipant\naccuracy\nrt\nrt_acc\nacc_max_scaled\n\n\ni64\ni64\nf64\nf64\nf64\n\n\n\n\n1\n44\n261.28435\n5.938281\n0.656716\n\n\n1\n47\n728.208489\n15.493798\n0.701493\n\n\n1\n64\n801.889016\n12.529516\n0.955224\n\n\n1\n67\n713.555026\n10.650075\n1.0\n\n\n1\n67\n362.682105\n5.413166\n1.0\n\n\n…\n…\n…\n…\n…\n\n\n3\n70\n439.524973\n6.278928\n0.795455\n\n\n3\n88\n55.11928\n0.626355\n1.0\n\n\n3\n88\n644.801272\n7.327287\n1.0\n\n\n3\n12\n571.800553\n47.650046\n0.136364\n\n\n3\n58\n715.224208\n12.331452\n0.659091\n\n\n\n\n\n\n\n\n\n3. Filter rows where reaction time is &gt; 100ms and &lt; 725ms\n\n\nCode\n# Your code here\n\n# Hint: You should write a logical expression\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\n\nCode\ndf_1.filter(\n    (col('rt') &gt; 100) & (col('rt') &lt; 725)\n)\n\n\n\nshape: (12, 3)\n\n\n\nparticipant\naccuracy\nrt\n\n\ni64\ni64\nf64\n\n\n\n\n1\n44\n261.28435\n\n\n1\n67\n713.555026\n\n\n1\n67\n362.682105\n\n\n2\n9\n502.974663\n\n\n2\n83\n424.866821\n\n\n…\n…\n…\n\n\n2\n87\n491.05526\n\n\n3\n70\n439.524973\n\n\n3\n88\n644.801272\n\n\n3\n12\n571.800553\n\n\n3\n58\n715.224208",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#saving-re-usable-expressions",
+    "href": "weeks/01/lab/polars-crash-course.html#saving-re-usable-expressions",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "Saving re-usable expressions",
+    "text": "Saving re-usable expressions\nWhen you find yourself creating complex expressions that you want to re-use later on, perhaps across other DataFrames, you can save them as re-usable functions!\nFor example, Polars doesn’t include an operation to calculate a z-score by default. But we know how to do that manually. So let’s create a function called scale that defines an expression we can reuse.\n\n\nCode\ndef scale(column_name):\n    \"\"\"Reminder:\n        z-score = (x - x.mean() / x.std())\n    \"\"\"\n    return (col(column_name) - col(column_name).mean()) / col(column_name).std()\n\n\nThis is a function that accepts a single argument column_name, and then uses the col selector from Polars to select a column and calculate it’s z-score.\nWe can now use this expression in any context saves us a ton of typing and typos!\nFor example just across all accuracy scores:\n\n\nCode\ndf_1.select(\n    acc_z=scale('accuracy')\n)\n\n\n\nshape: (15, 1)\n\n\n\nacc_z\n\n\nf64\n\n\n\n\n-0.446194\n\n\n-0.335262\n\n\n0.293354\n\n\n0.404287\n\n\n0.404287\n\n\n…\n\n\n0.515219\n\n\n1.180812\n\n\n1.180812\n\n\n-1.629472\n\n\n0.07149\n\n\n\n\n\n\nOr as a more realistic example: z-score separately by participant\nThis is a great example of where .with_columns + .over() can come in super-handy.\nBecause our function returns an expression we can call operations on it just like any other expression:\n\n\nCode\n# .over() works with our scale() function\n# because it return a Polars expression!\ndf_1.with_columns(\n    acc_z=scale('accuracy').over('participant'),\n    rt_z=scale('rt').over('participant')\n)\n\n\n\nshape: (15, 5)\n\n\n\nparticipant\naccuracy\nrt\nacc_z\nrt_z\n\n\ni64\ni64\nf64\nf64\nf64\n\n\n\n\n1\n44\n261.28435\n-1.216438\n-1.281041\n\n\n1\n47\n728.208489\n-0.951995\n0.634633\n\n\n1\n64\n801.889016\n0.546515\n0.936926\n\n\n1\n67\n713.555026\n0.810958\n0.574513\n\n\n1\n67\n362.682105\n0.810958\n-0.865031\n\n\n…\n…\n…\n…\n…\n\n\n3\n70\n439.524973\n0.217085\n-0.175214\n\n\n3\n88\n55.11928\n0.791722\n-1.646805\n\n\n3\n88\n644.801272\n0.791722\n0.610629\n\n\n3\n12\n571.800553\n-1.634524\n0.331166\n\n\n3\n58\n715.224208\n-0.166006\n0.880224\n\n\n\n\n\n\nThis is entirely equivalent to the following code, but so much easier to read and so much less potential for errors when typing:\n\n\nCode\ndf_1.with_columns(\n    acc_z=((col('accuracy') - col('accuracy').mean()) / col('accuracy').std()).over('participant'), rt_z=((col('rt') - col('rt').mean()) / col('rt').std()).over('participant')\n)\n\n\n\nshape: (15, 5)\n\n\n\nparticipant\naccuracy\nrt\nacc_z\nrt_z\n\n\ni64\ni64\nf64\nf64\nf64\n\n\n\n\n1\n44\n261.28435\n-1.216438\n-1.281041\n\n\n1\n47\n728.208489\n-0.951995\n0.634633\n\n\n1\n64\n801.889016\n0.546515\n0.936926\n\n\n1\n67\n713.555026\n0.810958\n0.574513\n\n\n1\n67\n362.682105\n0.810958\n-0.865031\n\n\n…\n…\n…\n…\n…\n\n\n3\n70\n439.524973\n0.217085\n-0.175214\n\n\n3\n88\n55.11928\n0.791722\n-1.646805\n\n\n3\n88\n644.801272\n0.791722\n0.610629\n\n\n3\n12\n571.800553\n-1.634524\n0.331166\n\n\n3\n58\n715.224208\n-0.166006\n0.880224\n\n\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nAs you’re thinking about how to manipulate data, think about saving an expression you find yourself using a lot as function! In fact Python as a short-hand alternative to def for creating simple one-line functions: lambda\nmyfunc = lambda param1: print(param1)\nWe can rewrite the function above as a lambda expression like this:\nscale = lambda column_name: (col(column_name) - col(column_name).mean()) / col(column_name).std()\nYou’ll often see this in Python code when people are defining and using functions within some other code.\n\n\n\n\n\n\n\n\nTipYour Turn\n\n\n\nCreate a Polars expression that mean-centers a column. You can use def or lambda whatever feels more comfortable right now\n\n\n\n\nCode\n# Your code here\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\n\nCode\ndef mean_center(column_name):\n    return col(column_name) - col(column_name).mean()\n\n# Or with lambda:\n# mean_center = lambda column_name: col(column_name) - col(column_name).mean()\n\n\n\n\n\nAdd 2 new columns to the df_1 DataFrame that include mean-centered accuracy, and mean-centered RT\n\n\nCode\n# Your code here\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\n\nCode\ndf_1.with_columns(\n    acc_centered = mean_center('accuracy'),\n    rt_centered = mean_center('rt')\n)\n\n\n\nshape: (15, 5)\n\n\n\nparticipant\naccuracy\nrt\nacc_centered\nrt_centered\n\n\ni64\ni64\nf64\nf64\nf64\n\n\n\n\n1\n44\n261.28435\n-12.066667\n-257.311396\n\n\n1\n47\n728.208489\n-9.066667\n209.612744\n\n\n1\n64\n801.889016\n7.933333\n283.293271\n\n\n1\n67\n713.555026\n10.933333\n194.95928\n\n\n1\n67\n362.682105\n10.933333\n-155.913641\n\n\n…\n…\n…\n…\n…\n\n\n3\n70\n439.524973\n13.933333\n-79.070772\n\n\n3\n88\n55.11928\n31.933333\n-463.476466\n\n\n3\n88\n644.801272\n31.933333\n126.205526\n\n\n3\n12\n571.800553\n-44.066667\n53.204807\n\n\n3\n58\n715.224208\n1.933333\n196.628462",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#more-complex-expression-with-functions-when-and-lit",
+    "href": "weeks/01/lab/polars-crash-course.html#more-complex-expression-with-functions-when-and-lit",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "More complex expression with functions: when and lit",
+    "text": "More complex expression with functions: when and lit\nPolars also offers a few other operations as functions you can use inside of a context for building expressions.\nThese are called as pl.something() but we can also directly import them.\nYou should check out the documentation to see what’s possible, but two common ones you’re likely to use are pl.when and pl.lit\n\n\nCode\n# Directly import them to make life easier\nfrom polars import when, lit\n\n\nwhen lets you run an if-else statement as an expression, which is particularly useful for creating new columns based on the values in another column.\nlit works in conjunction with when to tell Polars to use the literal value of something rather than try to find a corresponding column name:\nLet’s use them together to create a new column that splits participant responses that were faster and slower than 300ms:\nWe’ll use the .with_columns context, because we want the result of our expression (the new column) and the original DataFrame:\n\n\nCode\n# Create a new column rt_split that contains the result of the following if/else statement:\n# If RT &gt;= 300, set the value to the lit(eral) string 'slow'\n# Otherwise, set the value to the lit(eral) string 'fast'\n\n# Start with_columns context\nddf = df_1.with_columns(\n    rt_split=when(\n            col('rt') &gt;= 300).then(lit('slow')).otherwise(lit('fast') # expression inside function\n        )\n    )\n# We saved the output to a new variable called ddf\nddf\n\n\n\nshape: (15, 4)\n\n\n\nparticipant\naccuracy\nrt\nrt_split\n\n\ni64\ni64\nf64\nstr\n\n\n\n\n1\n44\n261.28435\n\"fast\"\n\n\n1\n47\n728.208489\n\"slow\"\n\n\n1\n64\n801.889016\n\"slow\"\n\n\n1\n67\n713.555026\n\"slow\"\n\n\n1\n67\n362.682105\n\"slow\"\n\n\n…\n…\n…\n…\n\n\n3\n70\n439.524973\n\"slow\"\n\n\n3\n88\n55.11928\n\"fast\"\n\n\n3\n88\n644.801272\n\"slow\"\n\n\n3\n12\n571.800553\n\"slow\"\n\n\n3\n58\n715.224208\n\"slow\"\n\n\n\n\n\n\n\n\n\n\n\n\nTipYour Turn\n\n\n\nUse when and lit to add a column to the dataframe called performance.\nIt should contain the string ‘success’ if accuracy &gt;= 50, or ‘fail’ if it was &lt; 50.\nSave the result to a new dataframe called df_new and print the first 10 rows:\n\n\n\n\nCode\n# Your code here\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\n\nCode\ndf_new = df_1.with_columns(\n    performance = when(col('accuracy') &gt;= 50).then(lit('success')).otherwise(lit('fail'))\n)\ndf_new.head(10)\n\n\n\nshape: (10, 4)\n\n\n\nparticipant\naccuracy\nrt\nperformance\n\n\ni64\ni64\nf64\nstr\n\n\n\n\n1\n44\n261.28435\n\"fail\"\n\n\n1\n47\n728.208489\n\"fail\"\n\n\n1\n64\n801.889016\n\"success\"\n\n\n1\n67\n713.555026\n\"success\"\n\n\n1\n67\n362.682105\n\"success\"\n\n\n2\n9\n502.974663\n\"fail\"\n\n\n2\n83\n424.866821\n\"success\"\n\n\n2\n21\n492.355273\n\"fail\"\n\n\n2\n36\n573.594895\n\"fail\"\n\n\n2\n87\n491.05526\n\"success\"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipYour Turn\n\n\n\nUsing the previous dataframe (df_new), summarize how many successes and failures each participant had.\nYour result should have 6 rows: 2 for each participant\n\n\n\n\nCode\n# Your code here\n\n\n# Hint: you can group_by multiple columns by passing a list of column names, e.g.\n\n# df_new.group_by(['col_1', 'col_2']).agg(...)\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\n\nCode\n# First create df_new if it wasn't created above\ndf_new = df_1.with_columns(\n    performance = when(col('accuracy') &gt;= 50).then(lit('success')).otherwise(lit('fail'))\n)\n\ndf_new.group_by(['participant', 'performance'], maintain_order=True).agg(\n    count = col('accuracy').count()\n)\n\n\n\nshape: (6, 3)\n\n\n\nparticipant\nperformance\ncount\n\n\ni64\nstr\nu32\n\n\n\n\n1\n\"fail\"\n2\n\n\n1\n\"success\"\n3\n\n\n2\n\"fail\"\n3\n\n\n2\n\"success\"\n2\n\n\n3\n\"success\"\n4\n\n\n3\n\"fail\"\n1",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#more-complex-expressions-with-attribute-type-operations",
+    "href": "weeks/01/lab/polars-crash-course.html#more-complex-expressions-with-attribute-type-operations",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "More complex expressions with attribute (type) operations",
+    "text": "More complex expressions with attribute (type) operations\nIn addition to importing functions to build more complicated expressions, Polars also allows you to perform specific operations based upon the type of data in a column.\nYou don’t need to import anything to use these. Instead you can use . syntax to “narrow down” to the type of data attribute you want, and then select the operations you would like.\nFor example, we’ll use the DataFrame we created in the previous section, ddf:\n\n\nCode\nddf.head()\n\n\n\nshape: (5, 4)\n\n\n\nparticipant\naccuracy\nrt\nrt_split\n\n\ni64\ni64\nf64\nstr\n\n\n\n\n1\n44\n261.28435\n\"fast\"\n\n\n1\n47\n728.208489\n\"slow\"\n\n\n1\n64\n801.889016\n\"slow\"\n\n\n1\n67\n713.555026\n\"slow\"\n\n\n1\n67\n362.682105\n\"slow\"\n\n\n\n\n\n\nTo create an expression that converts each value in the new “rt_split” column to uppercase.\nWe can do this by selecting with col() as usual, but then before calling an operation with . like before, we first access the .str attribute, and then call operations that specifically operate on strings!\n\n\nCode\nddf.with_columns(\n    col('rt_split').str.to_uppercase() # .uppercase() is only available to str data!\n)\n\n\n\nshape: (15, 4)\n\n\n\nparticipant\naccuracy\nrt\nrt_split\n\n\ni64\ni64\nf64\nstr\n\n\n\n\n1\n44\n261.28435\n\"FAST\"\n\n\n1\n47\n728.208489\n\"SLOW\"\n\n\n1\n64\n801.889016\n\"SLOW\"\n\n\n1\n67\n713.555026\n\"SLOW\"\n\n\n1\n67\n362.682105\n\"SLOW\"\n\n\n…\n…\n…\n…\n\n\n3\n70\n439.524973\n\"SLOW\"\n\n\n3\n88\n55.11928\n\"FAST\"\n\n\n3\n88\n644.801272\n\"SLOW\"\n\n\n3\n12\n571.800553\n\"SLOW\"\n\n\n3\n58\n715.224208\n\"SLOW\"\n\n\n\n\n\n\nWithout .str to “narrow-in” to the string attribute Polars will complain about an AttributeError, because only str types have a .to_uppercase() operation!\n\n\nCode\nddf.with_columns(\n    col('rt_split').to_uppercase() # no .str\n)\n\n\n\n---------------------------------------------------------------------------\nAttributeError                            Traceback (most recent call last)\nCell In[67], line 2\n      1 ddf.with_columns(\n----&gt; 2     col('rt_split').to_uppercase() # no .str\n      3 )\n\nAttributeError: 'Expr' object has no attribute 'to_uppercase'\n\n\n\nPolars includes many attribute operations. The most common ones you’ll use are for working with:\n.str: if your data are strings\n.name: which allows you to quickly change the names of columns from within a more complicated expression.\n.list: if you columns contain Python lists\nFor example, below we using a single expression inside the with_columns context below to calculate the mean of the accuracy and rt columns.\n\n\nCode\ndf_1.with_columns(col('accuracy', 'rt').mean())\n\n\n\nshape: (15, 3)\n\n\n\nparticipant\naccuracy\nrt\n\n\ni64\nf64\nf64\n\n\n\n\n1\n56.066667\n518.595745\n\n\n1\n56.066667\n518.595745\n\n\n1\n56.066667\n518.595745\n\n\n1\n56.066667\n518.595745\n\n\n1\n56.066667\n518.595745\n\n\n…\n…\n…\n\n\n3\n56.066667\n518.595745\n\n\n3\n56.066667\n518.595745\n\n\n3\n56.066667\n518.595745\n\n\n3\n56.066667\n518.595745\n\n\n3\n56.066667\n518.595745\n\n\n\n\n\n\nBecause we’re using .with_columns, the output of our expression is overwriting the original values in the accuracy and rt columns.\nWe saw how rename output when we had separate col('accuracy').mean() and col('rt').mean() expressions: using .alias() at the end or = at the beginning.\nBut how do we change the names of both columns at the same time?\nAccessing the .name attribute gives us access to additional operations that help us out. In this case we use the .suffix() operation to add a suffix to the output name(s).\n\n\nCode\ndf_1.with_columns(\n    col('accuracy', 'rt').mean().name.suffix('_mean')\n)\n\n\n\nshape: (15, 5)\n\n\n\nparticipant\naccuracy\nrt\naccuracy_mean\nrt_mean\n\n\ni64\ni64\nf64\nf64\nf64\n\n\n\n\n1\n44\n261.28435\n56.066667\n518.595745\n\n\n1\n47\n728.208489\n56.066667\n518.595745\n\n\n1\n64\n801.889016\n56.066667\n518.595745\n\n\n1\n67\n713.555026\n56.066667\n518.595745\n\n\n1\n67\n362.682105\n56.066667\n518.595745\n\n\n…\n…\n…\n…\n…\n\n\n3\n70\n439.524973\n56.066667\n518.595745\n\n\n3\n88\n55.11928\n56.066667\n518.595745\n\n\n3\n88\n644.801272\n56.066667\n518.595745\n\n\n3\n12\n571.800553\n56.066667\n518.595745\n\n\n3\n58\n715.224208\n56.066667\n518.595745\n\n\n\n\n\n\nNow we have the original accuracy and rt columns and the newly named ones we created!",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#building-expressions-from-additional-selectors",
+    "href": "weeks/01/lab/polars-crash-course.html#building-expressions-from-additional-selectors",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "Building expressions from additional selectors",
+    "text": "Building expressions from additional selectors\nSo far we’ve seen how to use col() to select 1 or more columns we want to create an expression about.\nBut sometimes you need to select things in more complicated ways. Fortunately, Polars has additional selectors that we can use to express ourselves. A common pattern is to import these together using as:\nfrom polars import selectors as cs\nThen we can refer to these using cs.some_selector(). Some of these include:\n\ncs.all()\ncs.exclude()\ncs.starts_with()\ncs.string()\n\nLet’s see some of these in action using a dataset that include a column of reaction times:\n\n\nCode\nimport polars.selectors as cs\n\ndf_1.select(cs.all().count())  # &lt;- get all cols and calc count()\n\n\n\nshape: (1, 3)\n\n\n\nparticipant\naccuracy\nrt\n\n\nu32\nu32\nu32\n\n\n\n\n15\n15\n15\n\n\n\n\n\n\nThis is as the same as the following code, but many fewer lines!\n\n\nCode\ndf_1.select(\n    col('participant').count(),\n    col('accuracy').count(), col('rt').count()\n)\n\n\n\nshape: (1, 3)\n\n\n\nparticipant\naccuracy\nrt\n\n\nu32\nu32\nu32\n\n\n\n\n15\n15\n15\n\n\n\n\n\n\nAnd cs.exclude is the opposite of cs.all()\n\n\nCode\ndf_1.select(cs.exclude('participant').mean())  # &lt;- all cols except participant\n\n\n\nshape: (1, 2)\n\n\n\naccuracy\nrt\n\n\nf64\nf64\n\n\n\n\n56.066667\n518.595745\n\n\n\n\n\n\nWe can select all columns that start with certain characters:\n\n\nCode\ndf_1.select(cs.starts_with('pa').n_unique())\n\n\n\nshape: (1, 1)\n\n\n\nparticipant\n\n\nu32\n\n\n\n\n3\n\n\n\n\n\n\nOr even select columns based on the type of data they contain. In this case all the columns with Integer data:\n\n\nCode\ndf_1.select(cs.integer())\n\n\n\nshape: (15, 2)\n\n\n\nparticipant\naccuracy\n\n\ni64\ni64\n\n\n\n\n1\n44\n\n\n1\n47\n\n\n1\n64\n\n\n1\n67\n\n\n1\n67\n\n\n…\n…\n\n\n3\n70\n\n\n3\n88\n\n\n3\n88\n\n\n3\n12\n\n\n3\n58\n\n\n\n\n\n\nThere are a many more useful selectors. So check out the selector documentation page when you’re trying the challenge exercises later on in this notebook",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#reshaping-dataframes",
+    "href": "weeks/01/lab/polars-crash-course.html#reshaping-dataframes",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "Reshaping DataFrames",
+    "text": "Reshaping DataFrames\nSometimes you’ll find yourself working “non-tidy” DataFrames or “wide” format data.\nWhat’s tidy-data again?\n\nEach variable must have its own column.\nEach observation must have its own row.\nEach value must have its own cell.\n\nIn polars we can achieve this using:\n.pivot(): long -&gt; wide, similar to pivot_wider() in R .unpivot(): wide -&gt; long, similar to pivot_longer() in R pl.concat(): combine 2 or more dataframes/columns/rows into a larger DataFrame\nHere, I’ve generated data from two participants with three observations. This data frame is not tidy since each row contains more than a single observation.\n\n\nCode\ndf_2 = pl.DataFrame(\n        {'participant': [1, 2],\n        'observation_1': [10, 25],\n        'observation_2': [100, 63],\n        'observation_3': [24, 45]\n        }\n    )\ndf_2\n\n\n\nshape: (2, 4)\n\n\n\nparticipant\nobservation_1\nobservation_2\nobservation_3\n\n\ni64\ni64\ni64\ni64\n\n\n\n\n1\n10\n100\n24\n\n\n2\n25\n63\n45\n\n\n\n\n\n\nWe can make it tidy by using the .unpivot method on the DataFrame, which takes 4 arguments:\non: the column(s) that contain values for each row index: the column(s) to use as the identifier across rows variable_name: name of the column that contains the original column names value_name: name of the column that contains the values that were previous spread across columns\n\n\nCode\n# Just breaking up over lines to keep it readable!\ndf_long = df_2.unpivot(\n    on=cs.starts_with('observation'),\n    index='participant',\n    variable_name='trial',\n    value_name='rating'\n    )\ndf_long\n\n\n\nshape: (6, 3)\n\n\n\nparticipant\ntrial\nrating\n\n\ni64\nstr\ni64\n\n\n\n\n1\n\"observation_1\"\n10\n\n\n2\n\"observation_1\"\n25\n\n\n1\n\"observation_2\"\n100\n\n\n2\n\"observation_2\"\n63\n\n\n1\n\"observation_3\"\n24\n\n\n2\n\"observation_3\"\n45\n\n\n\n\n\n\nThe .pivot method is the counter-part of .unpivot. We can use it to turn tidydata (long) to wide format. It takes 4 arguments as well:\non: the column(s) whose values will be turned into new columns index: the column(s) that are unique rows in the new DataFrame values: the values that will be moved into new columns with each row aggregate_function: how to aggregate multiple rows within each index, e.g. None, mean, first, sum, etc\n\n\nCode\ndf_long.pivot(\n    on='trial',\n    index='participant',\n    values='rating',\n    aggregate_function=None\n    )\n\n\n\nshape: (2, 4)\n\n\n\nparticipant\nobservation_1\nobservation_2\nobservation_3\n\n\ni64\ni64\ni64\ni64\n\n\n\n\n1\n10\n100\n24\n\n\n2\n25\n63\n45\n\n\n\n\n\n\nYou can safely set aggregate_function = None if you don’t have repeated observations within each unique combination of index and on. In this case each participant only has a single “observation_1”, “observation_2”, and “observation_3”.\nBut if they had multiple, Polars will raise an error and ask you to specify how to aggregate them",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#splitting-1-column-into-many",
+    "href": "weeks/01/lab/polars-crash-course.html#splitting-1-column-into-many",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "Splitting 1 column into many",
+    "text": "Splitting 1 column into many\nSometimes you’ll need to split one column into multiple columns. Let’s say we wanted to split the “year_month” column into 2 separate columns of “year” and “month”:\n\n\nCode\ndf_3 = pl.DataFrame({'id': [1, 2, 3], 'year_month': ['2021-01', '2021-02', '2021-03']})\ndf_3\n\n\n\nshape: (3, 2)\n\n\n\nid\nyear_month\n\n\ni64\nstr\n\n\n\n\n1\n\"2021-01\"\n\n\n2\n\"2021-02\"\n\n\n3\n\"2021-03\"\n\n\n\n\n\n\nYou can use attribute operations for .str to do this!\nSpecifically we use can .split_exact to split a str into a n+1 parts.\n\n\nCode\ndf_split = df_3.with_columns(\n    col('year_month').str.split_exact('-', 1)\n)\ndf_split  # string attribute method, to split by delimiter \"-\" into 2 parts\n\n\n\nshape: (3, 2)\n\n\n\nid\nyear_month\n\n\ni64\nstruct[2]\n\n\n\n\n1\n{\"2021\",\"01\"}\n\n\n2\n{\"2021\",\"02\"}\n\n\n3\n{\"2021\",\"03\"}\n\n\n\n\n\n\nPolars stores these parts in a struct which is just a Python dictionary:\n\n\nCode\n# First row, second column value\ndf_split[0, 1]\n\n\n{'field_0': '2021', 'field_1': '01'}\n\n\nPolars provides additional attribute operations on the .struct to create new columns.\nFirst we’ll call .rename_fields to rename the fields of the struct (equivalent to renaming the keys of a Python dictionary).\n\n\nCode\n# string attribute method, to split by delimiter \"-\" into 2 parts\n# struct attribute method to rename fields\ndf_split_1 = df_3.with_columns(\n    col('year_month').str.split_exact('-', 1).struct.rename_fields(['year', 'month'])\n    )\ndf_split_1\n\n\n\nshape: (3, 2)\n\n\n\nid\nyear_month\n\n\ni64\nstruct[2]\n\n\n\n\n1\n{\"2021\",\"01\"}\n\n\n2\n{\"2021\",\"02\"}\n\n\n3\n{\"2021\",\"03\"}\n\n\n\n\n\n\n\n\nCode\n# First row, second column value\ndf_split_1[0, 1]\n\n\n{'year': '2021', 'month': '01'}\n\n\nThen we’ll call struct.unnest() to create new columns, 1 per field\n\n\nCode\n# string attribute method, to split by delimiter \"-\" into 2 parts\n# struct attribute method to rename fields  # struct attribute method to create 1 column per field\ndf_split_2 = df_3.with_columns(\n    col('year_month').str.split_exact('-', 1).struct.rename_fields(['year', 'month']).struct.unnest()\n    )\ndf_split_2\n\n\n\nshape: (3, 4)\n\n\n\nid\nyear_month\nyear\nmonth\n\n\ni64\nstr\nstr\nstr\n\n\n\n\n1\n\"2021-01\"\n\"2021\"\n\"01\"\n\n\n2\n\"2021-02\"\n\"2021\"\n\"02\"\n\n\n3\n\"2021-03\"\n\"2021\"\n\"03\"\n\n\n\n\n\n\nWe can also split up values in a column over rows .explode('column_name') method on the DataFrame itself:\n\n\nCode\ndf_4 = pl.DataFrame({'letters': ['a', 'a', 'b', 'c'], 'numbers': [[1], [2, 3], [4, 5], [6, 7, 8]]})\ndf_4\n\n\n\nshape: (4, 2)\n\n\n\nletters\nnumbers\n\n\nstr\nlist[i64]\n\n\n\n\n\"a\"\n[1]\n\n\n\"a\"\n[2, 3]\n\n\n\"b\"\n[4, 5]\n\n\n\"c\"\n[6, 7, 8]\n\n\n\n\n\n\n\n\nCode\ndf_4.explode('numbers')\n\n\n\nshape: (8, 2)\n\n\n\nletters\nnumbers\n\n\nstr\ni64\n\n\n\n\n\"a\"\n1\n\n\n\"a\"\n2\n\n\n\"a\"\n3\n\n\n\"b\"\n4\n\n\n\"b\"\n5\n\n\n\"c\"\n6\n\n\n\"c\"\n7\n\n\n\"c\"\n8",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#combining-many-columns-into-1",
+    "href": "weeks/01/lab/polars-crash-course.html#combining-many-columns-into-1",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "Combining many columns into 1",
+    "text": "Combining many columns into 1\nWe can combine columns into a single column using additional functions in an expression like pl.concat_list() and pl.concat_str(), which take column names as input:\n\n\nCode\ndf_split_2.with_columns(\n    month_year=pl.concat_str('month', 'year', separator='-')\n)\n\n\n\nshape: (3, 5)\n\n\n\nid\nyear_month\nyear\nmonth\nmonth_year\n\n\ni64\nstr\nstr\nstr\nstr\n\n\n\n\n1\n\"2021-01\"\n\"2021\"\n\"01\"\n\"01-2021\"\n\n\n2\n\"2021-02\"\n\"2021\"\n\"02\"\n\"02-2021\"\n\n\n3\n\"2021-03\"\n\"2021\"\n\"03\"\n\"03-2021\"\n\n\n\n\n\n\nPolars also includes various functions that end with _horizontal.\nLike the suffix implies, these functions are design to operate horizontally across columns within each row separately.\nLet’s say our DataFrame had these 3 numeric columns:\n\n\nCode\nimport numpy as np  # we haven't met this library yet, just using it to generate data\ndf_5 = df_4.with_columns(\n    a=np.random.normal(size=df_4.height),\n    b=np.random.normal(size=df_4.height),\n    c=np.random.normal(size=df_4.height)\n)\ndf_5\n\n\n\nshape: (4, 5)\n\n\n\nletters\nnumbers\na\nb\nc\n\n\nstr\nlist[i64]\nf64\nf64\nf64\n\n\n\n\n\"a\"\n[1]\n1.38304\n1.517516\n-0.485741\n\n\n\"a\"\n[2, 3]\n1.255348\n-1.143134\n2.937848\n\n\n\"b\"\n[4, 5]\n-1.109448\n0.366913\n-1.339077\n\n\n\"c\"\n[6, 7, 8]\n1.188979\n1.125729\n0.025955\n\n\n\n\n\n\nAnd we want to create a new column that is the average of these 3 columns within each row. We can easily to that using a horizontal function like pl.mean_horizontal\n\n\nCode\ndf_5.with_columns(abc_mean=pl.mean_horizontal('a', 'b', 'c'))\n\n\n\nshape: (4, 6)\n\n\n\nletters\nnumbers\na\nb\nc\nabc_mean\n\n\nstr\nlist[i64]\nf64\nf64\nf64\nf64\n\n\n\n\n\"a\"\n[1]\n1.38304\n1.517516\n-0.485741\n0.804938\n\n\n\"a\"\n[2, 3]\n1.255348\n-1.143134\n2.937848\n1.016687\n\n\n\"b\"\n[4, 5]\n-1.109448\n0.366913\n-1.339077\n-0.693871\n\n\n\"c\"\n[6, 7, 8]\n1.188979\n1.125729\n0.025955\n0.780221",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#your-turn",
+    "href": "weeks/01/lab/polars-crash-course.html#your-turn",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "Your Turn",
+    "text": "Your Turn\n\n\n\n\n\n\nTipYour Turn\n\n\n\nMake the following DataFrame “tidy”, i.e. long-format with 4 columns:\n\nparticipant: integer of participant ID\norder: integer stimulus and observation order (from column names)\nstimulus: string of stimulus name\nobservation: float of numeric rating each participant gave\n\n\n\n\n\nCode\nreshape = pl.DataFrame({\n    'participant': [1., 2.],\n    'stimulus_1': ['flower', 'car'],\n    'observation_1': [10., 25.,],\n    'stimulus_2': ['house', 'flower'],\n    'observation_2': [100., 63.,],\n    'stimulus_3': ['car', 'house'],\n    'observation_3': [24., 45.,]\n})\nreshape\n\n\n\nshape: (2, 7)\n\n\n\nparticipant\nstimulus_1\nobservation_1\nstimulus_2\nobservation_2\nstimulus_3\nobservation_3\n\n\nf64\nstr\nf64\nstr\nf64\nstr\nf64\n\n\n\n\n1.0\n\"flower\"\n10.0\n\"house\"\n100.0\n\"car\"\n24.0\n\n\n2.0\n\"car\"\n25.0\n\"flower\"\n63.0\n\"house\"\n45.0\n\n\n\n\n\n\nHints\nThink about this as a sequence of 4 steps. We’ve created 4 code cells below with an image above each of the expected result:\n1. unpivot wide -&gt; long\n\n\n\nCode\n# Your code here\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\n\nCode\nstep1 = reshape.unpivot(\n    on=cs.exclude('participant'),\n    index='participant',\n    variable_name='trial',\n    value_name='rating'\n)\nstep1\n\n\n\nshape: (12, 3)\n\n\n\nparticipant\ntrial\nrating\n\n\nf64\nstr\nstr\n\n\n\n\n1.0\n\"stimulus_1\"\n\"flower\"\n\n\n2.0\n\"stimulus_1\"\n\"car\"\n\n\n1.0\n\"observation_1\"\n\"10.0\"\n\n\n2.0\n\"observation_1\"\n\"25.0\"\n\n\n1.0\n\"stimulus_2\"\n\"house\"\n\n\n…\n…\n…\n\n\n2.0\n\"observation_2\"\n\"63.0\"\n\n\n1.0\n\"stimulus_3\"\n\"car\"\n\n\n2.0\n\"stimulus_3\"\n\"house\"\n\n\n1.0\n\"observation_3\"\n\"24.0\"\n\n\n2.0\n\"observation_3\"\n\"45.0\"\n\n\n\n\n\n\n\n\n\n2. split the variable_name column from the previous step (I called it trial) into 2 new columns by _ (which I called index and order)\n\n\n\nCode\n# Your code here\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\n\nCode\nstep2 = step1.with_columns(\n    col('trial').str.split_exact('_', 1).struct.rename_fields(['index', 'order']).struct.unnest()\n)\nstep2\n\n\n\nshape: (12, 5)\n\n\n\nparticipant\ntrial\nrating\nindex\norder\n\n\nf64\nstr\nstr\nstr\nstr\n\n\n\n\n1.0\n\"stimulus_1\"\n\"flower\"\n\"stimulus\"\n\"1\"\n\n\n2.0\n\"stimulus_1\"\n\"car\"\n\"stimulus\"\n\"1\"\n\n\n1.0\n\"observation_1\"\n\"10.0\"\n\"observation\"\n\"1\"\n\n\n2.0\n\"observation_1\"\n\"25.0\"\n\"observation\"\n\"1\"\n\n\n1.0\n\"stimulus_2\"\n\"house\"\n\"stimulus\"\n\"2\"\n\n\n…\n…\n…\n…\n…\n\n\n2.0\n\"observation_2\"\n\"63.0\"\n\"observation\"\n\"2\"\n\n\n1.0\n\"stimulus_3\"\n\"car\"\n\"stimulus\"\n\"3\"\n\n\n2.0\n\"stimulus_3\"\n\"house\"\n\"stimulus\"\n\"3\"\n\n\n1.0\n\"observation_3\"\n\"24.0\"\n\"observation\"\n\"3\"\n\n\n2.0\n\"observation_3\"\n\"45.0\"\n\"observation\"\n\"3\"\n\n\n\n\n\n\n\n\n\n3. select only the columns: participant, 2 you created (I called mine index and order), and the value_name column from the first step (I called it rating)\n\n\n\nCode\n# Your code here\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\n\nCode\nstep3 = step2.select(col('participant', 'index', 'order', 'rating'))\nstep3\n\n\n\nshape: (12, 4)\n\n\n\nparticipant\nindex\norder\nrating\n\n\nf64\nstr\nstr\nstr\n\n\n\n\n1.0\n\"stimulus\"\n\"1\"\n\"flower\"\n\n\n2.0\n\"stimulus\"\n\"1\"\n\"car\"\n\n\n1.0\n\"observation\"\n\"1\"\n\"10.0\"\n\n\n2.0\n\"observation\"\n\"1\"\n\"25.0\"\n\n\n1.0\n\"stimulus\"\n\"2\"\n\"house\"\n\n\n…\n…\n…\n…\n\n\n2.0\n\"observation\"\n\"2\"\n\"63.0\"\n\n\n1.0\n\"stimulus\"\n\"3\"\n\"car\"\n\n\n2.0\n\"stimulus\"\n\"3\"\n\"house\"\n\n\n1.0\n\"observation\"\n\"3\"\n\"24.0\"\n\n\n2.0\n\"observation\"\n\"3\"\n\"45.0\"\n\n\n\n\n\n\n\n\n\n4. pivot long -&gt; wide to breakout the value_name column (I called it rating) into multiple columns\n\n\n\nCode\n# Your code here\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\n\nCode\nstep4 = step3.pivot(\n    on='index',\n    index=['participant', 'order'],\n    values='rating',\n    aggregate_function=None\n)\nstep4\n\n\n\nshape: (6, 4)\n\n\n\nparticipant\norder\nstimulus\nobservation\n\n\nf64\nstr\nstr\nstr\n\n\n\n\n1.0\n\"1\"\n\"flower\"\n\"10.0\"\n\n\n2.0\n\"1\"\n\"car\"\n\"25.0\"\n\n\n1.0\n\"2\"\n\"house\"\n\"100.0\"\n\n\n2.0\n\"2\"\n\"flower\"\n\"63.0\"\n\n\n1.0\n\"3\"\n\"car\"\n\"24.0\"\n\n\n2.0\n\"3\"\n\"house\"\n\"45.0\"",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/polars-crash-course.html#additional-resources",
+    "href": "weeks/01/lab/polars-crash-course.html#additional-resources",
+    "title": "A Crash Course on Python DataFrames",
+    "section": "Additional Resources",
+    "text": "Additional Resources\nHere a few additional resources you might helpful on your journey:\n\nPolars official intro tutorial\nMore Comprehensive intro to Polars\nTidyData analysis in Polars\nPolars patterns vs R’s dplyr",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Polars Crash Course"
+    ]
+  },
+  {
+    "objectID": "weeks/01/index.html",
+    "href": "weeks/01/index.html",
+    "title": "Week 1",
+    "section": "",
+    "text": "This week we’ll cover course logistics, introduce the two cultures of statistical modeling, and discuss some of the foundational concepts that set the stage for later weeks. We’ll also take the time to make sure your computing environment is properly configured and take our first steps with Python.",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "weeks/01/index.html#overview",
+    "href": "weeks/01/index.html#overview",
+    "title": "Week 1",
+    "section": "",
+    "text": "This week we’ll cover course logistics, introduce the two cultures of statistical modeling, and discuss some of the foundational concepts that set the stage for later weeks. We’ll also take the time to make sure your computing environment is properly configured and take our first steps with Python.",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "weeks/01/index.html#slides",
+    "href": "weeks/01/index.html#slides",
+    "title": "Week 1",
+    "section": "Slides",
+    "text": "Slides\n\n\n\n\n\n\nTip🛝 Mon Jan 5th - Course Intro",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "weeks/01/index.html#materials",
+    "href": "weeks/01/index.html#materials",
+    "title": "Week 1",
+    "section": "Materials",
+    "text": "Materials\n\n“Pre-Flight” Lab Setup (start here)\n\n\n\n\n\n\n\nCaution📚 Lab 01 - Python basics & polars (dataframes) intro\n\n\n\nGithub Classroom Assignment\n\n\nRemember: There are additional Git/Github & Python resources available in the “Guides & Resources” section above!",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "weeks/01/index.html#mentioned-references",
+    "href": "weeks/01/index.html#mentioned-references",
+    "title": "Week 1",
+    "section": "Mentioned References",
+    "text": "Mentioned References\n\nStatistical Thinking\nProgramming as theory-building",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "References"
+  },
+  {
+    "objectID": "guides/terminology.html",
+    "href": "guides/terminology.html",
+    "title": "Course Terminology",
+    "section": "",
+    "text": "Note\n\n\n\nWe’ll keep this page updated as we come across new technical and statistical terms for easy reference\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n Term  Definition \nrstudioAn IDE originally designed to work with R, but also works well with Quarto documents. Also includes a Terminal separate from the R console for running shell commands.\nuvA library and environment manager for Python making it easy to create/add/update additional Python libraries & tools in a reproducible and isolated way. using a pyproject.toml “blueprints” file\nideIntegrated-development-environment; a program that includes a code-editor, terminal/console, and other helpful features to be a “one-stop-shop” for most of your needs\ncommand-line-programA program that you interact with exclusively from your terminal; often abbreviated as CLI\ngitA CLI to version control LOCAL files and folders called repositories. See the git guide for more details and a command cheatsheet.\nshellA program that runs automatically when your Terminal starts and interprets the commands you type to control your computer instead of pointing-and-clicking. FYI: the default shell on macOS is zsh not bash.\nvscodeAn extremely popular general purpose IDE that supports multiple language (e.g. Python, R, Javascript) and makes use of extensions to add additional functionality (e.g. quarto rendering, Python notebooks).\nmarimoA program like Quarto that can render .py files as interactive Python notebooks with code cells. FYI: marimo is the modern alternative to Jupyter notebooks which you may have heard of/used in the past.\nquarto-doc.qmd files that contain a mix of prose (markdown) and code-chunks (Python/R) that you can preview and render with Quarto. By default quarto will always rerun ALL code-chunks in the file upon saving.\nterminalAn application for controlling your computer via commands that you type in (e.g. cd, ls) instead of point-and-click\nhomebrewA command-line package manager for macOS that lets you install packages and applications using the brew command\nquartoa scientific publishing tool that allows you to mix prose and code-cells to render executable documents in a variety of formats (website, PDF, etc)\ngithubA online cloud-based service for synchronize local git repositories with REMOTE repositories on github.com. This faciliates collaborative works flows and open-source development. We’re using the Github Classroom feature built-up on this for our course.\nenvironmentReally just a hidden folder on your computer (typically .venv/) that contains an isolated Python installation with all additional libraries and tools. uv handles this all for us!\npython-notebook.py files that we can work with interactively using code-cells and markdown-cells (similar to quarto chunks). A much richer interface for interactively working with pieces of code one-at-a-time\ngithub-useridYour user “handle” on github.com that identifies you when using git commands (local) and interacting with Github.com (remote). E.g. Eshin’s is @ejolly"
+  },
+  {
+    "objectID": "guides/git-guide.html",
+    "href": "guides/git-guide.html",
+    "title": "Git & Github",
+    "section": "",
+    "text": "In this course we’ll assume that you’re at least somewhat familiar with git and github. If not you can toggle the drop-down below for a slide-deck that provides a high-level conceptual overview of version control using the analogy of a “social time-machine.”"
+  },
+  {
+    "objectID": "guides/git-guide.html#most-common-commands",
+    "href": "guides/git-guide.html#most-common-commands",
+    "title": "Git & Github",
+    "section": "Most common commands",
+    "text": "Most common commands\nRather than spend time on nitty-gritty details of git, we’re providing a list of the most common commands you’ll use in class (and in your day-to-day work!).\n\ngit status\nSee what files are ready to be made into a “snapshot” (committed) and which ones are not being kept track of\n\n\n\ngit add\nAdd/ready file(s) to the list of files that should be made into a “snapshot” (committed) \n\n\ngit reset\nRemove/unready file(s) from the list of files that should be made into a “snapshot” (committed).\nThis doesn’t remove/delete file(s) just removes them from the file you plan to include in this commit.\n\n\ngit commit\nTake a “snapshot” of all currently tracked project files. Files need to be “prepped” (staged) for commit using git add beforehand. You’ll almost always use the -m 'some commit message' flag when running this command. These messages will then appear in the git log!\n\n\n\ngit log\nSee the full historical timeline of the project\n\n\n\ngit init\nCreate a new git repository for the first time (will not add any files)"
+  },
+  {
+    "objectID": "guides/git-guide.html#commandsoperations-that-work-with-github",
+    "href": "guides/git-guide.html#commandsoperations-that-work-with-github",
+    "title": "Git & Github",
+    "section": "Commands/operations that work with github",
+    "text": "Commands/operations that work with github\nThe following commands communicate between your local computer’s git repository and a remote github repository.\n\ngit clone\nDuplicate a remote repository (e.g. github) on your local computer\n\n\n\ngit push\nSend latest local changes to a remote location (e.g. github). You’ll run this command after you’ve performed a git commit\n\n\n\ngit pull\nGet the latest changes from a remote location (e.g. github)\n\n\n\nforking\nCopy a remote repository on github, to your own remote account on github. This isn’t a command per se, but a way to create a copy of another project on Github that you can then clone to your own computer. This is useful when you want to work on your own independent copy of another project, while still being able to suggest changes to the original project owner via a pull request.\n\n\n\npull request\nNotify a github (remote) repository owner you would like them to review+incorporate your commits. You can make a PR against a repository you own or one that someone else owns. PRs are the predominant way that you can collaborate and integrate changes between group members on github."
+  },
+  {
+    "objectID": "guides/git-guide.html#more-advanced-git",
+    "href": "guides/git-guide.html#more-advanced-git",
+    "title": "Git & Github",
+    "section": "More advanced git",
+    "text": "More advanced git\nWe won’t necessarily be making much of use of the following commands in class, but they’re useful to know about for your own projects.\n\ngit branch\nCreate a new independent “timeline” for the project. This is the “true power” of git, where you can create a totally independent copy of your project from any point in time (i.e. any commit), without affecting the original project. Branches can be useful for working on different features/ideas/etc or even collaborating with other people.\n\n\n\ngit revert\nUndo changes by reversing any specific “snapshot” (commit). Think of this is a “rollbaack” command that adds an entry to your project timeline. In other words, in addition to “undoing” a previous commit, we also keep a record of this “undo” using another commit."
+  },
+  {
+    "objectID": "guides/classroom-guide.html",
+    "href": "guides/classroom-guide.html",
+    "title": "Github Classroom",
+    "section": "",
+    "text": "We’ll be using Github Classroom to share all resources for class. This is the primary way you should be downloading and working with course materials. Each week, we’ll create a new Github Classroom assignment link (prefixed with 📚). Clicking it will automatically create a github repository for you containing all the materials you need.\nYou’ll then be able to clone this repository to your computer, working through files interactively, make edits/updates, and commit and submit your assignment for review. Each time you push your work to Github, your instructors will be able to provide review, feedback, and discussions that directly reference your code.\nYou’ll always be able to access your assignment repositories, history, and instructor feedback after the course is over. So the more effort you put into assignments, the more you engage with instructors, the more you’ll learn, and the higher quality resources you’ll have for your own future reference!"
+  },
+  {
+    "objectID": "guides/classroom-guide.html#getting-assignments",
+    "href": "guides/classroom-guide.html#getting-assignments",
+    "title": "Github Classroom",
+    "section": "Getting Assignments",
+    "text": "Getting Assignments\n\nOpen any course link that starts with 📚\nAccept the assignment in your browser\nClick the URL to go the auto-created github repo (this will alway be named assignment-name-YOUR-GITHUB-USERNAME)\nClone it to your local computer using git clone\nOpen and work on any notebook files using JupyterLab or VSCode\nCommit your changes locally using git add & git commit\nPush your changes to github using git push\nRespond to any feedback discussions under the “Pull Requests” tab on the github repo"
+  },
+  {
+    "objectID": "guides/classroom-guide.html#updating-assignments",
+    "href": "guides/classroom-guide.html#updating-assignments",
+    "title": "Github Classroom",
+    "section": "Updating Assignments",
+    "text": "Updating Assignments\nOccasionally, we’ll update assignments that you’ve already accepted and git clone-d to your local computer with additional files (e.g. solutions). Here’s how you can git pull them to your local computer\n\nFollow the assignment link to go to the repository on github.com that you cloned to first start the assignment. It will be named MM-DD-YOURGITHUBID, e.g. “01-21-ejolly”\nClick on “Pull Requests”\nClick on “Github Classrom: Sync Assignment”\nClick on green “Merge pull request” button\nAfter the button turns purple, indicating the “merge is complete” open up a terminal on your local computer and cd into the folder you cloned from this repository, e.g. “01-21-ejolly”\nUse git status to check if you’ve saved some changes, but haven’t yet git commit them. If you don’t see “nothing to commit, working tree clean”, you’ll need to git add and git commit your changed files\nRun git pull to download the latest changes from github\nIf you get any wonky error message, run git merge --no-ff, and then type the following commands to exit the window that opens: :, w, q, enter\n\nIf everything worked you should see some new files in your local folder, and you can hack on them as you normally would."
+  },
+  {
+    "objectID": "glossary.html",
+    "href": "glossary.html",
+    "title": "Course Terminology",
+    "section": "",
+    "text": "Note\n\n\n\nWe’ll keep this page updated as we come across new technical and statistical terms for easy reference\n\n\n\n\n\n\n\n\n\n Term  Definition \ncommand-line-programA program that you interact with exclusively from your terminal; often abbreviated as CLI\nideIntegrated-development-environment; a program that includes a code-editor, terminal/console, and other helpful features to be a “one-stop-shop” for most of your needs\nterminalAn application for controlling your computer via commands that you type in (e.g. cd, ls) instead of point-and-click\nhomebrewA command-line package manager for macOS that lets you install packages and applications using the brew command"
+  },
+  {
+    "objectID": "guides/python-guide.html",
+    "href": "guides/python-guide.html",
+    "title": "Python",
+    "section": "",
+    "text": "Terminal commands cheatsheet\nPython basics cheatsheet\nPython interactive reference\nPython for R users"
+  },
+  {
+    "objectID": "guides/python-guide.html#basics",
+    "href": "guides/python-guide.html#basics",
+    "title": "Python",
+    "section": "",
+    "text": "Terminal commands cheatsheet\nPython basics cheatsheet\nPython interactive reference\nPython for R users"
+  },
+  {
+    "objectID": "guides/python-guide.html#python-libraries-well-use",
+    "href": "guides/python-guide.html#python-libraries-well-use",
+    "title": "Python",
+    "section": "Python libraries we’ll use",
+    "text": "Python libraries we’ll use\n\nWhen you’re working in Python it can be super helpful to regularly refer to these resources. Remember that you can always use any API reference link below to get a comprehensive list of all the functions and methods in a library - a bit nicer than only relying on ? in your notebook.\n\nThroughout the course we’’ll make use of the following Python libraries in case you want quickly reference their documentation:\n\npolars\nseaborn\nmatplotlib\nscipy\nnumpy\nbossanova\nscikit-learn\n\n\npolars - dataframes & tidy data analysis\n\nPolars user guide\nPolars API reference\nTidyverse and Polars side-by-side\nPolars Rgonomic patterns\nPandas - alternative DataFrame library we’re NOT using\n\n\n\nseaborn - high-level statistical visualizations\n\nSeaborn user guide\nSeaborn API\nSeaborn cheatsheet\n\n\n\nmatplotlib - lower-level plot customization\n\nMatplotlib user guide\nMatplotlib API reference\nMatplotlib tutorials\nMatplotlib cheatsheets\n\n\n\nscipy - scientific functions & basic stats\n\nSciPy user guide\nSciPy API reference\nSummary statistics\nResampling, i.e. montecarlo, bootstrap, permutation\nHypothesis testing\n\n\n\nnumpy - arrays, matrices, and linear algebra\n\nNumpy tutorials\nNumpy API reference\nNumpy Cheatsheet\nNumpy for MATLAB users\n\n\n\nbossanova - intuitive formula-based statistical modeling\n\nDocumentation & tutorials\n\n\n\nscikit-learn - machine-learning\n\nScikit-learn cheatsheet\nSupervised learning\nDecomposition\nModel selection & evaluations"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Statistical Intuitions for Social Scientists",
+    "section": "",
+    "text": "Current version: Winter 2026\nPre-requisites: PSYC 201A or instructor approval\nRapid advances in computing have revolutionized modern statistical practice, offering approaches that transcend traditional training in psychological statistics (Efron et al 2016). And yet at the heart of these developments are just a handful of fundamental ideas (Gelman 2021). This course is designed to help you interactively develop your own statistical intuitions about these ideas using the Python programming language. At the core of the class is a deep understanding of the General-Linear-Model (GLM) and its extensions (e.g. multi-level models), through which you’ll learn how to adopt model-based thinking rather than classic statistical ritualization. We’ll also explore the “Two Cultures” of statistical modeling (explanation vs prediction) (Breiman, 2001), integrating ideas from both to build a robust foundation for you to pursue more advanced topics & coursework (e.g. machine-learning, econometrics).\nThe “living” open-course materials are available at https://stat-intuitions.com and developed with the following goals in mind:\n\nServe as the primary resource for all course related materials (e.g. slides, readings, notebooks, etc)\n\nBe openly accessible to all past, current, future, students and the general public (live lectures & grading currently only available for enrolled students)\nServe as a reference resource for members of the Psych Department at UCSD, continually updated each course year and between course offerings\n\n\n\n\nLearn to adopt model-based-thinking rather than statistical ritualization\nAcquire a deep understanding of the General-Linear-Model (GLM) and its extensions\nDevelop statistical & inferential intuitions from first principles using modern computational approaches (e.g. simulation, resampling, permutation)\nDevelop cross-disciplinary technical & conceptual skills that lay the foundation for advanced coursework (e.g. deep-learning, econometrics)\n\n\n\n\nLecturer: Eshin Jolly\nTA: Jane Yang\nOffice Hours: Slack or by appointment\n\n\n\nCommunication: Slack\nLocation: Mandler 3545 (Crick Conference Room)\nSchedule: M/T/W 2-3:50pm\n\n\n\n\n\n\nNote\n\n\n\nThe week-by-week schedule is available on the schedule page\n\n\n\n\n\n\n\nWe will be using Github Classroom to manage all course materials (labs, HWs, interactive lectures). Each week, we’ll update the course website with a new assignment repository link that we’ll keep updated that that week’s materials. At the start of class/lab, or when a HW problem-set is made available, you should accept assignments and git clone them to your local computer to work interactively.\nWhen you’re finished with an assignment or when you want to get feedback on work-in-progress, you should commit your changes to your local copy of the assignment, and then push them to Github. This will allow your instructors to review your work, provide Feedback, and/or have a private discussion with you while referencing questions/issues in your code directly. At the same time, you’ll be building up a set of references (with feedback) that you can always check-out and refresh after this class is over!\n\n\n\nWhen in doubt, this course website should be the first place you look for any logistical information! We’ll update it regularly and each week with a new sidebar section.\n\n\n\nAll course communications will occur over Slack in #w26-201b channel. Keep an eye out here for all announcements, additional links/resources, and logistics updates.\n\n\n\n\nWeʼre interested in grading you on your ability to achieve the skill sets that are taught in this course regardless of your starting experience with Python. For this reason, you can attempt any Github Classroom assignment (lab or HW) multiple times, especially if you think you could do better or if you want to incorporate instructor feedback. Practically, this just means making additional code changes and pushing another commit to your assignment. Your instructors will automatically be able to see your code changes and your latest submission. Weʼll grade you based partially on your accurate completion of the assignment, but mostly on your ability to demonstrate: - You attempted the assignment in good-faith (lecture, lab, or HW notebooks) - You made effort to clearly document and explain your thought process, reasoning, code, and where/why you got stuck if you did - What attempts you made to fix issues you ran into, how you approached debugging, and what you learned from the process - Why you made a particular choice in your code/analysis, and/or what assumptions you made for a particular statistical inference\n\n\n\nComponent\nWeight\n\n\n\n\nLabs & Engagement\n30%\n\n\nHomeworks\n40%\n\n\nFinal Project\n30%\n\n\n\n\n\n\nAdapted from the UC San Diego & University of Waterloo Academic Integrity Offices\n\n\n\n\n\n\nWarningGenAI is known to fabricate sources/facts and can perpetuate biases/misunderstanding\n\n\n\nYou should also be aware that there are copyright and privacy concerns with these tools. You should exercise caution when using large portions of content from AI sources for these reasons. Also, you are accountable for the content and accuracy of all work you submit in this class, including any supported by generative AI.\n\n\nWe encourage the use of Generative artificial intelligence (GenAI) tools like OpenAI’s ChatGPT, Anthropic’s Claude, and/or Google’s Gemini to help you master concepts and skills in this class in accordance with the UCSD Academic Integrity Guidelines on GenAI and the following guidelines:\n\nIf you use GenAI for any submitted coursework, you must attach a link or text transcript to any assignments you submit. Many services offer a “share your chat” link-creation function or you can use a Google Chrome Browser Extension like ChatGPT Exporter or Claude Exporter. This will help us provide feedback on using LLM tools effectively (if desired) and make it transparent to us how you are completing assignments, while respecting the standards of academic integrity.\nDirectly prompting GenAI with course assignments, or copying/pasting GenAI output instead of performing the work yourself, will not earn you assignment credit and could result in an academic integrity violation.\n\nInstead you should aim to master GenAI as tools that supplement your programming and critical thinking skills, not as a substitute for them. They can be especially helpful for: debugging and troubleshooting unfamiliar code, reviewing Python fundamentals, reasoning about statistical concepts via analogy/example, or simply conversing in natural language about technical concepts.\n\n\n\nAll students are expected to adhere to standards of academic integrity. Cheating of any kind on any assignment will not be tolerated. It is disrespectful to your peers, the university, and to your instructors. If you are unsure what might constitute a violation of academic integrity, ask your instructors and/or the UCSD website on academic integrity: http://academicintegrity.ucsd.edu. Any evidence of academic misconduct will be reported to the Academic Integrity Office.\n\n\n\nFamily emergencies and illness are excused absences, as per UCSD policy. Please do not come to class if you have active symptoms (instead, please rest!). In general, absences will have a direct impact on your ability to learn the skills presented in this course as well as your participation grade.\nThat being said, life happens and we genuinely care about your well-being. Sometimes you simply can’t be in class or turn in an assignment on time. There may also be times when I’m unable to make it to class for a given reason, and I will ask for your grace and understanding then as well. Please, prioritize your well-being in graduate school and use this class as a way for you to learn skills that will be useful for your career (versus focusing on passing the requirements for a grade).\n\n\n\nAny student with a documented disability will be accommodated according to University policy. For details, please consult the Office of Students with Disabilities (OSD): http://disabilities.ucsd.edu. If you require accommodation for any component of the course, please provide the instructor with documentation from OSD as soon as possible. Please note that accommodations cannot be made retroactively under any circumstances.\n\nThis syllabus is subject to change. Check the course website (stat-intuitions.com) for the most up-to-date information."
+  },
+  {
+    "objectID": "index.html#how-well-learn",
+    "href": "index.html#how-well-learn",
+    "title": "Statistical Intuitions for Social Scientists",
+    "section": "",
+    "text": "We will be using Github Classroom to manage all course materials (labs, HWs, interactive lectures). Each week, we’ll update the course website with a new assignment repository link that we’ll keep updated that that week’s materials. At the start of class/lab, or when a HW problem-set is made available, you should accept assignments and git clone them to your local computer to work interactively.\nWhen you’re finished with an assignment or when you want to get feedback on work-in-progress, you should commit your changes to your local copy of the assignment, and then push them to Github. This will allow your instructors to review your work, provide Feedback, and/or have a private discussion with you while referencing questions/issues in your code directly. At the same time, you’ll be building up a set of references (with feedback) that you can always check-out and refresh after this class is over!\n\n\n\nWhen in doubt, this course website should be the first place you look for any logistical information! We’ll update it regularly and each week with a new sidebar section.\n\n\n\nAll course communications will occur over Slack in #w26-201b channel. Keep an eye out here for all announcements, additional links/resources, and logistics updates."
+  },
+  {
+    "objectID": "index.html#mastery-based-grading",
+    "href": "index.html#mastery-based-grading",
+    "title": "Statistical Intuitions for Social Scientists",
+    "section": "",
+    "text": "Weʼre interested in grading you on your ability to achieve the skill sets that are taught in this course regardless of your starting experience with Python. For this reason, you can attempt any Github Classroom assignment (lab or HW) multiple times, especially if you think you could do better or if you want to incorporate instructor feedback. Practically, this just means making additional code changes and pushing another commit to your assignment. Your instructors will automatically be able to see your code changes and your latest submission. Weʼll grade you based partially on your accurate completion of the assignment, but mostly on your ability to demonstrate: - You attempted the assignment in good-faith (lecture, lab, or HW notebooks) - You made effort to clearly document and explain your thought process, reasoning, code, and where/why you got stuck if you did - What attempts you made to fix issues you ran into, how you approached debugging, and what you learned from the process - Why you made a particular choice in your code/analysis, and/or what assumptions you made for a particular statistical inference\n\n\n\nComponent\nWeight\n\n\n\n\nLabs & Engagement\n30%\n\n\nHomeworks\n40%\n\n\nFinal Project\n30%"
+  },
+  {
+    "objectID": "index.html#generative-ai-course-policy",
+    "href": "index.html#generative-ai-course-policy",
+    "title": "Statistical Intuitions for Social Scientists",
+    "section": "",
+    "text": "Adapted from the UC San Diego & University of Waterloo Academic Integrity Offices\n\n\n\n\n\n\nWarningGenAI is known to fabricate sources/facts and can perpetuate biases/misunderstanding\n\n\n\nYou should also be aware that there are copyright and privacy concerns with these tools. You should exercise caution when using large portions of content from AI sources for these reasons. Also, you are accountable for the content and accuracy of all work you submit in this class, including any supported by generative AI.\n\n\nWe encourage the use of Generative artificial intelligence (GenAI) tools like OpenAI’s ChatGPT, Anthropic’s Claude, and/or Google’s Gemini to help you master concepts and skills in this class in accordance with the UCSD Academic Integrity Guidelines on GenAI and the following guidelines:\n\nIf you use GenAI for any submitted coursework, you must attach a link or text transcript to any assignments you submit. Many services offer a “share your chat” link-creation function or you can use a Google Chrome Browser Extension like ChatGPT Exporter or Claude Exporter. This will help us provide feedback on using LLM tools effectively (if desired) and make it transparent to us how you are completing assignments, while respecting the standards of academic integrity.\nDirectly prompting GenAI with course assignments, or copying/pasting GenAI output instead of performing the work yourself, will not earn you assignment credit and could result in an academic integrity violation.\n\nInstead you should aim to master GenAI as tools that supplement your programming and critical thinking skills, not as a substitute for them. They can be especially helpful for: debugging and troubleshooting unfamiliar code, reviewing Python fundamentals, reasoning about statistical concepts via analogy/example, or simply conversing in natural language about technical concepts."
+  },
+  {
+    "objectID": "index.html#academic-integrity",
+    "href": "index.html#academic-integrity",
+    "title": "Statistical Intuitions for Social Scientists",
+    "section": "",
+    "text": "All students are expected to adhere to standards of academic integrity. Cheating of any kind on any assignment will not be tolerated. It is disrespectful to your peers, the university, and to your instructors. If you are unsure what might constitute a violation of academic integrity, ask your instructors and/or the UCSD website on academic integrity: http://academicintegrity.ucsd.edu. Any evidence of academic misconduct will be reported to the Academic Integrity Office."
+  },
+  {
+    "objectID": "index.html#absence-policy",
+    "href": "index.html#absence-policy",
+    "title": "Statistical Intuitions for Social Scientists",
+    "section": "",
+    "text": "Family emergencies and illness are excused absences, as per UCSD policy. Please do not come to class if you have active symptoms (instead, please rest!). In general, absences will have a direct impact on your ability to learn the skills presented in this course as well as your participation grade.\nThat being said, life happens and we genuinely care about your well-being. Sometimes you simply can’t be in class or turn in an assignment on time. There may also be times when I’m unable to make it to class for a given reason, and I will ask for your grace and understanding then as well. Please, prioritize your well-being in graduate school and use this class as a way for you to learn skills that will be useful for your career (versus focusing on passing the requirements for a grade)."
+  },
+  {
+    "objectID": "index.html#osd-accommodations",
+    "href": "index.html#osd-accommodations",
+    "title": "Statistical Intuitions for Social Scientists",
+    "section": "",
+    "text": "Any student with a documented disability will be accommodated according to University policy. For details, please consult the Office of Students with Disabilities (OSD): http://disabilities.ucsd.edu. If you require accommodation for any component of the course, please provide the instructor with documentation from OSD as soon as possible. Please note that accommodations cannot be made retroactively under any circumstances.\n\nThis syllabus is subject to change. Check the course website (stat-intuitions.com) for the most up-to-date information."
+  },
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Schedule",
+    "section": "",
+    "text": "Note\n\n\n\nWe’ve marked future assignments as TBD to allow us to adjust the pacing as needed.\nIn total, we’ll aim to cover in total: ~4-5 HWs and ~6-7 labs\n\n\n\n\n\n\nWeek\nDate\nContent\nAssignment Due?\n\n\n\n\n1\nMon Jan 5\nCourse Intro\nN/A\n\n\n1\nTues Jan 6\nLaptop setup, Github Clasroom workflow, quarto, Python notebooks\npush lab 01 at least once\n\n\n1\nWed Jan 6\nPython essentials, dataframes, meet polars\npush updated lab 01 at least once\n\n\n\n\n\nTentative schedule\n\n\n\n\n\n\n\n\nWeek\nDate\nContent\nAssignment Due?\n\n\n\n\n2\nMon Jan 12\nTwo cultures of statistics, sampling theory\nskim readings for Wed Jan 14\n\n\n2\nTues Jan 13\nData visualization, meet seaborn & matplotlib\npush lab 02 at least once\n\n\n2\nWed Jan 14\nWhat is a model? Model-based thinking\npush HW 1 by Tues Jan 20\n\n\n3\nMon Jan 19\nNo class holiday\n-\n\n\n3\nTues Jan 20\nModel comparison, hw 1 review\nTBD\n\n\n3\nWed Jan 21\nGLM I: Foundations & OLS\nTBD\n\n\n4\nMon Jan 26\nGLM II: predictor types & design-matrices\nTBD\n\n\n4\nTues Jan 27\nModel formulas & designs, meet bossanova\nTBD\n\n\n4\nWed Jan 28\nGLM III: categorical predictors\nTBD\n\n\n5\nMon Feb 2\nMarginal effects estimation & prediction\nTBD\n\n\n5\nTues Feb 3\nParameter inference & uncertainty\nTBD\n\n\n5\nWed Feb 4\nOutcomes types: classifications & counts\nTBD\n\n\n6\nMon Feb 9\nResampling I: bootstrapping & permuting\nTBD\n\n\n6\nTues Feb 10\nResampling II: power & simulation, meet numpy & scipy\nTBD\n\n\n6\nWed Feb 11\nResampling III: generalization & cross-validation\nTBD\n\n\n7\nMon Feb 16\nNo class holiday\n-\n\n\n7\nTues Feb 17\nLMMs I\nTBD\n\n\n7\nWed Feb 18\nLMMs II: Complete/partial/non-pooling\nTBD\n\n\n8\nMon Feb 23\nLMMs III: RFX syntax, “rm-ANOVA”\nTBD\n\n\n8\nTues Feb 24\nUnsupervised Learning I: essence of linear algebra\nTBD\n\n\n8\nWed Feb 25\nUnsupervised Learning II: PCA and friends, meet sklearn\npush Last HW by Tues Mar 3\n\n\n9\nMon Mar 2\nTBD\nTBD\n\n\n9\nTues Mar 3\nTBD, last hw review\nTBD\n\n\n9\nWed Mar 4\nTBD\nTBD\n\n\n10\nMon Mar 9\nfinal project time\n-\n\n\n10\nTues Mar 10\nfinal project time\n-\n\n\n10\nWed Mar 11\nCourse Wrap-Up\n-\n\n\nFW\nMar 16-18\nwork on final project\npush Final Project by TBD"
+  },
+  {
+    "objectID": "weeks/01/lab/index.html",
+    "href": "weeks/01/lab/index.html",
+    "title": "Lab “Pre-flight” Setup",
+    "section": "",
+    "text": "NoteGoals\n\n\n\n\nSetup your coding tools\nLearn the Github Classroom assignment workflow\nAccept & pull Lab 01 to your laptop\n\n\n\nFirst we’ll focus on getting your personal computer ready for the rest of the course. We’ll be making using of the macOS An application for controlling your computer via commands that you type in (e.g. cd, ls) instead of point-and-clickterminal for the first section. Don’t worry if you’ve never used it before or have limited experience. We’ve written the instructions below so you can follow along step-by-step and just copy and paste the commands into your terminal to avoid typos.\n\n\n\n\n\n\nTip\n\n\n\nYou can click and hold any linked words in the text on this page to get a definition. All definitions are available on the terminology page.\n\n\n\n\nFirst we’ll install the A command-line package manager for macOS that lets you install packages and applications using the brew commandHomebrew package manager for macOS. You can think of this as an “App store” for programs we’ll run from our macOS An application for controlling your computer via commands that you type in (e.g. cd, ls) instead of point-and-clickTerminal.\nStart by copying and paste the following command into a new macOS An application for controlling your computer via commands that you type in (e.g. cd, ls) instead of point-and-clickTerminal\n/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"\n\n\n\n\n\n\nNote\n\n\n\nThe “program” that’s running when you first launch your terminal is called a A program that runs automatically when your Terminal starts and interprets the commands you type to control your computer instead of pointing-and-clicking. FYI: the default shell on macOS is zsh not bash.shell. You can think of it like console in RStudio, but for running system commands like cd, pwd, ls, etc.\n\n\nAfter some long messages and setup you should have the brew A program that you interact with exclusively from your terminal; often abbreviated as CLIcommand-line-program (CLI) available.\n\n\n\n\n\n\nTip\n\n\n\nYou can check by typing which brew and seeing if you get any output\nIn general the which command will tell you where a CLI tool is installed if it’s installed; no output means it doesn’t exist!\n\n\nWe can use this to brew install/update/remove/list/search a variety of tools.\nLet’s use it to make sure you have a few other tools setup for the course:\n\n\nBuilding off of 201A, you’ll use a scientific publishing tool that allows you to mix prose and code-cells to render executable documents in a variety of formats (website, PDF, etc)Quarto to author all your assignment submissions (labs, HWs, final project). While you can install it from the official website it’s easier to get from brew\n\n\n\n\n\n\nNote\n\n\n\nTry which quarto first to see if it’s already installed\nIf so, feel free to skip the next command\n\n\nbrew install --cask quarto\n\n\n\n\n\n\nNote\n\n\n\nThe --cask flag to brew is sometimes needed when installing specific libraries and applications. This makes it possible to installed full GUI applications in addition to CLI ones (e.g. like VSCode) all from brew! But don’t worry about remembering whether you need to use it or not. brew will helpfully complain if you do.\n\n\n\n\n\nTo keep all our work reproducible and easy to collaborate, on we’ll use A library and environment manager for Python making it easy to create/add/update additional Python libraries & tools in a reproducible and isolated way. using a pyproject.toml “blueprints” fileuv to manage our Python Really just a hidden folder on your computer (typically .venv/) that contains an isolated Python installation with all additional libraries and tools. uv handles this all for us!environment. This makes it effortless to add/update/remove any additional Python libraries in an isolated, project-specific way.\nbrew install uv\n\n\n\nLastly we’ll want to make sure we have the latest tools to interact with A CLI to version control LOCAL files and folders called repositories. See the git guide for more details and a command cheatsheet.Git and A online cloud-based service for synchronize local git repositories with REMOTE repositories on github.com. This faciliates collaborative works flows and open-source development. We’re using the Github Classroom feature built-up on this for our course.Github.\nbrew install git gh\nFirst we’ll want to make sure the local git CLI program knows who we are. Run the following commands in your terminal (you won’t see any output):\ngit config --global user.name \"your name\"\ngit config --global user.email \"email associated with your github account\"\nWe’ll also set a few other git options to avoid future headaches:\ngit config --global pull.rebase true\nAnd\ngit config --global rebase.autoStash true\nNow we can login to A online cloud-based service for synchronize local git repositories with REMOTE repositories on github.com. This faciliates collaborative works flows and open-source development. We’re using the Github Classroom feature built-up on this for our course.Github from our computers to ensure that all our future work is associated with the same account:\ngh auth login\nThen you can answer the prompts with the following answers:\nWhere do you use GitHub? GitHub.com\nWhat is your preferred protocol for Git operations on this host? HTTPS\nAuthenticate Git with your GitHub credentials? Yes\nHow would you like to authenticate GitHub CLI? Login with a web browser\nYou should see the following prompt with a unique code for you. Make sure to copy it and then press &lt;enter&gt;\nFirst copy your one-time code: 4722-D256\nPress Enter to open https://github.com/login/device in your browser...\nCopy and paste the code into the browser page and press the green button to approve. When you’re all set you’ll get the following output with your Your user “handle” on github.com that identifies you when using git commands (local) and interacting with Github.com (remote). E.g. Eshin’s is @ejollyGithub userid:\n✓ Authentication complete.\n- gh config set -h github.com git_protocol https\n✓ Configured git protocol\n✓ Logged in as ejolly\nYou can verify your local setup by running git config --list and looking at the output for some sanity checks like your Github username & email:\nuser.name=ejolly\nuser.email=eshin.jolly@gmail.com\npull.ff=false\npull.rebase=false\n\n\n\nFinally let’s setup our Integrated-development-environment; a program that includes a code-editor, terminal/console, and other helpful features to be a “one-stop-shop” for most of your needsintegrated-development-environment (IDE)\n\nVSCode (recommended)RStudio (advanced)\n\n\nIf you’ve already installed An extremely popular general purpose IDE that supports multiple language (e.g. Python, R, Javascript) and makes use of extensions to add additional functionality (e.g. quarto rendering, Python notebooks).Visual Studio Code before you can skip the next command. Otherwise copy and paste the following into your terminal:\nbrew install --cask visual-studio-code\nYou can then launch VSCode like any other program on your computer. We’ll orient to the interface in Lab 01.\n\n\nWhile we’ve mostly built this course around VSCode to provide a consistent experience, you can continue using An IDE originally designed to work with R, but also works well with Quarto documents. Also includes a Terminal separate from the R console for running shell commands.RStudio if you’re an advanced user. When working with .qmd files, you can use familiar buttons to render Quarto documents and RStudio will handle running the Python code-chunks for you.\nHowever, you will not be able to run .py files that we can work with interactively using code-cells and markdown-cells (similar to quarto chunks). A much richer interface for interactively working with pieces of code one-at-a-timeinteractive Python notebooks (.py) files that we provide. Instead, you’ll need to use the integrated Terminal (not the R console!) to run some commands to launch them (we’ll cover this in the Lab 01 assignment later)\n\n\n\n\n\n\n\nNow that you’re setup with Github let’s go over the main workflow you’ll regulary use when working on course materials\n\n\n\n\n\n\nTip\n\n\n\nThese steps are also available for quick future reference in the dedicated github classroom guide linked in the top navigation bar\n\n\n\n\n\nClick any course website link that starts with 📚.\nAccept the assignment in your browser. This will create a copy (fork) of the assignment under your own github account\nClick the URL to go the auto-created github repo. This will always be named assignment-name-your-githubid\nClone it to your local computer: git clone REPO-URL You can get the REPO-URL by clicking the green code button on github\nMove into the folder: cd folder-you-cloned\nSetup the Python environment: uv sync && uv run poe setup\nOpen the project in VSCode (or RStudio)\n\n\n\n\nSubmitting an assignment is as easy as pushing your changes to github. We’ll automatically be able to see when you submit, run automatic checks, etc.\n\nCommit your changes locally. Using the VSCode UI or terminal commands git commit -am \"my message\"\nPush your changes to github: git push\n\nThere are no restrictions on how often or the final deadline to git commit and git push your assignments! For any deadlines we announce, you’ll just want to make sure to make the final push you want us to review by the deadline. Later, once we review assignments together in class, you can always add additional commit(s) and push(s) to update your assignments with corrections, notes, etc for updated grading!\n\n\n\nOften we’ll add new files (e.g. solutions) or make corrections to an assignment and we’ll ask you to update your repository after you’ve already run git clone and maybe even git commit and git push. Here’s how you can do that:\n\nOpen the assignment repository on github.com You can either find the original 📚 link OR cd into the folder and run git remote -v to print out the URL\nGo to the “Pull Request”” page\nChoose the PR called “GitHub Classroom: Sync Assignment”\nClick the green “Merge pull request” button near the bottom\nBack on your computer verify you’ve commited any work-in-progress. If you run git status and you don’t see “nothing to commit, working tree clean” you’ll need to run git commit -am \"my message\" first.\nSync the merged PR to your computer: git pull\n\nNow any files you had open in VSCode will automatically refresh to the latest versions and any new files we be available for editing!\n\n\n\n\n\n\nTip\n\n\n\nWe’ll also use the “Pull Requests” tab to create a “Feedback” PR.\nYou don’t need to merge this in. Instead think of it as an on-going discussion between you and your instructors & peers where you reference specific files and lines of your project.\n\n\n\n\n\n\nNow that you have the basics configured, let’s try this out to get setup with the first lab:\n\n\n\n\n\n\nCaution📚 Lab 01\n\n\n\nGithub Classroom Assignment\n\n\nOnce you’ve cloned the assignment to your computer you can start going through tutorials in this order:\n\nREADME.md - VSCode introduction and configuration\nindex.qmd - Quarto & Python intro\nnotebooks/python-quickstart.py - Python fundamentals\n\n\n\n\n\n\n\nWarning\n\n\n\nIf the link above does not work for you please send your Your user “handle” on github.com that identifies you when using git commands (local) and interacting with Github.com (remote). E.g. Eshin’s is @ejollygithub-userid to Eshin on Slack so he can add you to the Github classroom!",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "\"Pre-flight\" Lab Setup"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/index.html#computer-setup",
+    "href": "weeks/01/lab/index.html#computer-setup",
+    "title": "Lab “Pre-flight” Setup",
+    "section": "",
+    "text": "First we’ll install the A command-line package manager for macOS that lets you install packages and applications using the brew commandHomebrew package manager for macOS. You can think of this as an “App store” for programs we’ll run from our macOS An application for controlling your computer via commands that you type in (e.g. cd, ls) instead of point-and-clickTerminal.\nStart by copying and paste the following command into a new macOS An application for controlling your computer via commands that you type in (e.g. cd, ls) instead of point-and-clickTerminal\n/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"\n\n\n\n\n\n\nNote\n\n\n\nThe “program” that’s running when you first launch your terminal is called a A program that runs automatically when your Terminal starts and interprets the commands you type to control your computer instead of pointing-and-clicking. FYI: the default shell on macOS is zsh not bash.shell. You can think of it like console in RStudio, but for running system commands like cd, pwd, ls, etc.\n\n\nAfter some long messages and setup you should have the brew A program that you interact with exclusively from your terminal; often abbreviated as CLIcommand-line-program (CLI) available.\n\n\n\n\n\n\nTip\n\n\n\nYou can check by typing which brew and seeing if you get any output\nIn general the which command will tell you where a CLI tool is installed if it’s installed; no output means it doesn’t exist!\n\n\nWe can use this to brew install/update/remove/list/search a variety of tools.\nLet’s use it to make sure you have a few other tools setup for the course:\n\n\nBuilding off of 201A, you’ll use a scientific publishing tool that allows you to mix prose and code-cells to render executable documents in a variety of formats (website, PDF, etc)Quarto to author all your assignment submissions (labs, HWs, final project). While you can install it from the official website it’s easier to get from brew\n\n\n\n\n\n\nNote\n\n\n\nTry which quarto first to see if it’s already installed\nIf so, feel free to skip the next command\n\n\nbrew install --cask quarto\n\n\n\n\n\n\nNote\n\n\n\nThe --cask flag to brew is sometimes needed when installing specific libraries and applications. This makes it possible to installed full GUI applications in addition to CLI ones (e.g. like VSCode) all from brew! But don’t worry about remembering whether you need to use it or not. brew will helpfully complain if you do.\n\n\n\n\n\nTo keep all our work reproducible and easy to collaborate, on we’ll use A library and environment manager for Python making it easy to create/add/update additional Python libraries & tools in a reproducible and isolated way. using a pyproject.toml “blueprints” fileuv to manage our Python Really just a hidden folder on your computer (typically .venv/) that contains an isolated Python installation with all additional libraries and tools. uv handles this all for us!environment. This makes it effortless to add/update/remove any additional Python libraries in an isolated, project-specific way.\nbrew install uv\n\n\n\nLastly we’ll want to make sure we have the latest tools to interact with A CLI to version control LOCAL files and folders called repositories. See the git guide for more details and a command cheatsheet.Git and A online cloud-based service for synchronize local git repositories with REMOTE repositories on github.com. This faciliates collaborative works flows and open-source development. We’re using the Github Classroom feature built-up on this for our course.Github.\nbrew install git gh\nFirst we’ll want to make sure the local git CLI program knows who we are. Run the following commands in your terminal (you won’t see any output):\ngit config --global user.name \"your name\"\ngit config --global user.email \"email associated with your github account\"\nWe’ll also set a few other git options to avoid future headaches:\ngit config --global pull.rebase true\nAnd\ngit config --global rebase.autoStash true\nNow we can login to A online cloud-based service for synchronize local git repositories with REMOTE repositories on github.com. This faciliates collaborative works flows and open-source development. We’re using the Github Classroom feature built-up on this for our course.Github from our computers to ensure that all our future work is associated with the same account:\ngh auth login\nThen you can answer the prompts with the following answers:\nWhere do you use GitHub? GitHub.com\nWhat is your preferred protocol for Git operations on this host? HTTPS\nAuthenticate Git with your GitHub credentials? Yes\nHow would you like to authenticate GitHub CLI? Login with a web browser\nYou should see the following prompt with a unique code for you. Make sure to copy it and then press &lt;enter&gt;\nFirst copy your one-time code: 4722-D256\nPress Enter to open https://github.com/login/device in your browser...\nCopy and paste the code into the browser page and press the green button to approve. When you’re all set you’ll get the following output with your Your user “handle” on github.com that identifies you when using git commands (local) and interacting with Github.com (remote). E.g. Eshin’s is @ejollyGithub userid:\n✓ Authentication complete.\n- gh config set -h github.com git_protocol https\n✓ Configured git protocol\n✓ Logged in as ejolly\nYou can verify your local setup by running git config --list and looking at the output for some sanity checks like your Github username & email:\nuser.name=ejolly\nuser.email=eshin.jolly@gmail.com\npull.ff=false\npull.rebase=false\n\n\n\nFinally let’s setup our Integrated-development-environment; a program that includes a code-editor, terminal/console, and other helpful features to be a “one-stop-shop” for most of your needsintegrated-development-environment (IDE)\n\nVSCode (recommended)RStudio (advanced)\n\n\nIf you’ve already installed An extremely popular general purpose IDE that supports multiple language (e.g. Python, R, Javascript) and makes use of extensions to add additional functionality (e.g. quarto rendering, Python notebooks).Visual Studio Code before you can skip the next command. Otherwise copy and paste the following into your terminal:\nbrew install --cask visual-studio-code\nYou can then launch VSCode like any other program on your computer. We’ll orient to the interface in Lab 01.\n\n\nWhile we’ve mostly built this course around VSCode to provide a consistent experience, you can continue using An IDE originally designed to work with R, but also works well with Quarto documents. Also includes a Terminal separate from the R console for running shell commands.RStudio if you’re an advanced user. When working with .qmd files, you can use familiar buttons to render Quarto documents and RStudio will handle running the Python code-chunks for you.\nHowever, you will not be able to run .py files that we can work with interactively using code-cells and markdown-cells (similar to quarto chunks). A much richer interface for interactively working with pieces of code one-at-a-timeinteractive Python notebooks (.py) files that we provide. Instead, you’ll need to use the integrated Terminal (not the R console!) to run some commands to launch them (we’ll cover this in the Lab 01 assignment later)",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "\"Pre-flight\" Lab Setup"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/index.html#github-classroom-workflows",
+    "href": "weeks/01/lab/index.html#github-classroom-workflows",
+    "title": "Lab “Pre-flight” Setup",
+    "section": "",
+    "text": "Now that you’re setup with Github let’s go over the main workflow you’ll regulary use when working on course materials\n\n\n\n\n\n\nTip\n\n\n\nThese steps are also available for quick future reference in the dedicated github classroom guide linked in the top navigation bar\n\n\n\n\n\nClick any course website link that starts with 📚.\nAccept the assignment in your browser. This will create a copy (fork) of the assignment under your own github account\nClick the URL to go the auto-created github repo. This will always be named assignment-name-your-githubid\nClone it to your local computer: git clone REPO-URL You can get the REPO-URL by clicking the green code button on github\nMove into the folder: cd folder-you-cloned\nSetup the Python environment: uv sync && uv run poe setup\nOpen the project in VSCode (or RStudio)\n\n\n\n\nSubmitting an assignment is as easy as pushing your changes to github. We’ll automatically be able to see when you submit, run automatic checks, etc.\n\nCommit your changes locally. Using the VSCode UI or terminal commands git commit -am \"my message\"\nPush your changes to github: git push\n\nThere are no restrictions on how often or the final deadline to git commit and git push your assignments! For any deadlines we announce, you’ll just want to make sure to make the final push you want us to review by the deadline. Later, once we review assignments together in class, you can always add additional commit(s) and push(s) to update your assignments with corrections, notes, etc for updated grading!\n\n\n\nOften we’ll add new files (e.g. solutions) or make corrections to an assignment and we’ll ask you to update your repository after you’ve already run git clone and maybe even git commit and git push. Here’s how you can do that:\n\nOpen the assignment repository on github.com You can either find the original 📚 link OR cd into the folder and run git remote -v to print out the URL\nGo to the “Pull Request”” page\nChoose the PR called “GitHub Classroom: Sync Assignment”\nClick the green “Merge pull request” button near the bottom\nBack on your computer verify you’ve commited any work-in-progress. If you run git status and you don’t see “nothing to commit, working tree clean” you’ll need to run git commit -am \"my message\" first.\nSync the merged PR to your computer: git pull\n\nNow any files you had open in VSCode will automatically refresh to the latest versions and any new files we be available for editing!\n\n\n\n\n\n\nTip\n\n\n\nWe’ll also use the “Pull Requests” tab to create a “Feedback” PR.\nYou don’t need to merge this in. Instead think of it as an on-going discussion between you and your instructors & peers where you reference specific files and lines of your project.",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "\"Pre-flight\" Lab Setup"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/index.html#putting-it-all-together-get-lab-01",
+    "href": "weeks/01/lab/index.html#putting-it-all-together-get-lab-01",
+    "title": "Lab “Pre-flight” Setup",
+    "section": "",
+    "text": "Now that you have the basics configured, let’s try this out to get setup with the first lab:\n\n\n\n\n\n\nCaution📚 Lab 01\n\n\n\nGithub Classroom Assignment\n\n\nOnce you’ve cloned the assignment to your computer you can start going through tutorials in this order:\n\nREADME.md - VSCode introduction and configuration\nindex.qmd - Quarto & Python intro\nnotebooks/python-quickstart.py - Python fundamentals\n\n\n\n\n\n\n\nWarning\n\n\n\nIf the link above does not work for you please send your Your user “handle” on github.com that identifies you when using git commands (local) and interacting with Github.com (remote). E.g. Eshin’s is @ejollygithub-userid to Eshin on Slack so he can add you to the Github classroom!",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "\"Pre-flight\" Lab Setup"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/python-fundamentals.html",
+    "href": "weeks/01/lab/python-fundamentals.html",
+    "title": "Python Core Concepts",
+    "section": "",
+    "text": "This notebook is designed to teach you the essence of Python building upon your understanding of R. We’ll skip some programming basics (see the quickstart in the assignment repo for that) but add references resources to the course website. We’ve structured this notebook to focus on the key bits of Python that might give you trouble coming from R and how to handle them gracefully.",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Python Fundamentals"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/python-fundamentals.html#variables-and-types",
+    "href": "weeks/01/lab/python-fundamentals.html#variables-and-types",
+    "title": "Python Core Concepts",
+    "section": "Variables and Types",
+    "text": "Variables and Types\n\n\nCode\n# We assign variables using `=`\nfirst_name = 'Eshin'\nfirst_name\n\n\n'Eshin'\n\n\n\n\nCode\n# Strings can use single or double quotes\nlast_name = \"Jolly\"\nlast_name\n\n\n'Jolly'\n\n\n\n\nCode\n# Integers\nmy_number = 3\nmy_number\n\n\n3\n\n\n\n\nCode\n# Floats contain decimal points\nmy_decimal = 3.1\nmy_decimal\n\n\n3.1\n\n\nWhat happens if you do this?\n# What happens if you do this?\nmy_variable\n= 3\n\n\n\n\n\n\nImportantSyntaxError\n\n\n\nThe most common error message you’ll encounter early on. It just means you mistyped something and Python doesn’t understand it.",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Python Fundamentals"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/python-fundamentals.html#comparisons",
+    "href": "weeks/01/lab/python-fundamentals.html#comparisons",
+    "title": "Python Core Concepts",
+    "section": "Comparisons",
+    "text": "Comparisons\n\n\nCode\n# We can make comparisons\nmy_decimal &gt; my_number\n\n\nTrue\n\n\n\n\nCode\n# Not equal\nmy_decimal != my_number\n\n\nTrue\n\n\n\n\nCode\n# We can intuitively combine comparisons with `and`\nmy_number &gt; 2 and my_number &lt; 10\n\n\nTrue\n\n\n\n\nCode\n# Using `or`\nmy_number &gt; 0 or my_number &lt; 1000\n\n\nTrue\n\n\n\n\nCode\n# What happens here?\nmy_number &gt; first_name\n\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[9], line 2\n      1 # What happens here?\n----&gt; 2 my_number &gt; first_name\n\nTypeError: '&gt;' not supported between instances of 'int' and 'str'\n\n\n\n\n\n\n\n\n\nImportantTypeError\n\n\n\nAnother common message telling you that you’re not providing the expected input to the operation you’re trying. In this case Python has no way to check a number is greater than a string!",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Python Fundamentals"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/python-fundamentals.html#types-and-functions",
+    "href": "weeks/01/lab/python-fundamentals.html#types-and-functions",
+    "title": "Python Core Concepts",
+    "section": "Types and Functions",
+    "text": "Types and Functions\n\n\nCode\n# We call functions using `function(inputs)`\ntype(first_name)\n\n\nstr\n\n\n\n\nCode\n# the type function tells us what kind of object something is\n# the variable we defined above\ntype(my_number)\n\n\nint\n\n\n\n\nCode\n# Float\ntype(1.2)\n\n\nfloat\n\n\n\n\n\n\n\n\nNoteIntegers vs Floats\n\n\n\nPython like many programming languages distinguishes between numerical values that do or do not require decimal-point precision. Python will always convert to the highest precision it can for you.\n\n\n\n\nCode\n# Integer + Float = Float\ntype(my_number + my_decimal)\n\n\nfloat\n\n\n\n\nCode\n# You can always get help on variables and functions using the `help()` function\n\n# What is print?\nhelp(print)\n\n\nHelp on built-in function print in module builtins:\n\nprint(*args, sep=' ', end='\\n', file=None, flush=False)\n    Prints the values to a stream, or to sys.stdout by default.\n    \n    sep\n      string inserted between values, default a space.\n    end\n      string appended after the last value, default a newline.\n    file\n      a file-like object (stream); defaults to the current sys.stdout.\n    flush\n      whether to forcibly flush the stream.",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Python Fundamentals"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/python-fundamentals.html#lists",
+    "href": "weeks/01/lab/python-fundamentals.html#lists",
+    "title": "Python Core Concepts",
+    "section": "Lists",
+    "text": "Lists\n\n\nCode\n# We can put multiple variables in a list using square brackets `[]`\nmy_list = [first_name, last_name, 'third_name', 'fourth_name']\nmy_list\n\n\n['Eshin', 'Jolly', 'third_name', 'fourth_name']\n\n\n\n\n\n\n\n\nNoteNote: 0-based indexing\n\n\n\nNotice how the variables in the list start at 0? That’s because unlike R, Python counts starting from 0 not from 1! This is usually the first major difference to get used to and applies to all Python libraries and tools. For example, the first row of a dataframe is row 0 not row 1.\n\n\n\n\nCode\n# We can index into the list to get a single item using `[]`\nmy_list[0]\n\n\n'Eshin'\n\n\n\n\nCode\n# 2nd item\nmy_list[1]\n\n\n'Jolly'\n\n\n\n\nCode\n# We can use negative position to index items backwards\n# last item\nmy_list[-1]\n\n\n'fourth_name'\n\n\n\n\nCode\n# 2nd-to-last item\nmy_list[-2]\n\n\n'third_name'\n\n\n\n\nCode\n# What happens if we try this?\nmy_list[4]\n\n\n\n---------------------------------------------------------------------------\nIndexError                                Traceback (most recent call last)\nCell In[20], line 2\n      1 # What happens if we try this?\n----&gt; 2 my_list[4]\n\nIndexError: list index out of range\n\n\n\n\n\n\n\n\n\nImportantIndexError\n\n\n\nOne the most common error messages is just telling you’re trying to retrieve an item in a position that doesn’t exist. In other words the list has too few items and Python doesn’t know what to do.\n\n\n\n\nCode\n# We can use the `len` function to get the size of the list\nlen(my_list)\n\n\n4",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Python Fundamentals"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/python-fundamentals.html#slicing",
+    "href": "weeks/01/lab/python-fundamentals.html#slicing",
+    "title": "Python Core Concepts",
+    "section": "Slicing",
+    "text": "Slicing\n\n\nCode\n# To retrieve multiple items we can use `[start:stop]` to index the list\nmy_list[0:3]\n\n\n['Eshin', 'Jolly', 'third_name']\n\n\n\n\n\n\n\n\nNoteNote: Slicing doesn’t include stop\n\n\n\nBy default Python slices up-to but not-including the stop value. Notice how the 3rd index (\"fourth name\") was not included even though we used 3.\n\n\n\n\nCode\n# Leaving off the `start` or `stop` will get all items from-the-start or until-the-end\n# from-the-start\nmy_list[:3]\n\n\n['Eshin', 'Jolly', 'third_name']\n\n\n\n\nCode\n# until-the-end\nmy_list[1:]\n\n\n['Jolly', 'third_name', 'fourth_name']\n\n\n\n\nCode\n# We can optionally control `step` size using a third value\n# from-the-start -&gt; 3rd index -&gt; by two (every other)\nmy_list[0:3:2]\n\n\n['Eshin', 'third_name']\n\n\n\n\nCode\n# If we use a negative `step` we can slice backwards\n# from-the-start -&gt; until-the-end -&gt; backwards\nmy_list[::-1]\n\n\n['fourth_name', 'third_name', 'Jolly', 'Eshin']\n\n\n\n\n\n\n\n\nTip\n\n\n\nUsing list[::-1] is a very common pattern for quickly reversing a list in Python",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Python Fundamentals"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/python-fundamentals.html#control-flow",
+    "href": "weeks/01/lab/python-fundamentals.html#control-flow",
+    "title": "Python Core Concepts",
+    "section": "Control Flow",
+    "text": "Control Flow\n\n\nCode\n# We use indentation and `:` to create blocks of logic (control flow)\nif my_number &gt; 0:\n    print(\"Greater than 0\")\n\n\nGreater than 0\n\n\n\n\n\n\n\n\nNoteNote: Indentation\n\n\n\nPython is often loved for being very readable in part because it doesn’t use {} to surround code-block like R, Javascript and other languages. However, that means you need to carefully indent or deindent to accomplish the same thing.\n\n\n\n\nCode\n# We can create branches of logic using indentation with `if/else` and `elif`\nif my_number &gt; 0:\n    print(\"Greater than 0\")\nelse:\n    print(\"Less than 0\")\n\n\nGreater than 0\n\n\nWhat happens here?\n# What happens here?\nif my_number &gt; 0:\nprint(\"Greater than 0\")\n\n\n\n\n\n\nImportantIndentationError\n\n\n\nPython will let you know if your spacing is off and where it’s happening. You’ll mostly encounter this when you’re editing code, because VSCode will try to be helpful and automatically indent correctly as you’re writing code.\n\n\n\n\nCode\n# We can keep branching with `elif`\nif my_number &lt; 0:\n    print(\"Less that 0\")\nelif 4 &gt; my_number &gt; 0: # notice how we can express this like in English\n    print(\"Between 4 and 0\")\nelse:\n    print(\"Very large\")\n\n\nBetween 4 and 0",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Python Fundamentals"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/python-fundamentals.html#loops",
+    "href": "weeks/01/lab/python-fundamentals.html#loops",
+    "title": "Python Core Concepts",
+    "section": "Loops",
+    "text": "Loops\n\n\nCode\n# We can loop in the same way using `for`, indentation and `:`\nfor elem in my_list:\n    # Everything indented at this level happens for EACH item\n    print(elem)\n\n\nEshin\nJolly\nthird_name\nfourth_name\n\n\n\n\nCode\n# The name of the looping variable is arbitrary. Using `elem` is just a convention\nfor boogity_bop in my_list:\n    print(boogity_bop)\n\n\nEshin\nJolly\nthird_name\nfourth_name\n\n\n\n\nCode\n# To operate on each item AND its position/index we use the `enumerate()` function\nhelp(enumerate)\n\n\nHelp on class enumerate in module builtins:\n\nclass enumerate(object)\n |  enumerate(iterable, start=0)\n |  \n |  Return an enumerate object.\n |  \n |    iterable\n |      an object supporting iteration\n |  \n |  The enumerate object yields pairs containing a count (from start, which\n |  defaults to zero) and a value yielded by the iterable argument.\n |  \n |  enumerate is useful for obtaining an indexed list:\n |      (0, seq[0]), (1, seq[1]), (2, seq[2]), ...\n |  \n |  Methods defined here:\n |  \n |  __getattribute__(self, name, /)\n |      Return getattr(self, name).\n |  \n |  __iter__(self, /)\n |      Implement iter(self).\n |  \n |  __next__(self, /)\n |      Implement next(self).\n |  \n |  __reduce__(...)\n |      Return state information for pickling.\n |  \n |  ----------------------------------------------------------------------\n |  Class methods defined here:\n |  \n |  __class_getitem__(...)\n |      See PEP 585\n |  \n |  ----------------------------------------------------------------------\n |  Static methods defined here:\n |  \n |  __new__(*args, **kwargs)\n |      Create and return a new object.  See help(type) for accurate signature.\n\n\n\n\n\n\n\n\n\nTipYour Turn\n\n\n\nTry using help() and the examples above to figure out how to use the enumerate() function to print out each item and its position. If the notebook gives you an error about reusing a variable name (e.g. elem) just call your looping variable something else.\n\n\n\n\nCode\n# Your code below\nfor ...\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\n\nCode\nfor idx, item in enumerate(my_list):\n    print(f\"Position {idx}: {item}\")\n\n\nPosition 0: Eshin\nPosition 1: Jolly\nPosition 2: third_name\nPosition 3: fourth_name",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Python Fundamentals"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/python-fundamentals.html#functions",
+    "href": "weeks/01/lab/python-fundamentals.html#functions",
+    "title": "Python Core Concepts",
+    "section": "Functions",
+    "text": "Functions\n\n\n\n\n\n\nNoteCreating functions\n\n\n\nPython makes it easy to write your own functions to create usable blocks of code using the def keyword (not function like in R). Then we just use indentation like before:\ndef myfunction(first_argument, second_argument...):\n  # Everything indented is inside the function\n  print(\"I'm calculating...\")\n  output = first_argument + second_argument\n  # Optionally return something\n  return output\n\n\n\n\nCode\n# Running this code cell defines the function for use anywhere in the notebook\n\ndef myfunction(first_argument, second_argument):\n    \"\"\"This is optional documentation string for function help\"\"\"\n\n    print(\"I'm calculating...\")\n    output = first_argument + second_argument\n    return output\n\n\n\n\nCode\n# Now lets use it like any other function\nmyfunction(1, 2)\n\n\nI'm calculating...\n\n\n3\n\n\n\n\nCode\nmyfunction(4, 5)\n\n\nI'm calculating...\n\n\n9\n\n\n\n\nCode\n# We can even get help on our function\nhelp(myfunction)\n\n\nHelp on function myfunction in module __main__:\n\nmyfunction(first_argument, second_argument)\n    This is optional documentation string for function help",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Python Fundamentals"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/python-fundamentals.html#methods",
+    "href": "weeks/01/lab/python-fundamentals.html#methods",
+    "title": "Python Core Concepts",
+    "section": "Methods",
+    "text": "Methods\n\n\nCode\n# Unlike R sometimes we use \"functions\" attached to objects with the `.` syntax\nfirst_name.upper()\n\n\n'ESHIN'\n\n\n\n\n\n\n\n\nNoteMethods are functions attached to objects called with .\n\n\n\nUnlike R, Python is an object-oriented-language which means functions can be attached to objects.\nWe call these methods but you can intuitively treat them the same.\nIn the example above, Python doesn’t have an upper() function, but strings have a .upper() method. In your head when you see first_name.upper() just think upper(first_name).\nThis allows for method-chaining which is Python’s alternative to R’s %&gt;% syntax.\nIn R we might do: function() %&gt;% function() %&gt;% function()\nIn Python we’ll often do: object.method().method().method() to achieve the same effect.\n\n\n\n\nCode\n# This is a method-chain\nfirst_name.upper().lower()\n\n\n'eshin'\n\n\n\n\nCode\n# We can use the `dir()` function to see all the methods that belong to an object\n# Since our variable is a list this show all list methods\ndir(my_list)\n\n\n['__add__',\n '__class__',\n '__class_getitem__',\n '__contains__',\n '__delattr__',\n '__delitem__',\n '__dir__',\n '__doc__',\n '__eq__',\n '__format__',\n '__ge__',\n '__getattribute__',\n '__getitem__',\n '__getstate__',\n '__gt__',\n '__hash__',\n '__iadd__',\n '__imul__',\n '__init__',\n '__init_subclass__',\n '__iter__',\n '__le__',\n '__len__',\n '__lt__',\n '__mul__',\n '__ne__',\n '__new__',\n '__reduce__',\n '__reduce_ex__',\n '__repr__',\n '__reversed__',\n '__rmul__',\n '__setattr__',\n '__setitem__',\n '__sizeof__',\n '__str__',\n '__subclasshook__',\n 'append',\n 'clear',\n 'copy',\n 'count',\n 'extend',\n 'index',\n 'insert',\n 'pop',\n 'remove',\n 'reverse',\n 'sort']\n\n\n\n\nCode\n# Using the `.append()` method\nmy_list.append(\"another_item\")\n\n\n\n\n\n\n\n\nImportantNot all methods are chainable\n\n\n\nNotice how .append() didn’t return anything? Some methods cannot be chained because they modify the object in-place\nRun the cell below to see how the value of the variable my_list has changed Then run the cell below that to .append() a second time and see what happens\n\n\n\n\nCode\n# my_list was updated in place\nprint(f\"There are {len(my_list)} items:\\n{my_list}\")\n\n\nThere are 5 items:\n['Eshin', 'Jolly', 'third_name', 'fourth_name', 'another_item']\n\n\n\n\nCode\n# Let's append again\nmy_list.append(\"add_another\")\n\n\n\n\nCode\n# Now what does it show?\nprint(f\"There are {len(my_list)} items:\\n{my_list}\")\n\n\nThere are 6 items:\n['Eshin', 'Jolly', 'third_name', 'fourth_name', 'another_item', 'add_another']",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Python Fundamentals"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/python-fundamentals.html#importing-libraries",
+    "href": "weeks/01/lab/python-fundamentals.html#importing-libraries",
+    "title": "Python Core Concepts",
+    "section": "Importing Libraries",
+    "text": "Importing Libraries\n\n\nCode\n# We use the `import` keyword to bring in functionality from other libraries\nimport polars\n\n# Use something from the module with `.`\nmy_empty_dataframe = polars.DataFrame()\nmy_empty_dataframe\n\n\n\nshape: (0, 0)\n\n\n\n\n\n\n\n\n\n\n\n\n\nNoteImporting libraries with import and as\n\n\n\nWhereas in R you might use library(lme4) to import a library and automatically get all it’s functions (e.g. lmer), in Python you have to be more explicit. This is because in Python everything is an object including other libraries, which means you can do accidental things like overwrite a library you imported with a variable:\n# Import the library\nimport mylibrary\n\n# Use it\nmylibrary.myfunction()\n\n# Oops Python will let you do this but DONT\nmylibrary = \"Eshin\"\n\n# This doesn't work anymore!\nmylibrary.myfunction()\n\n\n\n\nCode\n# We use typically using `as` to shorten common library names by convention\nimport polars as pl\n\n# Less typing, fewer mistakes!\nnew_df = pl.DataFrame()\n\n# Show it\nnew_df\n\n\n\nshape: (0, 0)\n\n\n\n\n\n\n\n\n\nCode\n# Or to just import specific functionality\nfrom polars import DataFrame\n\n# Use it\nanother_df = DataFrame()\n\n# Show it\nanother_df\n\n\n\nshape: (0, 0)\n\n\n\n\n\n\n\n\n\nCode\n# Here's a convention Eshin likes, but make sure to never create a variable called `c`\n# (you shouldn't be doing that anyway)\nfrom polars import col as c\n\nhelp(c)\n\n\nHelp on Col in module polars.functions.col:\n\n&lt;Expr ['col(\"__origin__\")']&gt;",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Python Fundamentals"
+    ]
+  },
+  {
+    "objectID": "weeks/01/lab/python-fundamentals.html#pro-tips",
+    "href": "weeks/01/lab/python-fundamentals.html#pro-tips",
+    "title": "Python Core Concepts",
+    "section": "Pro-tips",
+    "text": "Pro-tips\n\nReference help docs often\nChange-and-rerun often\nDon’t reuse variable names (the notebook won’t let you!)",
+    "crumbs": [
+      "Schedule",
+      "Week 1",
+      "Python Fundamentals"
+    ]
+  },
+  {
+    "objectID": "weeks/02/index.html",
+    "href": "weeks/02/index.html",
+    "title": "Week 2",
+    "section": "",
+    "text": "The two cultures of statistics\nEssence of sampling theory\nModel-based thinking",
+    "crumbs": [
+      "Schedule",
+      "Week 2",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "weeks/02/index.html#overview",
+    "href": "weeks/02/index.html#overview",
+    "title": "Week 2",
+    "section": "",
+    "text": "The two cultures of statistics\nEssence of sampling theory\nModel-based thinking",
+    "crumbs": [
+      "Schedule",
+      "Week 2",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "weeks/02/index.html#slides",
+    "href": "weeks/02/index.html#slides",
+    "title": "Week 2",
+    "section": "Slides",
+    "text": "Slides\n\n\n\n\n\n\nTipSlides Mon Jan 12th (coming soon)\n\n\n\n\n\n\n\n\n\n\n\n\nTipSlides Wed Jan 14th (coming soon)",
+    "crumbs": [
+      "Schedule",
+      "Week 2",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "weeks/02/index.html#materials",
+    "href": "weeks/02/index.html#materials",
+    "title": "Week 2",
+    "section": "Materials",
+    "text": "Materials\n\n\n\n\n\n\nCaution📚 Lab 02 - Data visualization & seaborn (plotting) intro (coming soon)",
+    "crumbs": [
+      "Schedule",
+      "Week 2",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "weeks/02/index.html#mentioned-references",
+    "href": "weeks/02/index.html#mentioned-references",
+    "title": "Week 2",
+    "section": "Mentioned References",
+    "text": "Mentioned References\ncoming soon",
+    "crumbs": [
+      "Schedule",
+      "Week 2",
+      "Overview"
+    ]
+  }
+]

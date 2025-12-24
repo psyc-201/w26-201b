@@ -1,0 +1,39 @@
+---
+sidebar: weeks
+title: "Week 2"
+---
+
+## Overview
+
+### Learning Intuitions
+
+- [ ] The two cultures of statistics
+- [ ] Essence of sampling theory
+- [ ] Model-based thinking
+
+## Slides
+
+::: {.callout-tip title="Slides Mon Jan 12th (coming soon)"}
+<!-- ![](slides/01-12.pdf){width=100% height=600} -->
+:::
+
+::: {.callout-tip title="Slides Wed Jan 14th (coming soon)"}
+<!-- ![](slides/01-14.pdf){width=100% height=600} -->
+:::
+
+## Materials
+
+:::{.callout-caution icon=false title="📚 Lab 02 - Data visualization & seaborn (plotting) intro (coming soon)"}
+<!-- [Github Classroom Assignment]() -->
+:::
+
+## Mentioned References
+
+*coming soon*
+<!-- - [Goodfellow: Probability Foundations](/readings.qmd#goodfellow-prob) — Formal probability definitions -->
+
+
+<!-- - [Lab: Sampling, Simulation & EDA](lab.qmd) -->
+<!-- - [Lecture: Model-Based Thinking](lecture.qmd) -->
+<!-- - [Slides (PDF)](/slides/02_what_is_stats.pdf) -->
+

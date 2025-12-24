@@ -1,0 +1,106 @@
+---
+sidebar: weeks
+title: ""
+---
+
+# Statistical Intuitions for Social Scientists {.unnumbered}
+
+**Current version:** Winter 2026  
+**Pre-requisites:** PSYC 201A or instructor approval  
+
+Rapid advances in computing have revolutionized modern statistical practice, offering approaches that transcend traditional training in psychological statistics (Efron et al 2016). And yet at the heart of these developments are just a handful of fundamental ideas (Gelman 2021). This course is designed to help you interactively develop your own statistical intuitions about these ideas using the Python programming language. At the core of the class is a deep understanding of the General-Linear-Model (GLM) and its extensions (e.g. multi-level models), through which you’ll learn how to adopt model-based thinking rather than classic statistical ritualization. We’ll also explore the “Two Cultures” of statistical modeling (explanation vs prediction) (Breiman, 2001), integrating ideas from both to build a robust foundation for you to pursue more advanced topics & coursework (e.g. machine-learning, econometrics).
+
+The “living” open-course materials are available at [https://stat-intuitions.com](https://stat-intuitions.com) and developed with the following goals in mind:  
+
+- Serve as the primary resource for all course related materials (e.g. slides, readings, notebooks, etc)  
+- Be openly accessible to all past, current, future, students and the general public (live lectures & grading currently only available for enrolled students) 
+- Serve as a reference resource for members of the Psych Department at UCSD, continually updated each course year and between course offerings
+
+### Course Goals
+
+- Learn to adopt **model-based-thinking rather** than statistical ritualization
+- Acquire a deep understanding of the **General-Linear-Model** (GLM) and its extensions
+- Develop **statistical & inferential intuitions from first principles** using modern computational approaches (e.g. simulation, resampling, permutation)
+- Develop **cross-disciplinary technical & conceptual skills** that lay the foundation for advanced coursework (e.g. deep-learning, econometrics)
+
+### Instructional Team
+
+**Lecturer:** [Eshin Jolly](https://sciminds.studio)  
+**TA:** [Jane Yang](https://www.vislearnlab.org/people)  
+**Office Hours:** Slack or by appointment
+
+### When and Where
+
+**Communication:** Slack  
+**Location:** Mandler 3545 (Crick Conference Room)  
+**Schedule:** M/T/W 2-3:50pm  
+
+:::{.callout-note}
+The week-by-week schedule is available on the [schedule page](/schedule.qmd)
+:::
+
+## How we'll learn
+
+### Github Classroom
+
+We will be using **Github Classroom** to manage all course materials (labs, HWs, interactive lectures). Each week, we'll update the course website with a new assignment repository link that we'll keep updated that that week's materials. **At the start of class/lab, or when a HW problem-set is made available, you should accept assignments and `git clone` them to your local computer to work interactively**.
+
+When you're finished with an assignment or when you want to get feedback on work-in-progress, **you should `commit` your changes to your local copy of the assignment, and then `push` them to Github**. This will allow your instructors to review your work, provide Feedback, and/or have a private discussion with you while referencing questions/issues in your code directly. At the same time, you'll be building up a set of references (with feedback) that you can always check-out and refresh after this class is over!
+
+### Course Website
+
+When in doubt, this course website should be the **first place** you look for any logistical information! We'll update it regularly and each week with a **new sidebar section.** 
+
+### Slack
+
+All course communications will occur over Slack in `#w26-201b` channel. Keep an eye out here for all announcements, additional links/resources, and logistics updates.
+
+## Mastery based Grading
+
+Weʼre interested in grading you on your ability to achieve the skill
+sets that are taught in this course regardless of your starting experience with Python. For this reason, you can attempt any Github Classroom
+assignment (lab or HW) multiple times, especially if you think you could do better or if you want to incorporate instructor feedback. Practically, this just means making additional code changes and pushing another commit to your assignment. Your instructors will automatically be able to see your code changes and your latest submission. Weʼll grade you based partially on your accurate completion of the assignment, but mostly on your ability to demonstrate:
+- You attempted the assignment in good-faith (lecture, lab, or HW notebooks)
+- You made effort to clearly document and explain your thought process, reasoning, code, and where/why you got stuck if you did
+- What attempts you made to fix issues you ran into, how you approached debugging, and what you learned from the process
+- Why you made a particular choice in your code/analysis, and/or what assumptions you made for a particular statistical inference
+
+| Component | Weight |
+|-----------|--------|
+| Labs & Engagement | 30% |
+| Homeworks | 40% |
+| Final Project | 30% |
+
+
+## Generative AI Course Policy
+
+*Adapted from the UC San Diego & University of Waterloo Academic Integrity Offices*
+
+::: {.callout-warning title="GenAI is known to fabricate sources/facts and can perpetuate biases/misunderstanding"}
+You should also be aware that there are copyright and privacy concerns with these tools. You should exercise caution when using large portions of content from AI sources for these reasons. Also, you are accountable for the content and accuracy of all work you submit in this class, including any supported by generative AI.
+:::
+
+We encourage the use of Generative artificial intelligence (GenAI) tools like [OpenAI’s ChatGPT](https://chatgpt.com/), [Anthropic’s Claude](https://claude.ai/), and/or [Google’s Gemini](https://gemini.google.com/app) to help you master concepts and skills in this class in accordance with the UCSD Academic Integrity Guidelines on GenAI and the following guidelines:
+
+1. If you use GenAI for any submitted coursework, **you must attach a link or text transcript to any assignments you submit.** Many services offer a “share your chat” link-creation function or you can use a Google Chrome Browser Extension like ChatGPT Exporter or Claude Exporter. This will help us provide feedback on using LLM tools effectively (if desired) and make it transparent to us how you are completing assignments, while respecting the standards of academic integrity.
+2. Directly prompting GenAI with course assignments, or copying/pasting GenAI output instead of performing the work yourself, **will not earn you assignment credit and could result in an academic integrity violation.**
+
+Instead you should **aim to master GenAI as tools that supplement your programming and critical thinking skills**, not as a substitute for them. They can be especially helpful for: debugging and troubleshooting unfamiliar code, reviewing Python fundamentals, reasoning about statistical concepts via analogy/example, or simply conversing in natural language about technical concepts.
+
+## Academic Integrity
+
+All students are expected to adhere to standards of academic integrity. Cheating of any kind on any assignment will not be tolerated. It is disrespectful to your peers, the university, and to your instructors. If you are unsure what might constitute a violation of academic integrity, ask your instructors and/or the UCSD website on academic integrity: http://academicintegrity.ucsd.edu. Any evidence of academic misconduct will be reported to the Academic Integrity Office.
+
+## Absence Policy
+
+Family emergencies and illness are excused absences, as per UCSD policy. Please do not come to class if you have active symptoms (instead, please rest!). In general, absences will have a direct impact on your ability to learn the skills presented in this course as well as your participation grade.
+
+That being said, **life happens** and we genuinely care about your well-being. Sometimes you simply can’t be in class or turn in an assignment on time. There may also be times when I'm unable to make it to class for a given reason, and I will ask for your grace and understanding then as well. Please, prioritize your well-being in graduate school and use this class as a way for you to learn skills that will be useful for your career (versus focusing on passing the requirements for a grade).
+
+## OSD Accommodations
+
+Any student with a documented disability will be accommodated according to University policy. For details, please consult the Office of Students with Disabilities (OSD): http://disabilities.ucsd.edu. If you require accommodation for any component of the course, please provide the instructor with documentation from OSD as soon as possible. Please note that accommodations cannot be made retroactively under any circumstances.
+
+---
+
+*This syllabus is subject to change. Check the course website (stat-intuitions.com) for the most up-to-date information.*

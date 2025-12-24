@@ -1,0 +1,55 @@
+---
+sidebar: weeks
+title: "Schedule"
+---
+
+:::{.callout-note}
+We've marked future assignments as TBD to allow us to adjust the pacing as needed.  
+In total, we'll aim to cover in total: **~4-5 HWs** and **~6-7 labs**
+:::
+
+::: {.completed-weeks}
+| Week | Date       | Content                                                            | Assignment Due?                                               |
+|------|------------|--------------------------------------------------------------------|---------------------------------------------------------------|
+| 1    | Mon Jan 5  | Course Intro                                                       | *N/A*                                                         |
+| 1    | Tues Jan 6 | Laptop setup, Github Clasroom workflow, `quarto`, Python notebooks | `push` [lab 01](/weeks/01/#materials) at least once           |
+| 1    | Wed Jan 6  | Python essentials, dataframes, meet `polars`                       | `push` *updated* [lab 01](/weeks/01/#materials) at least once |
+:::
+
+| Week | Date         | Content                                                   | Assignment Due?                  |
+|------|--------------|-----------------------------------------------------------|----------------------------------|
+| 2    | Mon Jan 12   | Two cultures of statistics, sampling theory               | **skim readings for Wed Jan 14** |
+| 2    | Tues Jan 13  | Data visualization, meet `seaborn` & `matplotlib`         | `push` lab 02 at least once      |
+| 2    | Wed Jan 14   | What is a model? Model-based thinking                     | `push` **HW 1 by Tues Jan 20**   |
+| *3*  | *Mon Jan 19* | *No class holiday*                                        | -                                |
+| 3    | Tues Jan 20  | Model comparison, hw 1 review                             | TBD                              |
+| 3    | Wed Jan 21   | GLM I: Foundations & OLS                                  | TBD                              |
+| 4    | Mon Jan 26   | GLM II: predictor types & design-matrices                 | TBD                              |
+| 4    | Tues Jan 27  | Model formulas & designs, meet `bossanova`                | TBD                              |
+| 4    | Wed Jan 28   | GLM III: categorical predictors                           | TBD                              |
+| 5    | Mon Feb 2    | Marginal effects estimation & prediction                  | TBD                              |
+| 5    | Tues Feb 3   | Parameter inference & uncertainty                         | TBD                              |
+| 5    | Wed Feb 4    | Outcomes types: classifications & counts                  | TBD                              |
+| 6    | Mon Feb 9    | Resampling I: bootstrapping & permuting                   | TBD                              |
+| 6    | Tues Feb 10  | Resampling II: power & simulation, meet `numpy` & `scipy` | TBD                              |
+| 6    | Wed Feb 11   | Resampling III: generalization & cross-validation         | TBD                              |
+| *7*  | *Mon Feb 16* | *No class holiday*                                        | -                                |
+| 7    | Tues Feb 17  | LMMs I                                                    | TBD                              |
+| 7    | Wed Feb 18   | LMMs II: Complete/partial/non-pooling                     | TBD                              |
+| 8    | Mon Feb 23   | LMMs III: RFX syntax, "rm-ANOVA"                          | TBD                              |
+| 8    | Tues Feb 24  | Unsupervised Learning I: essence of linear algebra        | TBD                              |
+| 8    | Wed Feb 25   | Unsupervised Learning II: PCA and friends, meet `sklearn` | `push` **Last HW by Tues Mar 3** |
+| 9    | Mon Mar 2    | TBD                                                       | TBD                              |
+| 9    | Tues Mar 3   | TBD, last hw review                                       | TBD                              |
+| 9    | Wed Mar 4    | TBD                                                       | TBD                              |
+| 10   | Mon Mar 9    | *final project time*                                      | -                                |
+| 10   | Tues Mar 10  | *final project time*                                      | -                                |
+| 10   | Wed Mar 11   | Course Wrap-Up                                            | -                                |
+| FW   | Mar 16-18    | *work on final project*                                   | `push` **Final Project by TBD**  |
+: *Tentative schedule*
+
+
+<!-- Planning -->
+<!-- | 9    | Mon Mar 2    | Regularization: ridge, Tikhonov, Bayes                        | TBD                                      |
+| 9    | Tues Mar 3   | Neural Networks: convolution, recursion, & attention          | `push` lab 09 at least once              |
+| 9    | Wed Mar 4    | Timeseries: stationarity & auto-correlation                   | TBD                                      | -->

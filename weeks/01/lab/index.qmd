@@ -1,0 +1,227 @@
+---
+sidebar: weeks
+code-line-numbers: false
+code-overflow: wrap
+---
+
+# Lab "Pre-flight" Setup
+
+:::{.callout-note title="Goals"}
+1. Setup your coding tools
+2. Learn the Github Classroom assignment workflow
+3. Accept & pull Lab 01 to your laptop
+:::
+
+First we'll focus on getting your personal computer ready for the rest of the course. We'll be making using of the macOS {{< glossary terminal >}} for the first section. Don't worry if you've never used it before or have limited experience. We've written the instructions below so you can follow along step-by-step and just copy and paste the commands into your terminal to avoid typos.
+
+:::{.callout-tip}
+You can click and hold any linked words in the text on this page to get a **definition**. All definitions are available on the [terminology page](/guides/terminology.qmd).
+:::
+
+## 1. Computer Setup
+
+First we'll install the {{< glossary homebrew display="Homebrew" >}} package manager for macOS. You can think of this as an "App store" for programs we'll run from our macOS {{< glossary terminal display="Terminal" >}}.
+
+Start by copying and paste the following command into a new macOS {{< glossary terminal display="Terminal" >}}
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+:::{.callout-note}
+The "program" that's running when you first launch your terminal is called a {{< glossary shell >}}. You can think of it like console in RStudio, but for running system commands like `cd`, `pwd`, `ls`, etc.
+:::
+
+After some long messages and setup you should have the `brew` {{< glossary command-line-program display="command-line-program (CLI)">}} available.
+
+:::{.callout-tip}
+You can check by typing `which brew` and seeing if you get any output  
+In general the `which` command will tell you *where* a CLI tool is installed *if* it's installed; no output means it doesn't exist!
+:::
+
+We can use this to `brew install/update/remove/list/search` a variety of tools.   
+
+Let's use it to make sure you have a few other tools setup for the course:
+
+### Quarto
+
+Building off of 201A, you'll use {{< glossary quarto display="Quarto" >}} to author all your assignment submissions (labs, HWs, final project). While you can install it from the official website it's easier to get from `brew`
+
+:::{.callout-note}
+Try `which quarto` first to see if it's already installed  
+If so, feel free to skip the next command
+:::
+
+```sh
+brew install --cask quarto
+```
+
+:::{.callout-note}
+The `--cask` flag to `brew` is sometimes needed when installing specific libraries and applications. This makes it possible to installed full GUI applications in addition to CLI ones (e.g. like VSCode) all from `brew`! But don't worry about remembering whether you need to use it or not. `brew` will helpfully complain if you do.
+:::
+
+### Python
+
+To keep all our work reproducible and easy to collaborate, on we'll use {{< glossary uv >}} to manage our Python {{< glossary environment >}}. This makes it effortless to add/update/remove any additional Python libraries in an isolated, *project-specific* way.  
+
+```sh
+brew install uv
+```
+
+### Version Control
+
+Lastly we'll want to make sure we have the latest tools to interact with {{< glossary git display="Git" >}} and {{< glossary github display="Github" >}}.
+
+```sh
+brew install git gh
+```
+
+First we'll want to make sure the local `git` CLI program knows who we are. Run the following commands in your terminal (you won't see any output):
+
+```sh
+git config --global user.name "your name"
+```
+
+```sh
+git config --global user.email "email associated with your github account"
+```
+
+We'll also set a few other `git` options to avoid future headaches:
+
+```sh
+git config --global pull.rebase true
+```
+
+And 
+
+```sh
+git config --global rebase.autoStash true
+```
+
+Now we can login to {{< glossary github display="Github" >}} *from* our computers to ensure that all our future work is associated with the same account:
+
+```sh
+gh auth login
+```
+
+Then you can answer the prompts with the following answers:
+
+```
+Where do you use GitHub? GitHub.com
+What is your preferred protocol for Git operations on this host? HTTPS
+Authenticate Git with your GitHub credentials? Yes
+How would you like to authenticate GitHub CLI? Login with a web browser
+```
+
+You should see the following prompt with a unique code for you. Make sure to copy it and then press `<enter>`
+
+```
+First copy your one-time code: 4722-D256
+Press Enter to open https://github.com/login/device in your browser...
+```
+
+Copy and paste the code into the browser page and press the green button to approve. When you're all set you'll get the following output with your {{< glossary github-userid display="Github userid" >}}:
+
+```
+✓ Authentication complete.
+- gh config set -h github.com git_protocol https
+✓ Configured git protocol
+✓ Logged in as ejolly
+```
+
+
+You can verify your local setup by running `git config --list` and looking at the output for some sanity checks like your Github username & email:
+
+```
+user.name=ejolly
+user.email=eshin.jolly@gmail.com
+pull.ff=false
+pull.rebase=false
+```
+
+### Coding Editor
+
+Finally let's setup our {{< glossary ide display="integrated-development-environment (IDE)">}}
+
+::: {.panel-tabset}
+#### VSCode (recommended)
+
+If you've already installed {{< glossary vscode display="Visual Studio Code" >}} before you can skip the next command. Otherwise copy and paste the following into your terminal:
+
+```bash
+brew install --cask visual-studio-code
+```
+
+You can then launch VSCode like any other program on your computer. We'll orient to the interface in Lab 01.
+
+#### RStudio (advanced)
+
+While we've mostly built this course around VSCode to provide a consistent experience, you can continue using {{< glossary rstudio display="RStudio" >}} if you're an advanced user. When working with `.qmd` files, you can use familiar buttons to *render* Quarto documents and RStudio will handle running the Python code-chunks for you.
+
+However, you will not be able to run {{< glossary python-notebook display="interactive Python notebooks" >}} (`.py`) files that we provide. Instead, you'll need to use the integrated Terminal (*not the R console!*) to run some commands to launch them (we'll cover this in the Lab 01 assignment later)
+
+:::
+
+
+## 2. Github Classroom Workflows
+
+Now that you're setup with Github let's go over the main workflow you'll regulary use when working on course materials
+
+:::{.callout-tip}
+These steps are also available for quick future reference in the dedicated [github classroom guide](/guides/classroom-guide.qmd) linked in the top navigation bar
+:::
+
+### Getting an Assignment (lab or hw)
+
+1. **Click any course website link that starts with 📚.** 
+2. **Accept the assignment in your browser.** This will create a copy (fork) of the assignment under your own github account
+3. **Click the URL to go the auto-created github repo**. This will always be named `assignment-name-your-githubid`
+4. **Clone it to your local computer:** `git clone REPO-URL` You can get the REPO-URL by clicking the green code button on github
+5. **Move into the folder:** `cd folder-you-cloned`
+6. **Setup the Python environment:** `uv sync && uv run poe setup`
+7. **Open the project in VSCode** (or RStudio)
+
+### Submitting as Assignment 
+
+Submitting an assignment is as easy as pushing your changes to github. We'll automatically be able to see when you submit, run automatic checks, etc.
+
+1. **Commit your changes locally.** Using the VSCode UI or terminal commands `git commit -am "my message"`
+2. **Push your changes to github:** `git push`
+
+There are no restrictions on how often or the final deadline to `git commit` and `git push` your assignments! For any deadlines we announce, you'll just want to make sure to make the final `push` you want us to review by the deadline. Later, once we review assignments together in class, you can always add additional `commit`(s) and `push`(s) to update your assignments with corrections, notes, etc for updated grading!
+
+### Updating an Assignment 
+
+Often we'll add new files (e.g. solutions) or make corrections to an assignment and we'll ask you to update your repository *after* you've already run `git clone` and maybe even `git commit` and `git push`. Here's how you can do that:
+
+1. **Open the assignment repository on github.com** You can either find the original 📚 link OR `cd` into the folder and run `git remote -v` to print out the URL
+2. **Go to the "Pull Request"" page**
+3. **Choose the PR called "GitHub Classroom: Sync Assignment"**
+4. **Click the green "Merge pull request" button near the bottom**
+5. **Back on your computer verify you've commited any work-in-progress**. If you run `git status` and you don't see "*nothing to commit, working tree clean*" you'll need to run `git commit -am "my message"` first. 
+7. **Sync the merged PR to your computer:** `git pull`
+
+Now any files you had open in VSCode will automatically refresh to the latest versions and any new files we be available for editing!
+
+:::{.callout-tip}
+We'll also use the "Pull Requests" tab to create a "Feedback" PR.  
+You don't need to merge this in. Instead think of it as an on-going discussion between you and your instructors & peers where you reference specific files and lines of your project.
+:::
+
+## 3. Putting it all together: Get Lab 01
+
+Now that you have the basics configured, let's try this out to get setup with the first lab:
+
+:::{.callout-caution icon=false title="📚 Lab 01"}
+[Github Classroom Assignment](https://classroom.github.com/a/3ewEBjPw)  
+:::
+
+Once you've cloned the assignment to your computer you can start going through tutorials in this order:
+
+1. `README.md` - VSCode introduction and configuration
+2. `index.qmd` - Quarto & Python intro
+3. `notebooks/python-quickstart.py` - Python fundamentals
+
+:::{.callout-warning}
+If the link above does not work for you please send your {{< glossary github-userid >}} to Eshin on Slack so he can add you to the Github classroom!
+:::
