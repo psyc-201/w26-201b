@@ -46,8 +46,8 @@ website:
       - text: Guides & Resources
         menu:
           - guides/terminology.qmd
-          - guides/formulas.qmd
-          - guides/linear-algebra.qmd
+          # - guides/formulas.qmd
+          # - guides/linear-algebra.qmd
           - guides/git-guide.qmd
           - guides/classroom-guide.qmd
           - guides/python-guide.qmd
