@@ -1,0 +1,4 @@
+---
+sidebar: "weeks"
+title: "Statistical Foundations"
+---

@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Interactive Linear Algebra – PSYC 201B</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-9e05abaf0c4d7ef785fecc2ac9f6505e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.18.4/dist/main.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.18.4/dist/style.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../assets/custom.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../logo25.png" alt="" class="navbar-logo light-content">
+    <img src="../logo25.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">PSYC 201B</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-guides--resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Guides &amp; Resources</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-guides--resources">    
+        <li>
+    <a class="dropdown-item" href="../guides/terminology.html">
+ <span class="dropdown-text">Course Terminology</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guides/formulas.html">
+ <span class="dropdown-text">Statistical Formula Reference</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guides/linear-algebra.html">
+ <span class="dropdown-text">Interactive Linear Algebra</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guides/git-guide.html">
+ <span class="dropdown-text">Git &amp; Github</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guides/classroom-guide.html">
+ <span class="dropdown-text">Github Classroom</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guides/python-guide.html">
+ <span class="dropdown-text">Python</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://psyc201b.github.io/PSYC-201B/"> 
+<span class="menu-text">Previous course versions</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/psyc-201/w26-201b" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Interactive Linear Algebra</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+  <div id="quarto-announcement" data-announcement-id="8b55a9a5cb0be434d01e1e69a761b2d6" class="alert alert-success hidden"><i class="bi bi-megaphone-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>Site Updates:</strong> Lab 01 materials (view only) and updated course Schedule.</p>
+</div></div>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../weeks/01/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../weeks/01/lab/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">“Pre-flight” Lab Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../weeks/01/lab/python-fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python Fundamentals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../weeks/01/lab/polars-crash-course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Polars Crash Course</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../weeks/02/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-big-picture" id="toc-the-big-picture" class="nav-link active" data-scroll-target="#the-big-picture">The Big Picture</a></li>
+  <li><a href="#vectors" id="toc-vectors" class="nav-link" data-scroll-target="#vectors">1. Vectors: Arrows in Space</a>
+  <ul class="collapse">
+  <li><a href="#vector-operations" id="toc-vector-operations" class="nav-link" data-scroll-target="#vector-operations">Vector Operations</a></li>
+  </ul></li>
+  <li><a href="#transformations" id="toc-transformations" class="nav-link" data-scroll-target="#transformations">2. Linear Transformations: Matrices as Functions</a>
+  <ul class="collapse">
+  <li><a href="#try-these-transformations" id="toc-try-these-transformations" class="nav-link" data-scroll-target="#try-these-transformations">Try These Transformations</a></li>
+  </ul></li>
+  <li><a href="#multiplication" id="toc-multiplication" class="nav-link" data-scroll-target="#multiplication">3. Matrix Multiplication: Composing Transformations</a></li>
+  <li><a href="#determinant" id="toc-determinant" class="nav-link" data-scroll-target="#determinant">4. The Determinant: How Area Scales</a></li>
+  <li><a href="#inverse" id="toc-inverse" class="nav-link" data-scroll-target="#inverse">5. The Matrix Inverse: Undoing Transformations</a></li>
+  <li><a href="#design-matrices" id="toc-design-matrices" class="nav-link" data-scroll-target="#design-matrices">6. Design Matrices: Connecting to Statistics</a></li>
+  <li><a href="#gram-matrix" id="toc-gram-matrix" class="nav-link" data-scroll-target="#gram-matrix">7. X’X: The Gram Matrix</a></li>
+  <li><a href="#ols" id="toc-ols" class="nav-link" data-scroll-target="#ols">8. The OLS Formula: Putting It Together</a></li>
+  <li><a href="#summary-the-linear-algebra-of-regression" id="toc-summary-the-linear-algebra-of-regression" class="nav-link" data-scroll-target="#summary-the-linear-algebra-of-regression">Summary: The Linear Algebra of Regression</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Interactive Linear Algebra</h1>
+<p class="subtitle lead">Visualizing the Foundations of Statistical Modeling</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-tip callout-titled" title="How to Use This Guide">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>How to Use This Guide
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This guide teaches linear algebra through <strong>interactive visualizations</strong>. Each concept includes:</p>
+<ul>
+<li><strong>Visual intuition</strong> — see what the math means geometrically</li>
+<li><strong>Interactive widgets</strong> — manipulate matrices and see results in real-time</li>
+<li><strong>Statistical connections</strong> — understand why this matters for regression</li>
+</ul>
+<p><strong>Core insight:</strong> Matrices aren’t just tables of numbers—they’re <em>transformations</em> of space.</p>
+</div>
+</div>
+<hr>
+<section id="the-big-picture" class="level2">
+<h2 class="anchored" data-anchor-id="the-big-picture">The Big Picture</h2>
+<p>In statistics, we constantly work with matrices:</p>
+<ul>
+<li><strong>Design matrices</strong> (<span class="math inline">\(\mathbf{X}\)</span>) encode our predictors</li>
+<li><strong>Coefficient vectors</strong> (<span class="math inline">\(\boldsymbol{\beta}\)</span>) are what we estimate</li>
+<li><strong>The OLS formula</strong> <span class="math inline">\(\hat{\boldsymbol{\beta}} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}\)</span> involves transpose, multiplication, and inversion</li>
+</ul>
+<p>But what do these operations <em>mean</em>? This guide builds your intuition from the ground up.</p>
+<hr>
+</section>
+<section id="vectors" class="level2">
+<h2 class="anchored" data-anchor-id="vectors">1. Vectors: Arrows in Space</h2>
+<p>A <strong>vector</strong> is an arrow with a direction and magnitude. In 2D, we describe it with two numbers: how far right (<span class="math inline">\(x\)</span>) and how far up (<span class="math inline">\(y\)</span>).</p>
+<div id="55d92f9b" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div style="display: flex;flex: 1;flex-direction: row;justify-content: space-between;align-items: normal;flex-wrap: nowrap;gap: 0.5rem"><marimo-ui-element object-id="f657d6a7-2e83-c65c-d614-169a83cab0b5" random-id="f657d6a7-2e83-c65c-d614-169a83cab0b5"><marimo-slider data-initial-value="2" data-label="&quot;<span class=\&quot;markdown prose dark:prose-invert contents\&quot;><span class=\&quot;paragraph\&quot;>x component</span></span>&quot;" data-start="-3" data-stop="3" data-step="0.25" data-steps="[]" data-debounce="false" data-disabled="false" data-orientation="&quot;horizontal&quot;" data-show-value="false" data-include-input="false" data-full-width="false"></marimo-slider></marimo-ui-element><marimo-ui-element object-id="fa020bc7-078a-ab08-4b03-c2afff89213c" random-id="fa020bc7-078a-ab08-4b03-c2afff89213c"><marimo-slider data-initial-value="1" data-label="&quot;<span class=\&quot;markdown prose dark:prose-invert contents\&quot;><span class=\&quot;paragraph\&quot;>y component</span></span>&quot;" data-start="-3" data-stop="3" data-step="0.25" data-steps="[]" data-debounce="false" data-disabled="false" data-orientation="&quot;horizontal&quot;" data-show-value="false" data-include-input="false" data-full-width="false"></marimo-slider></marimo-ui-element></div>
+</div>
+</div>
+<div id="0130a299" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="3">
+<span class="markdown prose dark:prose-invert contents"><h3 id="your-vector" class="anchored">Your Vector</h3>
+<marimo-tex class="arithmatex">||[\mathbf{v} = \begin{bmatrix} 2.0 \\ 1.0 \end{bmatrix}||]</marimo-tex><span class="paragraph"><strong>Magnitude:</strong> <marimo-tex class="arithmatex">||(|\mathbf{v}| = \sqrt{2.0^2 + 1.0^2} = 2.24||)</marimo-tex></span>
+<span class="paragraph"><marimo-mime-renderer data-mime="&quot;application/vnd.vegalite.v5+json&quot;" data-data="&quot;{\n  \&quot;$schema\&quot;: \&quot;https://vega.github.io/schema/vega-lite/v6.1.0.json\&quot;,\n  \&quot;config\&quot;: {\n    \&quot;axis\&quot;: {\n      \&quot;grid\&quot;: false\n    },\n    \&quot;view\&quot;: {\n      \&quot;continuousHeight\&quot;: 300,\n      \&quot;continuousWidth\&quot;: 300\n    }\n  },\n  \&quot;datasets\&quot;: {\n    \&quot;data-3fc9805e2b78680d0ec9417a1c8485f1\&quot;: [\n      {\n        \&quot;text\&quot;: \&quot;v\&quot;,\n        \&quot;x\&quot;: 2.2,\n        \&quot;y\&quot;: 1.2\n      }\n    ],\n    \&quot;data-4b9c290b66d6bdb7224467634052cea3\&quot;: [\n      {\n        \&quot;x\&quot;: 0,\n        \&quot;x2\&quot;: 2.0,\n        \&quot;y\&quot;: 0,\n        \&quot;y2\&quot;: 1.0\n      }\n    ],\n    \&quot;data-77c4d2c778d07ec8a701f02c5cb21cb5\&quot;: [\n      {\n        \&quot;x\&quot;: -4.0,\n        \&quot;x2\&quot;: -4.0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      },\n      {\n        \&quot;x\&quot;: -3.0,\n        \&quot;x2\&quot;: -3.0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      },\n      {\n        \&quot;x\&quot;: -2.0,\n        \&quot;x2\&quot;: -2.0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      },\n      {\n        \&quot;x\&quot;: -1.0,\n        \&quot;x2\&quot;: -1.0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      },\n      {\n        \&quot;x\&quot;: 0.0,\n        \&quot;x2\&quot;: 0.0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      },\n      {\n        \&quot;x\&quot;: 1.0,\n        \&quot;x2\&quot;: 1.0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      },\n      {\n        \&quot;x\&quot;: 2.0,\n        \&quot;x2\&quot;: 2.0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      },\n      {\n        \&quot;x\&quot;: 3.0,\n        \&quot;x2\&quot;: 3.0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      },\n      {\n        \&quot;x\&quot;: 4.0,\n        \&quot;x2\&quot;: 4.0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      }\n    ],\n    \&quot;data-87c0c1686d0b2877e50308d98e1deb6b\&quot;: [\n      {\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: 1.0\n      }\n    ],\n    \&quot;data-b2160d43781cb1887ef411598045b0fb\&quot;: [\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: -4.0,\n        \&quot;y2\&quot;: -4.0\n      },\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: -3.0,\n        \&quot;y2\&quot;: -3.0\n      },\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: -2.0,\n        \&quot;y2\&quot;: -2.0\n      },\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: -1.0,\n        \&quot;y2\&quot;: -1.0\n      },\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: 0.0,\n        \&quot;y2\&quot;: 0.0\n      },\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: 1.0,\n        \&quot;y2\&quot;: 1.0\n      },\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: 2.0,\n        \&quot;y2\&quot;: 2.0\n      },\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: 3.0,\n        \&quot;y2\&quot;: 3.0\n      },\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: 4.0,\n        \&quot;y2\&quot;: 4.0\n      }\n    ],\n    \&quot;data-e046d8d4c8d3bfab26644e794494542b\&quot;: [\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: 0,\n        \&quot;y2\&quot;: 0\n      },\n      {\n        \&quot;x\&quot;: 0,\n        \&quot;x2\&quot;: 0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      }\n    ]\n  },\n  \&quot;height\&quot;: 350,\n  \&quot;layer\&quot;: [\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-b2160d43781cb1887ef411598045b0fb\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;scale\&quot;: {\n            \&quot;domain\&quot;: [\n              -4,\n              4\n            ]\n          },\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;x2\&quot;: {\n          \&quot;field\&quot;: \&quot;x2\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;scale\&quot;: {\n            \&quot;domain\&quot;: [\n              -4,\n              4\n            ]\n          },\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y2\&quot;: {\n          \&quot;field\&quot;: \&quot;y2\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;color\&quot;: \&quot;lightgray\&quot;,\n        \&quot;strokeWidth\&quot;: 0.5,\n        \&quot;type\&quot;: \&quot;rule\&quot;\n      }\n    },\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-77c4d2c778d07ec8a701f02c5cb21cb5\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;x2\&quot;: {\n          \&quot;field\&quot;: \&quot;x2\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y2\&quot;: {\n          \&quot;field\&quot;: \&quot;y2\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;color\&quot;: \&quot;lightgray\&quot;,\n        \&quot;strokeWidth\&quot;: 0.5,\n        \&quot;type\&quot;: \&quot;rule\&quot;\n      }\n    },\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-e046d8d4c8d3bfab26644e794494542b\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;x2\&quot;: {\n          \&quot;field\&quot;: \&quot;x2\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y2\&quot;: {\n          \&quot;field\&quot;: \&quot;y2\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;color\&quot;: \&quot;black\&quot;,\n        \&quot;strokeWidth\&quot;: 1,\n        \&quot;type\&quot;: \&quot;rule\&quot;\n      }\n    },\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-4b9c290b66d6bdb7224467634052cea3\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;x2\&quot;: {\n          \&quot;field\&quot;: \&quot;x2\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y2\&quot;: {\n          \&quot;field\&quot;: \&quot;y2\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;color\&quot;: \&quot;steelblue\&quot;,\n        \&quot;strokeWidth\&quot;: 3,\n        \&quot;type\&quot;: \&quot;rule\&quot;\n      }\n    },\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-87c0c1686d0b2877e50308d98e1deb6b\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;angle\&quot;: 296.565051177078,\n        \&quot;color\&quot;: \&quot;steelblue\&quot;,\n        \&quot;shape\&quot;: \&quot;triangle\&quot;,\n        \&quot;size\&quot;: 150,\n        \&quot;type\&quot;: \&quot;point\&quot;\n      }\n    },\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-3fc9805e2b78680d0ec9417a1c8485f1\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;text\&quot;: {\n          \&quot;field\&quot;: \&quot;text\&quot;,\n          \&quot;type\&quot;: \&quot;nominal\&quot;\n        },\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;color\&quot;: \&quot;steelblue\&quot;,\n        \&quot;fontSize\&quot;: 14,\n        \&quot;fontWeight\&quot;: \&quot;bold\&quot;,\n        \&quot;type\&quot;: \&quot;text\&quot;\n      }\n    }\n  ],\n  \&quot;usermeta\&quot;: {\n    \&quot;embedOptions\&quot;: {}\n  },\n  \&quot;width\&quot;: 350\n}&quot;"></marimo-mime-renderer></span>
+<span class="paragraph"><em>Drag the sliders to move the vector!</em></span></span>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Key Insight">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Key Insight
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A vector is just an arrow from the origin. The numbers tell you where the tip lands.</p>
+<ul>
+<li>First number = horizontal position</li>
+<li>Second number = vertical position</li>
+</ul>
+</div>
+</div>
+<section id="vector-operations" class="level3">
+<h3 class="anchored" data-anchor-id="vector-operations">Vector Operations</h3>
+<p><strong>Scalar multiplication</strong> stretches or shrinks a vector:</p>
+<div id="df3e85ee" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="4">
+<marimo-ui-element object-id="0f2453b1-f539-9775-d9f9-90efdf600fd2" random-id="0f2453b1-f539-9775-d9f9-90efdf600fd2"><marimo-slider data-initial-value="1.5" data-label="&quot;<span class=\&quot;markdown prose dark:prose-invert contents\&quot;><span class=\&quot;paragraph\&quot;>Scalar k</span></span>&quot;" data-start="-2" data-stop="2" data-step="0.25" data-steps="[]" data-debounce="false" data-disabled="false" data-orientation="&quot;horizontal&quot;" data-show-value="false" data-include-input="false" data-full-width="false"></marimo-slider></marimo-ui-element>
+</div>
+</div>
+<div id="87166d84" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="5">
+<span class="markdown prose dark:prose-invert contents"><marimo-tex class="arithmatex">||[k \cdot \mathbf{v} = 1.5 \cdot \begin{bmatrix} 2 \\ 1 \end{bmatrix} = \begin{bmatrix} 3.0 \\ 1.5 \end{bmatrix}||]</marimo-tex><span class="paragraph"><marimo-mime-renderer data-mime="&quot;application/vnd.vegalite.v5+json&quot;" data-data="&quot;{\n  \&quot;$schema\&quot;: \&quot;https://vega.github.io/schema/vega-lite/v6.1.0.json\&quot;,\n  \&quot;config\&quot;: {\n    \&quot;axis\&quot;: {\n      \&quot;grid\&quot;: false\n    },\n    \&quot;view\&quot;: {\n      \&quot;continuousHeight\&quot;: 300,\n      \&quot;continuousWidth\&quot;: 300\n    }\n  },\n  \&quot;datasets\&quot;: {\n    \&quot;data-3a85534653bf38d4cf6ef1091cebb11b\&quot;: [\n      {\n        \&quot;text\&quot;: \&quot;kv\&quot;,\n        \&quot;x\&quot;: 3.2,\n        \&quot;y\&quot;: 1.7\n      }\n    ],\n    \&quot;data-3fc9805e2b78680d0ec9417a1c8485f1\&quot;: [\n      {\n        \&quot;text\&quot;: \&quot;v\&quot;,\n        \&quot;x\&quot;: 2.2,\n        \&quot;y\&quot;: 1.2\n      }\n    ],\n    \&quot;data-77c4d2c778d07ec8a701f02c5cb21cb5\&quot;: [\n      {\n        \&quot;x\&quot;: -4.0,\n        \&quot;x2\&quot;: -4.0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      },\n      {\n        \&quot;x\&quot;: -3.0,\n        \&quot;x2\&quot;: -3.0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      },\n      {\n        \&quot;x\&quot;: -2.0,\n        \&quot;x2\&quot;: -2.0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      },\n      {\n        \&quot;x\&quot;: -1.0,\n        \&quot;x2\&quot;: -1.0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      },\n      {\n        \&quot;x\&quot;: 0.0,\n        \&quot;x2\&quot;: 0.0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      },\n      {\n        \&quot;x\&quot;: 1.0,\n        \&quot;x2\&quot;: 1.0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      },\n      {\n        \&quot;x\&quot;: 2.0,\n        \&quot;x2\&quot;: 2.0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      },\n      {\n        \&quot;x\&quot;: 3.0,\n        \&quot;x2\&quot;: 3.0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      },\n      {\n        \&quot;x\&quot;: 4.0,\n        \&quot;x2\&quot;: 4.0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      }\n    ],\n    \&quot;data-78e91380e7805bd5d666e6afd227d085\&quot;: [\n      {\n        \&quot;x\&quot;: 0,\n        \&quot;x2\&quot;: 3.0,\n        \&quot;y\&quot;: 0,\n        \&quot;y2\&quot;: 1.5\n      }\n    ],\n    \&quot;data-b2160d43781cb1887ef411598045b0fb\&quot;: [\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: -4.0,\n        \&quot;y2\&quot;: -4.0\n      },\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: -3.0,\n        \&quot;y2\&quot;: -3.0\n      },\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: -2.0,\n        \&quot;y2\&quot;: -2.0\n      },\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: -1.0,\n        \&quot;y2\&quot;: -1.0\n      },\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: 0.0,\n        \&quot;y2\&quot;: 0.0\n      },\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: 1.0,\n        \&quot;y2\&quot;: 1.0\n      },\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: 2.0,\n        \&quot;y2\&quot;: 2.0\n      },\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: 3.0,\n        \&quot;y2\&quot;: 3.0\n      },\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: 4.0,\n        \&quot;y2\&quot;: 4.0\n      }\n    ],\n    \&quot;data-e046d8d4c8d3bfab26644e794494542b\&quot;: [\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: 0,\n        \&quot;y2\&quot;: 0\n      },\n      {\n        \&quot;x\&quot;: 0,\n        \&quot;x2\&quot;: 0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      }\n    ],\n    \&quot;data-f6d43b6ddcfa2f1cdbca57c80bae7a47\&quot;: [\n      {\n        \&quot;x\&quot;: 0,\n        \&quot;x2\&quot;: 2,\n        \&quot;y\&quot;: 0,\n        \&quot;y2\&quot;: 1\n      }\n    ]\n  },\n  \&quot;height\&quot;: 350,\n  \&quot;layer\&quot;: [\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-b2160d43781cb1887ef411598045b0fb\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;scale\&quot;: {\n            \&quot;domain\&quot;: [\n              -4,\n              4\n            ]\n          },\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;x2\&quot;: {\n          \&quot;field\&quot;: \&quot;x2\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;scale\&quot;: {\n            \&quot;domain\&quot;: [\n              -4,\n              4\n            ]\n          },\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y2\&quot;: {\n          \&quot;field\&quot;: \&quot;y2\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;color\&quot;: \&quot;lightgray\&quot;,\n        \&quot;strokeWidth\&quot;: 0.5,\n        \&quot;type\&quot;: \&quot;rule\&quot;\n      }\n    },\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-77c4d2c778d07ec8a701f02c5cb21cb5\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;x2\&quot;: {\n          \&quot;field\&quot;: \&quot;x2\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y2\&quot;: {\n          \&quot;field\&quot;: \&quot;y2\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;color\&quot;: \&quot;lightgray\&quot;,\n        \&quot;strokeWidth\&quot;: 0.5,\n        \&quot;type\&quot;: \&quot;rule\&quot;\n      }\n    },\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-e046d8d4c8d3bfab26644e794494542b\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;x2\&quot;: {\n          \&quot;field\&quot;: \&quot;x2\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y2\&quot;: {\n          \&quot;field\&quot;: \&quot;y2\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;color\&quot;: \&quot;black\&quot;,\n        \&quot;strokeWidth\&quot;: 1,\n        \&quot;type\&quot;: \&quot;rule\&quot;\n      }\n    },\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-f6d43b6ddcfa2f1cdbca57c80bae7a47\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;x2\&quot;: {\n          \&quot;field\&quot;: \&quot;x2\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y2\&quot;: {\n          \&quot;field\&quot;: \&quot;y2\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;color\&quot;: \&quot;steelblue\&quot;,\n        \&quot;strokeWidth\&quot;: 2.5,\n        \&quot;type\&quot;: \&quot;rule\&quot;\n      }\n    },\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-3fc9805e2b78680d0ec9417a1c8485f1\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;text\&quot;: {\n          \&quot;field\&quot;: \&quot;text\&quot;,\n          \&quot;type\&quot;: \&quot;nominal\&quot;\n        },\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;color\&quot;: \&quot;steelblue\&quot;,\n        \&quot;fontSize\&quot;: 14,\n        \&quot;fontWeight\&quot;: \&quot;bold\&quot;,\n        \&quot;type\&quot;: \&quot;text\&quot;\n      }\n    },\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-78e91380e7805bd5d666e6afd227d085\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;x2\&quot;: {\n          \&quot;field\&quot;: \&quot;x2\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y2\&quot;: {\n          \&quot;field\&quot;: \&quot;y2\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;color\&quot;: \&quot;coral\&quot;,\n        \&quot;strokeWidth\&quot;: 2.5,\n        \&quot;type\&quot;: \&quot;rule\&quot;\n      }\n    },\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-3a85534653bf38d4cf6ef1091cebb11b\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;text\&quot;: {\n          \&quot;field\&quot;: \&quot;text\&quot;,\n          \&quot;type\&quot;: \&quot;nominal\&quot;\n        },\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;color\&quot;: \&quot;coral\&quot;,\n        \&quot;fontSize\&quot;: 14,\n        \&quot;fontWeight\&quot;: \&quot;bold\&quot;,\n        \&quot;type\&quot;: \&quot;text\&quot;\n      }\n    }\n  ],\n  \&quot;usermeta\&quot;: {\n    \&quot;embedOptions\&quot;: {}\n  },\n  \&quot;width\&quot;: 350\n}&quot;"></marimo-mime-renderer></span>
+<ul>
+<li><marimo-tex class="arithmatex">||(k &gt; 1||)</marimo-tex>: vector stretches</li>
+<li><marimo-tex class="arithmatex">||(0 &lt; k &lt; 1||)</marimo-tex>: vector shrinks</li>
+<li><marimo-tex class="arithmatex">||(k &lt; 0||)</marimo-tex>: vector flips direction</li>
+</ul></span>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="transformations" class="level2">
+<h2 class="anchored" data-anchor-id="transformations">2. Linear Transformations: Matrices as Functions</h2>
+<p>Here’s the key insight: <strong>a matrix is a transformation of space</strong>.</p>
+<p>When you multiply a vector by a matrix, you’re transforming that vector—stretching, rotating, shearing, or reflecting it.</p>
+<div id="465351d8" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="7">
+<span class="markdown prose dark:prose-invert contents"><h3 id="edit-the-transformation-matrix" class="anchored">Edit the Transformation Matrix</h3>
+<span class="paragraph"><marimo-ui-element object-id="544070c6-5b7d-379a-6321-63838dd6002c" random-id="544070c6-5b7d-379a-6321-63838dd6002c"><marimo-anywidget data-initial-value="{&quot;state&quot;:{&quot;col_names&quot;:[],&quot;cols&quot;:2,&quot;digits&quot;:1,&quot;flexible_cols&quot;:false,&quot;matrix&quot;:[[1.0,0.0],[0.0,1.0]],&quot;max_value&quot;:100.0,&quot;min_value&quot;:-100.0,&quot;mirror&quot;:false,&quot;row_names&quot;:[],&quot;rows&quot;:2,&quot;static&quot;:false,&quot;step&quot;:0.1},&quot;bufferPaths&quot;:[],&quot;buffers&quot;:[]}" data-label="null" data-js-url="&quot;data:text/javascript;base64,ZnVuY3Rpb24gcmVuZGVyKHttb2RlbCwgZWx9KXsKICAgIGNvbnN0IGNvbmZpZyA9IHsKICAgICAgICByb3dzOiBtb2RlbC5nZXQoInJvd3MiKSwKICAgICAgICBjb2xzOiBtb2RlbC5nZXQoImNvbHMiKSwKICAgICAgICBtaW5WYWx1ZTogbW9kZWwuZ2V0KCJtaW5fdmFsdWUiKSwKICAgICAgICBtYXhWYWx1ZTogbW9kZWwuZ2V0KCJtYXhfdmFsdWUiKSwKICAgICAgICBpc01pcnJvcmVkOiBtb2RlbC5nZXQoIm1pcnJvciIpLAogICAgICAgIHN0ZXBTaXplOiBtb2RlbC5nZXQoInN0ZXAiKSwKICAgICAgICBkaWdpdHM6IG1vZGVsLmdldCgiZGlnaXRzIiksCiAgICAgICAgcGl4ZWxzUGVyU3RlcDogMiwKICAgICAgICByb3dOYW1lczogbW9kZWwuZ2V0KCJyb3dfbmFtZXMiKSwKICAgICAgICBjb2xOYW1lczogbW9kZWwuZ2V0KCJjb2xfbmFtZXMiKSwKICAgICAgICBpc1N0YXRpYzogbW9kZWwuZ2V0KCJzdGF0aWMiKSwKICAgICAgICBmbGV4aWJsZUNvbHVtbnM6IG1vZGVsLmdldCgiZmxleGlibGVfY29scyIpCiAgICB9OwogICAgCiAgICBsZXQgbWF0cml4ID0gSlNPTi5wYXJzZShKU09OLnN0cmluZ2lmeShtb2RlbC5nZXQoIm1hdHJpeCIpKSk7IC8vIERlZXAgY29weQoKICAgIGNvbnN0IHdyYXBwZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTsKICAgIHdyYXBwZXIuY2xhc3NMaXN0LmFkZCgibWF0cml4LXdyYXBwZXIiKTsKICAgIGVsLmFwcGVuZENoaWxkKHdyYXBwZXIpOwoKICAgIGZ1bmN0aW9uIHJlbmRlck1hdHJpeCgpIHsKICAgICAgICB3cmFwcGVyLmlubmVySFRNTCA9ICcnOwogICAgICAgIAogICAgICAgIC8vIENyZWF0ZSBtYWluIGdyaWQgY29udGFpbmVyCiAgICAgICAgY29uc3QgZ3JpZENvbnRhaW5lciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgIGdyaWRDb250YWluZXIuY2xhc3NOYW1lID0gJ21hdHJpeC1ncmlkJzsKICAgICAgICBpZiAoY29uZmlnLmZsZXhpYmxlQ29sdW1ucykgewogICAgICAgICAgICBncmlkQ29udGFpbmVyLmNsYXNzTGlzdC5hZGQoJ2ZsZXhpYmxlLWNvbHVtbnMnKTsKICAgICAgICB9CiAgICAgICAgCiAgICAgICAgLy8gRmlyc3QgY29sdW1uIGZvciByb3cgbGFiZWxzIChpZiB0aGV5IGV4aXN0KQogICAgICAgIGlmIChjb25maWcucm93TmFtZXMubGVuZ3RoID4gMCkgewogICAgICAgICAgICBjb25zdCByb3dMYWJlbENvbHVtbiA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgICAgICByb3dMYWJlbENvbHVtbi5jbGFzc05hbWUgPSAnbWF0cml4LWNvbHVtbiBtYXRyaXgtbGFiZWwtY29sdW1uJzsKICAgICAgICAgICAgCiAgICAgICAgICAgIC8vIEVtcHR5IGNvcm5lciBjZWxsIGlmIHdlIGhhdmUgY29sdW1uIG5hbWVzCiAgICAgICAgICAgIGlmIChjb25maWcuY29sTmFtZXMubGVuZ3RoID4gMCkgewogICAgICAgICAgICAgICAgY29uc3QgY29ybmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7CiAgICAgICAgICAgICAgICBjb3JuZXIuY2xhc3NOYW1lID0gJ21hdHJpeC1jZWxsIG1hdHJpeC1jb3JuZXItY2VsbCc7CiAgICAgICAgICAgICAgICByb3dMYWJlbENvbHVtbi5hcHBlbmRDaGlsZChjb3JuZXIpOwogICAgICAgICAgICB9CiAgICAgICAgICAgIAogICAgICAgICAgICAvLyBSb3cgbGFiZWxzCiAgICAgICAgICAgIGNvbmZpZy5yb3dOYW1lcy5mb3JFYWNoKG5hbWUgPT4gewogICAgICAgICAgICAgICAgY29uc3QgY2VsbCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgICAgICAgICAgY2VsbC5jbGFzc05hbWUgPSAnbWF0cml4LWNlbGwgbWF0cml4LXJvdy1sYWJlbCc7CiAgICAgICAgICAgICAgICBjZWxsLnRleHRDb250ZW50ID0gbmFtZTsKICAgICAgICAgICAgICAgIHJvd0xhYmVsQ29sdW1uLmFwcGVuZENoaWxkKGNlbGwpOwogICAgICAgICAgICB9KTsKICAgICAgICAgICAgCiAgICAgICAgICAgIGdyaWRDb250YWluZXIuYXBwZW5kQ2hpbGQocm93TGFiZWxDb2x1bW4pOwogICAgICAgIH0KICAgICAgICAKICAgICAgICAvLyBDcmVhdGUgbWF0cml4IGNvbnRhaW5lciB0aGF0IHdpbGwgaG9sZCBhbGwgZGF0YSBjb2x1bW5zCiAgICAgICAgY29uc3QgbWF0cml4V3JhcHBlciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgIG1hdHJpeFdyYXBwZXIuY2xhc3NOYW1lID0gJ21hdHJpeC1kYXRhLXdyYXBwZXInOwogICAgICAgIAogICAgICAgIC8vIENyZWF0ZSBjb2x1bW5zIGZvciBlYWNoIG1hdHJpeCBjb2x1bW4KICAgICAgICBmb3IgKGxldCBjb2xJbmRleCA9IDA7IGNvbEluZGV4IDwgY29uZmlnLmNvbHM7IGNvbEluZGV4KyspIHsKICAgICAgICAgICAgY29uc3QgY29sdW1uID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7CiAgICAgICAgICAgIGNvbHVtbi5jbGFzc05hbWUgPSAnbWF0cml4LWNvbHVtbiBtYXRyaXgtZGF0YS1jb2x1bW4nOwogICAgICAgICAgICAKICAgICAgICAgICAgLy8gQ29sdW1uIGhlYWRlciBpZiBleGlzdHMKICAgICAgICAgICAgaWYgKGNvbmZpZy5jb2xOYW1lcy5sZW5ndGggPiAwKSB7CiAgICAgICAgICAgICAgICBjb25zdCBoZWFkZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTsKICAgICAgICAgICAgICAgIGhlYWRlci5jbGFzc05hbWUgPSAnbWF0cml4LWNlbGwgbWF0cml4LWNvbC1sYWJlbCc7CiAgICAgICAgICAgICAgICBoZWFkZXIudGV4dENvbnRlbnQgPSBjb25maWcuY29sTmFtZXNbY29sSW5kZXhdIHx8ICcnOwogICAgICAgICAgICAgICAgY29sdW1uLmFwcGVuZENoaWxkKGhlYWRlcik7CiAgICAgICAgICAgIH0KICAgICAgICAgICAgCiAgICAgICAgICAgIC8vIE1hdHJpeCB2YWx1ZXMKICAgICAgICAgICAgbWF0cml4LmZvckVhY2goKHJvdywgcm93SW5kZXgpID0+IHsKICAgICAgICAgICAgICAgIGNvbnN0IGNlbGwgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTsKICAgICAgICAgICAgICAgIGNlbGwuY2xhc3NOYW1lID0gJ21hdHJpeC1jZWxsIG1hdHJpeC1lbGVtZW50JzsKICAgICAgICAgICAgICAgIGlmIChjb25maWcuaXNTdGF0aWMpIHsKICAgICAgICAgICAgICAgICAgICBjZWxsLmNsYXNzTGlzdC5hZGQoJ21hdHJpeC1lbGVtZW50LXN0YXRpYycpOwogICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgY2VsbC50ZXh0Q29udGVudCA9IHJvd1tjb2xJbmRleF0udG9GaXhlZChjb25maWcuZGlnaXRzKTsKICAgICAgICAgICAgICAgIGNlbGwuZGF0YXNldC5yb3cgPSByb3dJbmRleDsKICAgICAgICAgICAgICAgIGNlbGwuZGF0YXNldC5jb2wgPSBjb2xJbmRleDsKICAgICAgICAgICAgICAgIGlmICghY29uZmlnLmlzU3RhdGljKSB7CiAgICAgICAgICAgICAgICAgICAgY2VsbC5hZGRFdmVudExpc3RlbmVyKCdtb3VzZWRvd24nLCBzdGFydERyYWdnaW5nKTsKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIGNvbHVtbi5hcHBlbmRDaGlsZChjZWxsKTsKICAgICAgICAgICAgfSk7CiAgICAgICAgICAgIAogICAgICAgICAgICBtYXRyaXhXcmFwcGVyLmFwcGVuZENoaWxkKGNvbHVtbik7CiAgICAgICAgfQogICAgICAgIAogICAgICAgIGdyaWRDb250YWluZXIuYXBwZW5kQ2hpbGQobWF0cml4V3JhcHBlcik7CiAgICAgICAgd3JhcHBlci5hcHBlbmRDaGlsZChncmlkQ29udGFpbmVyKTsKCiAgICAgICAgdXBkYXRlTW9kZWwoKTsKICAgIH07CgogICAgZnVuY3Rpb24gdXBkYXRlTW9kZWwoKSB7CiAgICAgICAgbW9kZWwuc2V0KCJtYXRyaXgiLCBKU09OLnBhcnNlKEpTT04uc3RyaW5naWZ5KG1hdHJpeCkpKTsgLy8gRGVlcCBjb3B5CiAgICAgICAgbW9kZWwuc2F2ZV9jaGFuZ2VzKCk7CiAgICB9OwoKICAgIGxldCB1cGRhdGVUaW1lb3V0OwogICAgZnVuY3Rpb24gZGVib3VuY2VkVXBkYXRlTW9kZWwoKSB7CiAgICAgICAgY2xlYXJUaW1lb3V0KHVwZGF0ZVRpbWVvdXQpOwogICAgICAgIHVwZGF0ZVRpbWVvdXQgPSBzZXRUaW1lb3V0KHVwZGF0ZU1vZGVsLCAxMDApOyAvLyBEZWJvdW5jZSBmb3IgMTAwbXMKICAgIH07CgogICAgZnVuY3Rpb24gc3RhcnREcmFnZ2luZyhlKSB7CiAgICAgICAgZS5wcmV2ZW50RGVmYXVsdCgpOwogICAgICAgIGNvbnN0IGVsZW1lbnQgPSBlLnRhcmdldDsKICAgICAgICBjb25zdCBzdGFydFggPSBlLmNsaWVudFg7CiAgICAgICAgY29uc3Qgc3RhcnRWYWx1ZSA9IHBhcnNlRmxvYXQoZWxlbWVudC50ZXh0Q29udGVudCk7CiAgICAgICAgY29uc3Qgcm93ID0gcGFyc2VJbnQoZWxlbWVudC5kYXRhc2V0LnJvdyk7CiAgICAgICAgY29uc3QgY29sID0gcGFyc2VJbnQoZWxlbWVudC5kYXRhc2V0LmNvbCk7CgogICAgICAgIGZ1bmN0aW9uIG9uTW91c2VNb3ZlKGUpIHsKICAgICAgICAgICAgY29uc3QgZGVsdGFYID0gZS5jbGllbnRYIC0gc3RhcnRYOwogICAgICAgICAgICBjb25zdCBzdGVwcyA9IE1hdGguZmxvb3IoZGVsdGFYIC8gY29uZmlnLnBpeGVsc1BlclN0ZXApOwogICAgICAgICAgICBjb25zdCBuZXdWYWx1ZSA9IE1hdGgubWF4KGNvbmZpZy5taW5WYWx1ZSwgTWF0aC5taW4oY29uZmlnLm1heFZhbHVlLCBzdGFydFZhbHVlICsgc3RlcHMgKiBjb25maWcuc3RlcFNpemUpKTsKICAgICAgICAgICAgdXBkYXRlTWF0cml4VmFsdWUocm93LCBjb2wsIG5ld1ZhbHVlKTsKICAgICAgICAgICAgcmVuZGVyTWF0cml4KCk7CiAgICAgICAgICAgIGRlYm91bmNlZFVwZGF0ZU1vZGVsKCk7CiAgICAgICAgfQoKICAgICAgICBmdW5jdGlvbiBvbk1vdXNlVXAoKSB7CiAgICAgICAgICAgIGRvY3VtZW50LnJlbW92ZUV2ZW50TGlzdGVuZXIoJ21vdXNlbW92ZScsIG9uTW91c2VNb3ZlKTsKICAgICAgICAgICAgZG9jdW1lbnQucmVtb3ZlRXZlbnRMaXN0ZW5lcignbW91c2V1cCcsIG9uTW91c2VVcCk7CiAgICAgICAgICAgIHVwZGF0ZU1vZGVsKCk7IC8vIEVuc3VyZSBmaW5hbCBzdGF0ZSBpcyB1cGRhdGVkCiAgICAgICAgfQoKICAgICAgICBkb2N1bWVudC5hZGRFdmVudExpc3RlbmVyKCdtb3VzZW1vdmUnLCBvbk1vdXNlTW92ZSk7CiAgICAgICAgZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignbW91c2V1cCcsIG9uTW91c2VVcCk7CiAgICB9OwoKICAgIGZ1bmN0aW9uIHVwZGF0ZU1hdHJpeFZhbHVlKHJvdywgY29sLCB2YWx1ZSkgewogICAgICAgIG1hdHJpeFtyb3ddW2NvbF0gPSBwYXJzZUZsb2F0KHZhbHVlLnRvRml4ZWQoY29uZmlnLmRpZ2l0cykpOwogICAgICAgIGlmIChjb25maWcuaXNNaXJyb3JlZCAmJiAoY29sIDwgY29uZmlnLnJvd3MpICYmIChyb3cgPCBjb25maWcuY29scykpIHsKICAgICAgICAgICAgbWF0cml4W2NvbF1bcm93XSA9IHBhcnNlRmxvYXQodmFsdWUudG9GaXhlZChjb25maWcuZGlnaXRzKSk7CiAgICAgICAgfQogICAgfTsKCiAgICByZW5kZXJNYXRyaXgoKTsKfQoKZXhwb3J0IGRlZmF1bHQgeyByZW5kZXIgfTs=&quot;" data-js-hash="&quot;c0a0ef6530732d033b6cf1ebf099626d&quot;" data-css="&quot;.matrix {\n    display: inline-block;\n    vertical-align: middle;\n    font-size: 18px;\n    line-height: 1;\n    white-space: nowrap;\n    padding: 10px;\n    position: relative;\n    user-select: none;\n}\n\n.matrix:before,\n.matrix:after {\n    content: \&quot;\&quot;;\n    position: absolute;\n    top: 0;\n    bottom: 0;\n    width: 2px;\n    background-color: var(--matrix-bracket, #000000);\n}\n\n.matrix:before {\n    left: 0;\n}\n\n.matrix:after {\n    right: 0;\n}\n\n.matrix-row {\n    display: flex;\n    justify-content: flex-start;\n}\n\n.matrix-wrapper {\n    display: inline-block;\n    font-family: monospace;\n    font-size: 14px;\n    color-scheme: light dark;\n    --matrix-text: #111827;\n    --matrix-muted: #333333;\n    --matrix-accent: #0066cc;\n    --matrix-static: #666666;\n    --matrix-bracket: rgba(0, 0, 0, 0.85);\n}\n\n.dark .matrix-wrapper,\n.dark-theme .matrix-wrapper,\n[data-theme=\&quot;dark\&quot;] .matrix-wrapper {\n    --matrix-text: #f3f4f6;\n    --matrix-muted: #c7d2fe;\n    --matrix-accent: #7dd3fc;\n    --matrix-static: #e2e8f0;\n    --matrix-bracket: rgba(148, 163, 184, 0.85);\n}\n\n.matrix-grid {\n    display: flex;\n    align-items: flex-start;\n    color: inherit;\n}\n\n.matrix-column {\n    display: flex;\n    flex-direction: column;\n    color: inherit;\n}\n\n.matrix-label-column {\n    margin-right: 5px;\n}\n\n.matrix-data-wrapper {\n    display: flex;\n    position: relative;\n    padding: 0 15px;\n}\n\n.matrix-data-wrapper::before,\n.matrix-data-wrapper::after {\n    content: '';\n    position: absolute;\n    width: 10px;\n    height: 100%;\n    pointer-events: none;\n}\n\n.matrix-data-wrapper::before {\n    left: 3px;\n    border-left: 2px solid var(--matrix-bracket, black);\n    border-top: 2px solid var(--matrix-bracket, black);\n    border-bottom: 2px solid var(--matrix-bracket, black);\n}\n\n.matrix-data-wrapper::after {\n    right: 3px;\n    border-right: 2px solid var(--matrix-bracket, black);\n    border-top: 2px solid var(--matrix-bracket, black);\n    border-bottom: 2px solid var(--matrix-bracket, black);\n}\n\n.matrix-data-column {\n    margin: 0;\n}\n\n.matrix-cell {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    height: 2em;\n    box-sizing: border-box;\n    color: inherit;\n}\n\n.matrix-element {\n    width: 3em;\n    height: 1.5em;\n    text-align: center;\n    margin: 0.2em;\n    cursor: ew-resize;\n    color: var(--matrix-accent, #0066cc);\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.matrix-element::selection {\n    background-color: transparent;\n}\n\n.matrix-element-static {\n    cursor: default;\n    color: var(--matrix-static, #666666);\n}\n\n.matrix-row-label {\n    width: auto;\n    min-width: 5em;\n    justify-content: flex-end;\n    padding-right: 0.5em;\n    font-weight: bold;\n    color: var(--matrix-muted, #333333);\n    white-space: nowrap;\n}\n\n.matrix-col-label {\n    font-weight: bold;\n    color: var(--matrix-muted, #333333);\n    margin-bottom: 5px;\n    width: 3.6em;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n}\n\n.matrix-grid.flexible-columns .matrix-element {\n    width: auto;\n    min-width: 3em;\n    padding: 0 0.5em;\n}\n\n.matrix-grid.flexible-columns .matrix-col-label {\n    width: auto;\n    min-width: 3.6em;\n    padding: 0 0.5em;\n}\n\n.matrix-grid.flexible-columns .matrix-data-column {\n    flex-shrink: 0;\n}\n\n.matrix-corner-cell {\n    visibility: hidden;\n    height: 2em;\n    margin-bottom: 5px;\n}\n\n.matrix-grid:has(.matrix-col-label) .matrix-data-wrapper::before,\n.matrix-grid:has(.matrix-col-label) .matrix-data-wrapper::after {\n    top: calc(2em + 5px);\n    height: calc(100% - 2em - 5px);\n}\n\n.matrix-grid:not(:has(.matrix-col-label)) .matrix-data-wrapper::before,\n.matrix-grid:not(:has(.matrix-col-label)) .matrix-data-wrapper::after {\n    top: 0;\n    height: 100%;\n}\n&quot;"></marimo-anywidget></marimo-ui-element></span>
+<span class="paragraph"><strong>What the columns mean:</strong></span>
+<ul>
+<li>Column 1: where <marimo-tex class="arithmatex">||(\hat{i} = (1, 0)||)</marimo-tex> lands → <marimo-tex class="arithmatex">||((1.0, 0.0)||)</marimo-tex></li>
+<li>Column 2: where <marimo-tex class="arithmatex">||(\hat{j} = (0, 1)||)</marimo-tex> lands → <marimo-tex class="arithmatex">||((0.0, 1.0)||)</marimo-tex></li>
+</ul>
+<span class="paragraph"><strong>Determinant:</strong> <marimo-tex class="arithmatex">||(1.00||)</marimo-tex> (how much area scales)</span>
+<span class="paragraph"><marimo-mime-renderer data-mime="&quot;application/vnd.vegalite.v5+json&quot;" data-data="&quot;{\n  \&quot;$schema\&quot;: \&quot;https://vega.github.io/schema/vega-lite/v6.1.0.json\&quot;,\n  \&quot;config\&quot;: {\n    \&quot;axis\&quot;: {\n      \&quot;grid\&quot;: false\n    },\n    \&quot;view\&quot;: {\n      \&quot;continuousHeight\&quot;: 300,\n      \&quot;continuousWidth\&quot;: 300\n    }\n  },\n  \&quot;datasets\&quot;: {\n    \&quot;data-b06e8bd41c70954aaba0bdc0dd1bd85e\&quot;: [\n      {\n        \&quot;color\&quot;: \&quot;darkred\&quot;,\n        \&quot;label\&quot;: \&quot;i'\&quot;,\n        \&quot;x\&quot;: 0,\n        \&quot;x2\&quot;: 1.0,\n        \&quot;y\&quot;: 0,\n        \&quot;y2\&quot;: 0.0\n      },\n      {\n        \&quot;color\&quot;: \&quot;darkgreen\&quot;,\n        \&quot;label\&quot;: \&quot;j'\&quot;,\n        \&quot;x\&quot;: 0,\n        \&quot;x2\&quot;: 0.0,\n        \&quot;y\&quot;: 0,\n        \&quot;y2\&quot;: 1.0\n      }\n    ],\n    \&quot;data-d3abb129101ebc2289a6bc8deb22caea\&quot;: [\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: -2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: -1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: 2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: -2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: -1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: 2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: -2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: -1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: 2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: -2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: -1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: 2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: -2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: -1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: 2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: -2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: -1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: 2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: -2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: -1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: 2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: -2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: -1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: 2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: -2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: -1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: 2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: -2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: -1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: 2.0\n      }\n    ],\n    \&quot;data-d6de5669573c31491a331aebd1dfdb2f\&quot;: [\n      {\n        \&quot;color\&quot;: \&quot;red\&quot;,\n        \&quot;label\&quot;: \&quot;i\&quot;,\n        \&quot;x\&quot;: 0,\n        \&quot;x2\&quot;: 1,\n        \&quot;y\&quot;: 0,\n        \&quot;y2\&quot;: 0\n      },\n      {\n        \&quot;color\&quot;: \&quot;green\&quot;,\n        \&quot;label\&quot;: \&quot;j\&quot;,\n        \&quot;x\&quot;: 0,\n        \&quot;x2\&quot;: 0,\n        \&quot;y\&quot;: 0,\n        \&quot;y2\&quot;: 1\n      }\n    ],\n    \&quot;data-e046d8d4c8d3bfab26644e794494542b\&quot;: [\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: 0,\n        \&quot;y2\&quot;: 0\n      },\n      {\n        \&quot;x\&quot;: 0,\n        \&quot;x2\&quot;: 0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      }\n    ]\n  },\n  \&quot;height\&quot;: 400,\n  \&quot;layer\&quot;: [\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-e046d8d4c8d3bfab26644e794494542b\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;x2\&quot;: {\n          \&quot;field\&quot;: \&quot;x2\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y2\&quot;: {\n          \&quot;field\&quot;: \&quot;y2\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;color\&quot;: \&quot;gray\&quot;,\n        \&quot;strokeWidth\&quot;: 0.5,\n        \&quot;type\&quot;: \&quot;rule\&quot;\n      }\n    },\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-d3abb129101ebc2289a6bc8deb22caea\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;color\&quot;: {\n          \&quot;field\&quot;: \&quot;type\&quot;,\n          \&quot;scale\&quot;: {\n            \&quot;domain\&quot;: [\n              \&quot;original\&quot;,\n              \&quot;transformed\&quot;\n            ],\n            \&quot;range\&quot;: [\n              \&quot;lightblue\&quot;,\n              \&quot;coral\&quot;\n            ]\n          },\n          \&quot;type\&quot;: \&quot;nominal\&quot;\n        },\n        \&quot;opacity\&quot;: {\n          \&quot;value\&quot;: 0.7\n        },\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;scale\&quot;: {\n            \&quot;domain\&quot;: [\n              -4,\n              4\n            ]\n          },\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;scale\&quot;: {\n            \&quot;domain\&quot;: [\n              -4,\n              4\n            ]\n          },\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;size\&quot;: 30,\n        \&quot;type\&quot;: \&quot;circle\&quot;\n      }\n    },\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-d6de5669573c31491a331aebd1dfdb2f\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;color\&quot;: {\n          \&quot;field\&quot;: \&quot;color\&quot;,\n          \&quot;scale\&quot;: null,\n          \&quot;type\&quot;: \&quot;nominal\&quot;\n        },\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;x2\&quot;: {\n          \&quot;field\&quot;: \&quot;x2\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y2\&quot;: {\n          \&quot;field\&quot;: \&quot;y2\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;strokeWidth\&quot;: 3,\n        \&quot;type\&quot;: \&quot;rule\&quot;\n      }\n    },\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-b06e8bd41c70954aaba0bdc0dd1bd85e\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;color\&quot;: {\n          \&quot;field\&quot;: \&quot;color\&quot;,\n          \&quot;scale\&quot;: null,\n          \&quot;type\&quot;: \&quot;nominal\&quot;\n        },\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;x2\&quot;: {\n          \&quot;field\&quot;: \&quot;x2\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y2\&quot;: {\n          \&quot;field\&quot;: \&quot;y2\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;strokeDash\&quot;: [\n          5,\n          3\n        ],\n        \&quot;strokeWidth\&quot;: 3,\n        \&quot;type\&quot;: \&quot;rule\&quot;\n      }\n    }\n  ],\n  \&quot;usermeta\&quot;: {\n    \&quot;embedOptions\&quot;: {}\n  },\n  \&quot;width\&quot;: 400\n}&quot;"></marimo-mime-renderer></span>
+<span class="paragraph"><strong>Legend:</strong> Light blue = original grid, Coral = transformed grid
+Solid arrows = original basis, Dashed = transformed basis</span></span>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="The Fundamental Insight">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>The Fundamental Insight
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>The columns of a matrix tell you where the basis vectors land.</strong></p>
+<p><span class="math display">\[\mathbf{A} = \begin{bmatrix} | &amp; | \\ \mathbf{a}_1 &amp; \mathbf{a}_2 \\ | &amp; | \end{bmatrix}\]</span></p>
+<ul>
+<li>First column = where <span class="math inline">\(\hat{i} = (1, 0)\)</span> goes</li>
+<li>Second column = where <span class="math inline">\(\hat{j} = (0, 1)\)</span> goes</li>
+</ul>
+<p>Every other vector is a combination of basis vectors, so once you know where the basis lands, you know the whole transformation!</p>
+</div>
+</div>
+<section id="try-these-transformations" class="level3">
+<h3 class="anchored" data-anchor-id="try-these-transformations">Try These Transformations</h3>
+<p>Edit the matrix above to create:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 66%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Transformation</th>
+<th>Matrix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Horizontal stretch by 2</td>
+<td><span class="math inline">\(\begin{bmatrix} 2 &amp; 0 \\ 0 &amp; 1 \end{bmatrix}\)</span></td>
+</tr>
+<tr class="even">
+<td>90° rotation</td>
+<td><span class="math inline">\(\begin{bmatrix} 0 &amp; -1 \\ 1 &amp; 0 \end{bmatrix}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Horizontal shear</td>
+<td><span class="math inline">\(\begin{bmatrix} 1 &amp; 1 \\ 0 &amp; 1 \end{bmatrix}\)</span></td>
+</tr>
+<tr class="even">
+<td>Reflection over x-axis</td>
+<td><span class="math inline">\(\begin{bmatrix} 1 &amp; 0 \\ 0 &amp; -1 \end{bmatrix}\)</span></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="multiplication" class="level2">
+<h2 class="anchored" data-anchor-id="multiplication">3. Matrix Multiplication: Composing Transformations</h2>
+<p>When you multiply two matrices <span class="math inline">\(\mathbf{BA}\)</span>, you’re applying transformation <span class="math inline">\(\mathbf{A}\)</span> first, then transformation <span class="math inline">\(\mathbf{B}\)</span>.</p>
+<div id="558b36af" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="9">
+<span class="markdown prose dark:prose-invert contents"><h3 id="matrix-a-applied-first" class="anchored">Matrix A (applied first)</h3>
+<span class="paragraph"><marimo-ui-element object-id="2dc824c8-58d8-6fb1-fee3-2186cb3f1f09" random-id="2dc824c8-58d8-6fb1-fee3-2186cb3f1f09"><marimo-anywidget data-initial-value="{&quot;state&quot;:{&quot;col_names&quot;:[],&quot;cols&quot;:2,&quot;digits&quot;:1,&quot;flexible_cols&quot;:false,&quot;matrix&quot;:[[1.0,0.5],[0.0,1.0]],&quot;max_value&quot;:100.0,&quot;min_value&quot;:-100.0,&quot;mirror&quot;:false,&quot;row_names&quot;:[],&quot;rows&quot;:2,&quot;static&quot;:false,&quot;step&quot;:0.1},&quot;bufferPaths&quot;:[],&quot;buffers&quot;:[]}" data-label="null" data-js-url="&quot;data:text/javascript;base64,ZnVuY3Rpb24gcmVuZGVyKHttb2RlbCwgZWx9KXsKICAgIGNvbnN0IGNvbmZpZyA9IHsKICAgICAgICByb3dzOiBtb2RlbC5nZXQoInJvd3MiKSwKICAgICAgICBjb2xzOiBtb2RlbC5nZXQoImNvbHMiKSwKICAgICAgICBtaW5WYWx1ZTogbW9kZWwuZ2V0KCJtaW5fdmFsdWUiKSwKICAgICAgICBtYXhWYWx1ZTogbW9kZWwuZ2V0KCJtYXhfdmFsdWUiKSwKICAgICAgICBpc01pcnJvcmVkOiBtb2RlbC5nZXQoIm1pcnJvciIpLAogICAgICAgIHN0ZXBTaXplOiBtb2RlbC5nZXQoInN0ZXAiKSwKICAgICAgICBkaWdpdHM6IG1vZGVsLmdldCgiZGlnaXRzIiksCiAgICAgICAgcGl4ZWxzUGVyU3RlcDogMiwKICAgICAgICByb3dOYW1lczogbW9kZWwuZ2V0KCJyb3dfbmFtZXMiKSwKICAgICAgICBjb2xOYW1lczogbW9kZWwuZ2V0KCJjb2xfbmFtZXMiKSwKICAgICAgICBpc1N0YXRpYzogbW9kZWwuZ2V0KCJzdGF0aWMiKSwKICAgICAgICBmbGV4aWJsZUNvbHVtbnM6IG1vZGVsLmdldCgiZmxleGlibGVfY29scyIpCiAgICB9OwogICAgCiAgICBsZXQgbWF0cml4ID0gSlNPTi5wYXJzZShKU09OLnN0cmluZ2lmeShtb2RlbC5nZXQoIm1hdHJpeCIpKSk7IC8vIERlZXAgY29weQoKICAgIGNvbnN0IHdyYXBwZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTsKICAgIHdyYXBwZXIuY2xhc3NMaXN0LmFkZCgibWF0cml4LXdyYXBwZXIiKTsKICAgIGVsLmFwcGVuZENoaWxkKHdyYXBwZXIpOwoKICAgIGZ1bmN0aW9uIHJlbmRlck1hdHJpeCgpIHsKICAgICAgICB3cmFwcGVyLmlubmVySFRNTCA9ICcnOwogICAgICAgIAogICAgICAgIC8vIENyZWF0ZSBtYWluIGdyaWQgY29udGFpbmVyCiAgICAgICAgY29uc3QgZ3JpZENvbnRhaW5lciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgIGdyaWRDb250YWluZXIuY2xhc3NOYW1lID0gJ21hdHJpeC1ncmlkJzsKICAgICAgICBpZiAoY29uZmlnLmZsZXhpYmxlQ29sdW1ucykgewogICAgICAgICAgICBncmlkQ29udGFpbmVyLmNsYXNzTGlzdC5hZGQoJ2ZsZXhpYmxlLWNvbHVtbnMnKTsKICAgICAgICB9CiAgICAgICAgCiAgICAgICAgLy8gRmlyc3QgY29sdW1uIGZvciByb3cgbGFiZWxzIChpZiB0aGV5IGV4aXN0KQogICAgICAgIGlmIChjb25maWcucm93TmFtZXMubGVuZ3RoID4gMCkgewogICAgICAgICAgICBjb25zdCByb3dMYWJlbENvbHVtbiA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgICAgICByb3dMYWJlbENvbHVtbi5jbGFzc05hbWUgPSAnbWF0cml4LWNvbHVtbiBtYXRyaXgtbGFiZWwtY29sdW1uJzsKICAgICAgICAgICAgCiAgICAgICAgICAgIC8vIEVtcHR5IGNvcm5lciBjZWxsIGlmIHdlIGhhdmUgY29sdW1uIG5hbWVzCiAgICAgICAgICAgIGlmIChjb25maWcuY29sTmFtZXMubGVuZ3RoID4gMCkgewogICAgICAgICAgICAgICAgY29uc3QgY29ybmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7CiAgICAgICAgICAgICAgICBjb3JuZXIuY2xhc3NOYW1lID0gJ21hdHJpeC1jZWxsIG1hdHJpeC1jb3JuZXItY2VsbCc7CiAgICAgICAgICAgICAgICByb3dMYWJlbENvbHVtbi5hcHBlbmRDaGlsZChjb3JuZXIpOwogICAgICAgICAgICB9CiAgICAgICAgICAgIAogICAgICAgICAgICAvLyBSb3cgbGFiZWxzCiAgICAgICAgICAgIGNvbmZpZy5yb3dOYW1lcy5mb3JFYWNoKG5hbWUgPT4gewogICAgICAgICAgICAgICAgY29uc3QgY2VsbCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgICAgICAgICAgY2VsbC5jbGFzc05hbWUgPSAnbWF0cml4LWNlbGwgbWF0cml4LXJvdy1sYWJlbCc7CiAgICAgICAgICAgICAgICBjZWxsLnRleHRDb250ZW50ID0gbmFtZTsKICAgICAgICAgICAgICAgIHJvd0xhYmVsQ29sdW1uLmFwcGVuZENoaWxkKGNlbGwpOwogICAgICAgICAgICB9KTsKICAgICAgICAgICAgCiAgICAgICAgICAgIGdyaWRDb250YWluZXIuYXBwZW5kQ2hpbGQocm93TGFiZWxDb2x1bW4pOwogICAgICAgIH0KICAgICAgICAKICAgICAgICAvLyBDcmVhdGUgbWF0cml4IGNvbnRhaW5lciB0aGF0IHdpbGwgaG9sZCBhbGwgZGF0YSBjb2x1bW5zCiAgICAgICAgY29uc3QgbWF0cml4V3JhcHBlciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgIG1hdHJpeFdyYXBwZXIuY2xhc3NOYW1lID0gJ21hdHJpeC1kYXRhLXdyYXBwZXInOwogICAgICAgIAogICAgICAgIC8vIENyZWF0ZSBjb2x1bW5zIGZvciBlYWNoIG1hdHJpeCBjb2x1bW4KICAgICAgICBmb3IgKGxldCBjb2xJbmRleCA9IDA7IGNvbEluZGV4IDwgY29uZmlnLmNvbHM7IGNvbEluZGV4KyspIHsKICAgICAgICAgICAgY29uc3QgY29sdW1uID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7CiAgICAgICAgICAgIGNvbHVtbi5jbGFzc05hbWUgPSAnbWF0cml4LWNvbHVtbiBtYXRyaXgtZGF0YS1jb2x1bW4nOwogICAgICAgICAgICAKICAgICAgICAgICAgLy8gQ29sdW1uIGhlYWRlciBpZiBleGlzdHMKICAgICAgICAgICAgaWYgKGNvbmZpZy5jb2xOYW1lcy5sZW5ndGggPiAwKSB7CiAgICAgICAgICAgICAgICBjb25zdCBoZWFkZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTsKICAgICAgICAgICAgICAgIGhlYWRlci5jbGFzc05hbWUgPSAnbWF0cml4LWNlbGwgbWF0cml4LWNvbC1sYWJlbCc7CiAgICAgICAgICAgICAgICBoZWFkZXIudGV4dENvbnRlbnQgPSBjb25maWcuY29sTmFtZXNbY29sSW5kZXhdIHx8ICcnOwogICAgICAgICAgICAgICAgY29sdW1uLmFwcGVuZENoaWxkKGhlYWRlcik7CiAgICAgICAgICAgIH0KICAgICAgICAgICAgCiAgICAgICAgICAgIC8vIE1hdHJpeCB2YWx1ZXMKICAgICAgICAgICAgbWF0cml4LmZvckVhY2goKHJvdywgcm93SW5kZXgpID0+IHsKICAgICAgICAgICAgICAgIGNvbnN0IGNlbGwgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTsKICAgICAgICAgICAgICAgIGNlbGwuY2xhc3NOYW1lID0gJ21hdHJpeC1jZWxsIG1hdHJpeC1lbGVtZW50JzsKICAgICAgICAgICAgICAgIGlmIChjb25maWcuaXNTdGF0aWMpIHsKICAgICAgICAgICAgICAgICAgICBjZWxsLmNsYXNzTGlzdC5hZGQoJ21hdHJpeC1lbGVtZW50LXN0YXRpYycpOwogICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgY2VsbC50ZXh0Q29udGVudCA9IHJvd1tjb2xJbmRleF0udG9GaXhlZChjb25maWcuZGlnaXRzKTsKICAgICAgICAgICAgICAgIGNlbGwuZGF0YXNldC5yb3cgPSByb3dJbmRleDsKICAgICAgICAgICAgICAgIGNlbGwuZGF0YXNldC5jb2wgPSBjb2xJbmRleDsKICAgICAgICAgICAgICAgIGlmICghY29uZmlnLmlzU3RhdGljKSB7CiAgICAgICAgICAgICAgICAgICAgY2VsbC5hZGRFdmVudExpc3RlbmVyKCdtb3VzZWRvd24nLCBzdGFydERyYWdnaW5nKTsKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIGNvbHVtbi5hcHBlbmRDaGlsZChjZWxsKTsKICAgICAgICAgICAgfSk7CiAgICAgICAgICAgIAogICAgICAgICAgICBtYXRyaXhXcmFwcGVyLmFwcGVuZENoaWxkKGNvbHVtbik7CiAgICAgICAgfQogICAgICAgIAogICAgICAgIGdyaWRDb250YWluZXIuYXBwZW5kQ2hpbGQobWF0cml4V3JhcHBlcik7CiAgICAgICAgd3JhcHBlci5hcHBlbmRDaGlsZChncmlkQ29udGFpbmVyKTsKCiAgICAgICAgdXBkYXRlTW9kZWwoKTsKICAgIH07CgogICAgZnVuY3Rpb24gdXBkYXRlTW9kZWwoKSB7CiAgICAgICAgbW9kZWwuc2V0KCJtYXRyaXgiLCBKU09OLnBhcnNlKEpTT04uc3RyaW5naWZ5KG1hdHJpeCkpKTsgLy8gRGVlcCBjb3B5CiAgICAgICAgbW9kZWwuc2F2ZV9jaGFuZ2VzKCk7CiAgICB9OwoKICAgIGxldCB1cGRhdGVUaW1lb3V0OwogICAgZnVuY3Rpb24gZGVib3VuY2VkVXBkYXRlTW9kZWwoKSB7CiAgICAgICAgY2xlYXJUaW1lb3V0KHVwZGF0ZVRpbWVvdXQpOwogICAgICAgIHVwZGF0ZVRpbWVvdXQgPSBzZXRUaW1lb3V0KHVwZGF0ZU1vZGVsLCAxMDApOyAvLyBEZWJvdW5jZSBmb3IgMTAwbXMKICAgIH07CgogICAgZnVuY3Rpb24gc3RhcnREcmFnZ2luZyhlKSB7CiAgICAgICAgZS5wcmV2ZW50RGVmYXVsdCgpOwogICAgICAgIGNvbnN0IGVsZW1lbnQgPSBlLnRhcmdldDsKICAgICAgICBjb25zdCBzdGFydFggPSBlLmNsaWVudFg7CiAgICAgICAgY29uc3Qgc3RhcnRWYWx1ZSA9IHBhcnNlRmxvYXQoZWxlbWVudC50ZXh0Q29udGVudCk7CiAgICAgICAgY29uc3Qgcm93ID0gcGFyc2VJbnQoZWxlbWVudC5kYXRhc2V0LnJvdyk7CiAgICAgICAgY29uc3QgY29sID0gcGFyc2VJbnQoZWxlbWVudC5kYXRhc2V0LmNvbCk7CgogICAgICAgIGZ1bmN0aW9uIG9uTW91c2VNb3ZlKGUpIHsKICAgICAgICAgICAgY29uc3QgZGVsdGFYID0gZS5jbGllbnRYIC0gc3RhcnRYOwogICAgICAgICAgICBjb25zdCBzdGVwcyA9IE1hdGguZmxvb3IoZGVsdGFYIC8gY29uZmlnLnBpeGVsc1BlclN0ZXApOwogICAgICAgICAgICBjb25zdCBuZXdWYWx1ZSA9IE1hdGgubWF4KGNvbmZpZy5taW5WYWx1ZSwgTWF0aC5taW4oY29uZmlnLm1heFZhbHVlLCBzdGFydFZhbHVlICsgc3RlcHMgKiBjb25maWcuc3RlcFNpemUpKTsKICAgICAgICAgICAgdXBkYXRlTWF0cml4VmFsdWUocm93LCBjb2wsIG5ld1ZhbHVlKTsKICAgICAgICAgICAgcmVuZGVyTWF0cml4KCk7CiAgICAgICAgICAgIGRlYm91bmNlZFVwZGF0ZU1vZGVsKCk7CiAgICAgICAgfQoKICAgICAgICBmdW5jdGlvbiBvbk1vdXNlVXAoKSB7CiAgICAgICAgICAgIGRvY3VtZW50LnJlbW92ZUV2ZW50TGlzdGVuZXIoJ21vdXNlbW92ZScsIG9uTW91c2VNb3ZlKTsKICAgICAgICAgICAgZG9jdW1lbnQucmVtb3ZlRXZlbnRMaXN0ZW5lcignbW91c2V1cCcsIG9uTW91c2VVcCk7CiAgICAgICAgICAgIHVwZGF0ZU1vZGVsKCk7IC8vIEVuc3VyZSBmaW5hbCBzdGF0ZSBpcyB1cGRhdGVkCiAgICAgICAgfQoKICAgICAgICBkb2N1bWVudC5hZGRFdmVudExpc3RlbmVyKCdtb3VzZW1vdmUnLCBvbk1vdXNlTW92ZSk7CiAgICAgICAgZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignbW91c2V1cCcsIG9uTW91c2VVcCk7CiAgICB9OwoKICAgIGZ1bmN0aW9uIHVwZGF0ZU1hdHJpeFZhbHVlKHJvdywgY29sLCB2YWx1ZSkgewogICAgICAgIG1hdHJpeFtyb3ddW2NvbF0gPSBwYXJzZUZsb2F0KHZhbHVlLnRvRml4ZWQoY29uZmlnLmRpZ2l0cykpOwogICAgICAgIGlmIChjb25maWcuaXNNaXJyb3JlZCAmJiAoY29sIDwgY29uZmlnLnJvd3MpICYmIChyb3cgPCBjb25maWcuY29scykpIHsKICAgICAgICAgICAgbWF0cml4W2NvbF1bcm93XSA9IHBhcnNlRmxvYXQodmFsdWUudG9GaXhlZChjb25maWcuZGlnaXRzKSk7CiAgICAgICAgfQogICAgfTsKCiAgICByZW5kZXJNYXRyaXgoKTsKfQoKZXhwb3J0IGRlZmF1bHQgeyByZW5kZXIgfTs=&quot;" data-js-hash="&quot;c0a0ef6530732d033b6cf1ebf099626d&quot;" data-css="&quot;.matrix {\n    display: inline-block;\n    vertical-align: middle;\n    font-size: 18px;\n    line-height: 1;\n    white-space: nowrap;\n    padding: 10px;\n    position: relative;\n    user-select: none;\n}\n\n.matrix:before,\n.matrix:after {\n    content: \&quot;\&quot;;\n    position: absolute;\n    top: 0;\n    bottom: 0;\n    width: 2px;\n    background-color: var(--matrix-bracket, #000000);\n}\n\n.matrix:before {\n    left: 0;\n}\n\n.matrix:after {\n    right: 0;\n}\n\n.matrix-row {\n    display: flex;\n    justify-content: flex-start;\n}\n\n.matrix-wrapper {\n    display: inline-block;\n    font-family: monospace;\n    font-size: 14px;\n    color-scheme: light dark;\n    --matrix-text: #111827;\n    --matrix-muted: #333333;\n    --matrix-accent: #0066cc;\n    --matrix-static: #666666;\n    --matrix-bracket: rgba(0, 0, 0, 0.85);\n}\n\n.dark .matrix-wrapper,\n.dark-theme .matrix-wrapper,\n[data-theme=\&quot;dark\&quot;] .matrix-wrapper {\n    --matrix-text: #f3f4f6;\n    --matrix-muted: #c7d2fe;\n    --matrix-accent: #7dd3fc;\n    --matrix-static: #e2e8f0;\n    --matrix-bracket: rgba(148, 163, 184, 0.85);\n}\n\n.matrix-grid {\n    display: flex;\n    align-items: flex-start;\n    color: inherit;\n}\n\n.matrix-column {\n    display: flex;\n    flex-direction: column;\n    color: inherit;\n}\n\n.matrix-label-column {\n    margin-right: 5px;\n}\n\n.matrix-data-wrapper {\n    display: flex;\n    position: relative;\n    padding: 0 15px;\n}\n\n.matrix-data-wrapper::before,\n.matrix-data-wrapper::after {\n    content: '';\n    position: absolute;\n    width: 10px;\n    height: 100%;\n    pointer-events: none;\n}\n\n.matrix-data-wrapper::before {\n    left: 3px;\n    border-left: 2px solid var(--matrix-bracket, black);\n    border-top: 2px solid var(--matrix-bracket, black);\n    border-bottom: 2px solid var(--matrix-bracket, black);\n}\n\n.matrix-data-wrapper::after {\n    right: 3px;\n    border-right: 2px solid var(--matrix-bracket, black);\n    border-top: 2px solid var(--matrix-bracket, black);\n    border-bottom: 2px solid var(--matrix-bracket, black);\n}\n\n.matrix-data-column {\n    margin: 0;\n}\n\n.matrix-cell {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    height: 2em;\n    box-sizing: border-box;\n    color: inherit;\n}\n\n.matrix-element {\n    width: 3em;\n    height: 1.5em;\n    text-align: center;\n    margin: 0.2em;\n    cursor: ew-resize;\n    color: var(--matrix-accent, #0066cc);\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.matrix-element::selection {\n    background-color: transparent;\n}\n\n.matrix-element-static {\n    cursor: default;\n    color: var(--matrix-static, #666666);\n}\n\n.matrix-row-label {\n    width: auto;\n    min-width: 5em;\n    justify-content: flex-end;\n    padding-right: 0.5em;\n    font-weight: bold;\n    color: var(--matrix-muted, #333333);\n    white-space: nowrap;\n}\n\n.matrix-col-label {\n    font-weight: bold;\n    color: var(--matrix-muted, #333333);\n    margin-bottom: 5px;\n    width: 3.6em;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n}\n\n.matrix-grid.flexible-columns .matrix-element {\n    width: auto;\n    min-width: 3em;\n    padding: 0 0.5em;\n}\n\n.matrix-grid.flexible-columns .matrix-col-label {\n    width: auto;\n    min-width: 3.6em;\n    padding: 0 0.5em;\n}\n\n.matrix-grid.flexible-columns .matrix-data-column {\n    flex-shrink: 0;\n}\n\n.matrix-corner-cell {\n    visibility: hidden;\n    height: 2em;\n    margin-bottom: 5px;\n}\n\n.matrix-grid:has(.matrix-col-label) .matrix-data-wrapper::before,\n.matrix-grid:has(.matrix-col-label) .matrix-data-wrapper::after {\n    top: calc(2em + 5px);\n    height: calc(100% - 2em - 5px);\n}\n\n.matrix-grid:not(:has(.matrix-col-label)) .matrix-data-wrapper::before,\n.matrix-grid:not(:has(.matrix-col-label)) .matrix-data-wrapper::after {\n    top: 0;\n    height: 100%;\n}\n&quot;"></marimo-anywidget></marimo-ui-element></span>
+<h3 id="matrix-b-applied-second" class="anchored">Matrix B (applied second)</h3>
+<span class="paragraph"><marimo-ui-element object-id="06b8e5a4-9400-0901-d6be-bfc767614651" random-id="06b8e5a4-9400-0901-d6be-bfc767614651"><marimo-anywidget data-initial-value="{&quot;state&quot;:{&quot;col_names&quot;:[],&quot;cols&quot;:2,&quot;digits&quot;:1,&quot;flexible_cols&quot;:false,&quot;matrix&quot;:[[0.0,-1.0],[1.0,0.0]],&quot;max_value&quot;:100.0,&quot;min_value&quot;:-100.0,&quot;mirror&quot;:false,&quot;row_names&quot;:[],&quot;rows&quot;:2,&quot;static&quot;:false,&quot;step&quot;:0.1},&quot;bufferPaths&quot;:[],&quot;buffers&quot;:[]}" data-label="null" data-js-url="&quot;data:text/javascript;base64,ZnVuY3Rpb24gcmVuZGVyKHttb2RlbCwgZWx9KXsKICAgIGNvbnN0IGNvbmZpZyA9IHsKICAgICAgICByb3dzOiBtb2RlbC5nZXQoInJvd3MiKSwKICAgICAgICBjb2xzOiBtb2RlbC5nZXQoImNvbHMiKSwKICAgICAgICBtaW5WYWx1ZTogbW9kZWwuZ2V0KCJtaW5fdmFsdWUiKSwKICAgICAgICBtYXhWYWx1ZTogbW9kZWwuZ2V0KCJtYXhfdmFsdWUiKSwKICAgICAgICBpc01pcnJvcmVkOiBtb2RlbC5nZXQoIm1pcnJvciIpLAogICAgICAgIHN0ZXBTaXplOiBtb2RlbC5nZXQoInN0ZXAiKSwKICAgICAgICBkaWdpdHM6IG1vZGVsLmdldCgiZGlnaXRzIiksCiAgICAgICAgcGl4ZWxzUGVyU3RlcDogMiwKICAgICAgICByb3dOYW1lczogbW9kZWwuZ2V0KCJyb3dfbmFtZXMiKSwKICAgICAgICBjb2xOYW1lczogbW9kZWwuZ2V0KCJjb2xfbmFtZXMiKSwKICAgICAgICBpc1N0YXRpYzogbW9kZWwuZ2V0KCJzdGF0aWMiKSwKICAgICAgICBmbGV4aWJsZUNvbHVtbnM6IG1vZGVsLmdldCgiZmxleGlibGVfY29scyIpCiAgICB9OwogICAgCiAgICBsZXQgbWF0cml4ID0gSlNPTi5wYXJzZShKU09OLnN0cmluZ2lmeShtb2RlbC5nZXQoIm1hdHJpeCIpKSk7IC8vIERlZXAgY29weQoKICAgIGNvbnN0IHdyYXBwZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTsKICAgIHdyYXBwZXIuY2xhc3NMaXN0LmFkZCgibWF0cml4LXdyYXBwZXIiKTsKICAgIGVsLmFwcGVuZENoaWxkKHdyYXBwZXIpOwoKICAgIGZ1bmN0aW9uIHJlbmRlck1hdHJpeCgpIHsKICAgICAgICB3cmFwcGVyLmlubmVySFRNTCA9ICcnOwogICAgICAgIAogICAgICAgIC8vIENyZWF0ZSBtYWluIGdyaWQgY29udGFpbmVyCiAgICAgICAgY29uc3QgZ3JpZENvbnRhaW5lciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgIGdyaWRDb250YWluZXIuY2xhc3NOYW1lID0gJ21hdHJpeC1ncmlkJzsKICAgICAgICBpZiAoY29uZmlnLmZsZXhpYmxlQ29sdW1ucykgewogICAgICAgICAgICBncmlkQ29udGFpbmVyLmNsYXNzTGlzdC5hZGQoJ2ZsZXhpYmxlLWNvbHVtbnMnKTsKICAgICAgICB9CiAgICAgICAgCiAgICAgICAgLy8gRmlyc3QgY29sdW1uIGZvciByb3cgbGFiZWxzIChpZiB0aGV5IGV4aXN0KQogICAgICAgIGlmIChjb25maWcucm93TmFtZXMubGVuZ3RoID4gMCkgewogICAgICAgICAgICBjb25zdCByb3dMYWJlbENvbHVtbiA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgICAgICByb3dMYWJlbENvbHVtbi5jbGFzc05hbWUgPSAnbWF0cml4LWNvbHVtbiBtYXRyaXgtbGFiZWwtY29sdW1uJzsKICAgICAgICAgICAgCiAgICAgICAgICAgIC8vIEVtcHR5IGNvcm5lciBjZWxsIGlmIHdlIGhhdmUgY29sdW1uIG5hbWVzCiAgICAgICAgICAgIGlmIChjb25maWcuY29sTmFtZXMubGVuZ3RoID4gMCkgewogICAgICAgICAgICAgICAgY29uc3QgY29ybmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7CiAgICAgICAgICAgICAgICBjb3JuZXIuY2xhc3NOYW1lID0gJ21hdHJpeC1jZWxsIG1hdHJpeC1jb3JuZXItY2VsbCc7CiAgICAgICAgICAgICAgICByb3dMYWJlbENvbHVtbi5hcHBlbmRDaGlsZChjb3JuZXIpOwogICAgICAgICAgICB9CiAgICAgICAgICAgIAogICAgICAgICAgICAvLyBSb3cgbGFiZWxzCiAgICAgICAgICAgIGNvbmZpZy5yb3dOYW1lcy5mb3JFYWNoKG5hbWUgPT4gewogICAgICAgICAgICAgICAgY29uc3QgY2VsbCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgICAgICAgICAgY2VsbC5jbGFzc05hbWUgPSAnbWF0cml4LWNlbGwgbWF0cml4LXJvdy1sYWJlbCc7CiAgICAgICAgICAgICAgICBjZWxsLnRleHRDb250ZW50ID0gbmFtZTsKICAgICAgICAgICAgICAgIHJvd0xhYmVsQ29sdW1uLmFwcGVuZENoaWxkKGNlbGwpOwogICAgICAgICAgICB9KTsKICAgICAgICAgICAgCiAgICAgICAgICAgIGdyaWRDb250YWluZXIuYXBwZW5kQ2hpbGQocm93TGFiZWxDb2x1bW4pOwogICAgICAgIH0KICAgICAgICAKICAgICAgICAvLyBDcmVhdGUgbWF0cml4IGNvbnRhaW5lciB0aGF0IHdpbGwgaG9sZCBhbGwgZGF0YSBjb2x1bW5zCiAgICAgICAgY29uc3QgbWF0cml4V3JhcHBlciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgIG1hdHJpeFdyYXBwZXIuY2xhc3NOYW1lID0gJ21hdHJpeC1kYXRhLXdyYXBwZXInOwogICAgICAgIAogICAgICAgIC8vIENyZWF0ZSBjb2x1bW5zIGZvciBlYWNoIG1hdHJpeCBjb2x1bW4KICAgICAgICBmb3IgKGxldCBjb2xJbmRleCA9IDA7IGNvbEluZGV4IDwgY29uZmlnLmNvbHM7IGNvbEluZGV4KyspIHsKICAgICAgICAgICAgY29uc3QgY29sdW1uID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7CiAgICAgICAgICAgIGNvbHVtbi5jbGFzc05hbWUgPSAnbWF0cml4LWNvbHVtbiBtYXRyaXgtZGF0YS1jb2x1bW4nOwogICAgICAgICAgICAKICAgICAgICAgICAgLy8gQ29sdW1uIGhlYWRlciBpZiBleGlzdHMKICAgICAgICAgICAgaWYgKGNvbmZpZy5jb2xOYW1lcy5sZW5ndGggPiAwKSB7CiAgICAgICAgICAgICAgICBjb25zdCBoZWFkZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTsKICAgICAgICAgICAgICAgIGhlYWRlci5jbGFzc05hbWUgPSAnbWF0cml4LWNlbGwgbWF0cml4LWNvbC1sYWJlbCc7CiAgICAgICAgICAgICAgICBoZWFkZXIudGV4dENvbnRlbnQgPSBjb25maWcuY29sTmFtZXNbY29sSW5kZXhdIHx8ICcnOwogICAgICAgICAgICAgICAgY29sdW1uLmFwcGVuZENoaWxkKGhlYWRlcik7CiAgICAgICAgICAgIH0KICAgICAgICAgICAgCiAgICAgICAgICAgIC8vIE1hdHJpeCB2YWx1ZXMKICAgICAgICAgICAgbWF0cml4LmZvckVhY2goKHJvdywgcm93SW5kZXgpID0+IHsKICAgICAgICAgICAgICAgIGNvbnN0IGNlbGwgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTsKICAgICAgICAgICAgICAgIGNlbGwuY2xhc3NOYW1lID0gJ21hdHJpeC1jZWxsIG1hdHJpeC1lbGVtZW50JzsKICAgICAgICAgICAgICAgIGlmIChjb25maWcuaXNTdGF0aWMpIHsKICAgICAgICAgICAgICAgICAgICBjZWxsLmNsYXNzTGlzdC5hZGQoJ21hdHJpeC1lbGVtZW50LXN0YXRpYycpOwogICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgY2VsbC50ZXh0Q29udGVudCA9IHJvd1tjb2xJbmRleF0udG9GaXhlZChjb25maWcuZGlnaXRzKTsKICAgICAgICAgICAgICAgIGNlbGwuZGF0YXNldC5yb3cgPSByb3dJbmRleDsKICAgICAgICAgICAgICAgIGNlbGwuZGF0YXNldC5jb2wgPSBjb2xJbmRleDsKICAgICAgICAgICAgICAgIGlmICghY29uZmlnLmlzU3RhdGljKSB7CiAgICAgICAgICAgICAgICAgICAgY2VsbC5hZGRFdmVudExpc3RlbmVyKCdtb3VzZWRvd24nLCBzdGFydERyYWdnaW5nKTsKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIGNvbHVtbi5hcHBlbmRDaGlsZChjZWxsKTsKICAgICAgICAgICAgfSk7CiAgICAgICAgICAgIAogICAgICAgICAgICBtYXRyaXhXcmFwcGVyLmFwcGVuZENoaWxkKGNvbHVtbik7CiAgICAgICAgfQogICAgICAgIAogICAgICAgIGdyaWRDb250YWluZXIuYXBwZW5kQ2hpbGQobWF0cml4V3JhcHBlcik7CiAgICAgICAgd3JhcHBlci5hcHBlbmRDaGlsZChncmlkQ29udGFpbmVyKTsKCiAgICAgICAgdXBkYXRlTW9kZWwoKTsKICAgIH07CgogICAgZnVuY3Rpb24gdXBkYXRlTW9kZWwoKSB7CiAgICAgICAgbW9kZWwuc2V0KCJtYXRyaXgiLCBKU09OLnBhcnNlKEpTT04uc3RyaW5naWZ5KG1hdHJpeCkpKTsgLy8gRGVlcCBjb3B5CiAgICAgICAgbW9kZWwuc2F2ZV9jaGFuZ2VzKCk7CiAgICB9OwoKICAgIGxldCB1cGRhdGVUaW1lb3V0OwogICAgZnVuY3Rpb24gZGVib3VuY2VkVXBkYXRlTW9kZWwoKSB7CiAgICAgICAgY2xlYXJUaW1lb3V0KHVwZGF0ZVRpbWVvdXQpOwogICAgICAgIHVwZGF0ZVRpbWVvdXQgPSBzZXRUaW1lb3V0KHVwZGF0ZU1vZGVsLCAxMDApOyAvLyBEZWJvdW5jZSBmb3IgMTAwbXMKICAgIH07CgogICAgZnVuY3Rpb24gc3RhcnREcmFnZ2luZyhlKSB7CiAgICAgICAgZS5wcmV2ZW50RGVmYXVsdCgpOwogICAgICAgIGNvbnN0IGVsZW1lbnQgPSBlLnRhcmdldDsKICAgICAgICBjb25zdCBzdGFydFggPSBlLmNsaWVudFg7CiAgICAgICAgY29uc3Qgc3RhcnRWYWx1ZSA9IHBhcnNlRmxvYXQoZWxlbWVudC50ZXh0Q29udGVudCk7CiAgICAgICAgY29uc3Qgcm93ID0gcGFyc2VJbnQoZWxlbWVudC5kYXRhc2V0LnJvdyk7CiAgICAgICAgY29uc3QgY29sID0gcGFyc2VJbnQoZWxlbWVudC5kYXRhc2V0LmNvbCk7CgogICAgICAgIGZ1bmN0aW9uIG9uTW91c2VNb3ZlKGUpIHsKICAgICAgICAgICAgY29uc3QgZGVsdGFYID0gZS5jbGllbnRYIC0gc3RhcnRYOwogICAgICAgICAgICBjb25zdCBzdGVwcyA9IE1hdGguZmxvb3IoZGVsdGFYIC8gY29uZmlnLnBpeGVsc1BlclN0ZXApOwogICAgICAgICAgICBjb25zdCBuZXdWYWx1ZSA9IE1hdGgubWF4KGNvbmZpZy5taW5WYWx1ZSwgTWF0aC5taW4oY29uZmlnLm1heFZhbHVlLCBzdGFydFZhbHVlICsgc3RlcHMgKiBjb25maWcuc3RlcFNpemUpKTsKICAgICAgICAgICAgdXBkYXRlTWF0cml4VmFsdWUocm93LCBjb2wsIG5ld1ZhbHVlKTsKICAgICAgICAgICAgcmVuZGVyTWF0cml4KCk7CiAgICAgICAgICAgIGRlYm91bmNlZFVwZGF0ZU1vZGVsKCk7CiAgICAgICAgfQoKICAgICAgICBmdW5jdGlvbiBvbk1vdXNlVXAoKSB7CiAgICAgICAgICAgIGRvY3VtZW50LnJlbW92ZUV2ZW50TGlzdGVuZXIoJ21vdXNlbW92ZScsIG9uTW91c2VNb3ZlKTsKICAgICAgICAgICAgZG9jdW1lbnQucmVtb3ZlRXZlbnRMaXN0ZW5lcignbW91c2V1cCcsIG9uTW91c2VVcCk7CiAgICAgICAgICAgIHVwZGF0ZU1vZGVsKCk7IC8vIEVuc3VyZSBmaW5hbCBzdGF0ZSBpcyB1cGRhdGVkCiAgICAgICAgfQoKICAgICAgICBkb2N1bWVudC5hZGRFdmVudExpc3RlbmVyKCdtb3VzZW1vdmUnLCBvbk1vdXNlTW92ZSk7CiAgICAgICAgZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignbW91c2V1cCcsIG9uTW91c2VVcCk7CiAgICB9OwoKICAgIGZ1bmN0aW9uIHVwZGF0ZU1hdHJpeFZhbHVlKHJvdywgY29sLCB2YWx1ZSkgewogICAgICAgIG1hdHJpeFtyb3ddW2NvbF0gPSBwYXJzZUZsb2F0KHZhbHVlLnRvRml4ZWQoY29uZmlnLmRpZ2l0cykpOwogICAgICAgIGlmIChjb25maWcuaXNNaXJyb3JlZCAmJiAoY29sIDwgY29uZmlnLnJvd3MpICYmIChyb3cgPCBjb25maWcuY29scykpIHsKICAgICAgICAgICAgbWF0cml4W2NvbF1bcm93XSA9IHBhcnNlRmxvYXQodmFsdWUudG9GaXhlZChjb25maWcuZGlnaXRzKSk7CiAgICAgICAgfQogICAgfTsKCiAgICByZW5kZXJNYXRyaXgoKTsKfQoKZXhwb3J0IGRlZmF1bHQgeyByZW5kZXIgfTs=&quot;" data-js-hash="&quot;c0a0ef6530732d033b6cf1ebf099626d&quot;" data-css="&quot;.matrix {\n    display: inline-block;\n    vertical-align: middle;\n    font-size: 18px;\n    line-height: 1;\n    white-space: nowrap;\n    padding: 10px;\n    position: relative;\n    user-select: none;\n}\n\n.matrix:before,\n.matrix:after {\n    content: \&quot;\&quot;;\n    position: absolute;\n    top: 0;\n    bottom: 0;\n    width: 2px;\n    background-color: var(--matrix-bracket, #000000);\n}\n\n.matrix:before {\n    left: 0;\n}\n\n.matrix:after {\n    right: 0;\n}\n\n.matrix-row {\n    display: flex;\n    justify-content: flex-start;\n}\n\n.matrix-wrapper {\n    display: inline-block;\n    font-family: monospace;\n    font-size: 14px;\n    color-scheme: light dark;\n    --matrix-text: #111827;\n    --matrix-muted: #333333;\n    --matrix-accent: #0066cc;\n    --matrix-static: #666666;\n    --matrix-bracket: rgba(0, 0, 0, 0.85);\n}\n\n.dark .matrix-wrapper,\n.dark-theme .matrix-wrapper,\n[data-theme=\&quot;dark\&quot;] .matrix-wrapper {\n    --matrix-text: #f3f4f6;\n    --matrix-muted: #c7d2fe;\n    --matrix-accent: #7dd3fc;\n    --matrix-static: #e2e8f0;\n    --matrix-bracket: rgba(148, 163, 184, 0.85);\n}\n\n.matrix-grid {\n    display: flex;\n    align-items: flex-start;\n    color: inherit;\n}\n\n.matrix-column {\n    display: flex;\n    flex-direction: column;\n    color: inherit;\n}\n\n.matrix-label-column {\n    margin-right: 5px;\n}\n\n.matrix-data-wrapper {\n    display: flex;\n    position: relative;\n    padding: 0 15px;\n}\n\n.matrix-data-wrapper::before,\n.matrix-data-wrapper::after {\n    content: '';\n    position: absolute;\n    width: 10px;\n    height: 100%;\n    pointer-events: none;\n}\n\n.matrix-data-wrapper::before {\n    left: 3px;\n    border-left: 2px solid var(--matrix-bracket, black);\n    border-top: 2px solid var(--matrix-bracket, black);\n    border-bottom: 2px solid var(--matrix-bracket, black);\n}\n\n.matrix-data-wrapper::after {\n    right: 3px;\n    border-right: 2px solid var(--matrix-bracket, black);\n    border-top: 2px solid var(--matrix-bracket, black);\n    border-bottom: 2px solid var(--matrix-bracket, black);\n}\n\n.matrix-data-column {\n    margin: 0;\n}\n\n.matrix-cell {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    height: 2em;\n    box-sizing: border-box;\n    color: inherit;\n}\n\n.matrix-element {\n    width: 3em;\n    height: 1.5em;\n    text-align: center;\n    margin: 0.2em;\n    cursor: ew-resize;\n    color: var(--matrix-accent, #0066cc);\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.matrix-element::selection {\n    background-color: transparent;\n}\n\n.matrix-element-static {\n    cursor: default;\n    color: var(--matrix-static, #666666);\n}\n\n.matrix-row-label {\n    width: auto;\n    min-width: 5em;\n    justify-content: flex-end;\n    padding-right: 0.5em;\n    font-weight: bold;\n    color: var(--matrix-muted, #333333);\n    white-space: nowrap;\n}\n\n.matrix-col-label {\n    font-weight: bold;\n    color: var(--matrix-muted, #333333);\n    margin-bottom: 5px;\n    width: 3.6em;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n}\n\n.matrix-grid.flexible-columns .matrix-element {\n    width: auto;\n    min-width: 3em;\n    padding: 0 0.5em;\n}\n\n.matrix-grid.flexible-columns .matrix-col-label {\n    width: auto;\n    min-width: 3.6em;\n    padding: 0 0.5em;\n}\n\n.matrix-grid.flexible-columns .matrix-data-column {\n    flex-shrink: 0;\n}\n\n.matrix-corner-cell {\n    visibility: hidden;\n    height: 2em;\n    margin-bottom: 5px;\n}\n\n.matrix-grid:has(.matrix-col-label) .matrix-data-wrapper::before,\n.matrix-grid:has(.matrix-col-label) .matrix-data-wrapper::after {\n    top: calc(2em + 5px);\n    height: calc(100% - 2em - 5px);\n}\n\n.matrix-grid:not(:has(.matrix-col-label)) .matrix-data-wrapper::before,\n.matrix-grid:not(:has(.matrix-col-label)) .matrix-data-wrapper::after {\n    top: 0;\n    height: 100%;\n}\n&quot;"></marimo-anywidget></marimo-ui-element></span>
+<h3 id="composition-ba-b-a" class="anchored">Composition: BA = B @ A</h3>
+<marimo-tex class="arithmatex">||[\mathbf{BA} = \begin{bmatrix} 0.00 &amp; -1.00 \\ 1.00 &amp; 0.50 \end{bmatrix}||]</marimo-tex><span class="paragraph"><strong>Why BA and not AB?</strong> Because we read right-to-left: <marimo-tex class="arithmatex">||(\mathbf{BA}\mathbf{v}||)</marimo-tex> means "apply <marimo-tex class="arithmatex">||(\mathbf{A}||)</marimo-tex> to <marimo-tex class="arithmatex">||(\mathbf{v}||)</marimo-tex>, then apply <marimo-tex class="arithmatex">||(\mathbf{B}||)</marimo-tex> to the result."</span></span>
+</div>
+</div>
+<div id="21ae178d" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="10">
+<span class="markdown prose dark:prose-invert contents"><h3 id="the-composed-transformation" class="anchored">The Composed Transformation</h3>
+<span class="paragraph"><marimo-mime-renderer data-mime="&quot;application/vnd.vegalite.v5+json&quot;" data-data="&quot;{\n  \&quot;$schema\&quot;: \&quot;https://vega.github.io/schema/vega-lite/v6.1.0.json\&quot;,\n  \&quot;config\&quot;: {\n    \&quot;axis\&quot;: {\n      \&quot;grid\&quot;: false\n    },\n    \&quot;view\&quot;: {\n      \&quot;continuousHeight\&quot;: 300,\n      \&quot;continuousWidth\&quot;: 300\n    }\n  },\n  \&quot;datasets\&quot;: {\n    \&quot;data-2f96de245d93f802f5a9ff42de2c2a8a\&quot;: [\n      {\n        \&quot;color\&quot;: \&quot;darkred\&quot;,\n        \&quot;label\&quot;: \&quot;i'\&quot;,\n        \&quot;x\&quot;: 0,\n        \&quot;x2\&quot;: 0.0,\n        \&quot;y\&quot;: 0,\n        \&quot;y2\&quot;: 1.0\n      },\n      {\n        \&quot;color\&quot;: \&quot;darkgreen\&quot;,\n        \&quot;label\&quot;: \&quot;j'\&quot;,\n        \&quot;x\&quot;: 0,\n        \&quot;x2\&quot;: -1.0,\n        \&quot;y\&quot;: 0,\n        \&quot;y2\&quot;: 0.5\n      }\n    ],\n    \&quot;data-66eaeefc518097a79febd84ecede607f\&quot;: [\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: -2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: -1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: 2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: -2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: -1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: 2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: -2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: -1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: 2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: -2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: -1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: 2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: -2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: -1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;original\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: 2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: -3.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: -2.5\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: -2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: -1.5\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: -1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: -2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: -1.5\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: -1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: -0.5\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: -1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: -0.5\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: 0.5\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: 0.5\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: 1.5\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: 2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 1.0,\n        \&quot;y\&quot;: 1.5\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: 2.0\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -1.0,\n        \&quot;y\&quot;: 2.5\n      },\n      {\n        \&quot;type\&quot;: \&quot;transformed\&quot;,\n        \&quot;x\&quot;: -2.0,\n        \&quot;y\&quot;: 3.0\n      }\n    ],\n    \&quot;data-d6de5669573c31491a331aebd1dfdb2f\&quot;: [\n      {\n        \&quot;color\&quot;: \&quot;red\&quot;,\n        \&quot;label\&quot;: \&quot;i\&quot;,\n        \&quot;x\&quot;: 0,\n        \&quot;x2\&quot;: 1,\n        \&quot;y\&quot;: 0,\n        \&quot;y2\&quot;: 0\n      },\n      {\n        \&quot;color\&quot;: \&quot;green\&quot;,\n        \&quot;label\&quot;: \&quot;j\&quot;,\n        \&quot;x\&quot;: 0,\n        \&quot;x2\&quot;: 0,\n        \&quot;y\&quot;: 0,\n        \&quot;y2\&quot;: 1\n      }\n    ],\n    \&quot;data-e046d8d4c8d3bfab26644e794494542b\&quot;: [\n      {\n        \&quot;x\&quot;: -4,\n        \&quot;x2\&quot;: 4,\n        \&quot;y\&quot;: 0,\n        \&quot;y2\&quot;: 0\n      },\n      {\n        \&quot;x\&quot;: 0,\n        \&quot;x2\&quot;: 0,\n        \&quot;y\&quot;: -4,\n        \&quot;y2\&quot;: 4\n      }\n    ]\n  },\n  \&quot;height\&quot;: 400,\n  \&quot;layer\&quot;: [\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-e046d8d4c8d3bfab26644e794494542b\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;x2\&quot;: {\n          \&quot;field\&quot;: \&quot;x2\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y2\&quot;: {\n          \&quot;field\&quot;: \&quot;y2\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;color\&quot;: \&quot;gray\&quot;,\n        \&quot;strokeWidth\&quot;: 0.5,\n        \&quot;type\&quot;: \&quot;rule\&quot;\n      }\n    },\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-66eaeefc518097a79febd84ecede607f\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;color\&quot;: {\n          \&quot;field\&quot;: \&quot;type\&quot;,\n          \&quot;scale\&quot;: {\n            \&quot;domain\&quot;: [\n              \&quot;original\&quot;,\n              \&quot;transformed\&quot;\n            ],\n            \&quot;range\&quot;: [\n              \&quot;lightblue\&quot;,\n              \&quot;coral\&quot;\n            ]\n          },\n          \&quot;type\&quot;: \&quot;nominal\&quot;\n        },\n        \&quot;opacity\&quot;: {\n          \&quot;value\&quot;: 0.7\n        },\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;scale\&quot;: {\n            \&quot;domain\&quot;: [\n              -4,\n              4\n            ]\n          },\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;scale\&quot;: {\n            \&quot;domain\&quot;: [\n              -4,\n              4\n            ]\n          },\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;size\&quot;: 30,\n        \&quot;type\&quot;: \&quot;circle\&quot;\n      }\n    },\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-d6de5669573c31491a331aebd1dfdb2f\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;color\&quot;: {\n          \&quot;field\&quot;: \&quot;color\&quot;,\n          \&quot;scale\&quot;: null,\n          \&quot;type\&quot;: \&quot;nominal\&quot;\n        },\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;x2\&quot;: {\n          \&quot;field\&quot;: \&quot;x2\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y2\&quot;: {\n          \&quot;field\&quot;: \&quot;y2\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;strokeWidth\&quot;: 3,\n        \&quot;type\&quot;: \&quot;rule\&quot;\n      }\n    },\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-2f96de245d93f802f5a9ff42de2c2a8a\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;color\&quot;: {\n          \&quot;field\&quot;: \&quot;color\&quot;,\n          \&quot;scale\&quot;: null,\n          \&quot;type\&quot;: \&quot;nominal\&quot;\n        },\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;x2\&quot;: {\n          \&quot;field\&quot;: \&quot;x2\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y2\&quot;: {\n          \&quot;field\&quot;: \&quot;y2\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;strokeDash\&quot;: [\n          5,\n          3\n        ],\n        \&quot;strokeWidth\&quot;: 3,\n        \&quot;type\&quot;: \&quot;rule\&quot;\n      }\n    }\n  ],\n  \&quot;usermeta\&quot;: {\n    \&quot;embedOptions\&quot;: {}\n  },\n  \&quot;width\&quot;: 400\n}&quot;"></marimo-mime-renderer></span>
+<span class="paragraph">This single matrix does both transformations at once!</span></span>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Matrix Multiplication Rule">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Matrix Multiplication Rule
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To multiply matrices, each entry in the result is a <strong>dot product</strong>:</p>
+<p><span class="math display">\[(\\mathbf{BA})_{ij} = \\text{row } i \\text{ of } \\mathbf{B} \\cdot \\text{column } j \\text{ of } \\mathbf{A}\]</span></p>
+<p>But geometrically, you’re just composing transformations!</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="determinant" class="level2">
+<h2 class="anchored" data-anchor-id="determinant">4. The Determinant: How Area Scales</h2>
+<p>The <strong>determinant</strong> measures how much a transformation scales area.</p>
+<div id="98ebf3c2" class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="12">
+<span class="markdown prose dark:prose-invert contents"><h3 id="edit-the-matrix" class="anchored">Edit the Matrix</h3>
+<span class="paragraph"><marimo-ui-element object-id="e6ae254d-4016-3d01-15b6-532f97766386" random-id="e6ae254d-4016-3d01-15b6-532f97766386"><marimo-anywidget data-initial-value="{&quot;state&quot;:{&quot;col_names&quot;:[],&quot;cols&quot;:2,&quot;digits&quot;:1,&quot;flexible_cols&quot;:false,&quot;matrix&quot;:[[2.0,0.0],[0.0,1.0]],&quot;max_value&quot;:100.0,&quot;min_value&quot;:-100.0,&quot;mirror&quot;:false,&quot;row_names&quot;:[],&quot;rows&quot;:2,&quot;static&quot;:false,&quot;step&quot;:0.1},&quot;bufferPaths&quot;:[],&quot;buffers&quot;:[]}" data-label="null" data-js-url="&quot;data:text/javascript;base64,ZnVuY3Rpb24gcmVuZGVyKHttb2RlbCwgZWx9KXsKICAgIGNvbnN0IGNvbmZpZyA9IHsKICAgICAgICByb3dzOiBtb2RlbC5nZXQoInJvd3MiKSwKICAgICAgICBjb2xzOiBtb2RlbC5nZXQoImNvbHMiKSwKICAgICAgICBtaW5WYWx1ZTogbW9kZWwuZ2V0KCJtaW5fdmFsdWUiKSwKICAgICAgICBtYXhWYWx1ZTogbW9kZWwuZ2V0KCJtYXhfdmFsdWUiKSwKICAgICAgICBpc01pcnJvcmVkOiBtb2RlbC5nZXQoIm1pcnJvciIpLAogICAgICAgIHN0ZXBTaXplOiBtb2RlbC5nZXQoInN0ZXAiKSwKICAgICAgICBkaWdpdHM6IG1vZGVsLmdldCgiZGlnaXRzIiksCiAgICAgICAgcGl4ZWxzUGVyU3RlcDogMiwKICAgICAgICByb3dOYW1lczogbW9kZWwuZ2V0KCJyb3dfbmFtZXMiKSwKICAgICAgICBjb2xOYW1lczogbW9kZWwuZ2V0KCJjb2xfbmFtZXMiKSwKICAgICAgICBpc1N0YXRpYzogbW9kZWwuZ2V0KCJzdGF0aWMiKSwKICAgICAgICBmbGV4aWJsZUNvbHVtbnM6IG1vZGVsLmdldCgiZmxleGlibGVfY29scyIpCiAgICB9OwogICAgCiAgICBsZXQgbWF0cml4ID0gSlNPTi5wYXJzZShKU09OLnN0cmluZ2lmeShtb2RlbC5nZXQoIm1hdHJpeCIpKSk7IC8vIERlZXAgY29weQoKICAgIGNvbnN0IHdyYXBwZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTsKICAgIHdyYXBwZXIuY2xhc3NMaXN0LmFkZCgibWF0cml4LXdyYXBwZXIiKTsKICAgIGVsLmFwcGVuZENoaWxkKHdyYXBwZXIpOwoKICAgIGZ1bmN0aW9uIHJlbmRlck1hdHJpeCgpIHsKICAgICAgICB3cmFwcGVyLmlubmVySFRNTCA9ICcnOwogICAgICAgIAogICAgICAgIC8vIENyZWF0ZSBtYWluIGdyaWQgY29udGFpbmVyCiAgICAgICAgY29uc3QgZ3JpZENvbnRhaW5lciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgIGdyaWRDb250YWluZXIuY2xhc3NOYW1lID0gJ21hdHJpeC1ncmlkJzsKICAgICAgICBpZiAoY29uZmlnLmZsZXhpYmxlQ29sdW1ucykgewogICAgICAgICAgICBncmlkQ29udGFpbmVyLmNsYXNzTGlzdC5hZGQoJ2ZsZXhpYmxlLWNvbHVtbnMnKTsKICAgICAgICB9CiAgICAgICAgCiAgICAgICAgLy8gRmlyc3QgY29sdW1uIGZvciByb3cgbGFiZWxzIChpZiB0aGV5IGV4aXN0KQogICAgICAgIGlmIChjb25maWcucm93TmFtZXMubGVuZ3RoID4gMCkgewogICAgICAgICAgICBjb25zdCByb3dMYWJlbENvbHVtbiA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgICAgICByb3dMYWJlbENvbHVtbi5jbGFzc05hbWUgPSAnbWF0cml4LWNvbHVtbiBtYXRyaXgtbGFiZWwtY29sdW1uJzsKICAgICAgICAgICAgCiAgICAgICAgICAgIC8vIEVtcHR5IGNvcm5lciBjZWxsIGlmIHdlIGhhdmUgY29sdW1uIG5hbWVzCiAgICAgICAgICAgIGlmIChjb25maWcuY29sTmFtZXMubGVuZ3RoID4gMCkgewogICAgICAgICAgICAgICAgY29uc3QgY29ybmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7CiAgICAgICAgICAgICAgICBjb3JuZXIuY2xhc3NOYW1lID0gJ21hdHJpeC1jZWxsIG1hdHJpeC1jb3JuZXItY2VsbCc7CiAgICAgICAgICAgICAgICByb3dMYWJlbENvbHVtbi5hcHBlbmRDaGlsZChjb3JuZXIpOwogICAgICAgICAgICB9CiAgICAgICAgICAgIAogICAgICAgICAgICAvLyBSb3cgbGFiZWxzCiAgICAgICAgICAgIGNvbmZpZy5yb3dOYW1lcy5mb3JFYWNoKG5hbWUgPT4gewogICAgICAgICAgICAgICAgY29uc3QgY2VsbCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgICAgICAgICAgY2VsbC5jbGFzc05hbWUgPSAnbWF0cml4LWNlbGwgbWF0cml4LXJvdy1sYWJlbCc7CiAgICAgICAgICAgICAgICBjZWxsLnRleHRDb250ZW50ID0gbmFtZTsKICAgICAgICAgICAgICAgIHJvd0xhYmVsQ29sdW1uLmFwcGVuZENoaWxkKGNlbGwpOwogICAgICAgICAgICB9KTsKICAgICAgICAgICAgCiAgICAgICAgICAgIGdyaWRDb250YWluZXIuYXBwZW5kQ2hpbGQocm93TGFiZWxDb2x1bW4pOwogICAgICAgIH0KICAgICAgICAKICAgICAgICAvLyBDcmVhdGUgbWF0cml4IGNvbnRhaW5lciB0aGF0IHdpbGwgaG9sZCBhbGwgZGF0YSBjb2x1bW5zCiAgICAgICAgY29uc3QgbWF0cml4V3JhcHBlciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgIG1hdHJpeFdyYXBwZXIuY2xhc3NOYW1lID0gJ21hdHJpeC1kYXRhLXdyYXBwZXInOwogICAgICAgIAogICAgICAgIC8vIENyZWF0ZSBjb2x1bW5zIGZvciBlYWNoIG1hdHJpeCBjb2x1bW4KICAgICAgICBmb3IgKGxldCBjb2xJbmRleCA9IDA7IGNvbEluZGV4IDwgY29uZmlnLmNvbHM7IGNvbEluZGV4KyspIHsKICAgICAgICAgICAgY29uc3QgY29sdW1uID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7CiAgICAgICAgICAgIGNvbHVtbi5jbGFzc05hbWUgPSAnbWF0cml4LWNvbHVtbiBtYXRyaXgtZGF0YS1jb2x1bW4nOwogICAgICAgICAgICAKICAgICAgICAgICAgLy8gQ29sdW1uIGhlYWRlciBpZiBleGlzdHMKICAgICAgICAgICAgaWYgKGNvbmZpZy5jb2xOYW1lcy5sZW5ndGggPiAwKSB7CiAgICAgICAgICAgICAgICBjb25zdCBoZWFkZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTsKICAgICAgICAgICAgICAgIGhlYWRlci5jbGFzc05hbWUgPSAnbWF0cml4LWNlbGwgbWF0cml4LWNvbC1sYWJlbCc7CiAgICAgICAgICAgICAgICBoZWFkZXIudGV4dENvbnRlbnQgPSBjb25maWcuY29sTmFtZXNbY29sSW5kZXhdIHx8ICcnOwogICAgICAgICAgICAgICAgY29sdW1uLmFwcGVuZENoaWxkKGhlYWRlcik7CiAgICAgICAgICAgIH0KICAgICAgICAgICAgCiAgICAgICAgICAgIC8vIE1hdHJpeCB2YWx1ZXMKICAgICAgICAgICAgbWF0cml4LmZvckVhY2goKHJvdywgcm93SW5kZXgpID0+IHsKICAgICAgICAgICAgICAgIGNvbnN0IGNlbGwgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTsKICAgICAgICAgICAgICAgIGNlbGwuY2xhc3NOYW1lID0gJ21hdHJpeC1jZWxsIG1hdHJpeC1lbGVtZW50JzsKICAgICAgICAgICAgICAgIGlmIChjb25maWcuaXNTdGF0aWMpIHsKICAgICAgICAgICAgICAgICAgICBjZWxsLmNsYXNzTGlzdC5hZGQoJ21hdHJpeC1lbGVtZW50LXN0YXRpYycpOwogICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgY2VsbC50ZXh0Q29udGVudCA9IHJvd1tjb2xJbmRleF0udG9GaXhlZChjb25maWcuZGlnaXRzKTsKICAgICAgICAgICAgICAgIGNlbGwuZGF0YXNldC5yb3cgPSByb3dJbmRleDsKICAgICAgICAgICAgICAgIGNlbGwuZGF0YXNldC5jb2wgPSBjb2xJbmRleDsKICAgICAgICAgICAgICAgIGlmICghY29uZmlnLmlzU3RhdGljKSB7CiAgICAgICAgICAgICAgICAgICAgY2VsbC5hZGRFdmVudExpc3RlbmVyKCdtb3VzZWRvd24nLCBzdGFydERyYWdnaW5nKTsKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIGNvbHVtbi5hcHBlbmRDaGlsZChjZWxsKTsKICAgICAgICAgICAgfSk7CiAgICAgICAgICAgIAogICAgICAgICAgICBtYXRyaXhXcmFwcGVyLmFwcGVuZENoaWxkKGNvbHVtbik7CiAgICAgICAgfQogICAgICAgIAogICAgICAgIGdyaWRDb250YWluZXIuYXBwZW5kQ2hpbGQobWF0cml4V3JhcHBlcik7CiAgICAgICAgd3JhcHBlci5hcHBlbmRDaGlsZChncmlkQ29udGFpbmVyKTsKCiAgICAgICAgdXBkYXRlTW9kZWwoKTsKICAgIH07CgogICAgZnVuY3Rpb24gdXBkYXRlTW9kZWwoKSB7CiAgICAgICAgbW9kZWwuc2V0KCJtYXRyaXgiLCBKU09OLnBhcnNlKEpTT04uc3RyaW5naWZ5KG1hdHJpeCkpKTsgLy8gRGVlcCBjb3B5CiAgICAgICAgbW9kZWwuc2F2ZV9jaGFuZ2VzKCk7CiAgICB9OwoKICAgIGxldCB1cGRhdGVUaW1lb3V0OwogICAgZnVuY3Rpb24gZGVib3VuY2VkVXBkYXRlTW9kZWwoKSB7CiAgICAgICAgY2xlYXJUaW1lb3V0KHVwZGF0ZVRpbWVvdXQpOwogICAgICAgIHVwZGF0ZVRpbWVvdXQgPSBzZXRUaW1lb3V0KHVwZGF0ZU1vZGVsLCAxMDApOyAvLyBEZWJvdW5jZSBmb3IgMTAwbXMKICAgIH07CgogICAgZnVuY3Rpb24gc3RhcnREcmFnZ2luZyhlKSB7CiAgICAgICAgZS5wcmV2ZW50RGVmYXVsdCgpOwogICAgICAgIGNvbnN0IGVsZW1lbnQgPSBlLnRhcmdldDsKICAgICAgICBjb25zdCBzdGFydFggPSBlLmNsaWVudFg7CiAgICAgICAgY29uc3Qgc3RhcnRWYWx1ZSA9IHBhcnNlRmxvYXQoZWxlbWVudC50ZXh0Q29udGVudCk7CiAgICAgICAgY29uc3Qgcm93ID0gcGFyc2VJbnQoZWxlbWVudC5kYXRhc2V0LnJvdyk7CiAgICAgICAgY29uc3QgY29sID0gcGFyc2VJbnQoZWxlbWVudC5kYXRhc2V0LmNvbCk7CgogICAgICAgIGZ1bmN0aW9uIG9uTW91c2VNb3ZlKGUpIHsKICAgICAgICAgICAgY29uc3QgZGVsdGFYID0gZS5jbGllbnRYIC0gc3RhcnRYOwogICAgICAgICAgICBjb25zdCBzdGVwcyA9IE1hdGguZmxvb3IoZGVsdGFYIC8gY29uZmlnLnBpeGVsc1BlclN0ZXApOwogICAgICAgICAgICBjb25zdCBuZXdWYWx1ZSA9IE1hdGgubWF4KGNvbmZpZy5taW5WYWx1ZSwgTWF0aC5taW4oY29uZmlnLm1heFZhbHVlLCBzdGFydFZhbHVlICsgc3RlcHMgKiBjb25maWcuc3RlcFNpemUpKTsKICAgICAgICAgICAgdXBkYXRlTWF0cml4VmFsdWUocm93LCBjb2wsIG5ld1ZhbHVlKTsKICAgICAgICAgICAgcmVuZGVyTWF0cml4KCk7CiAgICAgICAgICAgIGRlYm91bmNlZFVwZGF0ZU1vZGVsKCk7CiAgICAgICAgfQoKICAgICAgICBmdW5jdGlvbiBvbk1vdXNlVXAoKSB7CiAgICAgICAgICAgIGRvY3VtZW50LnJlbW92ZUV2ZW50TGlzdGVuZXIoJ21vdXNlbW92ZScsIG9uTW91c2VNb3ZlKTsKICAgICAgICAgICAgZG9jdW1lbnQucmVtb3ZlRXZlbnRMaXN0ZW5lcignbW91c2V1cCcsIG9uTW91c2VVcCk7CiAgICAgICAgICAgIHVwZGF0ZU1vZGVsKCk7IC8vIEVuc3VyZSBmaW5hbCBzdGF0ZSBpcyB1cGRhdGVkCiAgICAgICAgfQoKICAgICAgICBkb2N1bWVudC5hZGRFdmVudExpc3RlbmVyKCdtb3VzZW1vdmUnLCBvbk1vdXNlTW92ZSk7CiAgICAgICAgZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignbW91c2V1cCcsIG9uTW91c2VVcCk7CiAgICB9OwoKICAgIGZ1bmN0aW9uIHVwZGF0ZU1hdHJpeFZhbHVlKHJvdywgY29sLCB2YWx1ZSkgewogICAgICAgIG1hdHJpeFtyb3ddW2NvbF0gPSBwYXJzZUZsb2F0KHZhbHVlLnRvRml4ZWQoY29uZmlnLmRpZ2l0cykpOwogICAgICAgIGlmIChjb25maWcuaXNNaXJyb3JlZCAmJiAoY29sIDwgY29uZmlnLnJvd3MpICYmIChyb3cgPCBjb25maWcuY29scykpIHsKICAgICAgICAgICAgbWF0cml4W2NvbF1bcm93XSA9IHBhcnNlRmxvYXQodmFsdWUudG9GaXhlZChjb25maWcuZGlnaXRzKSk7CiAgICAgICAgfQogICAgfTsKCiAgICByZW5kZXJNYXRyaXgoKTsKfQoKZXhwb3J0IGRlZmF1bHQgeyByZW5kZXIgfTs=&quot;" data-js-hash="&quot;c0a0ef6530732d033b6cf1ebf099626d&quot;" data-css="&quot;.matrix {\n    display: inline-block;\n    vertical-align: middle;\n    font-size: 18px;\n    line-height: 1;\n    white-space: nowrap;\n    padding: 10px;\n    position: relative;\n    user-select: none;\n}\n\n.matrix:before,\n.matrix:after {\n    content: \&quot;\&quot;;\n    position: absolute;\n    top: 0;\n    bottom: 0;\n    width: 2px;\n    background-color: var(--matrix-bracket, #000000);\n}\n\n.matrix:before {\n    left: 0;\n}\n\n.matrix:after {\n    right: 0;\n}\n\n.matrix-row {\n    display: flex;\n    justify-content: flex-start;\n}\n\n.matrix-wrapper {\n    display: inline-block;\n    font-family: monospace;\n    font-size: 14px;\n    color-scheme: light dark;\n    --matrix-text: #111827;\n    --matrix-muted: #333333;\n    --matrix-accent: #0066cc;\n    --matrix-static: #666666;\n    --matrix-bracket: rgba(0, 0, 0, 0.85);\n}\n\n.dark .matrix-wrapper,\n.dark-theme .matrix-wrapper,\n[data-theme=\&quot;dark\&quot;] .matrix-wrapper {\n    --matrix-text: #f3f4f6;\n    --matrix-muted: #c7d2fe;\n    --matrix-accent: #7dd3fc;\n    --matrix-static: #e2e8f0;\n    --matrix-bracket: rgba(148, 163, 184, 0.85);\n}\n\n.matrix-grid {\n    display: flex;\n    align-items: flex-start;\n    color: inherit;\n}\n\n.matrix-column {\n    display: flex;\n    flex-direction: column;\n    color: inherit;\n}\n\n.matrix-label-column {\n    margin-right: 5px;\n}\n\n.matrix-data-wrapper {\n    display: flex;\n    position: relative;\n    padding: 0 15px;\n}\n\n.matrix-data-wrapper::before,\n.matrix-data-wrapper::after {\n    content: '';\n    position: absolute;\n    width: 10px;\n    height: 100%;\n    pointer-events: none;\n}\n\n.matrix-data-wrapper::before {\n    left: 3px;\n    border-left: 2px solid var(--matrix-bracket, black);\n    border-top: 2px solid var(--matrix-bracket, black);\n    border-bottom: 2px solid var(--matrix-bracket, black);\n}\n\n.matrix-data-wrapper::after {\n    right: 3px;\n    border-right: 2px solid var(--matrix-bracket, black);\n    border-top: 2px solid var(--matrix-bracket, black);\n    border-bottom: 2px solid var(--matrix-bracket, black);\n}\n\n.matrix-data-column {\n    margin: 0;\n}\n\n.matrix-cell {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    height: 2em;\n    box-sizing: border-box;\n    color: inherit;\n}\n\n.matrix-element {\n    width: 3em;\n    height: 1.5em;\n    text-align: center;\n    margin: 0.2em;\n    cursor: ew-resize;\n    color: var(--matrix-accent, #0066cc);\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.matrix-element::selection {\n    background-color: transparent;\n}\n\n.matrix-element-static {\n    cursor: default;\n    color: var(--matrix-static, #666666);\n}\n\n.matrix-row-label {\n    width: auto;\n    min-width: 5em;\n    justify-content: flex-end;\n    padding-right: 0.5em;\n    font-weight: bold;\n    color: var(--matrix-muted, #333333);\n    white-space: nowrap;\n}\n\n.matrix-col-label {\n    font-weight: bold;\n    color: var(--matrix-muted, #333333);\n    margin-bottom: 5px;\n    width: 3.6em;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n}\n\n.matrix-grid.flexible-columns .matrix-element {\n    width: auto;\n    min-width: 3em;\n    padding: 0 0.5em;\n}\n\n.matrix-grid.flexible-columns .matrix-col-label {\n    width: auto;\n    min-width: 3.6em;\n    padding: 0 0.5em;\n}\n\n.matrix-grid.flexible-columns .matrix-data-column {\n    flex-shrink: 0;\n}\n\n.matrix-corner-cell {\n    visibility: hidden;\n    height: 2em;\n    margin-bottom: 5px;\n}\n\n.matrix-grid:has(.matrix-col-label) .matrix-data-wrapper::before,\n.matrix-grid:has(.matrix-col-label) .matrix-data-wrapper::after {\n    top: calc(2em + 5px);\n    height: calc(100% - 2em - 5px);\n}\n\n.matrix-grid:not(:has(.matrix-col-label)) .matrix-data-wrapper::before,\n.matrix-grid:not(:has(.matrix-col-label)) .matrix-data-wrapper::after {\n    top: 0;\n    height: 100%;\n}\n&quot;"></marimo-anywidget></marimo-ui-element></span>
+<h3 id="area-scaling" class="anchored">Area Scaling</h3>
+<span class="paragraph"><strong>Determinant:</strong> <marimo-tex class="arithmatex">||(\det(\mathbf{A}) = 2.00||)</marimo-tex></span>
+<span class="paragraph"><marimo-mime-renderer data-mime="&quot;application/vnd.vegalite.v5+json&quot;" data-data="&quot;{\n  \&quot;$schema\&quot;: \&quot;https://vega.github.io/schema/vega-lite/v6.1.0.json\&quot;,\n  \&quot;config\&quot;: {\n    \&quot;view\&quot;: {\n      \&quot;continuousHeight\&quot;: 300,\n      \&quot;continuousWidth\&quot;: 300\n    }\n  },\n  \&quot;datasets\&quot;: {\n    \&quot;data-e3870cc884fae5d0bbf85e97510852c6\&quot;: [\n      {\n        \&quot;x\&quot;: -3,\n        \&quot;x2\&quot;: 3,\n        \&quot;y\&quot;: 0,\n        \&quot;y2\&quot;: 0\n      },\n      {\n        \&quot;x\&quot;: 0,\n        \&quot;x2\&quot;: 0,\n        \&quot;y\&quot;: -3,\n        \&quot;y2\&quot;: 3\n      }\n    ],\n    \&quot;data-e981478bbef16c1667fb386b7a2102d1\&quot;: [\n      {\n        \&quot;order\&quot;: 0,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;order\&quot;: 1,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: 0.0\n      },\n      {\n        \&quot;order\&quot;: 2,\n        \&quot;x\&quot;: 2.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;order\&quot;: 3,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: 1.0\n      },\n      {\n        \&quot;order\&quot;: 4,\n        \&quot;x\&quot;: 0.0,\n        \&quot;y\&quot;: 0.0\n      }\n    ],\n    \&quot;data-f6b12846cbcd16fc5deaa12866fb9adf\&quot;: [\n      {\n        \&quot;order\&quot;: 0,\n        \&quot;x\&quot;: 0,\n        \&quot;y\&quot;: 0\n      },\n      {\n        \&quot;order\&quot;: 1,\n        \&quot;x\&quot;: 1,\n        \&quot;y\&quot;: 0\n      },\n      {\n        \&quot;order\&quot;: 2,\n        \&quot;x\&quot;: 1,\n        \&quot;y\&quot;: 1\n      },\n      {\n        \&quot;order\&quot;: 3,\n        \&quot;x\&quot;: 0,\n        \&quot;y\&quot;: 1\n      },\n      {\n        \&quot;order\&quot;: 4,\n        \&quot;x\&quot;: 0,\n        \&quot;y\&quot;: 0\n      }\n    ]\n  },\n  \&quot;height\&quot;: 350,\n  \&quot;layer\&quot;: [\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-e3870cc884fae5d0bbf85e97510852c6\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;scale\&quot;: {\n            \&quot;domain\&quot;: [\n              -3,\n              3\n            ]\n          },\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;x2\&quot;: {\n          \&quot;field\&quot;: \&quot;x2\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;scale\&quot;: {\n            \&quot;domain\&quot;: [\n              -3,\n              3\n            ]\n          },\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y2\&quot;: {\n          \&quot;field\&quot;: \&quot;y2\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;color\&quot;: \&quot;lightgray\&quot;,\n        \&quot;strokeWidth\&quot;: 0.5,\n        \&quot;type\&quot;: \&quot;rule\&quot;\n      }\n    },\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-f6b12846cbcd16fc5deaa12866fb9adf\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;order\&quot;: {\n          \&quot;field\&quot;: \&quot;order\&quot;,\n          \&quot;type\&quot;: \&quot;ordinal\&quot;\n        },\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;color\&quot;: \&quot;steelblue\&quot;,\n        \&quot;line\&quot;: {\n          \&quot;color\&quot;: \&quot;steelblue\&quot;,\n          \&quot;strokeWidth\&quot;: 2\n        },\n        \&quot;opacity\&quot;: 0.3,\n        \&quot;type\&quot;: \&quot;area\&quot;\n      }\n    },\n    {\n      \&quot;data\&quot;: {\n        \&quot;name\&quot;: \&quot;data-e981478bbef16c1667fb386b7a2102d1\&quot;\n      },\n      \&quot;encoding\&quot;: {\n        \&quot;order\&quot;: {\n          \&quot;field\&quot;: \&quot;order\&quot;,\n          \&quot;type\&quot;: \&quot;ordinal\&quot;\n        },\n        \&quot;x\&quot;: {\n          \&quot;field\&quot;: \&quot;x\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        },\n        \&quot;y\&quot;: {\n          \&quot;field\&quot;: \&quot;y\&quot;,\n          \&quot;type\&quot;: \&quot;quantitative\&quot;\n        }\n      },\n      \&quot;mark\&quot;: {\n        \&quot;color\&quot;: \&quot;coral\&quot;,\n        \&quot;line\&quot;: {\n          \&quot;color\&quot;: \&quot;coral\&quot;,\n          \&quot;strokeWidth\&quot;: 2\n        },\n        \&quot;opacity\&quot;: 0.4,\n        \&quot;type\&quot;: \&quot;area\&quot;\n      }\n    }\n  ],\n  \&quot;usermeta\&quot;: {\n    \&quot;embedOptions\&quot;: {}\n  },\n  \&quot;width\&quot;: 350\n}&quot;"></marimo-mime-renderer></span>
+<span class="paragraph"><strong>Blue square</strong> (area = 1) → <strong>Coral parallelogram</strong> (area = <marimo-tex class="arithmatex">||(|2.00|||)</marimo-tex> = 2.00)</span>
+<span class="paragraph">The determinant is <strong>positive (preserves orientation)</strong>.</span></span>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="What Determinant Tells You">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>What Determinant Tells You
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 59%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Determinant</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\det &gt; 1\)</span></td>
+<td>Transformation expands area</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(0 &lt; \det &lt; 1\)</span></td>
+<td>Transformation shrinks area</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\det &lt; 0\)</span></td>
+<td>Area scaled AND orientation flipped</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\det = 0\)</span></td>
+<td>Transformation collapses to lower dimension (no inverse!)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<hr>
+</section>
+<section id="inverse" class="level2">
+<h2 class="anchored" data-anchor-id="inverse">5. The Matrix Inverse: Undoing Transformations</h2>
+<p>If <span class="math inline">\(\mathbf{A}\)</span> transforms space, then <span class="math inline">\(\mathbf{A}^{-1}\)</span> <strong>undoes</strong> that transformation.</p>
+<p><span class="math display">\[\mathbf{A}^{-1}\mathbf{A} = \mathbf{I}\]</span></p>
+<div id="895bb8e8" class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="14">
+<span class="markdown prose dark:prose-invert contents"><h3 id="matrix-a" class="anchored">Matrix A</h3>
+<span class="paragraph"><marimo-ui-element object-id="f7821813-822f-5495-5043-09f70a75be04" random-id="f7821813-822f-5495-5043-09f70a75be04"><marimo-anywidget data-initial-value="{&quot;state&quot;:{&quot;col_names&quot;:[],&quot;cols&quot;:2,&quot;digits&quot;:1,&quot;flexible_cols&quot;:false,&quot;matrix&quot;:[[2.0,1.0],[0.0,1.0]],&quot;max_value&quot;:100.0,&quot;min_value&quot;:-100.0,&quot;mirror&quot;:false,&quot;row_names&quot;:[],&quot;rows&quot;:2,&quot;static&quot;:false,&quot;step&quot;:0.1},&quot;bufferPaths&quot;:[],&quot;buffers&quot;:[]}" data-label="null" data-js-url="&quot;data:text/javascript;base64,ZnVuY3Rpb24gcmVuZGVyKHttb2RlbCwgZWx9KXsKICAgIGNvbnN0IGNvbmZpZyA9IHsKICAgICAgICByb3dzOiBtb2RlbC5nZXQoInJvd3MiKSwKICAgICAgICBjb2xzOiBtb2RlbC5nZXQoImNvbHMiKSwKICAgICAgICBtaW5WYWx1ZTogbW9kZWwuZ2V0KCJtaW5fdmFsdWUiKSwKICAgICAgICBtYXhWYWx1ZTogbW9kZWwuZ2V0KCJtYXhfdmFsdWUiKSwKICAgICAgICBpc01pcnJvcmVkOiBtb2RlbC5nZXQoIm1pcnJvciIpLAogICAgICAgIHN0ZXBTaXplOiBtb2RlbC5nZXQoInN0ZXAiKSwKICAgICAgICBkaWdpdHM6IG1vZGVsLmdldCgiZGlnaXRzIiksCiAgICAgICAgcGl4ZWxzUGVyU3RlcDogMiwKICAgICAgICByb3dOYW1lczogbW9kZWwuZ2V0KCJyb3dfbmFtZXMiKSwKICAgICAgICBjb2xOYW1lczogbW9kZWwuZ2V0KCJjb2xfbmFtZXMiKSwKICAgICAgICBpc1N0YXRpYzogbW9kZWwuZ2V0KCJzdGF0aWMiKSwKICAgICAgICBmbGV4aWJsZUNvbHVtbnM6IG1vZGVsLmdldCgiZmxleGlibGVfY29scyIpCiAgICB9OwogICAgCiAgICBsZXQgbWF0cml4ID0gSlNPTi5wYXJzZShKU09OLnN0cmluZ2lmeShtb2RlbC5nZXQoIm1hdHJpeCIpKSk7IC8vIERlZXAgY29weQoKICAgIGNvbnN0IHdyYXBwZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTsKICAgIHdyYXBwZXIuY2xhc3NMaXN0LmFkZCgibWF0cml4LXdyYXBwZXIiKTsKICAgIGVsLmFwcGVuZENoaWxkKHdyYXBwZXIpOwoKICAgIGZ1bmN0aW9uIHJlbmRlck1hdHJpeCgpIHsKICAgICAgICB3cmFwcGVyLmlubmVySFRNTCA9ICcnOwogICAgICAgIAogICAgICAgIC8vIENyZWF0ZSBtYWluIGdyaWQgY29udGFpbmVyCiAgICAgICAgY29uc3QgZ3JpZENvbnRhaW5lciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgIGdyaWRDb250YWluZXIuY2xhc3NOYW1lID0gJ21hdHJpeC1ncmlkJzsKICAgICAgICBpZiAoY29uZmlnLmZsZXhpYmxlQ29sdW1ucykgewogICAgICAgICAgICBncmlkQ29udGFpbmVyLmNsYXNzTGlzdC5hZGQoJ2ZsZXhpYmxlLWNvbHVtbnMnKTsKICAgICAgICB9CiAgICAgICAgCiAgICAgICAgLy8gRmlyc3QgY29sdW1uIGZvciByb3cgbGFiZWxzIChpZiB0aGV5IGV4aXN0KQogICAgICAgIGlmIChjb25maWcucm93TmFtZXMubGVuZ3RoID4gMCkgewogICAgICAgICAgICBjb25zdCByb3dMYWJlbENvbHVtbiA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgICAgICByb3dMYWJlbENvbHVtbi5jbGFzc05hbWUgPSAnbWF0cml4LWNvbHVtbiBtYXRyaXgtbGFiZWwtY29sdW1uJzsKICAgICAgICAgICAgCiAgICAgICAgICAgIC8vIEVtcHR5IGNvcm5lciBjZWxsIGlmIHdlIGhhdmUgY29sdW1uIG5hbWVzCiAgICAgICAgICAgIGlmIChjb25maWcuY29sTmFtZXMubGVuZ3RoID4gMCkgewogICAgICAgICAgICAgICAgY29uc3QgY29ybmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7CiAgICAgICAgICAgICAgICBjb3JuZXIuY2xhc3NOYW1lID0gJ21hdHJpeC1jZWxsIG1hdHJpeC1jb3JuZXItY2VsbCc7CiAgICAgICAgICAgICAgICByb3dMYWJlbENvbHVtbi5hcHBlbmRDaGlsZChjb3JuZXIpOwogICAgICAgICAgICB9CiAgICAgICAgICAgIAogICAgICAgICAgICAvLyBSb3cgbGFiZWxzCiAgICAgICAgICAgIGNvbmZpZy5yb3dOYW1lcy5mb3JFYWNoKG5hbWUgPT4gewogICAgICAgICAgICAgICAgY29uc3QgY2VsbCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgICAgICAgICAgY2VsbC5jbGFzc05hbWUgPSAnbWF0cml4LWNlbGwgbWF0cml4LXJvdy1sYWJlbCc7CiAgICAgICAgICAgICAgICBjZWxsLnRleHRDb250ZW50ID0gbmFtZTsKICAgICAgICAgICAgICAgIHJvd0xhYmVsQ29sdW1uLmFwcGVuZENoaWxkKGNlbGwpOwogICAgICAgICAgICB9KTsKICAgICAgICAgICAgCiAgICAgICAgICAgIGdyaWRDb250YWluZXIuYXBwZW5kQ2hpbGQocm93TGFiZWxDb2x1bW4pOwogICAgICAgIH0KICAgICAgICAKICAgICAgICAvLyBDcmVhdGUgbWF0cml4IGNvbnRhaW5lciB0aGF0IHdpbGwgaG9sZCBhbGwgZGF0YSBjb2x1bW5zCiAgICAgICAgY29uc3QgbWF0cml4V3JhcHBlciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICAgIG1hdHJpeFdyYXBwZXIuY2xhc3NOYW1lID0gJ21hdHJpeC1kYXRhLXdyYXBwZXInOwogICAgICAgIAogICAgICAgIC8vIENyZWF0ZSBjb2x1bW5zIGZvciBlYWNoIG1hdHJpeCBjb2x1bW4KICAgICAgICBmb3IgKGxldCBjb2xJbmRleCA9IDA7IGNvbEluZGV4IDwgY29uZmlnLmNvbHM7IGNvbEluZGV4KyspIHsKICAgICAgICAgICAgY29uc3QgY29sdW1uID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7CiAgICAgICAgICAgIGNvbHVtbi5jbGFzc05hbWUgPSAnbWF0cml4LWNvbHVtbiBtYXRyaXgtZGF0YS1jb2x1bW4nOwogICAgICAgICAgICAKICAgICAgICAgICAgLy8gQ29sdW1uIGhlYWRlciBpZiBleGlzdHMKICAgICAgICAgICAgaWYgKGNvbmZpZy5jb2xOYW1lcy5sZW5ndGggPiAwKSB7CiAgICAgICAgICAgICAgICBjb25zdCBoZWFkZXIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTsKICAgICAgICAgICAgICAgIGhlYWRlci5jbGFzc05hbWUgPSAnbWF0cml4LWNlbGwgbWF0cml4LWNvbC1sYWJlbCc7CiAgICAgICAgICAgICAgICBoZWFkZXIudGV4dENvbnRlbnQgPSBjb25maWcuY29sTmFtZXNbY29sSW5kZXhdIHx8ICcnOwogICAgICAgICAgICAgICAgY29sdW1uLmFwcGVuZENoaWxkKGhlYWRlcik7CiAgICAgICAgICAgIH0KICAgICAgICAgICAgCiAgICAgICAgICAgIC8vIE1hdHJpeCB2YWx1ZXMKICAgICAgICAgICAgbWF0cml4LmZvckVhY2goKHJvdywgcm93SW5kZXgpID0+IHsKICAgICAgICAgICAgICAgIGNvbnN0IGNlbGwgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTsKICAgICAgICAgICAgICAgIGNlbGwuY2xhc3NOYW1lID0gJ21hdHJpeC1jZWxsIG1hdHJpeC1lbGVtZW50JzsKICAgICAgICAgICAgICAgIGlmIChjb25maWcuaXNTdGF0aWMpIHsKICAgICAgICAgICAgICAgICAgICBjZWxsLmNsYXNzTGlzdC5hZGQoJ21hdHJpeC1lbGVtZW50LXN0YXRpYycpOwogICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgY2VsbC50ZXh0Q29udGVudCA9IHJvd1tjb2xJbmRleF0udG9GaXhlZChjb25maWcuZGlnaXRzKTsKICAgICAgICAgICAgICAgIGNlbGwuZGF0YXNldC5yb3cgPSByb3dJbmRleDsKICAgICAgICAgICAgICAgIGNlbGwuZGF0YXNldC5jb2wgPSBjb2xJbmRleDsKICAgICAgICAgICAgICAgIGlmICghY29uZmlnLmlzU3RhdGljKSB7CiAgICAgICAgICAgICAgICAgICAgY2VsbC5hZGRFdmVudExpc3RlbmVyKCdtb3VzZWRvd24nLCBzdGFydERyYWdnaW5nKTsKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIGNvbHVtbi5hcHBlbmRDaGlsZChjZWxsKTsKICAgICAgICAgICAgfSk7CiAgICAgICAgICAgIAogICAgICAgICAgICBtYXRyaXhXcmFwcGVyLmFwcGVuZENoaWxkKGNvbHVtbik7CiAgICAgICAgfQogICAgICAgIAogICAgICAgIGdyaWRDb250YWluZXIuYXBwZW5kQ2hpbGQobWF0cml4V3JhcHBlcik7CiAgICAgICAgd3JhcHBlci5hcHBlbmRDaGlsZChncmlkQ29udGFpbmVyKTsKCiAgICAgICAgdXBkYXRlTW9kZWwoKTsKICAgIH07CgogICAgZnVuY3Rpb24gdXBkYXRlTW9kZWwoKSB7CiAgICAgICAgbW9kZWwuc2V0KCJtYXRyaXgiLCBKU09OLnBhcnNlKEpTT04uc3RyaW5naWZ5KG1hdHJpeCkpKTsgLy8gRGVlcCBjb3B5CiAgICAgICAgbW9kZWwuc2F2ZV9jaGFuZ2VzKCk7CiAgICB9OwoKICAgIGxldCB1cGRhdGVUaW1lb3V0OwogICAgZnVuY3Rpb24gZGVib3VuY2VkVXBkYXRlTW9kZWwoKSB7CiAgICAgICAgY2xlYXJUaW1lb3V0KHVwZGF0ZVRpbWVvdXQpOwogICAgICAgIHVwZGF0ZVRpbWVvdXQgPSBzZXRUaW1lb3V0KHVwZGF0ZU1vZGVsLCAxMDApOyAvLyBEZWJvdW5jZSBmb3IgMTAwbXMKICAgIH07CgogICAgZnVuY3Rpb24gc3RhcnREcmFnZ2luZyhlKSB7CiAgICAgICAgZS5wcmV2ZW50RGVmYXVsdCgpOwogICAgICAgIGNvbnN0IGVsZW1lbnQgPSBlLnRhcmdldDsKICAgICAgICBjb25zdCBzdGFydFggPSBlLmNsaWVudFg7CiAgICAgICAgY29uc3Qgc3RhcnRWYWx1ZSA9IHBhcnNlRmxvYXQoZWxlbWVudC50ZXh0Q29udGVudCk7CiAgICAgICAgY29uc3Qgcm93ID0gcGFyc2VJbnQoZWxlbWVudC5kYXRhc2V0LnJvdyk7CiAgICAgICAgY29uc3QgY29sID0gcGFyc2VJbnQoZWxlbWVudC5kYXRhc2V0LmNvbCk7CgogICAgICAgIGZ1bmN0aW9uIG9uTW91c2VNb3ZlKGUpIHsKICAgICAgICAgICAgY29uc3QgZGVsdGFYID0gZS5jbGllbnRYIC0gc3RhcnRYOwogICAgICAgICAgICBjb25zdCBzdGVwcyA9IE1hdGguZmxvb3IoZGVsdGFYIC8gY29uZmlnLnBpeGVsc1BlclN0ZXApOwogICAgICAgICAgICBjb25zdCBuZXdWYWx1ZSA9IE1hdGgubWF4KGNvbmZpZy5taW5WYWx1ZSwgTWF0aC5taW4oY29uZmlnLm1heFZhbHVlLCBzdGFydFZhbHVlICsgc3RlcHMgKiBjb25maWcuc3RlcFNpemUpKTsKICAgICAgICAgICAgdXBkYXRlTWF0cml4VmFsdWUocm93LCBjb2wsIG5ld1ZhbHVlKTsKICAgICAgICAgICAgcmVuZGVyTWF0cml4KCk7CiAgICAgICAgICAgIGRlYm91bmNlZFVwZGF0ZU1vZGVsKCk7CiAgICAgICAgfQoKICAgICAgICBmdW5jdGlvbiBvbk1vdXNlVXAoKSB7CiAgICAgICAgICAgIGRvY3VtZW50LnJlbW92ZUV2ZW50TGlzdGVuZXIoJ21vdXNlbW92ZScsIG9uTW91c2VNb3ZlKTsKICAgICAgICAgICAgZG9jdW1lbnQucmVtb3ZlRXZlbnRMaXN0ZW5lcignbW91c2V1cCcsIG9uTW91c2VVcCk7CiAgICAgICAgICAgIHVwZGF0ZU1vZGVsKCk7IC8vIEVuc3VyZSBmaW5hbCBzdGF0ZSBpcyB1cGRhdGVkCiAgICAgICAgfQoKICAgICAgICBkb2N1bWVudC5hZGRFdmVudExpc3RlbmVyKCdtb3VzZW1vdmUnLCBvbk1vdXNlTW92ZSk7CiAgICAgICAgZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignbW91c2V1cCcsIG9uTW91c2VVcCk7CiAgICB9OwoKICAgIGZ1bmN0aW9uIHVwZGF0ZU1hdHJpeFZhbHVlKHJvdywgY29sLCB2YWx1ZSkgewogICAgICAgIG1hdHJpeFtyb3ddW2NvbF0gPSBwYXJzZUZsb2F0KHZhbHVlLnRvRml4ZWQoY29uZmlnLmRpZ2l0cykpOwogICAgICAgIGlmIChjb25maWcuaXNNaXJyb3JlZCAmJiAoY29sIDwgY29uZmlnLnJvd3MpICYmIChyb3cgPCBjb25maWcuY29scykpIHsKICAgICAgICAgICAgbWF0cml4W2NvbF1bcm93XSA9IHBhcnNlRmxvYXQodmFsdWUudG9GaXhlZChjb25maWcuZGlnaXRzKSk7CiAgICAgICAgfQogICAgfTsKCiAgICByZW5kZXJNYXRyaXgoKTsKfQoKZXhwb3J0IGRlZmF1bHQgeyByZW5kZXIgfTs=&quot;" data-js-hash="&quot;c0a0ef6530732d033b6cf1ebf099626d&quot;" data-css="&quot;.matrix {\n    display: inline-block;\n    vertical-align: middle;\n    font-size: 18px;\n    line-height: 1;\n    white-space: nowrap;\n    padding: 10px;\n    position: relative;\n    user-select: none;\n}\n\n.matrix:before,\n.matrix:after {\n    content: \&quot;\&quot;;\n    position: absolute;\n    top: 0;\n    bottom: 0;\n    width: 2px;\n    background-color: var(--matrix-bracket, #000000);\n}\n\n.matrix:before {\n    left: 0;\n}\n\n.matrix:after {\n    right: 0;\n}\n\n.matrix-row {\n    display: flex;\n    justify-content: flex-start;\n}\n\n.matrix-wrapper {\n    display: inline-block;\n    font-family: monospace;\n    font-size: 14px;\n    color-scheme: light dark;\n    --matrix-text: #111827;\n    --matrix-muted: #333333;\n    --matrix-accent: #0066cc;\n    --matrix-static: #666666;\n    --matrix-bracket: rgba(0, 0, 0, 0.85);\n}\n\n.dark .matrix-wrapper,\n.dark-theme .matrix-wrapper,\n[data-theme=\&quot;dark\&quot;] .matrix-wrapper {\n    --matrix-text: #f3f4f6;\n    --matrix-muted: #c7d2fe;\n    --matrix-accent: #7dd3fc;\n    --matrix-static: #e2e8f0;\n    --matrix-bracket: rgba(148, 163, 184, 0.85);\n}\n\n.matrix-grid {\n    display: flex;\n    align-items: flex-start;\n    color: inherit;\n}\n\n.matrix-column {\n    display: flex;\n    flex-direction: column;\n    color: inherit;\n}\n\n.matrix-label-column {\n    margin-right: 5px;\n}\n\n.matrix-data-wrapper {\n    display: flex;\n    position: relative;\n    padding: 0 15px;\n}\n\n.matrix-data-wrapper::before,\n.matrix-data-wrapper::after {\n    content: '';\n    position: absolute;\n    width: 10px;\n    height: 100%;\n    pointer-events: none;\n}\n\n.matrix-data-wrapper::before {\n    left: 3px;\n    border-left: 2px solid var(--matrix-bracket, black);\n    border-top: 2px solid var(--matrix-bracket, black);\n    border-bottom: 2px solid var(--matrix-bracket, black);\n}\n\n.matrix-data-wrapper::after {\n    right: 3px;\n    border-right: 2px solid var(--matrix-bracket, black);\n    border-top: 2px solid var(--matrix-bracket, black);\n    border-bottom: 2px solid var(--matrix-bracket, black);\n}\n\n.matrix-data-column {\n    margin: 0;\n}\n\n.matrix-cell {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    height: 2em;\n    box-sizing: border-box;\n    color: inherit;\n}\n\n.matrix-element {\n    width: 3em;\n    height: 1.5em;\n    text-align: center;\n    margin: 0.2em;\n    cursor: ew-resize;\n    color: var(--matrix-accent, #0066cc);\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.matrix-element::selection {\n    background-color: transparent;\n}\n\n.matrix-element-static {\n    cursor: default;\n    color: var(--matrix-static, #666666);\n}\n\n.matrix-row-label {\n    width: auto;\n    min-width: 5em;\n    justify-content: flex-end;\n    padding-right: 0.5em;\n    font-weight: bold;\n    color: var(--matrix-muted, #333333);\n    white-space: nowrap;\n}\n\n.matrix-col-label {\n    font-weight: bold;\n    color: var(--matrix-muted, #333333);\n    margin-bottom: 5px;\n    width: 3.6em;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n}\n\n.matrix-grid.flexible-columns .matrix-element {\n    width: auto;\n    min-width: 3em;\n    padding: 0 0.5em;\n}\n\n.matrix-grid.flexible-columns .matrix-col-label {\n    width: auto;\n    min-width: 3.6em;\n    padding: 0 0.5em;\n}\n\n.matrix-grid.flexible-columns .matrix-data-column {\n    flex-shrink: 0;\n}\n\n.matrix-corner-cell {\n    visibility: hidden;\n    height: 2em;\n    margin-bottom: 5px;\n}\n\n.matrix-grid:has(.matrix-col-label) .matrix-data-wrapper::before,\n.matrix-grid:has(.matrix-col-label) .matrix-data-wrapper::after {\n    top: calc(2em + 5px);\n    height: calc(100% - 2em - 5px);\n}\n\n.matrix-grid:not(:has(.matrix-col-label)) .matrix-data-wrapper::before,\n.matrix-grid:not(:has(.matrix-col-label)) .matrix-data-wrapper::after {\n    top: 0;\n    height: 100%;\n}\n&quot;"></marimo-anywidget></marimo-ui-element></span>
+<span class="paragraph"><strong>Determinant:</strong> 2.00</span>
+<h3 id="inverse-a1" class="anchored">Inverse A⁻¹</h3>
+<marimo-tex class="arithmatex">||[\mathbf{A}^{-1} = \begin{bmatrix} 0.500 &amp; -0.500 \\ 0.000 &amp; 1.000 \end{bmatrix}||]</marimo-tex><h3 id="verification-a1a-i" class="anchored">Verification: A⁻¹A = I</h3>
+<marimo-tex class="arithmatex">||[\mathbf{A}^{-1}\mathbf{A} = \begin{bmatrix} 1.0 &amp; 0.0 \\ 0.0 &amp; 1.0 \end{bmatrix} = \mathbf{I}||]</marimo-tex><span class="paragraph"><em>The inverse "undoes" the transformation, returning to the identity.</em></span></span>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled" title="When Does an Inverse Exist?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>When Does an Inverse Exist?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A matrix has an inverse <strong>only if</strong> its determinant is non-zero.</p>
+<p>If <span class="math inline">\(\det(\mathbf{A}) = 0\)</span>: - The transformation collapses space - Multiple inputs map to the same output - You can’t uniquely reverse the transformation</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="design-matrices" class="level2">
+<h2 class="anchored" data-anchor-id="design-matrices">6. Design Matrices: Connecting to Statistics</h2>
+<p>In regression, the <strong>design matrix</strong> <span class="math inline">\(\mathbf{X}\)</span> encodes your predictors.</p>
+<p>Each <strong>row</strong> is an observation. Each <strong>column</strong> is a predictor.</p>
+<div id="dd109cac" class="cell" data-execution_count="16">
+<div class="cell-output cell-output-display" data-execution_count="15">
+<marimo-ui-element object-id="40d04734-6362-99c0-7441-709b05612806" random-id="40d04734-6362-99c0-7441-709b05612806"><marimo-slider data-initial-value="5" data-label="&quot;<span class=\&quot;markdown prose dark:prose-invert contents\&quot;><span class=\&quot;paragraph\&quot;>Number of observations</span></span>&quot;" data-start="3" data-stop="8" data-step="1" data-steps="[]" data-debounce="false" data-disabled="false" data-orientation="&quot;horizontal&quot;" data-show-value="false" data-include-input="false" data-full-width="false"></marimo-slider></marimo-ui-element>
+</div>
+</div>
+<div id="1910c534" class="cell" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="16">
+<span class="markdown prose dark:prose-invert contents"><h3 id="design-matrix-structure" class="anchored">Design Matrix Structure</h3>
+<span class="paragraph">For 5 observations with 2 predictors (<marimo-tex class="arithmatex">||(x_1||)</marimo-tex> and <marimo-tex class="arithmatex">||(x_2||)</marimo-tex>):</span>
+<marimo-tex class="arithmatex">||[\mathbf{X} = \begin{bmatrix}
+1 &amp; x_{11} &amp; x_{21} \\
+1 &amp; x_{12} &amp; x_{22} \\
+\vdots &amp; \vdots &amp; \vdots \\
+1 &amp; x_{1n} &amp; x_{2n}
+\end{bmatrix}||]</marimo-tex><span class="paragraph"><strong>Your data:</strong></span>
+
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Obs</th>
+<th data-quarto-table-cell-role="th">Intercept</th>
+<th data-quarto-table-cell-role="th"><marimo-tex class="arithmatex">||(x_1||)</marimo-tex></th>
+<th data-quarto-table-cell-role="th"><marimo-tex class="arithmatex">||(x_2||)</marimo-tex></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>2.5</td>
+<td>1.6</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>1</td>
+<td>4.8</td>
+<td>0.6</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>1</td>
+<td>3.9</td>
+<td>8.7</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>1</td>
+<td>3.4</td>
+<td>6.0</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>1</td>
+<td>1.6</td>
+<td>7.1</td>
+</tr>
+</tbody>
+</table>
+
+<span class="paragraph"><strong>Matrix dimensions:</strong> 5 rows × 3 columns = <marimo-tex class="arithmatex">||((5 \times 3)||)</marimo-tex></span>
+<span class="paragraph">The column of 1s lets us estimate an <strong>intercept</strong> (<marimo-tex class="arithmatex">||(\beta_0||)</marimo-tex>).</span></span>
+</div>
+</div>
+<hr>
+</section>
+<section id="gram-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="gram-matrix">7. X’X: The Gram Matrix</h2>
+<p>The matrix <span class="math inline">\(\mathbf{X}^T\mathbf{X}\)</span> is called the <strong>Gram matrix</strong>. It captures:</p>
+<ul>
+<li><strong>Diagonal:</strong> How much each predictor varies (related to variance)</li>
+<li><strong>Off-diagonal:</strong> How predictors relate to each other (related to covariance)</li>
+</ul>
+<div id="3a5be7a4" class="cell" data-execution_count="18">
+<div class="cell-output cell-output-display" data-execution_count="17">
+<span class="markdown prose dark:prose-invert contents"><h3 id="computing-xx" class="anchored">Computing X'X</h3>
+<span class="paragraph"><strong>Transpose:</strong> <marimo-tex class="arithmatex">||(\mathbf{X}^T||)</marimo-tex> is <marimo-tex class="arithmatex">||((3 \times 5)||)</marimo-tex></span>
+<span class="paragraph"><strong>Product:</strong> <marimo-tex class="arithmatex">||(\mathbf{X}^T\mathbf{X}||)</marimo-tex> is <marimo-tex class="arithmatex">||((3 \times 3)||)</marimo-tex></span>
+<marimo-tex class="arithmatex">||[\mathbf{X}^T\mathbf{X} = \begin{bmatrix}
+5.0 &amp; 16.2 &amp; 24.0 \\
+16.2 &amp; 58.6 &amp; 72.6 \\
+24.0 &amp; 72.6 &amp; 165.0
+\end{bmatrix}||]</marimo-tex><span class="paragraph"><strong>Interpretation:</strong></span>
+<ul>
+<li><marimo-tex class="arithmatex">||((5.0)||)</marimo-tex> = sum of squared intercepts = <marimo-tex class="arithmatex">||(n||)</marimo-tex> = 5</li>
+<li>Diagonal = sum of squares for each predictor</li>
+<li>Off-diagonal = sum of cross-products (related to covariance)</li>
+</ul></span>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Why X'X Matters">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why X’X Matters
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The Gram matrix tells you about <strong>multicollinearity</strong>:</p>
+<ul>
+<li>If predictors are uncorrelated, off-diagonals are small</li>
+<li>If predictors are highly correlated, off-diagonals are large</li>
+<li>When <span class="math inline">\(\mathbf{X}^T\mathbf{X}\)</span> is nearly singular (det ≈ 0), coefficients become unstable</li>
+</ul>
+</div>
+</div>
+<hr>
+</section>
+<section id="ols" class="level2">
+<h2 class="anchored" data-anchor-id="ols">8. The OLS Formula: Putting It Together</h2>
+<p>Finally, the formula for estimating regression coefficients:</p>
+<p><span class="math display">\[\hat{\boldsymbol{\beta}} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}\]</span></p>
+<div id="370a7544" class="cell" data-execution_count="20">
+<div class="cell-output cell-output-display" data-execution_count="19">
+<span class="markdown prose dark:prose-invert contents"><h3 id="step-by-step-ols" class="anchored">Step-by-Step OLS</h3>
+<span class="paragraph"><strong>Given:</strong> Design matrix <marimo-tex class="arithmatex">||(\mathbf{X}||)</marimo-tex> (5×3) and outcome <marimo-tex class="arithmatex">||(\mathbf{y}||)</marimo-tex> (5×1)</span>
+<span class="paragraph"><strong>Step 1:</strong> Compute <marimo-tex class="arithmatex">||(\mathbf{X}^T\mathbf{X}||)</marimo-tex>
+$<marimo-tex class="arithmatex">||(\mathbf{X}^T\mathbf{X} = \begin{bmatrix}
+5.00 &amp; 16.20 &amp; 24.00 \\
+16.20 &amp; 58.62 &amp; 72.57 \\
+24.00 &amp; 72.57 &amp; 165.02
+\end{bmatrix}||)</marimo-tex>$</span>
+<span class="paragraph"><strong>Step 2:</strong> Compute <marimo-tex class="arithmatex">||((\mathbf{X}^T\mathbf{X})^{-1}||)</marimo-tex>
+$<marimo-tex class="arithmatex">||((3.1642, -0.6689, -0.1660, ...)||)</marimo-tex>$</span>
+<span class="paragraph"><strong>Step 3:</strong> Compute <marimo-tex class="arithmatex">||(\mathbf{X}^T\mathbf{y}||)</marimo-tex>
+$<marimo-tex class="arithmatex">||(\mathbf{X}^T\mathbf{y} = \begin{bmatrix} 41.19 \\ 141.31 \\ 203.59 \end{bmatrix}||)</marimo-tex>$</span>
+<span class="paragraph"><strong>Step 4:</strong> Compute <marimo-tex class="arithmatex">||(\hat{\boldsymbol{\beta}} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}||)</marimo-tex></span>
+<marimo-tex class="arithmatex">||[\hat{\boldsymbol{\beta}} = \begin{bmatrix} 2.014 \\ 1.513 \\ 0.275 \end{bmatrix}||]</marimo-tex><span class="paragraph"><strong>Estimated model:</strong> <marimo-tex class="arithmatex">||(\hat{y} = 2.01 + 1.51x_1 + 0.28x_2||)</marimo-tex></span>
+<span class="paragraph"><em>(True values were: <marimo-tex class="arithmatex">||(\beta_0 = 2.0||)</marimo-tex>, <marimo-tex class="arithmatex">||(\beta_1 = 1.5||)</marimo-tex>, <marimo-tex class="arithmatex">||(\beta_2 = 0.3||)</marimo-tex>)</em></span></span>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="What Each Piece Does">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>What Each Piece Does
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\mathbf{X}^T\mathbf{X}\)</span></td>
+<td>How predictors relate to each other</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\((\mathbf{X}^T\mathbf{X})^{-1}\)</span></td>
+<td>Removes redundancy between predictors</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mathbf{X}^T\mathbf{y}\)</span></td>
+<td>How each predictor relates to the outcome</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\((\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}\)</span></td>
+<td>Unique contribution of each predictor</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<hr>
+</section>
+<section id="summary-the-linear-algebra-of-regression" class="level2">
+<h2 class="anchored" data-anchor-id="summary-the-linear-algebra-of-regression">Summary: The Linear Algebra of Regression</h2>
+<p>You now understand the <strong>geometric meaning</strong> behind every piece of OLS:</p>
+<ol type="1">
+<li><strong>Vectors</strong> are arrows in space</li>
+<li><strong>Matrices</strong> are transformations of space</li>
+<li><strong>Multiplication</strong> composes transformations</li>
+<li><strong>Determinant</strong> measures area scaling</li>
+<li><strong>Inverse</strong> undoes a transformation</li>
+<li><strong>Design matrix</strong> encodes predictors</li>
+<li><strong>Gram matrix</strong> captures predictor relationships</li>
+<li><strong>OLS formula</strong> finds the best-fitting coefficients</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled" title="Going Further">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Going Further
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>See <a href="../guides/formulas.html">Formula Reference</a> for all the equations</li>
+<li>Week 8-9 lectures cover these topics in more depth</li>
+<li><a href="https://www.3blue1brown.com/topics/linear-algebra">3blue1brown’s Essence of Linear Algebra</a> is an excellent visual resource</li>
+</ul>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

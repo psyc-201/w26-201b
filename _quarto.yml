@@ -46,6 +46,8 @@ website:
       - text: Guides & Resources
         menu:
           - guides/terminology.qmd
+          - guides/formulas.qmd
+          - guides/linear-algebra.qmd
           - guides/git-guide.qmd
           - guides/classroom-guide.qmd
           - guides/python-guide.qmd
@@ -91,3 +93,7 @@ format:
     code-line-numbers: true
     toc: true
     toc-depth: 4
+    include-in-header:
+      - text: |
+          <script type="module" src="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.18.4/dist/main.js"></script>
+          <link href="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.18.4/dist/style.css" rel="stylesheet" />
