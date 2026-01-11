@@ -17,9 +17,9 @@ You'll *always* be able to access your assignment repositories, history, and ins
 
 1. Open any course link that starts with 📚 
 2. Accept the assignment in your browser
-3. Click the URL to go the auto-created github repo (this will alway be named `assignment-name-YOUR-GITHUB-USERNAME`)
+3. Click the URL to go the auto-created github repo (this will always be named `assignment-name-YOUR-GITHUB-USERNAME`)
 4. Clone it to your local computer using `git clone`
-5. Open and work on any notebook files using JupyterLab or VSCode
+5. Open and work on any notebook files using VSCode
 6. Commit your changes locally using `git add` & `git commit`
 7. Push your changes to github using `git push`
 8. Respond to any feedback discussions under the "Pull Requests" tab on the github repo
@@ -30,7 +30,7 @@ Occasionally, we'll update assignments that you've already accepted and `git clo
 
 1. Follow the assignment link to go to the repository on github.com that you cloned to first start the assignment. It will be named MM-DD-YOURGITHUBID, e.g. "01-21-ejolly"
 2. Click on "Pull Requests"
-3. Click on "Github Classrom: Sync Assignment"
+3. Click on "Github Classroom: Sync Assignment"
 4. Click on green "Merge pull request" button
 5. After the button turns purple, indicating the "merge is complete" open up a terminal on your local computer and `cd` into the folder you cloned from this repository, e.g. "01-21-ejolly"
 6. Use `git status` to check if you've saved some changes, but haven't yet `git commit` them. If you don't see "*nothing to commit, working tree clean*", you'll need to `git add` and `git commit` your changed files

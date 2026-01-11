@@ -41,7 +41,7 @@ import polars as pl
 
 ## Why use Polars?
 
-So far we've made most use of Python *lists* and NumPy *arrays*. But in practice you're probably working with some kind of **structured data**, i.e spreadsheet-style data with columns and rows
+So far we've made most use of Python *lists* and NumPy *arrays*. But in practice you're probably working with some kind of **structured data**, i.e. spreadsheet-style data with columns and rows
 
 ![](figs/01_table_spreadsheet.png){width=50%}
 
@@ -186,9 +186,11 @@ df[:, 'Name']
 df[0:2, 'Name']
 ```
 
-**Note**:  While you *can* access values this way, what makes Polars powerful is that it offers a much *richer* "language" or set of "patterns" for working with DataFrames, like `dplyr`'s *verbs* in R's Tidyverse.
+:::{.callout-note}
+While you *can* access values this way, what makes Polars powerful is that it offers a much *richer* "language" or set of "patterns" for working with DataFrames, like `dplyr`'s *verbs* in R's Tidyverse.
 
 While it doesn't map on one-to-one, Polars offers a *consistent* and *intuitive* way of working with DataFrames that we'll teach you in this notebook. Once the fundamentals "click" for you, you'll be a data manipulating ninja!
+:::
 
 ## Thinking in Polars: Contexts & Expressions
 
@@ -224,7 +226,7 @@ Let's see a simple example.
 
 ## Starting simple
 
-Let's say we have data from some experiment that contains 3 participants, each of whom made 5 judgements about some stimuli.
+Let's say we have data from some experiment that contains 3 participants, each of whom made 5 judgments about some stimuli.
 
 We can use the `pl.read_csv()` function to load a file and get back a polars `DataFrame`:
 
@@ -334,9 +336,9 @@ How would you express the following statement in polars?
 
 *Select only the participant and accuracy columns*
 
-*For each participant, calculate the number of values, i.e `.count()`*
+*For each participant, calculate the number of values, i.e. `.count()`*
 
-*For accuracy, calculate it's standard deviation (what method do you think it is?)*
+*For accuracy, calculate its standard deviation (what method do you think it is?)*
 :::
 
 ```{python}
@@ -380,11 +382,11 @@ Later on you might find it helpful to use a single condensed expression, when yo
 
 ### Renaming expression outputs
 
-Let's try creating two expressions that operate on the the same column. In natural language:
+Let's try creating two expressions that operate on the same column. In natural language:
 
 "*Select* only the accuracy column.
-For accuracy, calculate it's *median*
-For accuracy, calculate it's *variance*
+For accuracy, calculate its *median*
+For accuracy, calculate its *variance*
 "
 
 Let's try it:
@@ -415,7 +417,7 @@ df_1.select(
 
 :::{.callout-note title="Two styles of expressing yourself"}
 You might find this style of "method-chaining" the use of `.alias()` unintuitive at first.
-So Polars also lets rename your expressions in a different "style" using `=` as in other language like R.
+So Polars also lets your rename your expressions in a different "style" using `=` as in other language like R.
 
 In English, we could rephrase our expressions as so:
 
@@ -460,7 +462,7 @@ The `.group_by('some_col')` context is used for **summarizing** columns separate
 
 ![](figs/06_groupby.svg){width=50%}
 
-You always follow up a `.group_by()` with `.agg()`, and place our **expressions**  inside to tell Polars what should be calculated per group.
+You always follow up a `.group_by()` with `.agg()`, and place our **expressions** inside to tell Polars what should be calculated per group.
 
 Using `.group_by()` will **always** give you a **smaller** DataFrame than the original.
 Specifically you will get back a DataFrame whose rows = number of groups
@@ -514,7 +516,7 @@ Whenever we want to return the original DataFrame along with some **new columns*
 
 It will always output the original DataFrame **and** the outputs of your expressions.
 
-If your expression returns just a single value (e.g. the mean of a column), Polars is smart enough to automatically repeat that value over all the rows to make sure it fits inside the DataFrame.
+If your expression returns just a single value (e.g. the mean of a column), Polars is smart enough to automatically repeat that value over all rows to make sure it fits inside the DataFrame.
 
 ```{python}
 # start with_columns context
@@ -577,7 +579,7 @@ In Polars you should only rely on `.group_by` if you know *for sure* that you wa
 
 :::{.callout-tip title="Your Turn"}
 
-Create a dataframe that adds 3 new columns:
+Create a DataFrame that adds 3 new columns:
 
 1. Accuracy on a 0-1 scale
 2. RT / Accuracy
@@ -606,7 +608,7 @@ df_1.with_columns(
 
 ## Selecting rows: `.filter()`
 
-The `.filter` context is used for **subsetting rows** using a **logical expression**.
+The `.filter` context is used for **sub-setting rows** using a **logical expression**.
 
 ![](figs/03_subset_rows.svg){width=50%}
 
@@ -733,7 +735,7 @@ df_1.select(col('accuracy', 'rt') * 10)
 ```
 :::
 
-**2. Add 2 new columns to the dataframe: `rt_acc` and `acc_max_scaled`**
+**2. Add 2 new columns to the DataFrame: `rt_acc` and `acc_max_scaled`**
 
 For `rt_acc` divide reaction time by accuracy.
 
@@ -784,7 +786,7 @@ def scale(column_name):
     return (col(column_name) - col(column_name).mean()) / col(column_name).std()
 ```
 
-This is a function that accepts a single argument `column_name`, and then uses the `col` *selector* from Polars to select a column and calculate it's z-score.
+This is a function that accepts a single argument `column_name`, and then uses the `col` *selector* from Polars to select a column and calculate its z-score.
 
 We can now use this **expression** in any **context** saves us a ton of typing and typos!
 
@@ -907,7 +909,7 @@ ddf
 ```
 
 :::{.callout-tip title="Your Turn"}
-Use `when` and `lit` to add a column to the dataframe called `performance`.
+Use `when` and `lit` to add a column to the DataFrame called `performance`.
 
 It should contain the string 'success' if accuracy >= 50, or 'fail' if it was < 50.
 
@@ -929,7 +931,7 @@ df_new.head(10)
 :::
 
 :::{.callout-tip title="Your Turn"}
-Using the previous dataframe (`df_new`), *summarize* how many successes and failures each participant had.
+Using the previous DataFrame (`df_new`), *summarize* how many successes and failures each participant had.
 
 Your result should have 6 rows: 2 for each participant
 :::
@@ -961,7 +963,7 @@ df_new.group_by(['participant', 'performance'], maintain_order=True).agg(
 
 In addition to importing functions to build more complicated expressions, Polars also allows you to perform specific *operations* based upon the **type** of data in a column.
 
-You don't need to import anything to use these. Instead you can use `.` syntax to "narrow down" to the type of **data attribute** you want, and then select the operations you would like.
+You don't need to import anything to use these. Instead, you can use `.` syntax to "narrow down" to the type of **data attribute** you want, and then select the operations you would like.
 
 For example, we'll use the DataFrame we created in the previous section, `ddf`:
 
@@ -994,7 +996,7 @@ Polars includes many attribute operations. The most common ones you'll use are f
 
 **[`.name`](https://docs.pola.rs/api/python/stable/reference/expressions/name.html)**: which allows you to quickly change the names of columns from within a more complicated expression.
 
-**[`.list`](https://docs.pola.rs/api/python/stable/reference/expressions/list.html)**: if you columns contain Python lists
+**[`.list`](https://docs.pola.rs/api/python/stable/reference/expressions/list.html)**: if your columns contain Python lists
 
 For example, below we using a **single expression** inside the `with_columns` context below to calculate the mean of the accuracy and rt columns.
 
@@ -1004,7 +1006,7 @@ df_1.with_columns(col('accuracy', 'rt').mean())
 
 Because we're using `.with_columns`, the output of our expression is **overwriting** the original values in the accuracy and rt columns.
 
-We saw how rename output when we had **separate** `col('accuracy').mean()` and `col('rt').mean()` **expressions**: using `.alias()` at the end or `=` at the beginning.
+We saw how to rename output when we had **separate** `col('accuracy').mean()` and `col('rt').mean()` **expressions**: using `.alias()` at the end or `=` at the beginning.
 
 But how do we change the names of *both* columns **at the same time**?
 
@@ -1084,7 +1086,7 @@ In polars we can achieve this using:
 
 `.pivot()`: long -> wide, similar to `pivot_wider()` in R
 `.unpivot()`: wide -> long, similar to `pivot_longer()` in R
-`pl.concat()`: combine 2 or more dataframes/columns/rows into a larger DataFrame
+`pl.concat()`: combine 2 or more DataFrames/columns/rows into a larger DataFrame
 
 Here, I've generated data from two participants with three observations. This data frame is not tidy since each row contains more than a *single* observation.
 
@@ -1319,7 +1321,7 @@ step3
 ```
 :::
 
-**4. pivot long -> wide to breakout the `value_name` column (I called it `rating`) into multiple columns**
+**4. pivot long -> wide to break-out the `value_name` column (I called it `rating`) into multiple columns**
 
 ![](figs/step4.png){width=40%}
 
@@ -1345,7 +1347,7 @@ step4
 # Appendix
 
 ## Additional Resources
-Here a few additional resources you might helpful on your journey:
+Here a few additional resources that might be helpful on your journey:
 
 - [Polars official intro tutorial](https://docs.pola.rs/user-guide/getting-started/)
 - [More Comprehensive intro to Polars](https://bebi103a.github.io/lessons/06/intro_to_polars.html#)

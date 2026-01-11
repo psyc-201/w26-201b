@@ -18,12 +18,12 @@ See what files are ready to be made into a "snapshot" (committed) and which ones
 ![git status](./example_command_gifs/gitstatus.gif)  
 
 ### `git add`  
-Add/ready file(s) to the list of files that should be made into a "snapshot" (committed)
+Add one or more files to the list of files that should be made into a "snapshot" (committed)
 ![git add](./example_command_gifs/gitadd.gif)  
 
 ### `git reset`
-Remove/unready file(s) from the list of files that should be made into a "snapshot" (committed).  
-This doesn't remove/delete file(s) just removes them from the file you plan to include in this commit.
+Remove one or more file from the list of files that should be made into a "snapshot" (committed).  
+This doesn't remove/delete files. It just removes them from the file you plan to include in this commit.
 
 ### `git commit`  
 Take a "snapshot" of all currently tracked project files. Files need to be "prepped" (staged) for commit using `git add` beforehand. You'll almost always use the `-m 'some commit message'` flag when running this command. These messages will then appear in the `git log`!    
@@ -70,5 +70,5 @@ Create a new independent "timeline" for the project. This is the "true power" of
 ![git branch](./example_command_gifs/gitbranch.gif)  
 
 ### `git revert`  
-Undo changes by reversing any specific "snapshot" (commit). Think of this is a "rollbaack" command that adds an entry to your project timeline. In other words, in addition to "undoing" a previous commit, we *also* keep a record of this "undo" using another commit.  
+Undo changes by reversing any specific "snapshot" (commit). Think of this is a "rollback" command that adds an entry to your project timeline. In other words, in addition to "undoing" a previous commit, we *also* keep a record of this "undo" using another commit.  
 ![git revert](./example_command_gifs/gitrevert.gif)  

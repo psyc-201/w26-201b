@@ -219,7 +219,7 @@ if my_number > 0:
 
 :::{.callout-note title="Note: Indentation"}
 Python is often loved for being very *readable* in part because it doesn't use `{}` to surround code-block like R, Javascript and other languages.
-However, that means you need to carefully **indent** or **deindent** to accomplish the same thing.
+However, that means you need to carefully **indent** or **de-indent** to accomplish the same thing.
 :::
 
 ```{python}

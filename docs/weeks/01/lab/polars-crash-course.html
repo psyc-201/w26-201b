@@ -359,7 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="how-to-import-polars" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-import-polars">How to import Polars</h2>
 <p>We can make <code>polars</code> available by using the <code>import</code> statement. It’s convention to import <code>polars</code> in the following way:</p>
-<div id="babb57f2" class="cell" data-execution_count="1">
+<div id="babb57f2" class="cell" data-execution_count="2">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> polars <span class="im">as</span> pl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -368,13 +368,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="why-use-polars" class="level2">
 <h2 class="anchored" data-anchor-id="why-use-polars">Why use Polars?</h2>
-<p>So far we’ve made most use of Python <em>lists</em> and NumPy <em>arrays</em>. But in practice you’re probably working with some kind of <strong>structured data</strong>, i.e spreadsheet-style data with columns and rows</p>
+<p>So far we’ve made most use of Python <em>lists</em> and NumPy <em>arrays</em>. But in practice you’re probably working with some kind of <strong>structured data</strong>, i.e.&nbsp;spreadsheet-style data with columns and rows</p>
 <p><img src="figs/01_table_spreadsheet.png" class="img-fluid" style="width:50.0%"></p>
 <p>In Polars we call this a <code>DataFrame</code>, a 2d table with rows and columns of different types of data (e.g.&nbsp;strings, numbers, etc).</p>
 <p><img src="figs/01_table_dataframe.svg" class="img-fluid" style="width:40.0%"></p>
 <p>Each <strong>column</strong> of a <code>DataFrame</code> contains the same <strong>type</strong> of data. Let’s look at an example by loading a file with the <code>pl.read_csv()</code> function.</p>
 <p>This will return a <code>DataFrame</code> we can check out:</p>
-<div id="7fa800e2" class="cell" data-execution_count="2">
+<div id="7fa800e2" class="cell" data-execution_count="3">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pl.read_csv(<span class="st">'data/example.csv'</span>)</span>
@@ -428,7 +428,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="dataframe-fundamentals" class="level2">
 <h2 class="anchored" data-anchor-id="dataframe-fundamentals">DataFrame fundamentals</h2>
 <p>We can get basic information about a DataFrame by accessing its <strong><a href="https://docs.pola.rs/api/python/stable/reference/dataframe/attributes.html">attributes</a></strong> using <code>.</code> syntax <em>without</em> <code>()</code> at the end:</p>
-<div id="fa4bca19" class="cell" data-execution_count="3">
+<div id="fa4bca19" class="cell" data-execution_count="4">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -437,7 +437,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>(3, 3)</code></pre>
 </div>
 </div>
-<div id="c00cef06" class="cell" data-execution_count="4">
+<div id="c00cef06" class="cell" data-execution_count="5">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df.height</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -446,7 +446,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>3</code></pre>
 </div>
 </div>
-<div id="1363e303" class="cell" data-execution_count="5">
+<div id="1363e303" class="cell" data-execution_count="6">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df.width</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -455,7 +455,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>3</code></pre>
 </div>
 </div>
-<div id="a9f40af2" class="cell" data-execution_count="6">
+<div id="a9f40af2" class="cell" data-execution_count="7">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df.columns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -468,7 +468,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Remember that <em>methods</em> in Python are just <em>functions</em> that “belong” to some object. In this case these methods “belong” to a <code>DataFrame</code> object and can take arguments that operate on it.</p>
 <p>Some might be familiar from R or other languages:</p>
 <p><code>.head()</code> gives us the first few rows. Since we only have 3 rows, we can pass an argument to the method to as for the first 2:</p>
-<div id="287187eb" class="cell" data-execution_count="7">
+<div id="287187eb" class="cell" data-execution_count="8">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -512,7 +512,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>And <code>.tail()</code> is the opposite:</p>
-<div id="9bee84f2" class="cell" data-execution_count="8">
+<div id="9bee84f2" class="cell" data-execution_count="9">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df.tail(<span class="dv">2</span>) <span class="co"># last 2 rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -556,7 +556,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>We can use <code>.glimpse()</code> to <em>transpose</em> a DataFrame. This can sometimes make it easier to see the column names listed as <em>rows</em> and the values listed as <em>columns</em>:</p>
-<div id="fc5fcd80" class="cell" data-execution_count="9">
+<div id="fc5fcd80" class="cell" data-execution_count="10">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df.glimpse()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -571,7 +571,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 <p>And <code>.describe()</code> to get some quick summary stats:</p>
-<div id="0a2e7e64" class="cell" data-execution_count="10">
+<div id="0a2e7e64" class="cell" data-execution_count="11">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df.describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -661,7 +661,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 <p>There are many additional <a href="https://docs.pola.rs/api/python/stable/reference/dataframe/aggregation.html">methods to calculate statistics</a> as well. But we’ll revisit these later:</p>
-<div id="cea42323" class="cell" data-execution_count="11">
+<div id="cea42323" class="cell" data-execution_count="12">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df.mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -699,7 +699,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 </div>
-<div id="032fad19" class="cell" data-execution_count="12">
+<div id="032fad19" class="cell" data-execution_count="13">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df.<span class="bu">min</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -739,7 +739,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 <p>DataFrames also have a <a href="https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.sample.html#polars.DataFrame.sample"><code>.sample()</code> method</a> that allows you <strong>resample</strong> rows from the DataFrame with or without replacement.</p>
 <p>You can tell Polars to sample <em>all rows</em> without replacement, aka <strong>permuting</strong>:</p>
-<div id="5e029222" class="cell" data-execution_count="13">
+<div id="5e029222" class="cell" data-execution_count="14">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df.sample(fraction<span class="op">=</span><span class="dv">1</span>, shuffle<span class="op">=</span><span class="va">True</span>, with_replacement<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -788,7 +788,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 <p>Or resample <em>with</em> replacement, aka <strong>bootstrapping</strong>:</p>
-<div id="7bd45abe" class="cell" data-execution_count="14">
+<div id="7bd45abe" class="cell" data-execution_count="15">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df.sample(fraction<span class="op">=</span><span class="dv">1</span>, shuffle<span class="op">=</span><span class="va">True</span>, with_replacement<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -843,7 +843,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 <p>Because a DataFrame is a 2d table, we can use the same <em>indexing</em> and <em>slicing</em> syntax but in 2d for <strong>rows</strong> and <strong>columns</strong>.</p>
 <p>Remember these are <strong>0-indexed</strong>: the first row/col is at position 0, not position 1</p>
 <p>If this is our DataFrame:</p>
-<div id="8ef05f71" class="cell" data-execution_count="15">
+<div id="8ef05f71" class="cell" data-execution_count="16">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -892,7 +892,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 <p>We can slice it like this:</p>
-<div id="f574d498" class="cell" data-execution_count="16">
+<div id="f574d498" class="cell" data-execution_count="17">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 0 row index = 1st row</span></span>
@@ -904,7 +904,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 <p>And of course we can slice using <code>start:stop:step</code>, which is always <strong>up-to</strong> the end value we slice to:</p>
-<div id="d5abb94d" class="cell" data-execution_count="17">
+<div id="d5abb94d" class="cell" data-execution_count="18">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 0:2 slice = rows up to, but not including 2 - just 0, 1</span></span>
@@ -942,7 +942,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 <p>We can also using slicing syntax to quickly refer to columns by name:</p>
-<div id="40117f89" class="cell" data-execution_count="18">
+<div id="40117f89" class="cell" data-execution_count="19">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># All rows in column 'Name'</span></span>
@@ -982,7 +982,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 <p>Which is equivalent to:</p>
-<div id="95322e37" class="cell" data-execution_count="19">
+<div id="95322e37" class="cell" data-execution_count="20">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Explicitly slice 'all' rows</span></span>
@@ -1022,7 +1022,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 </div>
-<div id="2c3e194e" class="cell" data-execution_count="20">
+<div id="2c3e194e" class="cell" data-execution_count="21">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 0:2 slice = rows up to, but not including 2</span></span>
@@ -1059,8 +1059,20 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 </div>
-<p><strong>Note</strong>: While you <em>can</em> access values this way, what makes Polars powerful is that it offers a much <em>richer</em> “language” or set of “patterns” for working with DataFrames, like <code>dplyr</code>’s <em>verbs</em> in R’s Tidyverse.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>While you <em>can</em> access values this way, what makes Polars powerful is that it offers a much <em>richer</em> “language” or set of “patterns” for working with DataFrames, like <code>dplyr</code>’s <em>verbs</em> in R’s Tidyverse.</p>
 <p>While it doesn’t map on one-to-one, Polars offers a <em>consistent</em> and <em>intuitive</em> way of working with DataFrames that we’ll teach you in this notebook. Once the fundamentals “click” for you, you’ll be a data manipulating ninja!</p>
+</div>
+</div>
 </section>
 <section id="thinking-in-polars-contexts-expressions" class="level2">
 <h2 class="anchored" data-anchor-id="thinking-in-polars-contexts-expressions">Thinking in Polars: Contexts &amp; Expressions</h2>
@@ -1096,9 +1108,9 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </section>
 <section id="starting-simple" class="level2">
 <h2 class="anchored" data-anchor-id="starting-simple">Starting simple</h2>
-<p>Let’s say we have data from some experiment that contains 3 participants, each of whom made 5 judgements about some stimuli.</p>
+<p>Let’s say we have data from some experiment that contains 3 participants, each of whom made 5 judgments about some stimuli.</p>
 <p>We can use the <code>pl.read_csv()</code> function to load a file and get back a polars <code>DataFrame</code>:</p>
-<div id="4a7ff4a7" class="cell" data-execution_count="21">
+<div id="4a7ff4a7" class="cell" data-execution_count="22">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df_1 <span class="op">=</span> pl.read_csv(<span class="st">'data/example_2.csv'</span>)</span>
@@ -1188,7 +1200,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 <p>We can verify there are 15 rows and 3 columns:</p>
-<div id="a8a2cb4f" class="cell" data-execution_count="22">
+<div id="a8a2cb4f" class="cell" data-execution_count="23">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df_1.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1214,7 +1226,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  pl.col(<span class="st">'accuracy'</span>).mean()   <span class="co"># &lt;- this is an expression, inside this context</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Let’s try this now:</p>
-<div id="5802bb69" class="cell" data-execution_count="23">
+<div id="5802bb69" class="cell" data-execution_count="24">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># start of context</span></span>
@@ -1277,14 +1289,14 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 <p>How would you build expression to calculate the “median” Reaction Time?</p>
 </div>
 </div>
-<div id="df30c3fe" class="cell" data-execution_count="24">
+<div id="df30c3fe" class="cell" data-execution_count="25">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df_1.select()  <span class="co"># put your expression here!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1293,9 +1305,9 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="bb3d6444" class="cell" data-execution_count="25">
+<div id="bb3d6444" class="cell" data-execution_count="26">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df_1.select(pl.col(<span class="st">'rt'</span>).median())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1331,7 +1343,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 <p>Let’s make our lives a bit easier and type less by using what we know about <code>import</code> from the previous tutorials:</p>
-<div id="5e487baf" class="cell" data-execution_count="26">
+<div id="5e487baf" class="cell" data-execution_count="27">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># now we can use col() instead of pl.col()</span></span>
@@ -1344,7 +1356,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 <p>We can add as many <strong>expressions</strong> inside a <strong>context</strong> as we want. We just need to separate them with a <code>,</code>.</p>
 <p>Each the result from each <strong>expression</strong> will be saved to a separate column.</p>
 <p>We’ll use the <code>col()</code> <em>selector</em> again to perform two different <em>operations</em>: <code>n_unique()</code> and <code>mean()</code> on two different columns:</p>
-<div id="99118c51" class="cell" data-execution_count="27">
+<div id="99118c51" class="cell" data-execution_count="28">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># start context</span></span>
@@ -1395,11 +1407,11 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 <div class="callout-body-container callout-body">
 <p>How would you express the following statement in polars?</p>
 <p><em>Select only the participant and accuracy columns</em></p>
-<p><em>For each participant, calculate the number of values, i.e <code>.count()</code></em></p>
-<p><em>For accuracy, calculate it’s standard deviation (what method do you think it is?)</em></p>
+<p><em>For each participant, calculate the number of values, i.e.&nbsp;<code>.count()</code></em></p>
+<p><em>For accuracy, calculate its standard deviation (what method do you think it is?)</em></p>
 </div>
 </div>
-<div id="73edaffa" class="cell" data-execution_count="28">
+<div id="73edaffa" class="cell" data-execution_count="29">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span>
@@ -1409,7 +1421,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1418,9 +1430,9 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="60ad19c3" class="cell" data-execution_count="29">
+<div id="60ad19c3" class="cell" data-execution_count="30">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>df_1.select(</span>
@@ -1466,7 +1478,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 <h3 class="anchored" data-anchor-id="repeating-the-same-expression-across-many-columns">Repeating the same expression across many columns</h3>
 <p>Sometimes we might find ourselves <em>repeating</em> the same <strong>expression</strong> for different columns.</p>
 <p>One way we can do that is simply by creating <strong>multiple expressions</strong> like by before, by using <code>col()</code> to <em>select</em> each column separately:</p>
-<div id="ec311262" class="cell" data-execution_count="30">
+<div id="ec311262" class="cell" data-execution_count="31">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>df_1.select(</span>
@@ -1504,7 +1516,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 <p>But Polars makes this much easier for us - we can condense this down to a <strong>single expression</strong> by giving our <em>selector</em> - <code>col()</code> - additional column names:</p>
-<div id="3fc0bb56" class="cell" data-execution_count="31">
+<div id="3fc0bb56" class="cell" data-execution_count="32">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>df_1.select(col(<span class="st">'accuracy'</span>, <span class="st">'rt'</span>).median())  <span class="co"># &lt;- one expression repeated for both columns</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1544,10 +1556,10 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </section>
 <section id="renaming-expression-outputs" class="level3">
 <h3 class="anchored" data-anchor-id="renaming-expression-outputs">Renaming expression outputs</h3>
-<p>Let’s try creating two expressions that operate on the the same column. In natural language:</p>
-<p>“<em>Select</em> only the accuracy column. For accuracy, calculate it’s <em>median</em> For accuracy, calculate it’s <em>variance</em>”</p>
+<p>Let’s try creating two expressions that operate on the same column. In natural language:</p>
+<p>“<em>Select</em> only the accuracy column. For accuracy, calculate its <em>median</em> For accuracy, calculate its <em>variance</em>”</p>
 <p>Let’s try it:</p>
-<div id="8c5a3fb2" class="cell" data-execution_count="32">
+<div id="8c5a3fb2" class="cell" data-execution_count="33">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>df_1.select(col(<span class="st">'accuracy'</span>).mean(), col(<span class="st">'accuracy'</span>).std())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1608,7 +1620,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 <p>The operation we’re looking for is <code>.alias()</code> which you’ll often put at the <em>end</em> of an expression in order to give it a <em>new name</em></p>
 </div>
 </div>
-<div id="338bc9ea" class="cell" data-execution_count="33">
+<div id="338bc9ea" class="cell" data-execution_count="34">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>df_1.select(</span>
@@ -1656,7 +1668,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You might find this style of “method-chaining” the use of <code>.alias()</code> unintuitive at first. So Polars also lets rename your expressions in a different “style” using <code>=</code> as in other language like R.</p>
+<p>You might find this style of “method-chaining” the use of <code>.alias()</code> unintuitive at first. So Polars also lets your rename your expressions in a different “style” using <code>=</code> as in other language like R.</p>
 <p>In English, we could rephrase our expressions as so:</p>
 <p><em>Select the accuracy column</em> <em>Create a new column named ‘acc_mean’, which is the mean of accuracy</em> <em>Create a new column named ‘acc_std’, which is the standard-deviation of accuracy</em></p>
 <p>And in code like this:</p>
@@ -1680,7 +1692,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 <p>Run the following code. Why are the values in the accuracy column being overwritten? Can you fix it?</p>
 </div>
 </div>
-<div id="4d988ddf" class="cell" data-execution_count="34">
+<div id="4d988ddf" class="cell" data-execution_count="35">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>df_1.select(col(<span class="st">'participant'</span>), col(<span class="st">'accuracy'</span>).mean())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1756,7 +1768,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1765,10 +1777,10 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The mean of accuracy is being saved to a column named “accuracy” which overwrites the participant values being selected. Fix by renaming:</p>
-<div id="bbcac868" class="cell" data-execution_count="35">
+<div id="bbcac868" class="cell" data-execution_count="36">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>df_1.select(col(<span class="st">'participant'</span>), col(<span class="st">'accuracy'</span>).mean().alias(<span class="st">'acc_mean'</span>))</span>
@@ -1856,7 +1868,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 <p><img src="figs/06_groupby.svg" class="img-fluid" style="width:50.0%"></p>
 <p>You always follow up a <code>.group_by()</code> with <code>.agg()</code>, and place our <strong>expressions</strong> inside to tell Polars what should be calculated per group.</p>
 <p>Using <code>.group_by()</code> will <strong>always</strong> give you a <strong>smaller</strong> DataFrame than the original. Specifically you will get back a DataFrame whose rows = number of groups</p>
-<div id="fc0cccc3" class="cell" data-execution_count="36">
+<div id="fc0cccc3" class="cell" data-execution_count="37">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># start of .agg context</span></span>
@@ -1910,7 +1922,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 <section id="maintaining-group-order" class="level3">
 <h3 class="anchored" data-anchor-id="maintaining-group-order">Maintaining group order</h3>
 <p>Unfortunately, by default Polars doesn’t preserve the <em>order</em> of groups as they exist in the original DataFrame. But we can easily fix this by giving <code>.group_by()</code> and additional argument <code>maintain_order=True</code>:</p>
-<div id="0f8828a6" class="cell" data-execution_count="37">
+<div id="0f8828a6" class="cell" data-execution_count="38">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>df_1.group_by(<span class="st">'participant'</span>, maintain_order<span class="op">=</span><span class="va">True</span>).agg(</span>
@@ -1974,7 +1986,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 <p><em>Hint: you can divide 2 columns using the method-chaining style with <a href="https://docs.pola.rs/api/python/dev/reference/expressions/api/polars.Expr.truediv.html"><code>.truediv()</code></a> or simply using <code>/</code></em></p>
 </div>
 </div>
-<div id="834122f8" class="cell" data-execution_count="38">
+<div id="834122f8" class="cell" data-execution_count="39">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span>
@@ -1984,7 +1996,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1993,9 +2005,9 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="551f5d71" class="cell" data-execution_count="39">
+<div id="551f5d71" class="cell" data-execution_count="40">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>df_1.group_by(<span class="st">'participant'</span>, maintain_order<span class="op">=</span><span class="va">True</span>).agg(</span>
@@ -2050,8 +2062,8 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 <p>Whenever we want to return the original DataFrame along with some <strong>new columns</strong> we can use the <code>.with_columns</code> context instead of <code>.select</code>.</p>
 <p><img src="figs/05_newcolumn_1.svg" class="img-fluid" style="width:50.0%"></p>
 <p>It will always output the original DataFrame <strong>and</strong> the outputs of your expressions.</p>
-<p>If your expression returns just a single value (e.g.&nbsp;the mean of a column), Polars is smart enough to automatically repeat that value over all the rows to make sure it fits inside the DataFrame.</p>
-<div id="e0fdc779" class="cell" data-execution_count="40">
+<p>If your expression returns just a single value (e.g.&nbsp;the mean of a column), Polars is smart enough to automatically repeat that value over all rows to make sure it fits inside the DataFrame.</p>
+<div id="e0fdc779" class="cell" data-execution_count="41">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># start with_columns context</span></span>
@@ -2156,7 +2168,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 <p>Contrast this with the <code>.select</code> context which will <em>only</em> return the mean of accuracy:</p>
-<div id="d7bfb222" class="cell" data-execution_count="41">
+<div id="d7bfb222" class="cell" data-execution_count="42">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>df_1.select(</span>
@@ -2191,7 +2203,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 <p>As before we can create multiple new columns by including <strong>multiple expressions</strong>:</p>
-<div id="c4ee2021" class="cell" data-execution_count="42">
+<div id="c4ee2021" class="cell" data-execution_count="43">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>df_1.with_columns(</span>
@@ -2323,7 +2335,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 <p>For example, Polars will keep the tidy-format of the data and correctly repeat the values across rows.</p>
 </div>
 </div>
-<div id="6a267082" class="cell" data-execution_count="43">
+<div id="6a267082" class="cell" data-execution_count="44">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>df_1.with_columns(</span>
@@ -2427,7 +2439,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 <p>Chaining <code>.over('some_col')</code> to any expression is like using <code>.group_by</code> but <strong>preserving the shape</strong> of the original DataFrame:</p>
-<div id="1cdf6d03" class="cell" data-execution_count="44">
+<div id="1cdf6d03" class="cell" data-execution_count="45">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>df_1.with_columns(</span>
@@ -2545,7 +2557,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 <p>Remember that the <code>.group_by()</code> <strong>context</strong> will always return a <strong>smaller</strong> aggregated DataFrame:</p>
-<div id="ff4ec0e1" class="cell" data-execution_count="45">
+<div id="ff4ec0e1" class="cell" data-execution_count="46">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>df_1.group_by(<span class="st">'participant'</span>, maintain_order<span class="op">=</span><span class="va">True</span>).agg(</span>
@@ -2607,7 +2619,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Create a dataframe that adds 3 new columns:</p>
+<p>Create a DataFrame that adds 3 new columns:</p>
 <ol type="1">
 <li>Accuracy on a 0-1 scale</li>
 <li>RT / Accuracy</li>
@@ -2615,7 +2627,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </ol>
 </div>
 </div>
-<div id="9fce1fdd" class="cell" data-execution_count="46">
+<div id="9fce1fdd" class="cell" data-execution_count="47">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span>
@@ -2627,7 +2639,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2636,9 +2648,9 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="1a1404d5" class="cell" data-execution_count="47">
+<div id="1a1404d5" class="cell" data-execution_count="48">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>df_1.with_columns(</span>
@@ -2775,10 +2787,10 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </section>
 <section id="selecting-rows-.filter" class="level2">
 <h2 class="anchored" data-anchor-id="selecting-rows-.filter">Selecting rows: <code>.filter()</code></h2>
-<p>The <code>.filter</code> context is used for <strong>subsetting rows</strong> using a <strong>logical expression</strong>.</p>
+<p>The <code>.filter</code> context is used for <strong>sub-setting rows</strong> using a <strong>logical expression</strong>.</p>
 <p><img src="figs/03_subset_rows.svg" class="img-fluid" style="width:50.0%"></p>
 <p>Instead of returning one or more values like other expressions, a <strong>logical expression</strong> returns True/False values that we can use to filter rows that mean those criteria:</p>
-<div id="ed797d6d" class="cell" data-execution_count="48">
+<div id="ed797d6d" class="cell" data-execution_count="49">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># start filter context</span></span>
@@ -2840,7 +2852,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 </div>
 <p>Or in Polars methods-style using <code>.eq()</code>:</p>
-<div id="c35e5e58" class="cell" data-execution_count="49">
+<div id="c35e5e58" class="cell" data-execution_count="50">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>df_1.<span class="bu">filter</span>(</span>
@@ -2902,7 +2914,7 @@ $ Sex  &lt;str&gt; 'male', 'male', 'female'
 </div>
 <p>Or even the opposite: we can <strong>negate</strong> or <strong>invert</strong> any <strong>logical expression</strong> by putting a <code>~</code> in front of it.</p>
 <p>This is like using <code>not</code> in regular Python or <code>!</code> in some other languages.</p>
-<div id="b3281ca3" class="cell" data-execution_count="50">
+<div id="b3281ca3" class="cell" data-execution_count="51">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>df_1.<span class="bu">filter</span>(</span>
@@ -3000,7 +3012,7 @@ Important
 <p>But be careful. If you’re not using the <em>method-chaining</em> style then you need to wrap you expression in <code>()</code> before using <code>~</code>:</p>
 </div>
 </div>
-<div id="b6e287fc" class="cell" data-execution_count="51">
+<div id="b6e287fc" class="cell" data-execution_count="52">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>df_1.<span class="bu">filter</span>(</span>
@@ -3087,7 +3099,7 @@ Important
 </div>
 <p>Just like in with other contexts (i.e.&nbsp;<code>.select</code>, <code>.with_columns</code>, <code>.group_by</code>) we can using <strong>multiple logical expressions</strong> to refine our filtering criteria.</p>
 <p>If we use <code>,</code> Polars treats them logically as an <code>and</code> statement. For example, we use 2 logical expressions to filter where: participant is 1 AND accuracy is 67:</p>
-<div id="35b4820c" class="cell" data-execution_count="52">
+<div id="35b4820c" class="cell" data-execution_count="53">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>df_1.<span class="bu">filter</span>(</span>
@@ -3134,7 +3146,7 @@ Important
 </div>
 </div>
 <p>But you might find it clearer to use <code>&amp;</code> for <strong>and</strong> expressions:</p>
-<div id="5d917bc7" class="cell" data-execution_count="53">
+<div id="5d917bc7" class="cell" data-execution_count="54">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>df_1.<span class="bu">filter</span>(</span>
@@ -3180,7 +3192,7 @@ Important
 </div>
 </div>
 <p>The <code>|</code> operator can be used for <strong>or</strong> expressions:</p>
-<div id="c7e9eecb" class="cell" data-execution_count="54">
+<div id="c7e9eecb" class="cell" data-execution_count="55">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>df_1.<span class="bu">filter</span>(</span>
@@ -3267,7 +3279,7 @@ Important
 </div>
 <p>To combine more complicated <strong>logical expressions</strong>, you can wrap them in <code>()</code>.</p>
 <p>Below we get rows where participant 1’s accuracy is 67 OR any of participant 2’s rows:</p>
-<div id="c3dfd51c" class="cell" data-execution_count="55">
+<div id="c3dfd51c" class="cell" data-execution_count="56">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>df_1.<span class="bu">filter</span>(</span>
@@ -3382,14 +3394,14 @@ Important
 </div>
 </div>
 <p><strong>1. Select the accuracy and RT columns from <code>df_1</code> and multiply them by 10</strong></p>
-<div id="1a9529a9" class="cell" data-execution_count="56">
+<div id="1a9529a9" class="cell" data-execution_count="57">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -3398,9 +3410,9 @@ Important
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="b1622279" class="cell" data-execution_count="57">
+<div id="b1622279" class="cell" data-execution_count="58">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>df_1.select(col(<span class="st">'accuracy'</span>, <span class="st">'rt'</span>) <span class="op">*</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -3478,17 +3490,17 @@ Important
 </div>
 </div>
 </div>
-<p><strong>2. Add 2 new columns to the dataframe: <code>rt_acc</code> and <code>acc_max_scaled</code></strong></p>
+<p><strong>2. Add 2 new columns to the DataFrame: <code>rt_acc</code> and <code>acc_max_scaled</code></strong></p>
 <p>For <code>rt_acc</code> divide reaction time by accuracy.</p>
 <p>For <code>acc_max_scaled</code> divide accuracy by maximum accuracy, separately by participant.</p>
-<div id="5cb5a830" class="cell" data-execution_count="58">
+<div id="5cb5a830" class="cell" data-execution_count="59">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -3497,9 +3509,9 @@ Important
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="d758aedd" class="cell" data-execution_count="59">
+<div id="d758aedd" class="cell" data-execution_count="60">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>df_1.with_columns(</span>
@@ -3620,7 +3632,7 @@ Important
 </div>
 </div>
 <p><strong>3. Filter rows where reaction time is &gt; 100ms and &lt; 725ms</strong></p>
-<div id="ef87018a" class="cell" data-execution_count="60">
+<div id="ef87018a" class="cell" data-execution_count="61">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span>
@@ -3629,7 +3641,7 @@ Important
 </details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -3638,9 +3650,9 @@ Important
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="f1091545" class="cell" data-execution_count="61">
+<div id="f1091545" class="cell" data-execution_count="62">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>df_1.<span class="bu">filter</span>(</span>
@@ -3738,7 +3750,7 @@ Important
 <h2 class="anchored" data-anchor-id="saving-re-usable-expressions">Saving re-usable expressions</h2>
 <p>When you find yourself creating complex <strong>expressions</strong> that you want to re-use later on, perhaps across other DataFrames, you can save them as re-usable functions!</p>
 <p>For example, Polars doesn’t include an operation to calculate a z-score by default. But we know how to do that manually. So let’s create a function called <code>scale</code> that defines an <strong>expression</strong> we can reuse.</p>
-<div id="1da9396d" class="cell" data-execution_count="62">
+<div id="1da9396d" class="cell" data-execution_count="63">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> scale(column_name):</span>
@@ -3748,10 +3760,10 @@ Important
 <span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (col(column_name) <span class="op">-</span> col(column_name).mean()) <span class="op">/</span> col(column_name).std()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<p>This is a function that accepts a single argument <code>column_name</code>, and then uses the <code>col</code> <em>selector</em> from Polars to select a column and calculate it’s z-score.</p>
+<p>This is a function that accepts a single argument <code>column_name</code>, and then uses the <code>col</code> <em>selector</em> from Polars to select a column and calculate its z-score.</p>
 <p>We can now use this <strong>expression</strong> in any <strong>context</strong> saves us a ton of typing and typos!</p>
 <p>For example just across all accuracy scores:</p>
-<div id="0cf5af7f" class="cell" data-execution_count="63">
+<div id="0cf5af7f" class="cell" data-execution_count="64">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>df_1.select(</span>
@@ -3818,7 +3830,7 @@ Important
 <p>Or as a more realistic example: z-score separately by participant</p>
 <p>This is a great example of where <code>.with_columns</code> + <code>.over()</code> can come in super-handy.</p>
 <p>Because our function returns an <strong>expression</strong> we can call operations on it just like any other expression:</p>
-<div id="c01e26b2" class="cell" data-execution_count="64">
+<div id="c01e26b2" class="cell" data-execution_count="65">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># .over() works with our scale() function</span></span>
@@ -3938,7 +3950,7 @@ Important
 </div>
 </div>
 <p>This is entirely equivalent to the following code, but <em>so</em> much <strong>easier to read</strong> and <em>so</em> much <strong>less potential for errors</strong> when typing:</p>
-<div id="e5e0c611" class="cell" data-execution_count="65">
+<div id="e5e0c611" class="cell" data-execution_count="66">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>df_1.with_columns(</span>
@@ -4084,42 +4096,10 @@ Tip
 <p>Create a Polars expression that mean-centers a column. You can use <code>def</code> or <code>lambda</code> whatever feels more comfortable right now</p>
 </div>
 </div>
-<div id="6b30e30c" class="cell" data-execution_count="66">
+<div id="6b30e30c" class="cell" data-execution_count="67">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-24" class="callout-24-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="0484c6da" class="cell" data-execution_count="67">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mean_center(column_name):</span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> col(column_name) <span class="op">-</span> col(column_name).mean()</span>
-<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Or with lambda:</span></span>
-<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a><span class="co"># mean_center = lambda column_name: col(column_name) - col(column_name).mean()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-</div>
-</div>
-</div>
-<p><strong>Add 2 new columns to the <code>df_1</code> DataFrame that include mean-centered accuracy, and mean-centered RT</strong></p>
-<div id="3dcc1e6d" class="cell" data-execution_count="68">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solution">
@@ -4134,7 +4114,39 @@ Tip
 </div>
 <div id="callout-25" class="callout-25-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="1ae8adf9" class="cell" data-execution_count="69">
+<div id="0484c6da" class="cell" data-execution_count="68">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mean_center(column_name):</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> col(column_name) <span class="op">-</span> col(column_name).mean()</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Or with lambda:</span></span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a><span class="co"># mean_center = lambda column_name: col(column_name) - col(column_name).mean()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</div>
+</div>
+</div>
+<p><strong>Add 2 new columns to the <code>df_1</code> DataFrame that include mean-centered accuracy, and mean-centered RT</strong></p>
+<div id="3dcc1e6d" class="cell" data-execution_count="69">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-26" class="callout-26-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="1ae8adf9" class="cell" data-execution_count="70">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>df_1.with_columns(</span>
@@ -4260,7 +4272,7 @@ Tip
 <p>Polars also offers a few other <em>operations</em> as <a href="https://docs.pola.rs/api/python/stable/reference/expressions/functions.html">functions</a> you can use inside of a <strong>context</strong> for building <strong>expressions</strong>.</p>
 <p>These are called as <code>pl.something()</code> but we can also <strong>directly import</strong> them.</p>
 <p>You should check out the documentation to see what’s possible, but two common ones you’re likely to use are <code>pl.when</code> and <code>pl.lit</code></p>
-<div id="27124f08" class="cell" data-execution_count="70">
+<div id="27124f08" class="cell" data-execution_count="71">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Directly import them to make life easier</span></span>
@@ -4271,7 +4283,7 @@ Tip
 <p><code>lit</code> works in conjunction with <code>when</code> to tell Polars to use the <em>literal</em> value of something rather than try to find a corresponding column name:</p>
 <p>Let’s use them together to create a new column that splits participant responses that were faster and slower than 300ms:</p>
 <p>We’ll use the <code>.with_columns</code> context, because we want the result of our expression (the new column) <strong>and</strong> the original DataFrame:</p>
-<div id="0f03aeb6" class="cell" data-execution_count="71">
+<div id="0f03aeb6" class="cell" data-execution_count="72">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new column rt_split that contains the result of the following if/else statement:</span></span>
@@ -4393,19 +4405,19 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Use <code>when</code> and <code>lit</code> to add a column to the dataframe called <code>performance</code>.</p>
+<p>Use <code>when</code> and <code>lit</code> to add a column to the DataFrame called <code>performance</code>.</p>
 <p>It should contain the string ‘success’ if accuracy &gt;= 50, or ‘fail’ if it was &lt; 50.</p>
 <p>Save the result to a new dataframe called <code>df_new</code> and print the first 10 rows:</p>
 </div>
 </div>
-<div id="e271bc7d" class="cell" data-execution_count="72">
+<div id="e271bc7d" class="cell" data-execution_count="73">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -4414,9 +4426,9 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-27" class="callout-27-contents callout-collapse collapse">
+<div id="callout-28" class="callout-28-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="20afc4ae" class="cell" data-execution_count="73">
+<div id="20afc4ae" class="cell" data-execution_count="74">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>df_new <span class="op">=</span> df_1.with_columns(</span>
@@ -4527,11 +4539,11 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Using the previous dataframe (<code>df_new</code>), <em>summarize</em> how many successes and failures each participant had.</p>
+<p>Using the previous DataFrame (<code>df_new</code>), <em>summarize</em> how many successes and failures each participant had.</p>
 <p>Your result should have 6 rows: 2 for each participant</p>
 </div>
 </div>
-<div id="d8224f4a" class="cell" data-execution_count="74">
+<div id="d8224f4a" class="cell" data-execution_count="75">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb88"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span>
@@ -4543,7 +4555,7 @@ Tip
 </details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-29-contents" aria-controls="callout-29" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-30-contents" aria-controls="callout-30" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -4552,9 +4564,9 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-29" class="callout-29-contents callout-collapse collapse">
+<div id="callout-30" class="callout-30-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="817b122a" class="cell" data-execution_count="75">
+<div id="817b122a" class="cell" data-execution_count="76">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First create df_new if it wasn't created above</span></span>
@@ -4631,9 +4643,9 @@ Tip
 <section id="more-complex-expressions-with-attribute-type-operations" class="level2">
 <h2 class="anchored" data-anchor-id="more-complex-expressions-with-attribute-type-operations">More complex expressions with <em>attribute (type) operations</em></h2>
 <p>In addition to importing functions to build more complicated expressions, Polars also allows you to perform specific <em>operations</em> based upon the <strong>type</strong> of data in a column.</p>
-<p>You don’t need to import anything to use these. Instead you can use <code>.</code> syntax to “narrow down” to the type of <strong>data attribute</strong> you want, and then select the operations you would like.</p>
+<p>You don’t need to import anything to use these. Instead, you can use <code>.</code> syntax to “narrow down” to the type of <strong>data attribute</strong> you want, and then select the operations you would like.</p>
 <p>For example, we’ll use the DataFrame we created in the previous section, <code>ddf</code>:</p>
-<div id="9da36c40" class="cell" data-execution_count="76">
+<div id="9da36c40" class="cell" data-execution_count="77">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>ddf.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4700,7 +4712,7 @@ Tip
 </div>
 <p>To create an expression that converts each value in the new “rt_split” column to uppercase.</p>
 <p>We can do this by <em>selecting</em> with <code>col()</code> as usual, but then before calling an operation with <code>.</code> like before, we first access the <code>.str</code> <strong>attribute</strong>, and then call operations that specifically operate on strings!</p>
-<div id="8ef06e6e" class="cell" data-execution_count="77">
+<div id="8ef06e6e" class="cell" data-execution_count="78">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>ddf.with_columns(</span>
@@ -4804,7 +4816,7 @@ Tip
 </div>
 </div>
 <p>Without <code>.str</code> to “narrow-in” to the string <strong>attribute</strong> Polars will complain about an <code>AttributeError</code>, because only <code>str</code> types have a <code>.to_uppercase()</code> operation!</p>
-<div id="9cc0b0cb" class="cell" data-execution_count="78">
+<div id="9cc0b0cb" class="cell" data-execution_count="79">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb92"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>ddf.with_columns(</span>
@@ -4827,9 +4839,9 @@ Tip
 <p>Polars includes many attribute operations. The most common ones you’ll use are for working with:</p>
 <p><strong><a href="https://docs.pola.rs/api/python/stable/reference/expressions/string.html"><code>.str</code></a></strong>: if your data are strings</p>
 <p><strong><a href="https://docs.pola.rs/api/python/stable/reference/expressions/name.html"><code>.name</code></a></strong>: which allows you to quickly change the names of columns from within a more complicated expression.</p>
-<p><strong><a href="https://docs.pola.rs/api/python/stable/reference/expressions/list.html"><code>.list</code></a></strong>: if you columns contain Python lists</p>
+<p><strong><a href="https://docs.pola.rs/api/python/stable/reference/expressions/list.html"><code>.list</code></a></strong>: if your columns contain Python lists</p>
 <p>For example, below we using a <strong>single expression</strong> inside the <code>with_columns</code> context below to calculate the mean of the accuracy and rt columns.</p>
-<div id="6b030f0c" class="cell" data-execution_count="79">
+<div id="6b030f0c" class="cell" data-execution_count="80">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>df_1.with_columns(col(<span class="st">'accuracy'</span>, <span class="st">'rt'</span>).mean())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4918,10 +4930,10 @@ Tip
 </div>
 </div>
 <p>Because we’re using <code>.with_columns</code>, the output of our expression is <strong>overwriting</strong> the original values in the accuracy and rt columns.</p>
-<p>We saw how rename output when we had <strong>separate</strong> <code>col('accuracy').mean()</code> and <code>col('rt').mean()</code> <strong>expressions</strong>: using <code>.alias()</code> at the end or <code>=</code> at the beginning.</p>
+<p>We saw how to rename output when we had <strong>separate</strong> <code>col('accuracy').mean()</code> and <code>col('rt').mean()</code> <strong>expressions</strong>: using <code>.alias()</code> at the end or <code>=</code> at the beginning.</p>
 <p>But how do we change the names of <em>both</em> columns <strong>at the same time</strong>?</p>
 <p>Accessing the <code>.name</code> attribute gives us access to additional <em>operations</em> that help us out. In this case we use the <code>.suffix()</code> operation to add a suffix to the output <code>name</code>(s).</p>
-<div id="c4bb4072" class="cell" data-execution_count="80">
+<div id="c4bb4072" class="cell" data-execution_count="81">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb94"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>df_1.with_columns(</span>
@@ -5052,7 +5064,7 @@ Tip
 <li><code>cs.string()</code></li>
 </ul>
 <p>Let’s see some of these in action using a dataset that include a column of reaction times:</p>
-<div id="187f2c5c" class="cell" data-execution_count="81">
+<div id="187f2c5c" class="cell" data-execution_count="82">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb95"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> polars.selectors <span class="im">as</span> cs</span>
@@ -5093,7 +5105,7 @@ Tip
 </div>
 </div>
 <p>This is as the same as the following code, but many fewer lines!</p>
-<div id="bab934bb" class="cell" data-execution_count="82">
+<div id="bab934bb" class="cell" data-execution_count="83">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb96"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>df_1.select(</span>
@@ -5135,7 +5147,7 @@ Tip
 </div>
 </div>
 <p>And <code>cs.exclude</code> is the opposite of <code>cs.all()</code></p>
-<div id="bf12340d" class="cell" data-execution_count="83">
+<div id="bf12340d" class="cell" data-execution_count="84">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>df_1.select(cs.exclude(<span class="st">'participant'</span>).mean())  <span class="co"># &lt;- all cols except participant</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -5171,7 +5183,7 @@ Tip
 </div>
 </div>
 <p>We can select all columns that start with certain characters:</p>
-<div id="b51c2fbe" class="cell" data-execution_count="84">
+<div id="b51c2fbe" class="cell" data-execution_count="85">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb98"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>df_1.select(cs.starts_with(<span class="st">'pa'</span>).n_unique())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -5204,7 +5216,7 @@ Tip
 </div>
 </div>
 <p>Or even select columns based on the <em>type</em> of data they contain. In this case all the columns with <em>Integer</em> data:</p>
-<div id="ce6e094d" class="cell" data-execution_count="85">
+<div id="ce6e094d" class="cell" data-execution_count="86">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>df_1.select(cs.integer())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -5291,9 +5303,9 @@ Tip
 <li>Each value must have its own cell.</li>
 </ol>
 <p>In polars we can achieve this using:</p>
-<p><code>.pivot()</code>: long -&gt; wide, similar to <code>pivot_wider()</code> in R <code>.unpivot()</code>: wide -&gt; long, similar to <code>pivot_longer()</code> in R <code>pl.concat()</code>: combine 2 or more dataframes/columns/rows into a larger DataFrame</p>
+<p><code>.pivot()</code>: long -&gt; wide, similar to <code>pivot_wider()</code> in R <code>.unpivot()</code>: wide -&gt; long, similar to <code>pivot_longer()</code> in R <code>pl.concat()</code>: combine 2 or more DataFrames/columns/rows into a larger DataFrame</p>
 <p>Here, I’ve generated data from two participants with three observations. This data frame is not tidy since each row contains more than a <em>single</em> observation.</p>
-<div id="8be2fe8d" class="cell" data-execution_count="86">
+<div id="8be2fe8d" class="cell" data-execution_count="87">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb100"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>df_2 <span class="op">=</span> pl.DataFrame(</span>
@@ -5349,7 +5361,7 @@ Tip
 </div>
 <p>We can make it tidy by using the <code>.unpivot</code> method on the DataFrame, which takes 4 arguments:</p>
 <p><code>on</code>: the column(s) that contain values for each row <code>index</code>: the column(s) to use as the identifier across rows <code>variable_name</code>: name of the column that contains the original column names <code>value_name</code>: name of the column that contains the values that were previous spread across columns</p>
-<div id="168aff38" class="cell" data-execution_count="87">
+<div id="168aff38" class="cell" data-execution_count="88">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb101"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Just breaking up over lines to keep it readable!</span></span>
@@ -5421,7 +5433,7 @@ Tip
 </div>
 <p>The <code>.pivot</code> method is the counter-part of <code>.unpivot</code>. We can use it to turn tidydata (long) to wide format. It takes 4 arguments as well:</p>
 <p><code>on</code>: the column(s) whose values will be turned into new columns <code>index</code>: the column(s) that are unique rows in the new DataFrame <code>values</code>: the values that will be moved into new columns with each row <code>aggregate_function</code>: how to aggregate multiple rows within each index, e.g.&nbsp;None, mean, first, sum, etc</p>
-<div id="bb8bc005" class="cell" data-execution_count="88">
+<div id="bb8bc005" class="cell" data-execution_count="89">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb102"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>df_long.pivot(</span>
@@ -5479,7 +5491,7 @@ Tip
 <section id="splitting-1-column-into-many" class="level2">
 <h2 class="anchored" data-anchor-id="splitting-1-column-into-many">Splitting 1 column into many</h2>
 <p>Sometimes you’ll need to split one column into multiple columns. Let’s say we wanted to split the “year_month” column into 2 separate columns of “year” and “month”:</p>
-<div id="082a7bce" class="cell" data-execution_count="89">
+<div id="082a7bce" class="cell" data-execution_count="90">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb103"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>df_3 <span class="op">=</span> pl.DataFrame({<span class="st">'id'</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">'year_month'</span>: [<span class="st">'2021-01'</span>, <span class="st">'2021-02'</span>, <span class="st">'2021-03'</span>]})</span>
@@ -5525,7 +5537,7 @@ Tip
 </div>
 <p>You can use <em><a href="https://docs.pola.rs/api/python/stable/reference/expressions/string.html">attribute operations for <code>.str</code></a></em> to do this!</p>
 <p>Specifically we use can <code>.split_exact</code> to split a <code>str</code> into a <code>n+1</code> parts.</p>
-<div id="eac0ec87" class="cell" data-execution_count="90">
+<div id="eac0ec87" class="cell" data-execution_count="91">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb104"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>df_split <span class="op">=</span> df_3.with_columns(</span>
@@ -5572,7 +5584,7 @@ Tip
 </div>
 </div>
 <p>Polars stores these parts in a <strong>struct</strong> which is just a Python dictionary:</p>
-<div id="076f1d5e" class="cell" data-execution_count="91">
+<div id="076f1d5e" class="cell" data-execution_count="92">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb105"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First row, second column value</span></span>
@@ -5584,7 +5596,7 @@ Tip
 </div>
 <p>Polars provides additional <em><a href="https://docs.pola.rs/api/python/stable/reference/expressions/struct.html">attribute operations on the <code>.struct</code></a></em> to create new columns.</p>
 <p>First we’ll call <code>.rename_fields</code> to rename the <em>fields</em> of the struct (equivalent to renaming the <em>keys</em> of a Python dictionary).</p>
-<div id="2be856d2" class="cell" data-execution_count="92">
+<div id="2be856d2" class="cell" data-execution_count="93">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb107"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co"># string attribute method, to split by delimiter "-" into 2 parts</span></span>
@@ -5632,7 +5644,7 @@ Tip
 </div>
 </div>
 </div>
-<div id="ffa17c9e" class="cell" data-execution_count="93">
+<div id="ffa17c9e" class="cell" data-execution_count="94">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb108"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First row, second column value</span></span>
@@ -5643,7 +5655,7 @@ Tip
 </div>
 </div>
 <p>Then we’ll call <code>struct.unnest()</code> to create new columns, 1 per field</p>
-<div id="dd7402a4" class="cell" data-execution_count="94">
+<div id="dd7402a4" class="cell" data-execution_count="95">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb110"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co"># string attribute method, to split by delimiter "-" into 2 parts</span></span>
@@ -5702,7 +5714,7 @@ Tip
 </div>
 </div>
 <p>We can also split up values in a column <em>over rows</em> <a href="https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.explode.html#polars.DataFrame.explode"><code>.explode('column_name')</code> method</a> on the DataFrame itself:</p>
-<div id="f32fdff6" class="cell" data-execution_count="95">
+<div id="f32fdff6" class="cell" data-execution_count="96">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb111"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>df_4 <span class="op">=</span> pl.DataFrame({<span class="st">'letters'</span>: [<span class="st">'a'</span>, <span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>], <span class="st">'numbers'</span>: [[<span class="dv">1</span>], [<span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">4</span>, <span class="dv">5</span>], [<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>]]})</span>
@@ -5750,7 +5762,7 @@ Tip
 </div>
 </div>
 </div>
-<div id="f70ee431" class="cell" data-execution_count="96">
+<div id="f70ee431" class="cell" data-execution_count="97">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb112"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>df_4.explode(<span class="st">'numbers'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -5817,7 +5829,7 @@ Tip
 <section id="combining-many-columns-into-1" class="level2">
 <h2 class="anchored" data-anchor-id="combining-many-columns-into-1">Combining many columns into 1</h2>
 <p>We can combine columns into a single column using additional <em><a href="https://docs.pola.rs/api/python/stable/reference/expressions/functions.html">functions</a></em> in an expression like <code>pl.concat_list()</code> and <code>pl.concat_str()</code>, which take column names as input:</p>
-<div id="39ef885e" class="cell" data-execution_count="97">
+<div id="39ef885e" class="cell" data-execution_count="98">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb113"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>df_split_2.with_columns(</span>
@@ -5880,7 +5892,7 @@ Tip
 <p>Polars also includes various <em><a href="https://docs.pola.rs/api/python/stable/reference/expressions/functions.html">functions that end with <code>_horizontal</code></a></em>.</p>
 <p>Like the suffix implies, these functions are design to operate <em>horizontally</em> across columns within each row separately.</p>
 <p>Let’s say our DataFrame had these 3 numeric columns:</p>
-<div id="e322ecf1" class="cell" data-execution_count="98">
+<div id="e322ecf1" class="cell" data-execution_count="99">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb114"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np  <span class="co"># we haven't met this library yet, just using it to generate data</span></span>
@@ -5952,7 +5964,7 @@ Tip
 </div>
 </div>
 <p>And we want to create a new column that is the average of these 3 columns within each row. We can easily to that using a <em>horizontal function</em> like <code>pl.mean_horizontal</code></p>
-<div id="b51f0fbb" class="cell" data-execution_count="99">
+<div id="b51f0fbb" class="cell" data-execution_count="100">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb115"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>df_5.with_columns(abc_mean<span class="op">=</span>pl.mean_horizontal(<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -6045,7 +6057,7 @@ Tip
 </ul>
 </div>
 </div>
-<div id="653b7646" class="cell" data-execution_count="100">
+<div id="653b7646" class="cell" data-execution_count="101">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb116"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>reshape <span class="op">=</span> pl.DataFrame({</span>
@@ -6117,14 +6129,14 @@ Tip
 <p>Think about this as a sequence of 4 steps. We’ve created 4 code cells below with an image above each of the expected result:</p>
 <p><strong>1. unpivot wide -&gt; long</strong></p>
 <p><img src="figs/step1.png" class="img-fluid" style="width:40.0%"></p>
-<div id="22f9cb8a" class="cell" data-execution_count="101">
+<div id="22f9cb8a" class="cell" data-execution_count="102">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb117"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-31-contents" aria-controls="callout-31" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -6133,9 +6145,9 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-31" class="callout-31-contents callout-collapse collapse">
+<div id="callout-32" class="callout-32-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="456427e8" class="cell" data-execution_count="102">
+<div id="456427e8" class="cell" data-execution_count="103">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb118"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>step1 <span class="op">=</span> reshape.unpivot(</span>
@@ -6234,14 +6246,14 @@ Tip
 </div>
 <p><strong>2. split the <code>variable_name</code> column from the previous step (I called it <code>trial</code>) into 2 new columns by <code>_</code> (which I called <code>index</code> and <code>order</code>)</strong></p>
 <p><img src="figs/step2.png" class="img-fluid" style="width:60.0%"></p>
-<div id="628e1405" class="cell" data-execution_count="103">
+<div id="628e1405" class="cell" data-execution_count="104">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb119"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-33-contents" aria-controls="callout-33" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -6250,9 +6262,9 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-32" class="callout-32-contents callout-collapse collapse">
+<div id="callout-33" class="callout-33-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="f7cd800d" class="cell" data-execution_count="104">
+<div id="f7cd800d" class="cell" data-execution_count="105">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb120"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>step2 <span class="op">=</span> step1.with_columns(</span>
@@ -6374,14 +6386,14 @@ Tip
 </div>
 <p><strong>3. select only the columns: <code>participant</code>, 2 you created (I called mine <code>index</code> and <code>order</code>), and the <code>value_name</code> column from the first step (I called it <code>rating</code>)</strong></p>
 <p><img src="figs/step3.png" class="img-fluid" style="width:40.0%"></p>
-<div id="ef650511" class="cell" data-execution_count="105">
+<div id="ef650511" class="cell" data-execution_count="106">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb121"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-33-contents" aria-controls="callout-33" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -6390,9 +6402,9 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-33" class="callout-33-contents callout-collapse collapse">
+<div id="callout-34" class="callout-34-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="7df94800" class="cell" data-execution_count="106">
+<div id="7df94800" class="cell" data-execution_count="107">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb122"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>step3 <span class="op">=</span> step2.select(col(<span class="st">'participant'</span>, <span class="st">'index'</span>, <span class="st">'order'</span>, <span class="st">'rating'</span>))</span>
@@ -6497,16 +6509,16 @@ Tip
 </div>
 </div>
 </div>
-<p><strong>4. pivot long -&gt; wide to breakout the <code>value_name</code> column (I called it <code>rating</code>) into multiple columns</strong></p>
+<p><strong>4. pivot long -&gt; wide to break-out the <code>value_name</code> column (I called it <code>rating</code>) into multiple columns</strong></p>
 <p><img src="figs/step4.png" class="img-fluid" style="width:40.0%"></p>
-<div id="a591c9f9" class="cell" data-execution_count="107">
+<div id="a591c9f9" class="cell" data-execution_count="108">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb123"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-35-contents" aria-controls="callout-35" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -6515,9 +6527,9 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-34" class="callout-34-contents callout-collapse collapse">
+<div id="callout-35" class="callout-35-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="4d987d8f" class="cell" data-execution_count="108">
+<div id="4d987d8f" class="cell" data-execution_count="109">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb124"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>step4 <span class="op">=</span> step3.pivot(</span>
@@ -6603,7 +6615,7 @@ Tip
 <h1>Appendix</h1>
 <section id="additional-resources" class="level2">
 <h2 class="anchored" data-anchor-id="additional-resources">Additional Resources</h2>
-<p>Here a few additional resources you might helpful on your journey:</p>
+<p>Here a few additional resources that might be helpful on your journey:</p>
 <ul>
 <li><a href="https://docs.pola.rs/user-guide/getting-started/">Polars official intro tutorial</a></li>
 <li><a href="https://bebi103a.github.io/lessons/06/intro_to_polars.html#">More Comprehensive intro to Polars</a></li>

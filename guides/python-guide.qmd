@@ -26,7 +26,7 @@ Throughout the course we''ll make use of the following Python libraries in case 
 - [`bossanova`]()
 - [`scikit-learn`](https://scikit-learn.org/stable/)
 
-### `polars` - dataframes & tidy data analysis
+### `polars` - DataFrames & tidy data analysis
 
 - [Polars user guide](https://docs.pola.rs/)
 - [Polars API reference](https://docs.pola.rs/api/python/dev/reference/index.html)

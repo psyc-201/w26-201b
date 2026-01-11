@@ -18,10 +18,10 @@ This week we'll cover course logistics, introduce the two cultures of statistica
 - ["Pre-Flight" Lab Setup (start here)](/weeks/01/lab)
 
 :::{.callout-caution icon=false title="📚 Lab 01 - Python basics & polars (dataframes) intro"}
-[Github Classroom Assignment](https://classroom.github.com/a/3ewEBjPw)
+[GitHub Classroom Assignment](https://classroom.github.com/a/3ewEBjPw)
 :::
 
-*Remember: There are additional Git/Github & Python resources available in the "Guides & Resources" section above!*
+*Remember: There are additional Git/GitHub & Python resources available in the "Guides & Resources" section above!*
 
 ## Mentioned References
 

@@ -8,7 +8,7 @@ code-overflow: wrap
 
 :::{.callout-note title="Goals"}
 1. Setup your coding tools
-2. Learn the Github Classroom assignment workflow
+2. Learn the GitHub Classroom assignment workflow
 3. Accept & pull Lab 01 to your laptop
 :::
 
@@ -146,7 +146,7 @@ Finally let's setup our {{< glossary ide display="integrated-development-environ
 ::: {.panel-tabset}
 #### VSCode (recommended)
 
-If you've already installed {{< glossary vscode display="Visual Studio Code" >}} before you can skip the next command. Otherwise copy and paste the following into your terminal:
+If you've already installed {{< glossary vscode display="Visual Studio Code" >}} before you can skip the next command. Otherwise, copy and paste the following into your terminal:
 
 ```bash
 brew install --cask visual-studio-code
@@ -188,7 +188,7 @@ Submitting an assignment is as easy as pushing your changes to github. We'll aut
 1. **Commit your changes locally.** Using the VSCode UI or terminal commands `git commit -am "my message"`
 2. **Push your changes to github:** `git push`
 
-There are no restrictions on how often or the final deadline to `git commit` and `git push` your assignments! For any deadlines we announce, you'll just want to make sure to make the final `push` you want us to review by the deadline. Later, once we review assignments together in class, you can always add additional `commit`(s) and `push`(s) to update your assignments with corrections, notes, etc for updated grading!
+There are no restrictions on how often or the final deadline to `git commit` and `git push` your assignments! For any deadlines we announce, you'll just want to make sure to make the final `push` you want us to review by the deadline. Later, once we review assignments together in class, you can continue using `commit` and `push`to update your assignments with corrections, notes, etc for updated grading!
 
 ### Updating an Assignment 
 
@@ -198,14 +198,14 @@ Often we'll add new files (e.g. solutions) or make corrections to an assignment 
 2. **Go to the "Pull Request"" page**
 3. **Choose the PR called "GitHub Classroom: Sync Assignment"**
 4. **Click the green "Merge pull request" button near the bottom**
-5. **Back on your computer verify you've commited any work-in-progress**. If you run `git status` and you don't see "*nothing to commit, working tree clean*" you'll need to run `git commit -am "my message"` first. 
+5. **Back on your computer verify you've committed any work-in-progress**. If you run `git status` and you don't see "*nothing to commit, working tree clean*" you'll need to run `git commit -am "my message"` first. 
 7. **Sync the merged PR to your computer:** `git pull`
 
 Now any files you had open in VSCode will automatically refresh to the latest versions and any new files we be available for editing!
 
 :::{.callout-tip}
 We'll also use the "Pull Requests" tab to create a "Feedback" PR.  
-You don't need to merge this in. Instead think of it as an on-going discussion between you and your instructors & peers where you reference specific files and lines of your project.
+You don't need to merge this in. Instead, think of it as an on-going discussion between you and your instructors & peers where you reference specific files and lines of your project.
 :::
 
 ## 3. Putting it all together: Get Lab 01
