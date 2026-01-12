@@ -20,7 +20,6 @@ _freeze/
 
 # Large files
 *.key
-*.pdf
 
 # Jupyter cache
 .jupyter_cache/
@@ -44,6 +43,8 @@ dev/
 specs/
 scripts/
 _widgets/
+slides/
+**/wip/*
+**/prep/*
 
 # Incremental slides
-!weeks/01/slides/*.pdfscripts/

@@ -5,6 +5,8 @@ project:
     port: 9999
   render:
     - "*.qmd"
+    - "!**/wip/*"
+    - "!**/prep/*"
     - "!dev/"
     - "!specs/"
     - "!slides/"
@@ -47,11 +49,9 @@ website:
       - text: Guides & Resources
         menu:
           - guides/terminology.qmd
-          # - guides/formulas.qmd
-          # - guides/linear-algebra.qmd
           - guides/git-guide.qmd
           - guides/classroom-guide.qmd
-          - guides/python-guide.qmd
+          - guides/python-resources.qmd
       - text: Previous course versions
         href: https://psyc201b.github.io/PSYC-201B/
 
