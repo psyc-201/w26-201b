@@ -1,6 +1,0 @@
----
-sidebar: weeks
-title: HW 1
----
-
-## Homework

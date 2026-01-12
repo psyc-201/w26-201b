@@ -69,14 +69,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script type="module" src="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.18.4/dist/main.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.18.4/dist/style.css" rel="stylesheet">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.14.16/dist/main.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.14.16/dist/style.css" rel="stylesheet" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&amp;family=Lora&amp;family=PT+Sans:wght@400;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+</head><body class="nav-sidebar docked nav-fixed quarto-light"><marimo-filename hidden=""></marimo-filename>
 
 
 <link rel="stylesheet" href="../assets/custom.css">
-</head>
 
-<body class="nav-sidebar docked nav-fixed quarto-light">
+
+
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -145,8 +150,8 @@ ul.task-list li input[type="checkbox"] {
         </a>
     </div>
   </nav>
-  <div id="quarto-announcement" data-announcement-id="8b55a9a5cb0be434d01e1e69a761b2d6" class="alert alert-success hidden"><i class="bi bi-megaphone-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
-<p><strong>Site Updates:</strong> Lab 01 materials (view only) and updated course Schedule.</p>
+  <div id="quarto-announcement" data-announcement-id="49207cc827a4c46bd5a79ca526f44b0e" class="alert alert-success hidden"><i class="bi bi-megaphone-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>Site Updates:</strong> Week 02 slides (Mon), Lab 01 materials (view only), updated course Schedule.</p>
 </div></div>
 </header>
 <!-- content -->
@@ -271,22 +276,22 @@ Note
 <!-- Render table -->
 <table class="glossary_table">
 <tbody><tr><th> Term </th><th> Definition </th></tr>
-<tr><td>rstudio</td><td>An IDE originally designed to work with R, but also works well with Quarto documents. Also includes a Terminal separate from the R console for running shell commands.</td></tr>
-<tr><td>ide</td><td>Integrated-development-environment; a program that includes a code-editor, terminal/console, and other helpful features to be a “one-stop-shop” for most of your needs</td></tr>
-<tr><td>github</td><td>A online cloud-based service for synchronize local git repositories with REMOTE repositories on github.com. This faciliates collaborative works flows and open-source development. We’re using the Github Classroom feature built-up on this for our course.</td></tr>
-<tr><td>python-notebook</td><td>.py files that we can work with interactively using code-cells and markdown-cells (similar to quarto chunks). A much richer interface for interactively working with pieces of code one-at-a-time</td></tr>
-<tr><td>homebrew</td><td>A command-line package manager for macOS that lets you install packages and applications using the brew command</td></tr>
-<tr><td>uv</td><td>A library and environment manager for Python making it easy to create/add/update additional Python libraries &amp; tools in a reproducible and isolated way. using a pyproject.toml “blueprints” file</td></tr>
 <tr><td>command-line-program</td><td>A program that you interact with exclusively from your terminal; often abbreviated as CLI</td></tr>
 <tr><td>quarto</td><td>a scientific publishing tool that allows you to mix prose and code-cells to render executable documents in a variety of formats (website, PDF, etc)</td></tr>
-<tr><td>terminal</td><td>An application for controlling your computer via commands that you type in (e.g.&nbsp;cd, ls) instead of point-and-click</td></tr>
-<tr><td>marimo</td><td>A program like Quarto that can render .py files as interactive Python notebooks with code cells. FYI: marimo is the modern alternative to Jupyter notebooks which you may have heard of/used in the past.</td></tr>
+<tr><td>ide</td><td>Integrated-development-environment; a program that includes a code-editor, terminal/console, and other helpful features to be a “one-stop-shop” for most of your needs</td></tr>
 <tr><td>shell</td><td>A program that runs automatically when your Terminal starts and interprets the commands you type to control your computer instead of pointing-and-clicking. FYI: the default shell on macOS is zsh not bash.</td></tr>
-<tr><td>quarto-doc</td><td>.qmd files that contain a mix of prose (markdown) and code-chunks (Python/R) that you can preview and render with Quarto. By default quarto will always rerun ALL code-chunks in the file upon saving.</td></tr>
-<tr><td>git</td><td>A CLI to version control LOCAL files and folders called repositories. See the git guide for more details and a command cheatsheet.</td></tr>
-<tr><td>vscode</td><td>An extremely popular general purpose IDE that supports multiple language (e.g.&nbsp;Python, R, Javascript) and makes use of extensions to add additional functionality (e.g.&nbsp;quarto rendering, Python notebooks).</td></tr>
-<tr><td>environment</td><td>Really just a hidden folder on your computer (typically .venv/) that contains an isolated Python installation with all additional libraries and tools. uv handles this all for us!</td></tr>
 <tr><td>github-userid</td><td>Your user “handle” on github.com that identifies you when using git commands (local) and interacting with Github.com (remote). E.g. Eshin’s is @ejolly</td></tr>
+<tr><td>terminal</td><td>An application for controlling your computer via commands that you type in (e.g.&nbsp;cd, ls) instead of point-and-click</td></tr>
+<tr><td>uv</td><td>A library and environment manager for Python making it easy to create/add/update additional Python libraries &amp; tools in a reproducible and isolated way. using a pyproject.toml “blueprints” file</td></tr>
+<tr><td>quarto-doc</td><td>.qmd files that contain a mix of prose (markdown) and code-chunks (Python/R) that you can preview and render with Quarto. By default quarto will always rerun ALL code-chunks in the file upon saving.</td></tr>
+<tr><td>marimo</td><td>A program like Quarto that can render .py files as interactive Python notebooks with code cells. FYI: marimo is the modern alternative to Jupyter notebooks which you may have heard of/used in the past.</td></tr>
+<tr><td>vscode</td><td>An extremely popular general purpose IDE that supports multiple language (e.g.&nbsp;Python, R, Javascript) and makes use of extensions to add additional functionality (e.g.&nbsp;quarto rendering, Python notebooks).</td></tr>
+<tr><td>python-notebook</td><td>.py files that we can work with interactively using code-cells and markdown-cells (similar to quarto chunks). A much richer interface for interactively working with pieces of code one-at-a-time</td></tr>
+<tr><td>rstudio</td><td>An IDE originally designed to work with R, but also works well with Quarto documents. Also includes a Terminal separate from the R console for running shell commands.</td></tr>
+<tr><td>git</td><td>A CLI to version control LOCAL files and folders called repositories. See the git guide for more details and a command cheatsheet.</td></tr>
+<tr><td>github</td><td>A online cloud-based service for synchronize local git repositories with REMOTE repositories on github.com. This faciliates collaborative works flows and open-source development. We’re using the Github Classroom feature built-up on this for our course.</td></tr>
+<tr><td>homebrew</td><td>A command-line package manager for macOS that lets you install packages and applications using the brew command</td></tr>
+<tr><td>environment</td><td>Really just a hidden folder on your computer (typically .venv/) that contains an isolated Python installation with all additional libraries and tools. uv handles this all for us!</td></tr>
 </tbody></table>
 
 

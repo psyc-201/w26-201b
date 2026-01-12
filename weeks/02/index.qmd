@@ -5,35 +5,53 @@ title: "Week 2"
 
 ## Overview
 
-### Learning Intuitions
+### Learning Goals
 
-- [ ] The two cultures of statistics
-- [ ] Essence of sampling theory
-- [ ] Model-based thinking
+- [ ] Developing statistical intuitions
+- [ ] Bridging the two cultures of statistics
 
 ## Slides
 
-::: {.callout-tip title="Slides Mon Jan 12th (coming soon)"}
-<!-- ![](slides/01-12.pdf){width=100% height=600} -->
+::: {.callout-tip title="Slides Mon Jan 12th" collapse=true}
+![](slides/01-12-foundations.pdf){width=100% height=600}
 :::
 
-::: {.callout-tip title="Slides Wed Jan 14th (coming soon)"}
+<!-- ::: {.callout-tip title="Slides Wed Jan 14th (coming soon)"} -->
 <!-- ![](slides/01-14.pdf){width=100% height=600} -->
-:::
+<!-- ::: -->
 
 ## Materials
 
-:::{.callout-caution icon=false title="📚 Lab 02 - Data visualization & seaborn (plotting) intro (coming soon)"}
+:::{.callout-caution icon=false title="📚 Lab 02 - Data visualization & plotting intro (coming soon)"}
 <!-- [Github Classroom Assignment]() -->
 :::
 
 ## Mentioned References
 
-*coming soon*
-<!-- - [Goodfellow: Probability Foundations](/readings.qmd#goodfellow-prob) — Formal probability definitions -->
+:::{.callout-note icon=false title="Statistical Thinking (Chap 1) - What is statistical thinking?" collapse=true}
+{{< pdf file="readings/01-12/StatsThinking21-01-statistical-thinking.pdf" download-link="false">}}
+:::
 
+:::{.callout-note icon=false title="Yarkoni & Westfall (2017) - Prediction vs Explanation" collapse=true}
+{{< pdf file="readings/01-12/2017-Yarkoni_Westfall.pdf" download-link="false">}}
+:::
 
-<!-- - [Lab: Sampling, Simulation & EDA](lab.qmd) -->
-<!-- - [Lecture: Model-Based Thinking](lecture.qmd) -->
-<!-- - [Slides (PDF)](/slides/02_what_is_stats.pdf) -->
+:::{.callout-note icon=false title="Breiman (2001) - Two Cultures" collapse=true}
+{{< pdf file="readings/01-12/2001-Breiman.pdf" download-link="false">}}
+:::
 
+:::{.callout-note icon=false title="Gelman & Vehtari (2021) - Most important statistical ideas" collapse=true}
+{{< pdf file="readings/01-12/2021-Gelman_Vehtari.pdf" download-link="false">}}
+:::
+
+:::{.callout-note icon=false title="Bzdok (2017) - Classical Statistics & Statistical Learning" collapse=true}
+{{< pdf file="readings/01-12/2017-Bzdok.pdf" download-link="false">}}
+:::
+
+:::{.callout-note icon=false title="Bzdok & Ioannidis (2019)" collapse=true}
+{{< pdf file="readings/01-12/2019-Bzdok_Ioannidis.pdf" download-link="false">}}
+:::
+
+:::{.callout-note icon=false title="Jolly & Chang (2019)" collapse=true}
+{{< pdf file="readings/01-12/2019-Jolly_Chang.pdf" download-link="false">}}
+:::
