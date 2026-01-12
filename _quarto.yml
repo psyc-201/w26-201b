@@ -13,8 +13,9 @@ project:
     - "!weeks/0[3-9]/**"
     - "!weeks/[1-9][0-9]/**"
 
-  # filters:
-  #   - glossary
+filters:
+  - marimo-team/marimo
+  # - glossary
 
 external-env: true
 jupyter: w26-201b
@@ -47,7 +48,7 @@ website:
         menu:
           - guides/terminology.qmd
           # - guides/formulas.qmd
-          # - guides/linear-algebra.qmd
+          - guides/linear-algebra.qmd  # TEMP: debugging marimo
           - guides/git-guide.qmd
           - guides/classroom-guide.qmd
           - guides/python-guide.qmd
@@ -93,7 +94,14 @@ format:
     code-line-numbers: true
     toc: true
     toc-depth: 4
+    # NOTE: marimo-islands header - version must match installed marimo Python package
+    # Using 0.18.4 to match `uv run python -c "import marimo; print(marimo.__version__)"`
     include-in-header:
       - text: |
           <script type="module" src="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.18.4/dist/main.js"></script>
-          <link href="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.18.4/dist/style.css" rel="stylesheet" />
+          <link href="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.18.4/dist/style.css" rel="stylesheet" crossorigin="anonymous" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&amp;family=Lora&amp;family=PT+Sans:wght@400;700&amp;display=swap" rel="stylesheet" />
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous" />
+          <marimo-filename hidden></marimo-filename>

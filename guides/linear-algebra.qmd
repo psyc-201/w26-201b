@@ -36,14 +36,14 @@ But what do these operations *mean*? This guide builds your intuition from the g
 
 A **vector** is an arrow with a direction and magnitude. In 2D, we describe it with two numbers: how far right ($x$) and how far up ($y$).
 
-```{python .marimo}
+```{.marimo}
 #| echo: false
 import marimo as mo
 import numpy as np
 import altair as alt
 ```
 
-```{python .marimo}
+```{.marimo}
 #| echo: false
 # Vector visualization controls
 vec_x = mo.ui.slider(-3, 3, value=2, step=0.25, label="x component")
@@ -51,7 +51,7 @@ vec_y = mo.ui.slider(-3, 3, value=1, step=0.25, label="y component")
 mo.hstack([vec_x, vec_y])
 ```
 
-```{python .marimo}
+```{.marimo}
 #| echo: false
 import polars as pl
 
@@ -153,13 +153,13 @@ A vector is just an arrow from the origin. The numbers tell you where the tip la
 
 **Scalar multiplication** stretches or shrinks a vector:
 
-```{python .marimo}
+```{.marimo}
 #| echo: false
 scalar = mo.ui.slider(-2, 2, value=1.5, step=0.25, label="Scalar k")
 scalar
 ```
 
-```{python .marimo}
+```{.marimo}
 #| echo: false
 k = scalar.value
 orig_x, orig_y = 2, 1
@@ -231,7 +231,7 @@ Here's the key insight: **a matrix is a transformation of space**.
 
 When you multiply a vector by a matrix, you're transforming that vector—stretching, rotating, shearing, or reflecting it.
 
-```{python .marimo}
+```{.marimo}
 #| echo: false
 from wigglystuff import Matrix
 
@@ -241,7 +241,7 @@ tfm_matrix = mo.ui.anywidget(
 )
 ```
 
-```{python .marimo}
+```{.marimo}
 #| echo: false
 def draw_transformation(mat):
     """Draw a grid before and after transformation"""
@@ -376,14 +376,14 @@ Edit the matrix above to create:
 
 When you multiply two matrices $\mathbf{BA}$, you're applying transformation $\mathbf{A}$ first, then transformation $\mathbf{B}$.
 
-```{python .marimo}
+```{.marimo}
 #| echo: false
 # Two matrices to compose
 mat_A = mo.ui.anywidget(Matrix(np.array([[1.0, 0.5], [0.0, 1.0]]), step=0.1))
 mat_B = mo.ui.anywidget(Matrix(np.array([[0.0, -1.0], [1.0, 0.0]]), step=0.1))
 ```
 
-```{python .marimo}
+```{.marimo}
 #| echo: false
 A = np.array(mat_A.matrix)
 B = np.array(mat_B.matrix)
@@ -406,7 +406,7 @@ $$\\mathbf{{BA}} = \\begin{{bmatrix}} {BA[0,0]:.2f} & {BA[0,1]:.2f} \\\\ {BA[1,0
 """)
 ```
 
-```{python .marimo}
+```{.marimo}
 #| echo: false
 # Show the composed transformation
 chart_composed = draw_transformation(BA)
@@ -434,12 +434,12 @@ But geometrically, you're just composing transformations!
 
 The **determinant** measures how much a transformation scales area.
 
-```{python .marimo}
+```{.marimo}
 #| echo: false
 det_matrix = mo.ui.anywidget(Matrix(np.array([[2.0, 0.0], [0.0, 1.0]]), step=0.1))
 ```
 
-```{python .marimo}
+```{.marimo}
 #| echo: false
 def draw_area_scaling(mat):
     """Show unit square transforming to parallelogram"""
@@ -522,12 +522,12 @@ If $\mathbf{A}$ transforms space, then $\mathbf{A}^{-1}$ **undoes** that transfo
 
 $$\mathbf{A}^{-1}\mathbf{A} = \mathbf{I}$$
 
-```{python .marimo}
+```{.marimo}
 #| echo: false
 inv_matrix = mo.ui.anywidget(Matrix(np.array([[2.0, 1.0], [0.0, 1.0]]), step=0.1))
 ```
 
-```{python .marimo}
+```{.marimo}
 #| echo: false
 A_inv = np.array(inv_matrix.matrix)
 det_A = np.linalg.det(A_inv)
@@ -588,14 +588,14 @@ In regression, the **design matrix** $\mathbf{X}$ encodes your predictors.
 
 Each **row** is an observation. Each **column** is a predictor.
 
-```{python .marimo}
+```{.marimo}
 #| echo: false
 # Interactive design matrix
 n_obs = mo.ui.slider(3, 8, value=5, step=1, label="Number of observations")
 n_obs
 ```
 
-```{python .marimo}
+```{.marimo}
 #| echo: false
 n = n_obs.value
 np.random.seed(42)
@@ -640,7 +640,7 @@ The matrix $\mathbf{X}^T\mathbf{X}$ is called the **Gram matrix**. It captures:
 - **Diagonal:** How much each predictor varies (related to variance)
 - **Off-diagonal:** How predictors relate to each other (related to covariance)
 
-```{python .marimo}
+```{.marimo}
 #| echo: false
 # Use the X from previous cell
 XtX = X.T @ X
@@ -681,7 +681,7 @@ Finally, the formula for estimating regression coefficients:
 
 $$\hat{\boldsymbol{\beta}} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}$$
 
-```{python .marimo}
+```{.marimo}
 #| echo: false
 # Generate y values with known coefficients
 true_beta = np.array([2.0, 1.5, 0.3])  # intercept, b1, b2
@@ -689,10 +689,9 @@ noise = np.random.normal(0, 0.5, n)
 y = X @ true_beta + noise
 ```
 
-```{python .marimo}
+```{.marimo}
 #| echo: false
-# Compute OLS step by step
-XtX = X.T @ X
+# Compute OLS step by step (XtX already defined above)
 XtX_inv = np.linalg.inv(XtX)
 Xty = X.T @ y
 beta_hat = XtX_inv @ Xty
