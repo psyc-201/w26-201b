@@ -9,7 +9,7 @@ dependencies = [
     "jupyter>=1.1.1",
     "jupyter-cache>=1.0.1",
     "lintquarto>=0.7.0",
-    "marimo>=0.18.4",
+    "marimo==0.14.16",  # Pinned: quarto-marimo only works with <=0.14.16 (Tailwind bug)
     "matplotlib>=3.10.8",
     "numpy>=2.4.0",
     "poethepoet>=0.38.0",

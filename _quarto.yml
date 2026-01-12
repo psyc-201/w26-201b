@@ -48,7 +48,7 @@ website:
         menu:
           - guides/terminology.qmd
           # - guides/formulas.qmd
-          - guides/linear-algebra.qmd  # TEMP: debugging marimo
+          # - guides/linear-algebra.qmd
           - guides/git-guide.qmd
           - guides/classroom-guide.qmd
           - guides/python-guide.qmd
@@ -95,11 +95,11 @@ format:
     toc: true
     toc-depth: 4
     # NOTE: marimo-islands header - version must match installed marimo Python package
-    # Using 0.18.4 to match `uv run python -c "import marimo; print(marimo.__version__)"`
+    # Using 0.14.16 - quarto-marimo only works with marimo <=0.14.16 (Tailwind bug in newer versions)
     include-in-header:
       - text: |
-          <script type="module" src="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.18.4/dist/main.js"></script>
-          <link href="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.18.4/dist/style.css" rel="stylesheet" crossorigin="anonymous" />
+          <script type="module" src="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.14.16/dist/main.js"></script>
+          <link href="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.14.16/dist/style.css" rel="stylesheet" crossorigin="anonymous" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
           <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&amp;family=Lora&amp;family=PT+Sans:wght@400;700&amp;display=swap" rel="stylesheet" />
