@@ -22,8 +22,8 @@ title: "Week 2"
 
 ## Materials
 
-:::{.callout-caution icon=false title="📚 Lab 02 - Data visualization & plotting intro (coming soon)"}
-<!-- [Github Classroom Assignment]() -->
+:::{.callout-caution icon=false title="📚 Lab 02 - Data visualization & EDA intro"}
+[Github Classroom Assignment](https://classroom.github.com/a/PGYWDvzO)
 :::
 
 ## Mentioned References

@@ -32,7 +32,7 @@ website:
   announcement:
     icon: megaphone-fill
     dismissable: false
-    content: "**Site Updates:** Week 02 slides (Mon), Lab 01 materials (view only), updated course Schedule."
+    content: "**Site Updates:** Week 02 Lab (Tues), slides (Mon)."
     type: success
     position: below-navbar
   title: "PSYC 201B"
