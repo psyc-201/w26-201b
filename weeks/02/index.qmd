@@ -9,6 +9,7 @@ title: "Week 2"
 
 - [ ] Developing statistical intuitions
 - [ ] Bridging the two cultures of statistics
+- [ ] Getting familiar with plotting & EDA in Python
 
 ## Slides
 

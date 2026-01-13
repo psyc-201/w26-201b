@@ -68,6 +68,25 @@ quarto render           # Full build
 
 ---
 
+## GitHub Pages Troubleshooting
+
+If GitHub Actions deployments get stuck in "queued" status and the UI won't cancel/restart them:
+
+```bash
+# Check Pages status
+gh api repos/psyc-201/w26-201b/pages --jq '{status}'
+
+# If status is "errored", trigger a fresh build to reset:
+gh api -X POST repos/psyc-201/w26-201b/pages/builds
+
+# Monitor progress
+gh run list --limit 5
+```
+
+**Root cause**: A failed deployment can leave Pages in an "errored" state, blocking subsequent runs. The manual build trigger resets this state.
+
+---
+
 ## Source Materials (W25)
 
 - **Labs/HWs**: `/Users/esh/Dropbox/docs/teaching/201b/w25/classroom/`
