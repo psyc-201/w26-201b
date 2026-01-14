@@ -17,9 +17,9 @@ title: "Week 2"
 ![](slides/01-12-foundations.pdf){width=100% height=600}
 :::
 
-<!-- ::: {.callout-tip title="Slides Wed Jan 14th (coming soon)"} -->
-<!-- ![](slides/01-14.pdf){width=100% height=600} -->
-<!-- ::: -->
+::: {.callout-tip title="Slides Wed Jan 14th" collapse=true}
+![](slides/01-14-model.pdf){width=100% height=600}
+:::
 
 ## Materials
 
