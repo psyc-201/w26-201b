@@ -5,6 +5,10 @@ title: "Week 2"
 
 ## Overview
 
+:::{.callout-caution icon=false title="📚 HW1 (Deadline 1pm Tues Jan 20)"}
+[Github Classroom Assignment](https://classroom.github.com/a/b1GlmbPx)
+:::
+
 ### Learning Goals
 
 - [ ] Developing statistical intuitions
