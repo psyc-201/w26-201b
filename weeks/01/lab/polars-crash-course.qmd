@@ -704,6 +704,49 @@ df_1.filter(
 Feel free to use which every style you find more intuitive and readable:
 :::
 
+## Missing Data: `null` vs `NaN`
+
+┌─────────┬───────────────────────────┬────────────────────────────────────────┐ 
+│         │           null            │                  NaN                   │ 
+├─────────┼───────────────────────────┼────────────────────────────────────────┤ 
+│ Meaning │ Missing/unknown value     │ "Not a Number" (undefined math result) │ 
+├─────────┼───────────────────────────┼────────────────────────────────────────┤ 
+│ Dtype   │ Any column type           │ Float columns only                     │ 
+├─────────┼───────────────────────────┼────────────────────────────────────────┤ 
+│ Origin  │ Empty cells, missing data │ Math like 0/0, ∞ - ∞, sqrt(-1)         │ 
+├─────────┼───────────────────────────┼────────────────────────────────────────┤ 
+│ Check   │ .is_null()                │ .is_nan()                              │ 
+├─────────┼───────────────────────────┼────────────────────────────────────────┤ 
+│ Fill    │ .fill_null(val)           │ .fill_nan(val)                         │ 
+└─────────┴───────────────────────────┴────────────────────────────────────────┘ 
+
+```python
+  import polars as pl                                                              
+                                                                                   
+  df = pl.DataFrame({                                                              
+      "a": [1.0, None, 3.0],      # None → null                                    
+      "b": [1.0, float('nan'), 3.0]  # NaN from Python                             
+  })                                                                               
+                                                                                   
+  df.select(                                                                       
+      pl.col("a").fill_null(0),   # fills the null                                 
+      pl.col("b").fill_nan(0),    # fills the NaN                                  
+  )                                                                                
+```
+
+Common gotcha: CSV empty cells become null, but division by zero creates NaN.    
+They require different handling:                                                 
+                                                                                   
+```python
+                                                                                   
+df.with_columns(                                                                 
+  (pl.col("x") / pl.col("y"))  # might produce NaN if y=0                      
+  .fill_nan(None)              # convert NaN → null for consistency            
+  .fill_null(0)                # then fill all missing                         
+  .alias("result")                                                             
+)                                                                                
+```     
+
 ## Expressions are for performing *operations*
 
 So far we've see how to build up an **expression** that computes some value, e.g. `.mean()` or performs some logic, e.g. `.eq()`.
