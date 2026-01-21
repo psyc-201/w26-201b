@@ -1,0 +1,3544 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eshin Jolly">
+<meta name="dcterms.date" content="2026-01-13">
+
+<title>Exploratory Data Analysis Workflows – PSYC 201B</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-a936dd0cd06bcb31d39d5fba7942d483.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.14.16/dist/main.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.14.16/dist/style.css" rel="stylesheet" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&amp;family=Lora&amp;family=PT+Sans:wght@400;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+</head><body class="nav-sidebar docked nav-fixed quarto-light"><marimo-filename hidden=""></marimo-filename>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/custom.css">
+
+
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../logo25.png" alt="" class="navbar-logo light-content">
+    <img src="../../../logo25.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">PSYC 201B</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-guides--resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Guides &amp; Resources</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-guides--resources">    
+        <li>
+    <a class="dropdown-item" href="../../../guides/terminology.html">
+ <span class="dropdown-text">Course Terminology</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/git-guide.html">
+ <span class="dropdown-text">Git &amp; Github</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/classroom-guide.html">
+ <span class="dropdown-text">Github Classroom</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/python-resources.html">
+ <span class="dropdown-text">Python Resources</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://psyc201b.github.io/PSYC-201B/"> 
+<span class="menu-text">Previous course versions</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/psyc-201/w26-201b" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../weeks/02/index.html">Week 2</a></li><li class="breadcrumb-item"><a href="../../../weeks/02/lab/eda-workflows.html">EDA Workflows</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+  <div id="quarto-announcement" data-announcement-id="340ea895a18b7a7eec1fc2c3acdf2be5" class="alert alert-success hidden"><i class="bi bi-megaphone-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>Site Updates:</strong> Week 3 slides available.</p>
+</div></div>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/lab/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">“Pre-flight” Lab Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/lab/python-fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python Fundamentals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/lab/polars-crash-course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Polars (dataframes) Crash Course</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/lab/seaborn-crash-course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Seaborn (plotting) Crash Course</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/lab/eda-workflows.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">EDA Workflows</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/03/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#how-to-use-this-notebook" id="toc-how-to-use-this-notebook" class="nav-link active" data-scroll-target="#how-to-use-this-notebook">How to Use This Notebook</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#phase-1-first-contact-with-the-data" id="toc-phase-1-first-contact-with-the-data" class="nav-link" data-scroll-target="#phase-1-first-contact-with-the-data">Phase 1: First Contact with the Data</a>
+  <ul>
+  <li><a href="#load-and-inspect" id="toc-load-and-inspect" class="nav-link" data-scroll-target="#load-and-inspect">Load and Inspect</a></li>
+  <li><a href="#check-for-missing-data" id="toc-check-for-missing-data" class="nav-link" data-scroll-target="#check-for-missing-data">Check for Missing Data</a></li>
+  <li><a href="#visualize-missing-data-patterns" id="toc-visualize-missing-data-patterns" class="nav-link" data-scroll-target="#visualize-missing-data-patterns">Visualize Missing Data Patterns</a></li>
+  </ul></li>
+  <li><a href="#phase-2-understanding-individual-variables" id="toc-phase-2-understanding-individual-variables" class="nav-link" data-scroll-target="#phase-2-understanding-individual-variables">Phase 2: Understanding Individual Variables</a>
+  <ul>
+  <li><a href="#numeric-variables" id="toc-numeric-variables" class="nav-link" data-scroll-target="#numeric-variables">Numeric Variables</a></li>
+  <li><a href="#categorical-variables" id="toc-categorical-variables" class="nav-link" data-scroll-target="#categorical-variables">Categorical Variables</a></li>
+  </ul></li>
+  <li><a href="#phase-3-exploring-relationships" id="toc-phase-3-exploring-relationships" class="nav-link" data-scroll-target="#phase-3-exploring-relationships">Phase 3: Exploring Relationships</a>
+  <ul>
+  <li><a href="#numeric-vs-numeric-scatter-plots" id="toc-numeric-vs-numeric-scatter-plots" class="nav-link" data-scroll-target="#numeric-vs-numeric-scatter-plots">Numeric vs Numeric: Scatter Plots</a></li>
+  <li><a href="#numeric-vs-categorical-comparing-groups" id="toc-numeric-vs-categorical-comparing-groups" class="nav-link" data-scroll-target="#numeric-vs-categorical-comparing-groups">Numeric vs Categorical: Comparing Groups</a></li>
+  <li><a href="#faceting-breaking-down-by-multiple-categories" id="toc-faceting-breaking-down-by-multiple-categories" class="nav-link" data-scroll-target="#faceting-breaking-down-by-multiple-categories">Faceting: Breaking Down by Multiple Categories</a></li>
+  </ul></li>
+  <li><a href="#phase-4-asking-questions" id="toc-phase-4-asking-questions" class="nav-link" data-scroll-target="#phase-4-asking-questions">Phase 4: Asking Questions</a>
+  <ul>
+  <li><a href="#question-1-which-species-is-the-tallest-on-average" id="toc-question-1-which-species-is-the-tallest-on-average" class="nav-link" data-scroll-target="#question-1-which-species-is-the-tallest-on-average">Question 1: Which species is the tallest on average?</a></li>
+  <li><a href="#question-2-is-there-a-relationship-between-height-and-birth-year" id="toc-question-2-is-there-a-relationship-between-height-and-birth-year" class="nav-link" data-scroll-target="#question-2-is-there-a-relationship-between-height-and-birth-year">Question 2: Is there a relationship between height and birth year?</a></li>
+  <li><a href="#question-3-whats-the-most-common-eye-color-for-each-species" id="toc-question-3-whats-the-most-common-eye-color-for-each-species" class="nav-link" data-scroll-target="#question-3-whats-the-most-common-eye-color-for-each-species">Question 3: What’s the most common eye color for each species?</a></li>
+  </ul></li>
+  <li><a href="#phase-5-creating-derived-variables" id="toc-phase-5-creating-derived-variables" class="nav-link" data-scroll-target="#phase-5-creating-derived-variables">Phase 5: Creating Derived Variables</a>
+  <ul>
+  <li><a href="#bmi-body-mass-index" id="toc-bmi-body-mass-index" class="nav-link" data-scroll-target="#bmi-body-mass-index">BMI (Body Mass Index)</a></li>
+  <li><a href="#creating-categories-from-numeric-variables" id="toc-creating-categories-from-numeric-variables" class="nav-link" data-scroll-target="#creating-categories-from-numeric-variables">Creating Categories from Numeric Variables</a></li>
+  </ul></li>
+  <li><a href="#phase-6-documenting-your-findings" id="toc-phase-6-documenting-your-findings" class="nav-link" data-scroll-target="#phase-6-documenting-your-findings">Phase 6: Documenting Your Findings</a>
+  <ul>
+  <li><a href="#summary-of-findings" id="toc-summary-of-findings" class="nav-link" data-scroll-target="#summary-of-findings">Summary of Findings</a></li>
+  </ul></li>
+  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn">Your Turn</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../weeks/02/index.html">Week 2</a></li><li class="breadcrumb-item"><a href="../../../weeks/02/lab/eda-workflows.html">EDA Workflows</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Exploratory Data Analysis Workflows</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eshin Jolly </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 13, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In this notebook, we’ll work through a complete <strong>Exploratory Data Analysis (EDA)</strong> workflow. EDA is the process of getting to know your data before any formal analysis - understanding its structure, spotting patterns, identifying problems, and developing intuitions.</p>
+<p>We’ll assume that you’re familiar with generally familiar with EDA from PSYC 201A, so this notebook will demonstrate some common tasks in Python combining <code>polars</code> and <code>seaborn</code>. We’ll use a dataset of characters from the <a href="https://www.starwars.com/databank">Star Wars universe</a>.</p>
+<section id="how-to-use-this-notebook" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-use-this-notebook">How to Use This Notebook</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This notebook walks through some realistic EDA workflow steps you’re likely to encounter. Follow along, run the code, and make sure you understand what’s happening and <em>why</em>. When we move on to building and fitting statistical <strong>models</strong>, it’ll be important to have an understanding of some key properties of your data:</p>
+<ul>
+<li><strong>What variables do you have?</strong> Numeric? Categorical? Mixed?</li>
+<li><strong>What’s the distribution of each?</strong> What’s the general <em>shape</em> of your data? the range? how common are certain values?</li>
+<li><strong>What’s missing?</strong> What’s the pattern of missing data? Random? Correlated with some variable of interest?</li>
+<li><strong>What variables share relationships?</strong> No need to fit models to see if varaible simple <em>move together</em> - just plot them!</li>
+<li><strong>What’s the data telling you?</strong> Contextualize what you see - anything particularly noteworthy? what might guide your future analysis choices?</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>EDA is <strong>visual detective work.</strong> You’re trying to understand what you’re working with to better <em>inform</em> and <em>guide</em> the later modeling choices you might make.</p>
+</div>
+</div>
+</section>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>Let’s import our tools:</p>
+<div id="132976bf" class="cell" data-execution_count="2">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> polars <span class="im">as</span> pl</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> polars <span class="im">import</span> col, when, lit</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> polars.selectors <span class="im">as</span> cs</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="phase-1-first-contact-with-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="phase-1-first-contact-with-the-data">Phase 1: First Contact with the Data</h2>
+<p>The first step in any EDA is simply <strong>looking at your data</strong>. What do you have?</p>
+<section id="load-and-inspect" class="level3">
+<h3 class="anchored" data-anchor-id="load-and-inspect">Load and Inspect</h3>
+<p>Let’s load the Star Wars dataset. This contains information about characters from the Star Wars universe:</p>
+<div id="f07c8dd0" class="cell" data-execution_count="3">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sw <span class="op">=</span> pl.read_csv(<span class="st">"data/starwars.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sw</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (87, 11)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">height</th>
+<th data-quarto-table-cell-role="th">mass</th>
+<th data-quarto-table-cell-role="th">hair_color</th>
+<th data-quarto-table-cell-role="th">skin_color</th>
+<th data-quarto-table-cell-role="th">eye_color</th>
+<th data-quarto-table-cell-role="th">birth_year</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">gender</th>
+<th data-quarto-table-cell-role="th">homeworld</th>
+<th data-quarto-table-cell-role="th">species</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+<td>f64</td>
+<td>str</td>
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+<td>str</td>
+<td>str</td>
+<td>str</td>
+<td>str</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Luke Skywalker"</td>
+<td>172.0</td>
+<td>77.0</td>
+<td>"blond"</td>
+<td>"fair"</td>
+<td>"blue"</td>
+<td>19.0</td>
+<td>"male"</td>
+<td>"masculine"</td>
+<td>"Tatooine"</td>
+<td>"Human"</td>
+</tr>
+<tr class="even">
+<td>"C-3PO"</td>
+<td>167.0</td>
+<td>75.0</td>
+<td>null</td>
+<td>"gold"</td>
+<td>"yellow"</td>
+<td>112.0</td>
+<td>"none"</td>
+<td>"masculine"</td>
+<td>"Tatooine"</td>
+<td>"Droid"</td>
+</tr>
+<tr class="odd">
+<td>"R2-D2"</td>
+<td>96.0</td>
+<td>32.0</td>
+<td>null</td>
+<td>"white, blue"</td>
+<td>"red"</td>
+<td>33.0</td>
+<td>"none"</td>
+<td>"masculine"</td>
+<td>"Naboo"</td>
+<td>"Droid"</td>
+</tr>
+<tr class="even">
+<td>"Darth Vader"</td>
+<td>202.0</td>
+<td>136.0</td>
+<td>"none"</td>
+<td>"white"</td>
+<td>"yellow"</td>
+<td>41.9</td>
+<td>"male"</td>
+<td>"masculine"</td>
+<td>"Tatooine"</td>
+<td>"Human"</td>
+</tr>
+<tr class="odd">
+<td>"Leia Organa"</td>
+<td>150.0</td>
+<td>49.0</td>
+<td>"brown"</td>
+<td>"light"</td>
+<td>"brown"</td>
+<td>19.0</td>
+<td>"female"</td>
+<td>"feminine"</td>
+<td>"Alderaan"</td>
+<td>"Human"</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>"Finn"</td>
+<td>null</td>
+<td>null</td>
+<td>"black"</td>
+<td>"dark"</td>
+<td>"dark"</td>
+<td>null</td>
+<td>"male"</td>
+<td>"masculine"</td>
+<td>null</td>
+<td>"Human"</td>
+</tr>
+<tr class="even">
+<td>"Rey"</td>
+<td>null</td>
+<td>null</td>
+<td>"brown"</td>
+<td>"light"</td>
+<td>"hazel"</td>
+<td>null</td>
+<td>"female"</td>
+<td>"feminine"</td>
+<td>null</td>
+<td>"Human"</td>
+</tr>
+<tr class="odd">
+<td>"Poe Dameron"</td>
+<td>null</td>
+<td>null</td>
+<td>"brown"</td>
+<td>"light"</td>
+<td>"brown"</td>
+<td>null</td>
+<td>"male"</td>
+<td>"masculine"</td>
+<td>null</td>
+<td>"Human"</td>
+</tr>
+<tr class="even">
+<td>"BB8"</td>
+<td>null</td>
+<td>null</td>
+<td>"none"</td>
+<td>"none"</td>
+<td>"black"</td>
+<td>null</td>
+<td>"none"</td>
+<td>"masculine"</td>
+<td>null</td>
+<td>"Droid"</td>
+</tr>
+<tr class="odd">
+<td>"Captain Phasma"</td>
+<td>null</td>
+<td>null</td>
+<td>"none"</td>
+<td>"none"</td>
+<td>"unknown"</td>
+<td>null</td>
+<td>"female"</td>
+<td>"feminine"</td>
+<td>null</td>
+<td>"Human"</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Polars shows us the first and last few rows, plus the <strong>column types</strong>. Notice: - <code>str</code> columns contain text (names, categories) - <code>i64</code> columns contain integers - <code>f64</code> columns contain decimals (floating point numbers)</p>
+<p>Let’s get the basic dimensions:</p>
+<div id="4c8cceac" class="cell" data-execution_count="4">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Rows: </span><span class="sc">{</span>sw<span class="sc">.</span>height<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Columns: </span><span class="sc">{</span>sw<span class="sc">.</span>width<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 87
+Columns: 11</code></pre>
+</div>
+</div>
+<p>87 characters with 11 attributes each. Let’s see all the column names:</p>
+<div id="897a6154" class="cell" data-execution_count="5">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sw.columns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>['name',
+ 'height',
+ 'mass',
+ 'hair_color',
+ 'skin_color',
+ 'eye_color',
+ 'birth_year',
+ 'sex',
+ 'gender',
+ 'homeworld',
+ 'species']</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="What do these columns mean?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>What do these columns mean?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Before diving into analysis, we should understand what we’re working with: - <strong>name</strong>: Character name - <strong>height</strong>: Height in centimeters - <strong>mass</strong>: Weight in kilograms - <strong>hair_color</strong>, <strong>skin_color</strong>, <strong>eye_color</strong>: Physical appearance - <strong>birth_year</strong>: Years before the Battle of Yavin (BBY) - <strong>sex</strong>: Biological sex (male, female, hermaphroditic, none) - <strong>gender</strong>: Gender identity (masculine, feminine) - <strong>homeworld</strong>: Planet of origin - <strong>species</strong>: Species (Human, Droid, Wookiee, etc.)</p>
+<p>This context matters! “mass” in Star Wars includes robots and aliens with very different body compositions than humans.</p>
+</div>
+</div>
+</section>
+<section id="check-for-missing-data" class="level3">
+<h3 class="anchored" data-anchor-id="check-for-missing-data">Check for Missing Data</h3>
+<p>Missing data is everywhere in real datasets. Let’s see how much we’re dealing with:</p>
+<div id="f20d41f7" class="cell" data-execution_count="6">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sw.null_count()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 11)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">height</th>
+<th data-quarto-table-cell-role="th">mass</th>
+<th data-quarto-table-cell-role="th">hair_color</th>
+<th data-quarto-table-cell-role="th">skin_color</th>
+<th data-quarto-table-cell-role="th">eye_color</th>
+<th data-quarto-table-cell-role="th">birth_year</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">gender</th>
+<th data-quarto-table-cell-role="th">homeworld</th>
+<th data-quarto-table-cell-role="th">species</th>
+</tr>
+<tr class="even">
+<td>u32</td>
+<td>u32</td>
+<td>u32</td>
+<td>u32</td>
+<td>u32</td>
+<td>u32</td>
+<td>u32</td>
+<td>u32</td>
+<td>u32</td>
+<td>u32</td>
+<td>u32</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>6</td>
+<td>28</td>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+<td>44</td>
+<td>4</td>
+<td>4</td>
+<td>10</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>This tells us: - <strong>height</strong> is missing for 6 characters - <strong>mass</strong> is missing for 28 characters (about 1/3 of the data!) - <strong>birth_year</strong> is missing for 44 characters (over half!) - <strong>sex</strong>, <strong>gender</strong>, <strong>homeworld</strong>, <strong>species</strong> have some missing values too</p>
+<p>Let’s calculate the <strong>percentage</strong> missing for each column. If we wrap the entire code-block in <code>()</code> Python won’t care about indentation, so we can lay out the code in a more reader friendly way (like R’s pipes):</p>
+<div id="ed60cf58" class="cell" data-execution_count="7">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using '*' inside col() selects all columns</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    sw</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    .null_count()</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    .select(col(<span class="st">'*'</span>) <span class="op">/</span> sw.height <span class="op">*</span> <span class="dv">100</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    .transpose(</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        include_header<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        header_name<span class="op">=</span><span class="st">"column"</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        column_names<span class="op">=</span>[<span class="st">"pct_missing"</span>]</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    .sort(<span class="st">"pct_missing"</span>, descending<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (11, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">column</th>
+<th data-quarto-table-cell-role="th">pct_missing</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"birth_year"</td>
+<td>50.574713</td>
+</tr>
+<tr class="even">
+<td>"mass"</td>
+<td>32.183908</td>
+</tr>
+<tr class="odd">
+<td>"homeworld"</td>
+<td>11.494253</td>
+</tr>
+<tr class="even">
+<td>"height"</td>
+<td>6.896552</td>
+</tr>
+<tr class="odd">
+<td>"hair_color"</td>
+<td>5.747126</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>"gender"</td>
+<td>4.597701</td>
+</tr>
+<tr class="even">
+<td>"species"</td>
+<td>4.597701</td>
+</tr>
+<tr class="odd">
+<td>"name"</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td>"skin_color"</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td>"eye_color"</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="visualize-missing-data-patterns" class="level3">
+<h3 class="anchored" data-anchor-id="visualize-missing-data-patterns">Visualize Missing Data Patterns</h3>
+<p>Sometimes missing data has patterns. Let’s visualize which rows have missing values:</p>
+<div class="callout callout-style-default callout-note callout-titled" title="seaborn.heatmap">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>seaborn.heatmap
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is <a href="https://seaborn.pydata.org/generated/seaborn.heatmap.html#seaborn.heatmap">new function</a> that we didn’t meet in the previous notebook. And we’ve never called <code>sns.FacetGrid</code> directly - so far we’ve just working with the outputs of <code>sns.relplot</code>, <code>sns.catplot</code>, etc</p>
+<p>Don’t sweat it - just try to build your intuitions about what’s happening below. Remember that we saw <code>.map_dataframe</code> when trying to <em>layer plots</em> by passing in any plotting function that understands our data. Well if we start with an <em>empty</em> <code>FacetGrid</code> then we can use the same approach to use <code>sns.heatmap</code> to build it from scratch!</p>
+</div>
+</div>
+<div id="2320ef44" class="cell" data-execution_count="8">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a boolean DataFrame: True where data is missing</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>missing_matrix <span class="op">=</span> sw.select(col(<span class="st">'*'</span>).is_null()).to_pandas()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the facet grid first - just data no aesthetic mappings</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> sns.FacetGrid(data<span class="op">=</span>missing_matrix, aspect<span class="op">=</span><span class="fl">.75</span>, height<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Map the seaborn heatmap function</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>grid.map_dataframe(sns.heatmap, cmap<span class="op">=</span><span class="st">'Grays'</span>, yticklabels<span class="op">=</span>sw[<span class="st">'name'</span>], cbar<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust aesthetics</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>grid.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, labelsize<span class="op">=</span><span class="dv">6</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>grid</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-8-output-1.png" width="509" height="755" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Each row is a character, each column is a variable. <strong>Dark cells indicate missing values</strong>.</p>
+<p>Notice that <code>birth_year</code> and <code>mass</code> have scattered missing values across many characters - it’s not concentrated in a particular group.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Your Turn">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Your Turn
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Try to combine some other <code>polars</code> and <code>seaborn</code> workflows to explore the dataset for yourself and understand what you’re working with</p>
+</div>
+</div>
+<div id="d86ee4b1" class="cell" data-execution_count="9">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="89810aa0" class="cell" data-execution_count="10">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="01e8a99e" class="cell" data-execution_count="11">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Explore the distribution of species</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>sw[<span class="st">"species"</span>].value_counts().sort(<span class="st">"count"</span>, descending<span class="op">=</span><span class="va">True</span>).head(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (10, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">count</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>u32</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Human"</td>
+<td>35</td>
+</tr>
+<tr class="even">
+<td>"Droid"</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>null</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>"Gungan"</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>"Mirialan"</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>"Kaminoan"</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>"Wookiee"</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>"Twi'lek"</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>"Zabrak"</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>"Quermian"</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="7bc79d85" class="cell" data-execution_count="12">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the relationship between height and sex</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>sw.<span class="bu">filter</span>(col(<span class="st">"sex"</span>).is_in([<span class="st">"male"</span>, <span class="st">"female"</span>])),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"sex"</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"height"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"violin"</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>).set_axis_labels(<span class="st">"Sex"</span>, <span class="st">"Height (cm)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-12-output-1.png" width="487" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="phase-2-understanding-individual-variables" class="level2">
+<h2 class="anchored" data-anchor-id="phase-2-understanding-individual-variables">Phase 2: Understanding Individual Variables</h2>
+<p>Before looking at relationships, understand each variable on its own.</p>
+<section id="numeric-variables" class="level3">
+<h3 class="anchored" data-anchor-id="numeric-variables">Numeric Variables</h3>
+<p>We have three numeric variables: <code>height</code>, <code>mass</code>, and <code>birth_year</code>.</p>
+<p>Let’s get summary statistics:</p>
+<div id="6c736132" class="cell" data-execution_count="13">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cs.numeric() is a polars selector that gets all numeric columns</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sw.select(cs.numeric()).describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (9, 4)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">statistic</th>
+<th data-quarto-table-cell-role="th">height</th>
+<th data-quarto-table-cell-role="th">mass</th>
+<th data-quarto-table-cell-role="th">birth_year</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"count"</td>
+<td>81.0</td>
+<td>59.0</td>
+<td>43.0</td>
+</tr>
+<tr class="even">
+<td>"null_count"</td>
+<td>6.0</td>
+<td>28.0</td>
+<td>44.0</td>
+</tr>
+<tr class="odd">
+<td>"mean"</td>
+<td>174.604938</td>
+<td>97.311864</td>
+<td>87.565116</td>
+</tr>
+<tr class="even">
+<td>"std"</td>
+<td>34.774157</td>
+<td>169.457163</td>
+<td>154.691439</td>
+</tr>
+<tr class="odd">
+<td>"min"</td>
+<td>66.0</td>
+<td>15.0</td>
+<td>8.0</td>
+</tr>
+<tr class="even">
+<td>"25%"</td>
+<td>167.0</td>
+<td>56.2</td>
+<td>37.0</td>
+</tr>
+<tr class="odd">
+<td>"50%"</td>
+<td>180.0</td>
+<td>79.0</td>
+<td>52.0</td>
+</tr>
+<tr class="even">
+<td>"75%"</td>
+<td>191.0</td>
+<td>85.0</td>
+<td>72.0</td>
+</tr>
+<tr class="odd">
+<td>"max"</td>
+<td>264.0</td>
+<td>1358.0</td>
+<td>896.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Some observations: - <strong>height</strong>: Ranges from 66cm to 264cm. Mean is 175cm (about 5’9”). - <strong>mass</strong>: Ranges from 15kg to 1,358kg! That max is suspicious… - <strong>birth_year</strong>: Ranges from 8 to 896 BBY. That’s a huge range.</p>
+<p>Let’s visualize these distributions:</p>
+<div id="ddd17bf4" class="cell" data-execution_count="14">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>sw,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"height"</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"hist"</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    bins<span class="op">=</span><span class="dv">20</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>).set_axis_labels(<span class="st">"Height (cm)"</span>, <span class="st">"Count"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-14-output-1.png" width="470" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Height looks roughly normal, maybe slightly right-skewed. Most characters are between 150-200cm.</p>
+<div id="a1cee452" class="cell" data-execution_count="15">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>sw,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"mass"</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"hist"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    bins<span class="op">=</span><span class="dv">30</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>).set_axis_labels(<span class="st">"Mass (kg)"</span>, <span class="st">"Count"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-15-output-1.png" width="470" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Whoa! The mass distribution is extremely <strong>right-skewed</strong>. Most characters cluster at low values, but there’s an extreme outlier pulling the scale.</p>
+<p>Who is that outlier?</p>
+<div id="8cd93c81" class="cell" data-execution_count="16">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sw.<span class="bu">filter</span>(col(<span class="st">"mass"</span>) <span class="op">&gt;</span> <span class="dv">500</span>).select(<span class="st">"name"</span>, <span class="st">"mass"</span>, <span class="st">"species"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">mass</th>
+<th data-quarto-table-cell-role="th">species</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+<td>str</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Jabba Desilijic Tiure"</td>
+<td>1358.0</td>
+<td>"Hutt"</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p><strong>Jabba the Hutt</strong> weighs 1,358 kg! That’s not an error - Hutts are massive slug-like aliens.</p>
+<p>This is why EDA matters: an outlier like this would massively distort any mean or correlation we calculate.</p>
+<p>Let’s look at mass <strong>excluding</strong> extreme outliers to see the main distribution:</p>
+<div id="bbf5b7e5" class="cell" data-execution_count="17">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>sw.<span class="bu">filter</span>(col(<span class="st">"mass"</span>) <span class="op">&lt;</span> <span class="dv">200</span>),</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"mass"</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"hist"</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    bins<span class="op">=</span><span class="dv">20</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>).set_axis_labels(<span class="st">"Mass (kg)"</span>, <span class="st">"Count"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-17-output-1.png" width="470" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now we can see the actual distribution. Most characters are between 50-100kg, with a cluster of lighter characters (possibly droids or smaller species).</p>
+</section>
+<section id="categorical-variables" class="level3">
+<h3 class="anchored" data-anchor-id="categorical-variables">Categorical Variables</h3>
+<p>For categorical variables, we want to know: <strong>What are the categories and how frequent is each?</strong></p>
+<div id="d647dcd8" class="cell" data-execution_count="18">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sw[<span class="st">"species"</span>].value_counts().sort(<span class="st">"count"</span>, descending<span class="op">=</span><span class="va">True</span>).head(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (10, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">count</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>u32</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Human"</td>
+<td>35</td>
+</tr>
+<tr class="even">
+<td>"Droid"</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>null</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>"Gungan"</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>"Mirialan"</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>"Twi'lek"</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>"Wookiee"</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>"Zabrak"</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>"Kaminoan"</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>"Pau'an"</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Humans dominate the dataset (35 characters), followed by Droids (6). Most species appear only once.</p>
+<div id="8e664623" class="cell" data-execution_count="19">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sw[<span class="st">"homeworld"</span>].value_counts().sort(<span class="st">"count"</span>, descending<span class="op">=</span><span class="va">True</span>).head(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (10, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">homeworld</th>
+<th data-quarto-table-cell-role="th">count</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>u32</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Naboo"</td>
+<td>11</td>
+</tr>
+<tr class="even">
+<td>null</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td>"Tatooine"</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>"Kamino"</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>"Coruscant"</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>"Alderaan"</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>"Ryloth"</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>"Kashyyyk"</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>"Corellia"</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>"Mirial"</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Naboo and Tatooine are the most common homeworlds, which makes sense - many main characters come from these planets.</p>
+<div id="3fe03bdf" class="cell" data-execution_count="20">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>sw,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"sex"</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"count"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    order<span class="op">=</span>sw[<span class="st">"sex"</span>].value_counts().sort(<span class="st">"count"</span>, descending<span class="op">=</span><span class="va">True</span>)[<span class="st">"sex"</span>].to_list()</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>).set_axis_labels(<span class="st">"Count"</span>, <span class="st">"Sex"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-20-output-1.png" width="484" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The dataset is heavily male-dominated, reflecting the original Star Wars films. “none” likely refers to droids.</p>
+<p><strong>Reflection</strong>: What does this imbalance mean for any analysis we might do comparing sexes? We have ~60 males but only ~16 females.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Your Turn">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Your Turn
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Try creating a few plots that help you understand the <em>other</em> variables in the dataset</p>
+</div>
+</div>
+<div id="36438cd3" class="cell" data-execution_count="21">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="76b87298" class="cell" data-execution_count="22">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="1259325c" class="cell" data-execution_count="23">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="f6705148" class="cell" data-execution_count="24">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Eye color distribution</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>sw,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"eye_color"</span>,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"count"</span>,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    order<span class="op">=</span>sw[<span class="st">"eye_color"</span>].value_counts().sort(<span class="st">"count"</span>, descending<span class="op">=</span><span class="va">True</span>)[<span class="st">"eye_color"</span>].to_list(),</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">6</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>).set_axis_labels(<span class="st">"Count"</span>, <span class="st">"Eye Color"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-24-output-1.png" width="581" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="b7095e2e" class="cell" data-execution_count="25">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gender breakdown</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>sw[<span class="st">"gender"</span>].value_counts().sort(<span class="st">"count"</span>, descending<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">gender</th>
+<th data-quarto-table-cell-role="th">count</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>u32</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"masculine"</td>
+<td>66</td>
+</tr>
+<tr class="even">
+<td>"feminine"</td>
+<td>17</td>
+</tr>
+<tr class="odd">
+<td>null</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="5d39ac80" class="cell" data-execution_count="26">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Birth year distribution (excluding extreme values)</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>sw.<span class="bu">filter</span>(col(<span class="st">"birth_year"</span>).is_not_null() <span class="op">&amp;</span> (col(<span class="st">"birth_year"</span>) <span class="op">&lt;</span> <span class="dv">200</span>)),</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"birth_year"</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"hist"</span>,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    bins<span class="op">=</span><span class="dv">15</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>).set_axis_labels(<span class="st">"Birth Year (BBY)"</span>, <span class="st">"Count"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-26-output-1.png" width="470" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="phase-3-exploring-relationships" class="level2">
+<h2 class="anchored" data-anchor-id="phase-3-exploring-relationships">Phase 3: Exploring Relationships</h2>
+<p>Now let’s look at how variables relate to each other.</p>
+<section id="numeric-vs-numeric-scatter-plots" class="level3">
+<h3 class="anchored" data-anchor-id="numeric-vs-numeric-scatter-plots">Numeric vs Numeric: Scatter Plots</h3>
+<p>The classic way to explore relationships between two numeric variables is a scatter plot.</p>
+<div id="2b0a71c4" class="cell" data-execution_count="27">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>sns.relplot(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>sw,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"height"</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"mass"</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>).set_axis_labels(<span class="st">"Height (cm)"</span>, <span class="st">"Mass (kg)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-27-output-1.png" width="470" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There’s a general positive relationship (taller characters tend to be heavier), but Jabba is way off in the corner distorting our view.</p>
+<p>Let’s exclude extreme mass values and add a regression line:</p>
+<div id="aa628ce6" class="cell" data-execution_count="28">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>sns.lmplot(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>sw.<span class="bu">filter</span>(col(<span class="st">"mass"</span>) <span class="op">&lt;</span> <span class="dv">200</span>),</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"height"</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"mass"</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>).set_axis_labels(<span class="st">"Height (cm)"</span>, <span class="st">"Mass (kg)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-28-output-1.png" width="470" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now the relationship is clearer. But wait - are humans and droids following the same pattern?</p>
+<div id="44affcda" class="cell" data-execution_count="29">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Focus on the most common species</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>common_species <span class="op">=</span> sw.<span class="bu">filter</span>(</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    col(<span class="st">"species"</span>).is_in([<span class="st">"Human"</span>, <span class="st">"Droid"</span>, <span class="st">"Gungan"</span>, <span class="st">"Wookiee"</span>])</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>sns.lmplot(</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>common_species,</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"height"</span>,</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"mass"</span>,</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"species"</span>,</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    ci<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>).set_axis_labels(<span class="st">"Height (cm)"</span>, <span class="st">"Mass (kg)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-29-output-1.png" width="568" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="numeric-vs-categorical-comparing-groups" class="level3">
+<h3 class="anchored" data-anchor-id="numeric-vs-categorical-comparing-groups">Numeric vs Categorical: Comparing Groups</h3>
+<p>How does height differ between male and female characters?</p>
+<div id="66df7637" class="cell" data-execution_count="30">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter to male/female only for cleaner comparison</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>sw_mf <span class="op">=</span> sw.<span class="bu">filter</span>(col(<span class="st">"sex"</span>).is_in([<span class="st">"male"</span>, <span class="st">"female"</span>]))</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>sw_mf,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"sex"</span>,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"height"</span>,</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"box"</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>).set_axis_labels(<span class="st">"Sex"</span>, <span class="st">"Height (cm)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-30-output-1.png" width="487" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Male characters tend to be taller, with more variability (wider box, more outliers).</p>
+<p>Let’s see the individual data points too:</p>
+<div id="15217a08" class="cell" data-execution_count="31">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>sw_mf,</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"sex"</span>,</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"height"</span>,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"swarm"</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>).set_axis_labels(<span class="st">"Sex"</span>, <span class="st">"Height (cm)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-31-output-1.png" width="487" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>With only ~16 female characters, we should be cautious about drawing strong conclusions. The samples are very unequal.</p>
+</section>
+<section id="faceting-breaking-down-by-multiple-categories" class="level3">
+<h3 class="anchored" data-anchor-id="faceting-breaking-down-by-multiple-categories">Faceting: Breaking Down by Multiple Categories</h3>
+<p>One of seaborn’s strengths is easily splitting visualizations by category. Let’s look at how mass varies by sex across different homeworlds:</p>
+<div id="5f6f3bfd" class="cell" data-execution_count="32">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Focus on homeworlds with enough characters</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>top_homeworlds <span class="op">=</span> sw[<span class="st">"homeworld"</span>].value_counts().<span class="bu">filter</span>(col(<span class="st">"count"</span>) <span class="op">&gt;=</span> <span class="dv">3</span>)[<span class="st">"homeworld"</span>].to_list()</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>sw_subset <span class="op">=</span> sw.<span class="bu">filter</span>(</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    col(<span class="st">"homeworld"</span>).is_in(top_homeworlds) <span class="op">&amp;</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    col(<span class="st">"sex"</span>).is_in([<span class="st">"male"</span>, <span class="st">"female"</span>]) <span class="op">&amp;</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    col(<span class="st">"mass"</span>).is_not_null()</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>sw_subset,</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"sex"</span>,</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"mass"</span>,</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>    col<span class="op">=</span><span class="st">"homeworld"</span>,</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"strip"</span>,</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>    col_wrap<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>).set_axis_labels(<span class="st">"Sex"</span>, <span class="st">"Mass (kg)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-32-output-1.png" width="872" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can see a few patterns: - Most homeworlds have more male characters - Tatooine has characters spanning a wide mass range - Naboo characters tend to be lighter</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Your Turn">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Your Turn
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Why might Naboo characters tend to be lighter? (Hint: think about which characters are from Naboo) Or explore some other relationships that <em>you</em> are interested</p>
+</div>
+</div>
+<div id="56ebbaac" class="cell" data-execution_count="33">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="4914d40d" class="cell" data-execution_count="34">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="b557849a" class="cell" data-execution_count="35">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's see who is from Naboo</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>sw.<span class="bu">filter</span>(col(<span class="st">"homeworld"</span>) <span class="op">==</span> <span class="st">"Naboo"</span>).select(<span class="st">"name"</span>, <span class="st">"species"</span>, <span class="st">"sex"</span>, <span class="st">"mass"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (11, 4)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">mass</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"R2-D2"</td>
+<td>"Droid"</td>
+<td>"none"</td>
+<td>32.0</td>
+</tr>
+<tr class="even">
+<td>"Palpatine"</td>
+<td>"Human"</td>
+<td>"male"</td>
+<td>75.0</td>
+</tr>
+<tr class="odd">
+<td>"Padmé Amidala"</td>
+<td>"Human"</td>
+<td>"female"</td>
+<td>45.0</td>
+</tr>
+<tr class="even">
+<td>"Jar Jar Binks"</td>
+<td>"Gungan"</td>
+<td>"male"</td>
+<td>66.0</td>
+</tr>
+<tr class="odd">
+<td>"Roos Tarpals"</td>
+<td>"Gungan"</td>
+<td>"male"</td>
+<td>82.0</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>"Ric Olié"</td>
+<td>"Human"</td>
+<td>"male"</td>
+<td>null</td>
+</tr>
+<tr class="even">
+<td>"Quarsh Panaka"</td>
+<td>"Human"</td>
+<td>"male"</td>
+<td>null</td>
+</tr>
+<tr class="odd">
+<td>"Gregar Typho"</td>
+<td>null</td>
+<td>null</td>
+<td>85.0</td>
+</tr>
+<tr class="even">
+<td>"Cordé"</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+</tr>
+<tr class="odd">
+<td>"Dormé"</td>
+<td>"Human"</td>
+<td>"female"</td>
+<td>null</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Naboo characters include Padmé Amidala and other human politicians/royalty (typically lighter build), plus Jar Jar Binks and other Gungans. The dataset doesn’t include many heavy Naboo characters.</p>
+<div id="48b17ddc" class="cell" data-execution_count="36">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's explore another relationship: species and eye color</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>sw.<span class="bu">filter</span>(col(<span class="st">"species"</span>).is_in([<span class="st">"Human"</span>, <span class="st">"Droid"</span>])).group_by(</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"species"</span>, <span class="st">"eye_color"</span>]</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>).agg(</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    count<span class="op">=</span>col(<span class="st">"name"</span>).count()</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>).sort([<span class="st">"species"</span>, <span class="st">"count"</span>], descending<span class="op">=</span>[<span class="va">False</span>, <span class="va">True</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (11, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">eye_color</th>
+<th data-quarto-table-cell-role="th">count</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>u32</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Droid"</td>
+<td>"red"</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>"Droid"</td>
+<td>"yellow"</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>"Droid"</td>
+<td>"red, blue"</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>"Droid"</td>
+<td>"black"</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>"Human"</td>
+<td>"brown"</td>
+<td>16</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>"Human"</td>
+<td>"yellow"</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>"Human"</td>
+<td>"hazel"</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>"Human"</td>
+<td>"blue-gray"</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>"Human"</td>
+<td>"dark"</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>"Human"</td>
+<td>"unknown"</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="phase-4-asking-questions" class="level2">
+<h2 class="anchored" data-anchor-id="phase-4-asking-questions">Phase 4: Asking Questions</h2>
+<section id="question-1-which-species-is-the-tallest-on-average" class="level3">
+<h3 class="anchored" data-anchor-id="question-1-which-species-is-the-tallest-on-average">Question 1: Which species is the tallest on average?</h3>
+<div id="3ecb0fbd" class="cell" data-execution_count="37">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>species_height <span class="op">=</span> sw.group_by(<span class="st">"species"</span>).agg(</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    mean_height<span class="op">=</span>col(<span class="st">"height"</span>).mean(),</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    count<span class="op">=</span>col(<span class="st">"height"</span>).count()</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>).<span class="bu">filter</span>(</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    col(<span class="st">"count"</span>) <span class="op">&gt;=</span> <span class="dv">2</span>  <span class="co"># Only species with multiple characters</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>).sort(<span class="st">"mean_height"</span>, descending<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>species_height.head(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (9, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">mean_height</th>
+<th data-quarto-table-cell-role="th">count</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+<td>u32</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Wookiee"</td>
+<td>231.0</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>"Kaminoan"</td>
+<td>221.0</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>"Gungan"</td>
+<td>208.666667</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>"Twi'lek"</td>
+<td>179.0</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>"Human"</td>
+<td>178.0</td>
+<td>30</td>
+</tr>
+<tr class="even">
+<td>null</td>
+<td>175.0</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>"Zabrak"</td>
+<td>173.0</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>"Mirialan"</td>
+<td>168.0</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>"Droid"</td>
+<td>131.2</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="361b13bf" class="cell" data-execution_count="38">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>species_height.head(<span class="dv">10</span>),</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"species"</span>,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"mean_height"</span>,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"bar"</span>,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    aspect<span class="op">=</span><span class="fl">1.2</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>).set_axis_labels(<span class="st">"Mean Height (cm)"</span>, <span class="st">"Species"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-38-output-1.png" width="582" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Kaminoans are the tallest species on average, followed by Wookiees. But note we filtered to species with at least 2 characters - with only 1-2 members, “averages” don’t mean much.</p>
+</section>
+<section id="question-2-is-there-a-relationship-between-height-and-birth-year" class="level3">
+<h3 class="anchored" data-anchor-id="question-2-is-there-a-relationship-between-height-and-birth-year">Question 2: Is there a relationship between height and birth year?</h3>
+<p>Do older characters tend to be shorter (like in real human populations)?</p>
+<div id="61480b78" class="cell" data-execution_count="39">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out extreme birth years and missing values</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>sw_age <span class="op">=</span> sw.<span class="bu">filter</span>(</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    col(<span class="st">"birth_year"</span>).is_not_null() <span class="op">&amp;</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    (col(<span class="st">"birth_year"</span>) <span class="op">&lt;</span> <span class="dv">200</span>)  <span class="co"># Exclude Yoda and others</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>sns.lmplot(</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>sw_age,</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"birth_year"</span>,</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"height"</span>,</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">5</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>).set_axis_labels(<span class="st">"Birth Year (BBY)"</span>, <span class="st">"Height (cm)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-39-output-1.png" width="470" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There’s a very weak positive relationship - older characters (higher BBY) might be slightly shorter. But the relationship is weak and could easily be noise.</p>
+<p>Let’s check humans only:</p>
+<div id="e3bf29be" class="cell" data-execution_count="40">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>sw_age_human <span class="op">=</span> sw_age.<span class="bu">filter</span>(col(<span class="st">"species"</span>) <span class="op">==</span> <span class="st">"Human"</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    sns.lmplot(</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>sw_age_human,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">"birth_year"</span>,</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">"height"</span>,</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>        height<span class="op">=</span><span class="dv">5</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    .set_axis_labels(<span class="st">"Birth Year (BBY)"</span>, <span class="st">"Height (cm)"</span>)</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    .figure.suptitle(<span class="st">"Humans Only"</span>, y<span class="op">=</span><span class="fl">1.02</span>, x<span class="op">=</span><span class="fl">.55</span>)</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<pre><code>Text(0.55, 1.02, 'Humans Only')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-40-output-2.png" width="470" height="494" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="question-3-whats-the-most-common-eye-color-for-each-species" class="level3">
+<h3 class="anchored" data-anchor-id="question-3-whats-the-most-common-eye-color-for-each-species">Question 3: What’s the most common eye color for each species?</h3>
+<div id="f7da3599" class="cell" data-execution_count="41">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For species with at least 3 characters</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>common_species_list <span class="op">=</span> sw[<span class="st">"species"</span>].value_counts().<span class="bu">filter</span>(col(<span class="st">"count"</span>) <span class="op">&gt;=</span> <span class="dv">3</span>)[<span class="st">"species"</span>].to_list()</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>eye_by_species <span class="op">=</span> sw.<span class="bu">filter</span>(</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    col(<span class="st">"species"</span>).is_in(common_species_list)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>).group_by([<span class="st">"species"</span>, <span class="st">"eye_color"</span>]).agg(</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    count<span class="op">=</span>col(<span class="st">"name"</span>).count()</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>).sort([<span class="st">"species"</span>, <span class="st">"count"</span>], descending<span class="op">=</span>[<span class="va">False</span>, <span class="va">True</span>])</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the most common eye color for each species</span></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>eye_by_species.group_by(<span class="st">'species'</span>, <span class="st">'eye_color'</span>).<span class="bu">len</span>().sort(</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>    [<span class="st">'species'</span>, <span class="st">'len'</span>], descending<span class="op">=</span>[<span class="va">False</span>, <span class="va">True</span>]).group_by(<span class="st">'species'</span>).first()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">eye_color</th>
+<th data-quarto-table-cell-role="th">len</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>u32</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Droid"</td>
+<td>"yellow"</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>"Gungan"</td>
+<td>"orange"</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>"Human"</td>
+<td>"blue-gray"</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Droids</strong> typically have sensor arrays (typically yellow)</li>
+<li><strong>Humans</strong> have diverse eye colors (brown/blue/yellow/hazel)</li>
+<li><strong>Gungans</strong> have orange eyes</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="phase-5-creating-derived-variables" class="level2">
+<h2 class="anchored" data-anchor-id="phase-5-creating-derived-variables">Phase 5: Creating Derived Variables</h2>
+<p>Sometimes you need to create new variables to answer your questions.</p>
+<section id="bmi-body-mass-index" class="level3">
+<h3 class="anchored" data-anchor-id="bmi-body-mass-index">BMI (Body Mass Index)</h3>
+<p>Let’s calculate BMI for the humanoid characters:</p>
+<p><span class="math display">\[BMI = \frac{mass}{height^2} \times 10000\]</span></p>
+<p>(The 10000 converts cm to m)</p>
+<div id="308bd78b" class="cell" data-execution_count="42">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>sw_bmi <span class="op">=</span> sw.<span class="bu">filter</span>(</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    col(<span class="st">"mass"</span>).is_not_null() <span class="op">&amp;</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    col(<span class="st">"height"</span>).is_not_null() <span class="op">&amp;</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    (col(<span class="st">"mass"</span>) <span class="op">&lt;</span> <span class="dv">500</span>)  <span class="co"># Exclude Jabba</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>).with_columns(</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    bmi<span class="op">=</span>(col(<span class="st">"mass"</span>) <span class="op">/</span> (col(<span class="st">"height"</span>) <span class="op">**</span> <span class="dv">2</span>) <span class="op">*</span> <span class="dv">10000</span>).<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>sw_bmi.select(<span class="st">"name"</span>, <span class="st">"height"</span>, <span class="st">"mass"</span>, <span class="st">"species"</span>, <span class="st">"bmi"</span>).head(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (10, 5)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">height</th>
+<th data-quarto-table-cell-role="th">mass</th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">bmi</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+<td>f64</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Luke Skywalker"</td>
+<td>172.0</td>
+<td>77.0</td>
+<td>"Human"</td>
+<td>26.0</td>
+</tr>
+<tr class="even">
+<td>"C-3PO"</td>
+<td>167.0</td>
+<td>75.0</td>
+<td>"Droid"</td>
+<td>26.9</td>
+</tr>
+<tr class="odd">
+<td>"R2-D2"</td>
+<td>96.0</td>
+<td>32.0</td>
+<td>"Droid"</td>
+<td>34.7</td>
+</tr>
+<tr class="even">
+<td>"Darth Vader"</td>
+<td>202.0</td>
+<td>136.0</td>
+<td>"Human"</td>
+<td>33.3</td>
+</tr>
+<tr class="odd">
+<td>"Leia Organa"</td>
+<td>150.0</td>
+<td>49.0</td>
+<td>"Human"</td>
+<td>21.8</td>
+</tr>
+<tr class="even">
+<td>"Owen Lars"</td>
+<td>178.0</td>
+<td>120.0</td>
+<td>"Human"</td>
+<td>37.9</td>
+</tr>
+<tr class="odd">
+<td>"Beru Whitesun Lars"</td>
+<td>165.0</td>
+<td>75.0</td>
+<td>"Human"</td>
+<td>27.5</td>
+</tr>
+<tr class="even">
+<td>"R5-D4"</td>
+<td>97.0</td>
+<td>32.0</td>
+<td>"Droid"</td>
+<td>34.0</td>
+</tr>
+<tr class="odd">
+<td>"Biggs Darklighter"</td>
+<td>183.0</td>
+<td>84.0</td>
+<td>"Human"</td>
+<td>25.1</td>
+</tr>
+<tr class="even">
+<td>"Obi-Wan Kenobi"</td>
+<td>182.0</td>
+<td>77.0</td>
+<td>"Human"</td>
+<td>23.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="b1d04e1d" class="cell" data-execution_count="43">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>sw_bmi,</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"bmi"</span>,</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"hist"</span>,</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>    bins<span class="op">=</span><span class="dv">20</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>).set_axis_labels(<span class="st">"BMI"</span>, <span class="st">"Count"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-43-output-1.png" width="470" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Most characters have BMIs in the 20-30 range, which would be “normal” to “overweight” for humans. But BMI was designed for humans - it doesn’t really make sense for Wookiees or droids!</p>
+<div id="186a3793" class="cell" data-execution_count="44">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Who has the highest BMI?</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>sw_bmi.sort(<span class="st">"bmi"</span>, descending<span class="op">=</span><span class="va">True</span>).select(<span class="st">"name"</span>, <span class="st">"species"</span>, <span class="st">"bmi"</span>).head(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">bmi</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Dud Bolt"</td>
+<td>"Vulptereen"</td>
+<td>50.9</td>
+</tr>
+<tr class="even">
+<td>"Yoda"</td>
+<td>"Yoda's species"</td>
+<td>39.0</td>
+</tr>
+<tr class="odd">
+<td>"Owen Lars"</td>
+<td>"Human"</td>
+<td>37.9</td>
+</tr>
+<tr class="even">
+<td>"IG-88"</td>
+<td>"Droid"</td>
+<td>35.0</td>
+</tr>
+<tr class="odd">
+<td>"R2-D2"</td>
+<td>"Droid"</td>
+<td>34.7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="48d864b1" class="cell" data-execution_count="45">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Who has the lowest BMI?</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>sw_bmi.sort(<span class="st">"bmi"</span>).select(<span class="st">"name"</span>, <span class="st">"species"</span>, <span class="st">"bmi"</span>).head(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="37">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">bmi</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Wat Tambor"</td>
+<td>"Skakoan"</td>
+<td>12.9</td>
+</tr>
+<tr class="even">
+<td>"Padmé Amidala"</td>
+<td>"Human"</td>
+<td>13.1</td>
+</tr>
+<tr class="odd">
+<td>"Adi Gallia"</td>
+<td>"Tholothian"</td>
+<td>14.8</td>
+</tr>
+<tr class="even">
+<td>"Sly Moore"</td>
+<td>null</td>
+<td>15.1</td>
+</tr>
+<tr class="odd">
+<td>"Roos Tarpals"</td>
+<td>"Gungan"</td>
+<td>16.3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>The lowest BMI belongs to droids (makes sense - they’re light for their size).</p>
+</section>
+<section id="creating-categories-from-numeric-variables" class="level3">
+<h3 class="anchored" data-anchor-id="creating-categories-from-numeric-variables">Creating Categories from Numeric Variables</h3>
+<p>Let’s categorize characters by height:</p>
+<div id="8be5bd5a" class="cell" data-execution_count="46">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>sw_height_cat <span class="op">=</span> sw.with_columns(</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    height_category<span class="op">=</span>when(col(<span class="st">"height"</span>) <span class="op">&lt;</span> <span class="dv">100</span>).then(lit(<span class="st">"short"</span>))</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>        .when(col(<span class="st">"height"</span>) <span class="op">&lt;</span> <span class="dv">180</span>).then(lit(<span class="st">"medium"</span>))</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>        .when(col(<span class="st">"height"</span>) <span class="op">&lt;</span> <span class="dv">220</span>).then(lit(<span class="st">"tall"</span>))</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>        .otherwise(lit(<span class="st">"very tall"</span>))</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>sw_height_cat[<span class="st">"height_category"</span>].value_counts().sort(<span class="st">"count"</span>, descending<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="38">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (4, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">height_category</th>
+<th data-quarto-table-cell-role="th">count</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>u32</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"tall"</td>
+<td>39</td>
+</tr>
+<tr class="even">
+<td>"medium"</td>
+<td>30</td>
+</tr>
+<tr class="odd">
+<td>"very tall"</td>
+<td>11</td>
+</tr>
+<tr class="even">
+<td>"short"</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="0717e205" class="cell" data-execution_count="47">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize mass by height category</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>sw_height_cat.<span class="bu">filter</span>(col(<span class="st">"mass"</span>) <span class="op">&lt;</span> <span class="dv">200</span>),</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"height_category"</span>,</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"mass"</span>,</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"box"</span>,</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    order<span class="op">=</span>[<span class="st">"short"</span>, <span class="st">"medium"</span>, <span class="st">"tall"</span>, <span class="st">"very tall"</span>]</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>).set_axis_labels(<span class="st">"Height Category"</span>, <span class="st">"Mass (kg)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-47-output-1.png" width="487" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As expected, taller categories have higher mass on average, but there’s overlap between groups.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Your Turn">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Your Turn
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Try playing around to create some variables <em>you</em> are interested in</p>
+</div>
+</div>
+<div id="aaef5499" class="cell" data-execution_count="48">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="cb62e9f2" class="cell" data-execution_count="49">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="b0a32e24" class="cell" data-execution_count="50">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a "power ratio" - mass per unit height (density proxy)</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>sw_power <span class="op">=</span> sw.<span class="bu">filter</span>(</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    col(<span class="st">"mass"</span>).is_not_null() <span class="op">&amp;</span> col(<span class="st">"height"</span>).is_not_null()</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>).with_columns(</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>    power_ratio<span class="op">=</span>(col(<span class="st">"mass"</span>) <span class="op">/</span> col(<span class="st">"height"</span>)).<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Who has the highest power ratio?</span></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>sw_power.sort(<span class="st">"power_ratio"</span>, descending<span class="op">=</span><span class="va">True</span>).select(<span class="st">"name"</span>, <span class="st">"species"</span>, <span class="st">"mass"</span>, <span class="st">"height"</span>, <span class="st">"power_ratio"</span>).head(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="40">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (10, 5)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">mass</th>
+<th data-quarto-table-cell-role="th">height</th>
+<th data-quarto-table-cell-role="th">power_ratio</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Jabba Desilijic Tiure"</td>
+<td>"Hutt"</td>
+<td>1358.0</td>
+<td>175.0</td>
+<td>7.76</td>
+</tr>
+<tr class="even">
+<td>"Grievous"</td>
+<td>"Kaleesh"</td>
+<td>159.0</td>
+<td>216.0</td>
+<td>0.74</td>
+</tr>
+<tr class="odd">
+<td>"IG-88"</td>
+<td>"Droid"</td>
+<td>140.0</td>
+<td>200.0</td>
+<td>0.7</td>
+</tr>
+<tr class="even">
+<td>"Darth Vader"</td>
+<td>"Human"</td>
+<td>136.0</td>
+<td>202.0</td>
+<td>0.67</td>
+</tr>
+<tr class="odd">
+<td>"Owen Lars"</td>
+<td>"Human"</td>
+<td>120.0</td>
+<td>178.0</td>
+<td>0.67</td>
+</tr>
+<tr class="even">
+<td>"Jek Tono Porkins"</td>
+<td>null</td>
+<td>110.0</td>
+<td>180.0</td>
+<td>0.61</td>
+</tr>
+<tr class="odd">
+<td>"Bossk"</td>
+<td>"Trandoshan"</td>
+<td>113.0</td>
+<td>190.0</td>
+<td>0.59</td>
+</tr>
+<tr class="even">
+<td>"Tarfful"</td>
+<td>"Wookiee"</td>
+<td>136.0</td>
+<td>234.0</td>
+<td>0.58</td>
+</tr>
+<tr class="odd">
+<td>"Dexter Jettster"</td>
+<td>"Besalisk"</td>
+<td>102.0</td>
+<td>198.0</td>
+<td>0.52</td>
+</tr>
+<tr class="even">
+<td>"Chewbacca"</td>
+<td>"Wookiee"</td>
+<td>112.0</td>
+<td>228.0</td>
+<td>0.49</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="e5b50bce" class="cell" data-execution_count="51">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create age categories based on birth_year</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>sw_age_cat <span class="op">=</span> sw.<span class="bu">filter</span>(col(<span class="st">"birth_year"</span>).is_not_null()).with_columns(</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    age_category<span class="op">=</span>when(col(<span class="st">"birth_year"</span>) <span class="op">&lt;</span> <span class="dv">30</span>).then(lit(<span class="st">"young"</span>))</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>        .when(col(<span class="st">"birth_year"</span>) <span class="op">&lt;</span> <span class="dv">60</span>).then(lit(<span class="st">"middle-aged"</span>))</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>        .when(col(<span class="st">"birth_year"</span>) <span class="op">&lt;</span> <span class="dv">100</span>).then(lit(<span class="st">"older"</span>))</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>        .otherwise(lit(<span class="st">"ancient"</span>))</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>sw_age_cat[<span class="st">"age_category"</span>].value_counts().sort(<span class="st">"count"</span>, descending<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="41">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (4, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">age_category</th>
+<th data-quarto-table-cell-role="th">count</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>u32</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"middle-aged"</td>
+<td>19</td>
+</tr>
+<tr class="even">
+<td>"older"</td>
+<td>11</td>
+</tr>
+<tr class="odd">
+<td>"young"</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td>"ancient"</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="phase-6-documenting-your-findings" class="level2">
+<h2 class="anchored" data-anchor-id="phase-6-documenting-your-findings">Phase 6: Documenting Your Findings</h2>
+<p>Good EDA isn’t just about making plots - it’s about <strong>learning something</strong> and <strong>communicating it</strong>.</p>
+<p>Here’s what we learned about the Star Wars dataset:</p>
+<section id="summary-of-findings" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-findings">Summary of Findings</h3>
+<p><strong>Data Quality:</strong> - 87 characters, 11 variables - Significant missing data: birth_year (50%), mass (32%), height (7%) - One extreme outlier: Jabba the Hutt (mass = 1,358 kg)</p>
+<p><strong>Variable Distributions:</strong> - Height is roughly normal, centered around 175 cm - Mass is heavily right-skewed due to outliers - Dataset is dominated by male human characters</p>
+<p><strong>Key Relationships:</strong> - Height and mass are positively correlated (taller = heavier) - This relationship varies by species (especially for droids) - No clear relationship between age and height within humans</p>
+<p><strong>Caveats:</strong> - Small sample sizes for most species (only Humans have n&gt;10) - Gender imbalance limits sex comparisons - BMI and similar metrics designed for humans don’t generalize well</p>
+</section>
+</section>
+<section id="your-turn" class="level2">
+<h2 class="anchored" data-anchor-id="your-turn">Your Turn</h2>
+<div class="callout callout-style-default callout-tip callout-titled" title="Your Turn">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Your Turn
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use what you’ve learned to answer these questions. Create as many new cells as you need below each question.</p>
+</div>
+</div>
+<p><strong>1. Which homeworld has the greatest diversity of species?</strong></p>
+<p><em>Hint: group by homeworld and count unique species</em></p>
+<div id="7c016e7e" class="cell" data-execution_count="52">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here (create more cells as needed)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="161212d0" class="cell" data-execution_count="53">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>sw.<span class="bu">filter</span>(</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>    col(<span class="st">"homeworld"</span>).is_not_null() <span class="op">&amp;</span> col(<span class="st">"species"</span>).is_not_null()</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>).group_by(<span class="st">"homeworld"</span>).agg(</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>    n_species<span class="op">=</span>col(<span class="st">"species"</span>).n_unique(),</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>    species_list<span class="op">=</span>col(<span class="st">"species"</span>).unique()</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>).sort(<span class="st">"n_species"</span>, descending<span class="op">=</span><span class="va">True</span>).head(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="42">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (10, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">homeworld</th>
+<th data-quarto-table-cell-role="th">n_species</th>
+<th data-quarto-table-cell-role="th">species_list</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>u32</td>
+<td>list[str]</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Naboo"</td>
+<td>3</td>
+<td>["Droid", "Human", "Gungan"]</td>
+</tr>
+<tr class="even">
+<td>"Tatooine"</td>
+<td>2</td>
+<td>["Human", "Droid"]</td>
+</tr>
+<tr class="odd">
+<td>"Kamino"</td>
+<td>2</td>
+<td>["Human", "Kaminoan"]</td>
+</tr>
+<tr class="even">
+<td>"Coruscant"</td>
+<td>2</td>
+<td>["Human", "Tholothian"]</td>
+</tr>
+<tr class="odd">
+<td>"Cerea"</td>
+<td>1</td>
+<td>["Cerean"]</td>
+</tr>
+<tr class="even">
+<td>"Vulpter"</td>
+<td>1</td>
+<td>["Vulptereen"]</td>
+</tr>
+<tr class="odd">
+<td>"Trandosha"</td>
+<td>1</td>
+<td>["Trandoshan"]</td>
+</tr>
+<tr class="even">
+<td>"Stewjon"</td>
+<td>1</td>
+<td>["Human"]</td>
+</tr>
+<tr class="odd">
+<td>"Dathomir"</td>
+<td>1</td>
+<td>["Zabrak"]</td>
+</tr>
+<tr class="even">
+<td>"Troiken"</td>
+<td>1</td>
+<td>["Xexto"]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Naboo has the greatest diversity with 3 different species (Human, Gungan, and Droid).</p>
+</div>
+</div>
+</div>
+<p><strong>2. Create a visualization comparing the height distributions of Humans vs Droids</strong></p>
+<p><em>Hint: use displot with hue</em></p>
+<div id="554ea0ad" class="cell" data-execution_count="54">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here (create more cells as needed)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="8599624c" class="cell" data-execution_count="55">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>sw.<span class="bu">filter</span>(col(<span class="st">"species"</span>).is_in([<span class="st">"Human"</span>, <span class="st">"Droid"</span>])),</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"height"</span>,</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"species"</span>,</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"hist"</span>,</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>    bins<span class="op">=</span><span class="dv">15</span>,</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.6</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>).set_axis_labels(<span class="st">"Height (cm)"</span>, <span class="st">"Count"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-55-output-1.png" width="574" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Humans have a wider height distribution centered around 175-180cm, while Droids are more variable with some very short (R2-D2) and some tall (IG-88) units.</p>
+</div>
+</div>
+</div>
+<p><strong>3. Who is the heaviest character from each homeworld?</strong></p>
+<p><em>Hint: sort by mass within each homeworld group, then take the first</em></p>
+<div id="e478ec8b" class="cell" data-execution_count="56">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here (create more cells as needed)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="f2d87c6a" class="cell" data-execution_count="57">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>sw.<span class="bu">filter</span>(</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>    col(<span class="st">"homeworld"</span>).is_not_null() <span class="op">&amp;</span> col(<span class="st">"mass"</span>).is_not_null()</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>).sort(<span class="st">"mass"</span>, descending<span class="op">=</span><span class="va">True</span>).group_by(<span class="st">"homeworld"</span>).first().select(</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"homeworld"</span>, <span class="st">"name"</span>, <span class="st">"species"</span>, <span class="st">"mass"</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>).sort(<span class="st">"mass"</span>, descending<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="44">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (39, 4)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">homeworld</th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">mass</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Nal Hutta"</td>
+<td>"Jabba Desilijic Tiure"</td>
+<td>"Hutt"</td>
+<td>1358.0</td>
+</tr>
+<tr class="even">
+<td>"Kalee"</td>
+<td>"Grievous"</td>
+<td>"Kaleesh"</td>
+<td>159.0</td>
+</tr>
+<tr class="odd">
+<td>"Tatooine"</td>
+<td>"Darth Vader"</td>
+<td>"Human"</td>
+<td>136.0</td>
+</tr>
+<tr class="even">
+<td>"Kashyyyk"</td>
+<td>"Tarfful"</td>
+<td>"Wookiee"</td>
+<td>136.0</td>
+</tr>
+<tr class="odd">
+<td>"Trandosha"</td>
+<td>"Bossk"</td>
+<td>"Trandoshan"</td>
+<td>113.0</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>"Umbara"</td>
+<td>"Sly Moore"</td>
+<td>null</td>
+<td>48.0</td>
+</tr>
+<tr class="even">
+<td>"Vulpter"</td>
+<td>"Dud Bolt"</td>
+<td>"Vulptereen"</td>
+<td>45.0</td>
+</tr>
+<tr class="odd">
+<td>"Malastare"</td>
+<td>"Sebulba"</td>
+<td>"Dug"</td>
+<td>40.0</td>
+</tr>
+<tr class="even">
+<td>"Endor"</td>
+<td>"Wicket Systri Warrick"</td>
+<td>"Ewok"</td>
+<td>20.0</td>
+</tr>
+<tr class="odd">
+<td>"Aleen Minor"</td>
+<td>"Ratts Tyerel"</td>
+<td>"Aleena"</td>
+<td>15.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Jabba the Hutt dominates from Nal Hutta (1,358 kg), followed by Grievous from Kalee (159 kg) and IG-88 (140 kg, unknown homeworld).</p>
+</div>
+</div>
+</div>
+<p><strong>4. Is there a relationship between hair color and height for human characters?</strong></p>
+<p><em>Hint: filter to humans, then create a boxplot of height by hair color</em></p>
+<div id="b1b4bb80" class="cell" data-execution_count="58">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here (create more cells as needed)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="359e484b" class="cell" data-execution_count="59">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter to humans with non-null hair color and height</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>humans <span class="op">=</span> sw.<span class="bu">filter</span>(</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>    (col(<span class="st">"species"</span>) <span class="op">==</span> <span class="st">"Human"</span>) <span class="op">&amp;</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>    col(<span class="st">"hair_color"</span>).is_not_null() <span class="op">&amp;</span></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>    col(<span class="st">"height"</span>).is_not_null()</span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a><span class="co"># See what hair colors we have</span></span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>humans[<span class="st">"hair_color"</span>].value_counts().sort(<span class="st">"count"</span>, descending<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="45">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (10, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">hair_color</th>
+<th data-quarto-table-cell-role="th">count</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>u32</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"brown"</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>"black"</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td>"none"</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>"blond"</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>"white"</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>"grey"</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>"auburn, grey"</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>"brown, grey"</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>"auburn"</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>"auburn, white"</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="f257114e" class="cell" data-execution_count="60">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>humans,</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"hair_color"</span>,</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"height"</span>,</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"box"</span>,</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>    aspect<span class="op">=</span><span class="fl">1.5</span>,</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>    order<span class="op">=</span>humans[<span class="st">"hair_color"</span>].value_counts().sort(<span class="st">"count"</span>, descending<span class="op">=</span><span class="va">True</span>)[<span class="st">"hair_color"</span>].to_list()</span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>).set_axis_labels(<span class="st">"Hair Color"</span>, <span class="st">"Height (cm)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-workflows_files/figure-html/cell-60-output-1.png" width="728" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Theres no clear relationship between hair color and height. Brown-haired humans show the widest range (most data points), while other colors have too few observations to draw conclusions.</p>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

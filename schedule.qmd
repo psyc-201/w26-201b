@@ -14,16 +14,16 @@ In total, we'll aim to cover in total: **~4-5 HWs** and **~6-7 labs**
 | 1    | Mon Jan 5  | Course Intro                                                       | *N/A*                                                         |
 | 1    | Tues Jan 6 | Laptop setup, Github Clasroom workflow, `quarto`, Python notebooks | `push` [lab 01](/weeks/01/#materials) at least once           |
 | 1    | Wed Jan 6  | Python essentials, dataframes, meet `polars`                       | `push` *updated* [lab 01](/weeks/01/#materials) at least once |
+| 2    | Mon Jan 12   | Two cultures of statistics, sampling theory               | **skim readings for Wed Jan 14** |
+| 2    | Tues Jan 13  | Data visualization, meet `seaborn` & `matplotlib`         | `push` lab 02 at least once      |
+| 2    | Wed Jan 14   | What is a model? Model-based thinking                     | `push` **HW 1 by Tues Jan 20**   |
 :::
 
 | Week | Date         | Content                                                   | Assignment Due?                  |
 |------|--------------|-----------------------------------------------------------|----------------------------------|
-| 2    | Mon Jan 12   | Two cultures of statistics, sampling theory               | **skim readings for Wed Jan 14** |
-| 2    | Tues Jan 13  | Data visualization, meet `seaborn` & `matplotlib`         | `push` lab 02 at least once      |
-| 2    | Wed Jan 14   | What is a model? Model-based thinking                     | `push` **HW 1 by Tues Jan 20**   |
 | *3*  | *Mon Jan 19* | *No class holiday*                                        | -                                |
-| 3    | Tues Jan 20  | Model comparison, hw 1 review                             | TBD                              |
-| 3    | Wed Jan 21   | GLM I: Foundations & OLS                                  | TBD                              |
+| 3    | Tues Jan 20  | HW 1 review; model comparison                             | `push` **HW 1 by 1pm**           |
+| 3    | Wed Jan 21   | GLM I: Foundations & OLS                                  | -                              |
 | 4    | Mon Jan 26   | GLM II: predictor types & design-matrices                 | TBD                              |
 | 4    | Tues Jan 27  | Model formulas & designs, meet `bossanova`                | TBD                              |
 | 4    | Wed Jan 28   | GLM III: categorical predictors                           | TBD                              |

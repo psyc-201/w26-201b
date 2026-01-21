@@ -1,0 +1,28 @@
+---
+sidebar: weeks
+title: "Week 3"
+---
+
+## Overview
+
+### Learning Goals
+
+- [ ] [Review HW 1](https://classroom.github.com/a/b1GlmbPx)
+- [ ] Iron out remaining Python confusions
+- [ ] Bias, Variance, and Model Comparison
+
+## Slides
+
+::: {.callout-tip title="Slides Wed Jan 22" collapse=true}
+![](slides/01-21.pdf){width=100% height=600}
+:::
+
+## Materials
+
+:::{.callout-caution icon=false title="📚 HW1 (we'll update to get solutions together)"}
+[Github Classroom Assignment](https://classroom.github.com/a/b1GlmbPx)
+:::
+
+## Mentioned References
+
+- [The Bias Variance Tradeoff](https://mlu-explain.github.io/bias-variance/)

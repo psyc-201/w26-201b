@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -37,7 +37,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-9e05abaf0c4d7ef785fecc2ac9f6505e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -149,8 +149,8 @@ ul.task-list li input[type="checkbox"] {
         </a>
     </div>
   </nav>
-  <div id="quarto-announcement" data-announcement-id="869dd220ccf6757adb939b7cc9a0f98d" class="alert alert-success hidden"><i class="bi bi-megaphone-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
-<p><strong>Site Updates:</strong> HW1 available (see Week 02 page).</p>
+  <div id="quarto-announcement" data-announcement-id="340ea895a18b7a7eec1fc2c3acdf2be5" class="alert alert-success hidden"><i class="bi bi-megaphone-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>Site Updates:</strong> Week 3 slides available.</p>
 </div></div>
 </header>
 <!-- content -->
@@ -189,7 +189,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./weeks/01/lab/polars-crash-course.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Polars Crash Course</span></a>
+ <span class="menu-text">Polars (dataframes) Crash Course</span></a>
   </div>
 </li>
       </ul>
@@ -206,6 +206,35 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./weeks/02/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./weeks/02/lab/seaborn-crash-course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Seaborn (plotting) Crash Course</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./weeks/02/lab/eda-workflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EDA Workflows</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./weeks/03/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Overview</span></a>
   </div>
 </li>
@@ -284,6 +313,24 @@ In total, we’ll aim to cover in total: <strong>~4-5 HWs</strong> and <strong>~
 <td>Python essentials, dataframes, meet <code>polars</code></td>
 <td><code>push</code> <em>updated</em> <a href="./weeks/01/#materials">lab 01</a> at least once</td>
 </tr>
+<tr class="even">
+<td>2</td>
+<td>Mon Jan 12</td>
+<td>Two cultures of statistics, sampling theory</td>
+<td><strong>skim readings for Wed Jan 14</strong></td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Tues Jan 13</td>
+<td>Data visualization, meet <code>seaborn</code> &amp; <code>matplotlib</code></td>
+<td><code>push</code> lab 02 at least once</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Wed Jan 14</td>
+<td>What is a model? Model-based thinking</td>
+<td><code>push</code> <strong>HW 1 by Tues Jan 20</strong></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -305,168 +352,150 @@ In total, we’ll aim to cover in total: <strong>~4-5 HWs</strong> and <strong>~
 </thead>
 <tbody>
 <tr class="odd">
-<td>2</td>
-<td>Mon Jan 12</td>
-<td>Two cultures of statistics, sampling theory</td>
-<td><strong>skim readings for Wed Jan 14</strong></td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>Tues Jan 13</td>
-<td>Data visualization, meet <code>seaborn</code> &amp; <code>matplotlib</code></td>
-<td><code>push</code> lab 02 at least once</td>
-</tr>
-<tr class="odd">
-<td>2</td>
-<td>Wed Jan 14</td>
-<td>What is a model? Model-based thinking</td>
-<td><code>push</code> <strong>HW 1 by Tues Jan 20</strong></td>
-</tr>
-<tr class="even">
 <td><em>3</em></td>
 <td><em>Mon Jan 19</em></td>
 <td><em>No class holiday</em></td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>3</td>
 <td>Tues Jan 20</td>
-<td>Model comparison, hw 1 review</td>
-<td>TBD</td>
+<td>HW 1 review; model comparison</td>
+<td><code>push</code> <strong>HW 1 by 1pm</strong></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>3</td>
 <td>Wed Jan 21</td>
 <td>GLM I: Foundations &amp; OLS</td>
-<td>TBD</td>
+<td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>4</td>
 <td>Mon Jan 26</td>
 <td>GLM II: predictor types &amp; design-matrices</td>
 <td>TBD</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>4</td>
 <td>Tues Jan 27</td>
 <td>Model formulas &amp; designs, meet <code>bossanova</code></td>
 <td>TBD</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>4</td>
 <td>Wed Jan 28</td>
 <td>GLM III: categorical predictors</td>
 <td>TBD</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>5</td>
 <td>Mon Feb 2</td>
 <td>Marginal effects estimation &amp; prediction</td>
 <td>TBD</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>5</td>
 <td>Tues Feb 3</td>
 <td>Parameter inference &amp; uncertainty</td>
 <td>TBD</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>5</td>
 <td>Wed Feb 4</td>
 <td>Outcomes types: classifications &amp; counts</td>
 <td>TBD</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>6</td>
 <td>Mon Feb 9</td>
 <td>Resampling I: bootstrapping &amp; permuting</td>
 <td>TBD</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>6</td>
 <td>Tues Feb 10</td>
 <td>Resampling II: power &amp; simulation, meet <code>numpy</code> &amp; <code>scipy</code></td>
 <td>TBD</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>6</td>
 <td>Wed Feb 11</td>
 <td>Resampling III: generalization &amp; cross-validation</td>
 <td>TBD</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><em>7</em></td>
 <td><em>Mon Feb 16</em></td>
 <td><em>No class holiday</em></td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>7</td>
 <td>Tues Feb 17</td>
 <td>LMMs I</td>
 <td>TBD</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>7</td>
 <td>Wed Feb 18</td>
 <td>LMMs II: Complete/partial/non-pooling</td>
 <td>TBD</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>8</td>
 <td>Mon Feb 23</td>
 <td>LMMs III: RFX syntax, “rm-ANOVA”</td>
 <td>TBD</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>8</td>
 <td>Tues Feb 24</td>
 <td>Unsupervised Learning I: essence of linear algebra</td>
 <td>TBD</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>8</td>
 <td>Wed Feb 25</td>
 <td>Unsupervised Learning II: PCA and friends, meet <code>sklearn</code></td>
 <td><code>push</code> <strong>Last HW by Tues Mar 3</strong></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>9</td>
 <td>Mon Mar 2</td>
 <td>TBD</td>
 <td>TBD</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>9</td>
 <td>Tues Mar 3</td>
 <td>TBD, last hw review</td>
 <td>TBD</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>9</td>
 <td>Wed Mar 4</td>
 <td>TBD</td>
 <td>TBD</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>10</td>
 <td>Mon Mar 9</td>
 <td><em>final project time</em></td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>10</td>
 <td>Tues Mar 10</td>
 <td><em>final project time</em></td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>10</td>
 <td>Wed Mar 11</td>
 <td>Course Wrap-Up</td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>FW</td>
 <td>Mar 16-18</td>
 <td><em>work on final project</em></td>

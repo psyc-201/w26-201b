@@ -1,0 +1,812 @@
+---
+sidebar: weeks
+title: "Exploratory Data Analysis Workflows"
+author: "Eshin Jolly"
+date: "Jan 13, 2026"
+code-line-numbers: false
+code-fold: show
+code-overflow: wrap
+execute:
+  warning: false
+---
+
+In this notebook, we'll work through a complete **Exploratory Data Analysis (EDA)** workflow. EDA is the process of getting to know your data before any formal analysis - understanding its structure, spotting patterns, identifying problems, and developing intuitions.
+
+We'll assume that you're familiar with generally familiar with EDA from PSYC 201A, so this notebook will demonstrate some common tasks in Python combining `polars` and `seaborn`. We'll use a dataset of characters from the [Star Wars universe](https://www.starwars.com/databank).
+
+## How to Use This Notebook
+
+:::{.callout-note}
+This notebook walks through some realistic EDA workflow steps you're likely to encounter. Follow along, run the code, and make sure you understand what's happening and *why*. When we move on to building and fitting statistical **models**, it'll be important to have an understanding of some key properties of your data:
+
+- **What variables do you have?** Numeric? Categorical? Mixed?
+- **What's the distribution of each?** What's the general *shape* of your data? the range? how common are certain values?
+- **What's missing?** What's the pattern of missing data? Random? Correlated with some variable of interest?
+- **What variables share relationships?** No need to fit models to see if varaible simple *move together* - just plot them!
+- **What's the data telling you?** Contextualize what you see - anything particularly noteworthy? what might guide your future analysis choices?
+:::
+
+:::{.callout-tip}
+EDA is **visual detective work.** You're trying to understand what you're working with to better *inform* and *guide* the later modeling choices you might make.
+:::
+
+## Setup
+
+Let's import our tools:
+
+```{python}
+import polars as pl
+from polars import col, when, lit
+import polars.selectors as cs
+
+import seaborn as sns
+```
+
+## Phase 1: First Contact with the Data
+
+The first step in any EDA is simply **looking at your data**. What do you have?
+
+### Load and Inspect
+
+Let's load the Star Wars dataset. This contains information about characters from the Star Wars universe:
+
+```{python}
+sw = pl.read_csv("data/starwars.csv")
+sw
+```
+
+Polars shows us the first and last few rows, plus the **column types**. Notice:
+- `str` columns contain text (names, categories)
+- `i64` columns contain integers
+- `f64` columns contain decimals (floating point numbers)
+
+Let's get the basic dimensions:
+
+```{python}
+print(f"Rows: {sw.height}")
+print(f"Columns: {sw.width}")
+```
+
+87 characters with 11 attributes each. Let's see all the column names:
+
+```{python}
+sw.columns
+```
+
+:::{.callout-note title="What do these columns mean?"}
+Before diving into analysis, we should understand what we're working with:
+- **name**: Character name
+- **height**: Height in centimeters
+- **mass**: Weight in kilograms
+- **hair_color**, **skin_color**, **eye_color**: Physical appearance
+- **birth_year**: Years before the Battle of Yavin (BBY)
+- **sex**: Biological sex (male, female, hermaphroditic, none)
+- **gender**: Gender identity (masculine, feminine)
+- **homeworld**: Planet of origin
+- **species**: Species (Human, Droid, Wookiee, etc.)
+
+This context matters! "mass" in Star Wars includes robots and aliens with very different body compositions than humans.
+:::
+
+### Check for Missing Data
+
+Missing data is everywhere in real datasets. Let's see how much we're dealing with:
+
+```{python}
+sw.null_count()
+```
+
+This tells us:
+- **height** is missing for 6 characters
+- **mass** is missing for 28 characters (about 1/3 of the data!)
+- **birth_year** is missing for 44 characters (over half!)
+- **sex**, **gender**, **homeworld**, **species** have some missing values too
+
+Let's calculate the **percentage** missing for each column. If we wrap the entire code-block in `()` Python won't care about indentation, so we can lay out the code in a more reader friendly way (like R's pipes):
+
+```{python}
+# Using '*' inside col() selects all columns
+(
+    sw
+    .null_count()
+    .select(col('*') / sw.height * 100)
+    .transpose(
+        include_header=True,
+        header_name="column",
+        column_names=["pct_missing"]
+    )
+    .sort("pct_missing", descending=True)
+)
+```
+
+### Visualize Missing Data Patterns
+
+Sometimes missing data has patterns. Let's visualize which rows have missing values:
+
+:::{.callout-note title="seaborn.heatmap"}
+This is [new function](https://seaborn.pydata.org/generated/seaborn.heatmap.html#seaborn.heatmap) that we didn't meet in the previous notebook. And we've never called `sns.FacetGrid` directly - so far we've just working with the outputs of `sns.relplot`, `sns.catplot`, etc
+
+Don't sweat it - just try to build your intuitions about what's happening below.
+Remember that we saw `.map_dataframe` when trying to *layer plots* by passing in any plotting function that understands our data.
+Well if we start with an *empty* `FacetGrid` then we can use the same approach to use `sns.heatmap` to build it from scratch!
+:::
+
+```{python}
+# Create a boolean DataFrame: True where data is missing
+missing_matrix = sw.select(col('*').is_null()).to_pandas()
+
+# Initialize the facet grid first - just data no aesthetic mappings
+grid = sns.FacetGrid(data=missing_matrix, aspect=.75, height=8)
+
+# Map the seaborn heatmap function
+grid.map_dataframe(sns.heatmap, cmap='Grays', yticklabels=sw['name'], cbar=False)
+
+# Adjust aesthetics
+grid.tick_params(axis='y', labelsize=6)
+grid
+```
+
+Each row is a character, each column is a variable. **Dark cells indicate missing values**.
+
+Notice that `birth_year` and `mass` have scattered missing values across many characters - it's not concentrated in a particular group.
+
+:::{.callout-tip title="Your Turn"}
+Try to combine some other `polars` and `seaborn` workflows to explore the dataset for yourself and understand what you're working with
+:::
+
+```{python}
+#| eval: false
+# Your code here
+```
+
+```{python}
+#| eval: false
+# Your code here
+```
+
+:::{.callout-note title="Solution" collapse="true"}
+```{python}
+# Explore the distribution of species
+sw["species"].value_counts().sort("count", descending=True).head(10)
+```
+
+```{python}
+# Visualize the relationship between height and sex
+sns.catplot(
+    data=sw.filter(col("sex").is_in(["male", "female"])),
+    x="sex",
+    y="height",
+    kind="violin"
+).set_axis_labels("Sex", "Height (cm)")
+```
+:::
+
+***
+
+## Phase 2: Understanding Individual Variables
+
+Before looking at relationships, understand each variable on its own.
+
+### Numeric Variables
+
+We have three numeric variables: `height`, `mass`, and `birth_year`.
+
+Let's get summary statistics:
+
+```{python}
+# cs.numeric() is a polars selector that gets all numeric columns
+sw.select(cs.numeric()).describe()
+```
+
+Some observations:
+- **height**: Ranges from 66cm to 264cm. Mean is 175cm (about 5'9").
+- **mass**: Ranges from 15kg to 1,358kg! That max is suspicious...
+- **birth_year**: Ranges from 8 to 896 BBY. That's a huge range.
+
+Let's visualize these distributions:
+
+```{python}
+sns.displot(
+    data=sw,
+    x="height",
+    kind="hist",
+    bins=20
+).set_axis_labels("Height (cm)", "Count")
+```
+
+Height looks roughly normal, maybe slightly right-skewed. Most characters are between 150-200cm.
+
+```{python}
+sns.displot(
+    data=sw,
+    x="mass",
+    kind="hist",
+    bins=30
+).set_axis_labels("Mass (kg)", "Count")
+```
+
+Whoa! The mass distribution is extremely **right-skewed**. Most characters cluster at low values, but there's an extreme outlier pulling the scale.
+
+Who is that outlier?
+
+```{python}
+sw.filter(col("mass") > 500).select("name", "mass", "species")
+```
+
+**Jabba the Hutt** weighs 1,358 kg! That's not an error - Hutts are massive slug-like aliens.
+
+This is why EDA matters: an outlier like this would massively distort any mean or correlation we calculate.
+
+Let's look at mass **excluding** extreme outliers to see the main distribution:
+
+```{python}
+sns.displot(
+    data=sw.filter(col("mass") < 200),
+    x="mass",
+    kind="hist",
+    bins=20
+).set_axis_labels("Mass (kg)", "Count")
+```
+
+Now we can see the actual distribution. Most characters are between 50-100kg, with a cluster of lighter characters (possibly droids or smaller species).
+
+### Categorical Variables
+
+For categorical variables, we want to know: **What are the categories and how frequent is each?**
+
+```{python}
+sw["species"].value_counts().sort("count", descending=True).head(10)
+```
+
+Humans dominate the dataset (35 characters), followed by Droids (6). Most species appear only once.
+
+```{python}
+sw["homeworld"].value_counts().sort("count", descending=True).head(10)
+```
+
+Naboo and Tatooine are the most common homeworlds, which makes sense - many main characters come from these planets.
+
+```{python}
+sns.catplot(
+    data=sw,
+    y="sex",
+    kind="count",
+    order=sw["sex"].value_counts().sort("count", descending=True)["sex"].to_list()
+).set_axis_labels("Count", "Sex")
+```
+
+The dataset is heavily male-dominated, reflecting the original Star Wars films. "none" likely refers to droids.
+
+**Reflection**: What does this imbalance mean for any analysis we might do comparing sexes? We have ~60 males but only ~16 females.
+
+:::{.callout-tip title="Your Turn"}
+Try creating a few plots that help you understand the *other* variables in the dataset
+:::
+
+```{python}
+#| eval: false
+# Your code here
+```
+
+```{python}
+#| eval: false
+# Your code here
+```
+
+```{python}
+#| eval: false
+# Your code here
+```
+
+:::{.callout-note title="Solution" collapse="true"}
+```{python}
+# Eye color distribution
+sns.catplot(
+    data=sw,
+    y="eye_color",
+    kind="count",
+    order=sw["eye_color"].value_counts().sort("count", descending=True)["eye_color"].to_list(),
+    height=6
+).set_axis_labels("Count", "Eye Color")
+```
+
+```{python}
+# Gender breakdown
+sw["gender"].value_counts().sort("count", descending=True)
+```
+
+```{python}
+# Birth year distribution (excluding extreme values)
+sns.displot(
+    data=sw.filter(col("birth_year").is_not_null() & (col("birth_year") < 200)),
+    x="birth_year",
+    kind="hist",
+    bins=15
+).set_axis_labels("Birth Year (BBY)", "Count")
+```
+:::
+
+***
+
+## Phase 3: Exploring Relationships
+
+Now let's look at how variables relate to each other.
+
+### Numeric vs Numeric: Scatter Plots
+
+The classic way to explore relationships between two numeric variables is a scatter plot.
+
+```{python}
+sns.relplot(
+    data=sw,
+    x="height",
+    y="mass"
+).set_axis_labels("Height (cm)", "Mass (kg)")
+```
+
+There's a general positive relationship (taller characters tend to be heavier), but Jabba is way off in the corner distorting our view.
+
+Let's exclude extreme mass values and add a regression line:
+
+```{python}
+sns.lmplot(
+    data=sw.filter(col("mass") < 200),
+    x="height",
+    y="mass"
+).set_axis_labels("Height (cm)", "Mass (kg)")
+```
+
+Now the relationship is clearer. But wait - are humans and droids following the same pattern?
+
+```{python}
+# Focus on the most common species
+common_species = sw.filter(
+    col("species").is_in(["Human", "Droid", "Gungan", "Wookiee"])
+)
+
+sns.lmplot(
+    data=common_species,
+    x="height",
+    y="mass",
+    hue="species",
+    height=5,
+    ci=None,
+).set_axis_labels("Height (cm)", "Mass (kg)")
+```
+
+### Numeric vs Categorical: Comparing Groups
+
+How does height differ between male and female characters?
+
+```{python}
+# Filter to male/female only for cleaner comparison
+sw_mf = sw.filter(col("sex").is_in(["male", "female"]))
+
+sns.catplot(
+    data=sw_mf,
+    x="sex",
+    y="height",
+    kind="box"
+).set_axis_labels("Sex", "Height (cm)")
+```
+
+Male characters tend to be taller, with more variability (wider box, more outliers).
+
+Let's see the individual data points too:
+
+```{python}
+sns.catplot(
+    data=sw_mf,
+    x="sex",
+    y="height",
+    kind="swarm"
+).set_axis_labels("Sex", "Height (cm)")
+```
+
+With only ~16 female characters, we should be cautious about drawing strong conclusions. The samples are very unequal.
+
+### Faceting: Breaking Down by Multiple Categories
+
+One of seaborn's strengths is easily splitting visualizations by category. Let's look at how mass varies by sex across different homeworlds:
+
+```{python}
+# Focus on homeworlds with enough characters
+top_homeworlds = sw["homeworld"].value_counts().filter(col("count") >= 3)["homeworld"].to_list()
+
+sw_subset = sw.filter(
+    col("homeworld").is_in(top_homeworlds) &
+    col("sex").is_in(["male", "female"]) &
+    col("mass").is_not_null()
+)
+
+sns.catplot(
+    data=sw_subset,
+    x="sex",
+    y="mass",
+    col="homeworld",
+    kind="strip",
+    col_wrap=3,
+    height=3
+).set_axis_labels("Sex", "Mass (kg)")
+```
+
+We can see a few patterns:
+- Most homeworlds have more male characters
+- Tatooine has characters spanning a wide mass range
+- Naboo characters tend to be lighter
+
+:::{.callout-tip title="Your Turn"}
+Why might Naboo characters tend to be lighter? (Hint: think about which characters are from Naboo)
+Or explore some other relationships that *you* are interested
+:::
+
+```{python}
+#| eval: false
+# Your code here
+```
+
+```{python}
+#| eval: false
+# Your code here
+```
+
+:::{.callout-note title="Solution" collapse="true"}
+```{python}
+# Let's see who is from Naboo
+sw.filter(col("homeworld") == "Naboo").select("name", "species", "sex", "mass")
+```
+
+Naboo characters include Padmé Amidala and other human politicians/royalty (typically lighter build), plus Jar Jar Binks and other Gungans. The dataset doesn't include many heavy Naboo characters.
+
+```{python}
+# Let's explore another relationship: species and eye color
+sw.filter(col("species").is_in(["Human", "Droid"])).group_by(
+    ["species", "eye_color"]
+).agg(
+    count=col("name").count()
+).sort(["species", "count"], descending=[False, True])
+```
+:::
+
+## Phase 4: Asking Questions
+
+### Question 1: Which species is the tallest on average?
+
+```{python}
+species_height = sw.group_by("species").agg(
+    mean_height=col("height").mean(),
+    count=col("height").count()
+).filter(
+    col("count") >= 2  # Only species with multiple characters
+).sort("mean_height", descending=True)
+
+species_height.head(10)
+```
+
+```{python}
+sns.catplot(
+    data=species_height.head(10),
+    y="species",
+    x="mean_height",
+    kind="bar",
+    height=5,
+    aspect=1.2
+).set_axis_labels("Mean Height (cm)", "Species")
+```
+
+Kaminoans are the tallest species on average, followed by Wookiees. But note we filtered to species with at least 2 characters - with only 1-2 members, "averages" don't mean much.
+
+### Question 2: Is there a relationship between height and birth year?
+
+Do older characters tend to be shorter (like in real human populations)?
+
+```{python}
+# Filter out extreme birth years and missing values
+sw_age = sw.filter(
+    col("birth_year").is_not_null() &
+    (col("birth_year") < 200)  # Exclude Yoda and others
+)
+
+sns.lmplot(
+    data=sw_age,
+    x="birth_year",
+    y="height",
+    height=5
+).set_axis_labels("Birth Year (BBY)", "Height (cm)")
+```
+
+There's a very weak positive relationship - older characters (higher BBY) might be slightly shorter. But the relationship is weak and could easily be noise.
+
+Let's check humans only:
+
+```{python}
+sw_age_human = sw_age.filter(col("species") == "Human")
+(
+    sns.lmplot(
+        data=sw_age_human,
+        x="birth_year",
+        y="height",
+        height=5
+    )
+    .set_axis_labels("Birth Year (BBY)", "Height (cm)")
+    .figure.suptitle("Humans Only", y=1.02, x=.55)
+)
+```
+
+### Question 3: What's the most common eye color for each species?
+
+```{python}
+# For species with at least 3 characters
+common_species_list = sw["species"].value_counts().filter(col("count") >= 3)["species"].to_list()
+
+eye_by_species = sw.filter(
+    col("species").is_in(common_species_list)
+).group_by(["species", "eye_color"]).agg(
+    count=col("name").count()
+).sort(["species", "count"], descending=[False, True])
+
+# Get the most common eye color for each species
+eye_by_species.group_by('species', 'eye_color').len().sort(
+    ['species', 'len'], descending=[False, True]).group_by('species').first()
+```
+
+- **Droids** typically have sensor arrays (typically yellow)
+- **Humans** have diverse eye colors (brown/blue/yellow/hazel)
+- **Gungans** have orange eyes
+
+***
+
+## Phase 5: Creating Derived Variables
+
+Sometimes you need to create new variables to answer your questions.
+
+### BMI (Body Mass Index)
+
+Let's calculate BMI for the humanoid characters:
+
+$$BMI = \frac{mass}{height^2} \times 10000$$
+
+(The 10000 converts cm to m)
+
+```{python}
+sw_bmi = sw.filter(
+    col("mass").is_not_null() &
+    col("height").is_not_null() &
+    (col("mass") < 500)  # Exclude Jabba
+).with_columns(
+    bmi=(col("mass") / (col("height") ** 2) * 10000).round(1)
+)
+
+sw_bmi.select("name", "height", "mass", "species", "bmi").head(10)
+```
+
+```{python}
+sns.displot(
+    data=sw_bmi,
+    x="bmi",
+    kind="hist",
+    bins=20
+).set_axis_labels("BMI", "Count")
+```
+
+Most characters have BMIs in the 20-30 range, which would be "normal" to "overweight" for humans. But BMI was designed for humans - it doesn't really make sense for Wookiees or droids!
+
+```{python}
+# Who has the highest BMI?
+sw_bmi.sort("bmi", descending=True).select("name", "species", "bmi").head(5)
+```
+
+```{python}
+# Who has the lowest BMI?
+sw_bmi.sort("bmi").select("name", "species", "bmi").head(5)
+```
+
+The lowest BMI belongs to droids (makes sense - they're light for their size).
+
+### Creating Categories from Numeric Variables
+
+Let's categorize characters by height:
+
+```{python}
+sw_height_cat = sw.with_columns(
+    height_category=when(col("height") < 100).then(lit("short"))
+        .when(col("height") < 180).then(lit("medium"))
+        .when(col("height") < 220).then(lit("tall"))
+        .otherwise(lit("very tall"))
+)
+
+sw_height_cat["height_category"].value_counts().sort("count", descending=True)
+```
+
+```{python}
+# Visualize mass by height category
+sns.catplot(
+    data=sw_height_cat.filter(col("mass") < 200),
+    x="height_category",
+    y="mass",
+    kind="box",
+    order=["short", "medium", "tall", "very tall"]
+).set_axis_labels("Height Category", "Mass (kg)")
+```
+
+As expected, taller categories have higher mass on average, but there's overlap between groups.
+
+:::{.callout-tip title="Your Turn"}
+Try playing around to create some variables *you* are interested in
+:::
+
+```{python}
+#| eval: false
+# Your code here
+```
+
+```{python}
+#| eval: false
+# Your code here
+```
+
+:::{.callout-note title="Solution" collapse="true"}
+```{python}
+# Create a "power ratio" - mass per unit height (density proxy)
+sw_power = sw.filter(
+    col("mass").is_not_null() & col("height").is_not_null()
+).with_columns(
+    power_ratio=(col("mass") / col("height")).round(2)
+)
+
+# Who has the highest power ratio?
+sw_power.sort("power_ratio", descending=True).select("name", "species", "mass", "height", "power_ratio").head(10)
+```
+
+```{python}
+# Create age categories based on birth_year
+sw_age_cat = sw.filter(col("birth_year").is_not_null()).with_columns(
+    age_category=when(col("birth_year") < 30).then(lit("young"))
+        .when(col("birth_year") < 60).then(lit("middle-aged"))
+        .when(col("birth_year") < 100).then(lit("older"))
+        .otherwise(lit("ancient"))
+)
+
+sw_age_cat["age_category"].value_counts().sort("count", descending=True)
+```
+:::
+
+***
+
+## Phase 6: Documenting Your Findings
+
+Good EDA isn't just about making plots - it's about **learning something** and **communicating it**.
+
+Here's what we learned about the Star Wars dataset:
+
+### Summary of Findings
+
+**Data Quality:**
+- 87 characters, 11 variables
+- Significant missing data: birth_year (50%), mass (32%), height (7%)
+- One extreme outlier: Jabba the Hutt (mass = 1,358 kg)
+
+**Variable Distributions:**
+- Height is roughly normal, centered around 175 cm
+- Mass is heavily right-skewed due to outliers
+- Dataset is dominated by male human characters
+
+**Key Relationships:**
+- Height and mass are positively correlated (taller = heavier)
+- This relationship varies by species (especially for droids)
+- No clear relationship between age and height within humans
+
+**Caveats:**
+- Small sample sizes for most species (only Humans have n>10)
+- Gender imbalance limits sex comparisons
+- BMI and similar metrics designed for humans don't generalize well
+
+## Your Turn
+
+:::{.callout-tip title="Your Turn"}
+Use what you've learned to answer these questions. Create as many new cells as you need below each question.
+:::
+
+**1. Which homeworld has the greatest diversity of species?**
+
+*Hint: group by homeworld and count unique species*
+
+```{python}
+#| eval: false
+# Your code here (create more cells as needed)
+```
+
+:::{.callout-note title="Solution" collapse="true"}
+```{python}
+sw.filter(
+    col("homeworld").is_not_null() & col("species").is_not_null()
+).group_by("homeworld").agg(
+    n_species=col("species").n_unique(),
+    species_list=col("species").unique()
+).sort("n_species", descending=True).head(10)
+```
+
+Naboo has the greatest diversity with 3 different species (Human, Gungan, and Droid).
+:::
+
+**2. Create a visualization comparing the height distributions of Humans vs Droids**
+
+*Hint: use displot with hue*
+
+```{python}
+#| eval: false
+# Your code here (create more cells as needed)
+```
+
+:::{.callout-note title="Solution" collapse="true"}
+```{python}
+sns.displot(
+    data=sw.filter(col("species").is_in(["Human", "Droid"])),
+    x="height",
+    hue="species",
+    kind="hist",
+    bins=15,
+    alpha=0.6
+).set_axis_labels("Height (cm)", "Count")
+```
+
+Humans have a wider height distribution centered around 175-180cm, while Droids are more variable with some very short (R2-D2) and some tall (IG-88) units.
+:::
+
+**3. Who is the heaviest character from each homeworld?**
+
+*Hint: sort by mass within each homeworld group, then take the first*
+
+```{python}
+#| eval: false
+# Your code here (create more cells as needed)
+```
+
+:::{.callout-note title="Solution" collapse="true"}
+```{python}
+sw.filter(
+    col("homeworld").is_not_null() & col("mass").is_not_null()
+).sort("mass", descending=True).group_by("homeworld").first().select(
+    "homeworld", "name", "species", "mass"
+).sort("mass", descending=True)
+```
+
+Jabba the Hutt dominates from Nal Hutta (1,358 kg), followed by Grievous from Kalee (159 kg) and IG-88 (140 kg, unknown homeworld).
+:::
+
+**4. Is there a relationship between hair color and height for human characters?**
+
+*Hint: filter to humans, then create a boxplot of height by hair color*
+
+```{python}
+#| eval: false
+# Your code here (create more cells as needed)
+```
+
+:::{.callout-note title="Solution" collapse="true"}
+```{python}
+# Filter to humans with non-null hair color and height
+humans = sw.filter(
+    (col("species") == "Human") &
+    col("hair_color").is_not_null() &
+    col("height").is_not_null()
+)
+
+# See what hair colors we have
+humans["hair_color"].value_counts().sort("count", descending=True)
+```
+
+```{python}
+sns.catplot(
+    data=humans,
+    x="hair_color",
+    y="height",
+    kind="box",
+    height=5,
+    aspect=1.5,
+    order=humans["hair_color"].value_counts().sort("count", descending=True)["hair_color"].to_list()
+).set_axis_labels("Hair Color", "Height (cm)")
+```
+
+Theres no clear relationship between hair color and height. Brown-haired humans show the widest range (most data points), while other colors have too few observations to draw conclusions.
+:::
