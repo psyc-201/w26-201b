@@ -60,15 +60,3 @@ law-of-large-numbers: |
 
 no-free-lunch-theorem: |
   Any estimator that performs well somewhere, must perform poorly elsewhere.
-
-bootstrap-resampling: |
-  A program like Quarto that can render .py files as interactive Python notebooks with code cells. FYI: marimo is the modern alternative to Jupyter notebooks which you may have heard of/used in the past.
-
-permutation-resampling: |
-  A program like Quarto that can render .py files as interactive Python notebooks with code cells. FYI: marimo is the modern alternative to Jupyter notebooks which you may have heard of/used in the past.
-
-simulation-resampling: |
-  A program like Quarto that can render .py files as interactive Python notebooks with code cells. FYI: marimo is the modern alternative to Jupyter notebooks which you may have heard of/used in the past.
-
-cross-validation-resampling: |
-  A program like Quarto that can render .py files as interactive Python notebooks with code cells. FYI: marimo is the modern alternative to Jupyter notebooks which you may have heard of/used in the past.
