@@ -5,7 +5,6 @@ project:
     port: 9999
   render:
     - "*.qmd"
-    # - "!weeks/02/explainers.qmd"
     - "!**/wip/*"
     - "!**/prep/*"
     - "!dev/"
@@ -13,8 +12,8 @@ project:
     - "!slides/"
     - "!classroom/"
     - "!weeks/**/prep/"
-    - "!weeks/0[4-9]/**"
-    - "!weeks/[4-9][0-9]/**"
+    - "!weeks/0[5-9]/**"
+    - "!weeks/[5-9][0-9]/**"
 
 # filters:
   # - marimo-team/marimo
@@ -33,7 +32,7 @@ website:
   announcement:
     icon: megaphone-fill
     dismissable: false
-    content: "**Site Updates:** Week 3 slides available."
+    content: "**Site Updates:** Week 4 slides, updated Glossary, and Schedule"
     type: success
     position: below-navbar
   title: "PSYC 201B"
@@ -47,9 +46,10 @@ website:
     left:
       - text: Schedule
         href: schedule.qmd
+      - text: Glossary
+        href: guides/terminology.qmd
       - text: Guides & Resources
         menu:
-          - guides/terminology.qmd
           - guides/git-guide.qmd
           - guides/classroom-guide.qmd
           - guides/python-resources.qmd
@@ -83,7 +83,10 @@ website:
           contents:
             - text: "Overview"
               href: weeks/03/index.qmd
-              # href: weeks/03/explainers.qmd
+        - section: "Week 4"
+          contents:
+            - text: "Overview"
+              href: weeks/04/index.qmd
 
 bibliography: references.bib
 

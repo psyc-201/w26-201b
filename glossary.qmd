@@ -17,5 +17,15 @@ We'll keep this page updated as we come across new technical and statistical ter
 
 <!-- {{< glossary terminal >}} -->
 
+<!-- {{< glossary estimator >}} -->
+
+<!-- {{< glossary loss-function >}} -->
+
+<!-- {{< glossary law-of-large-numbers >}} -->
+
+<!-- {{< glossary central-limit-theorem >}} -->
+
+<!-- {{< glossary no-free-lunch-theorem >}} -->
+
 <!-- Render table -->
 {{< glossary table=true >}}

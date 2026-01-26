@@ -11,6 +11,10 @@ weeks/**/prep/
 # Virtual environments
 .venv
 
+# media
+*.mp4
+*.webm
+
 # Quarto
 /.quarto/
 **/*.quarto_ipynb

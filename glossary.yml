@@ -45,3 +45,30 @@ quarto-doc: |
 
 marimo: |
   A program like Quarto that can render .py files as interactive Python notebooks with code cells. FYI: marimo is the modern alternative to Jupyter notebooks which you may have heard of/used in the past.
+
+estimator: |
+  A rule for aggregating data (e.g. mean) under a set of assumptions defined by a loss-function (e.g. SSE)
+
+loss-function: |
+  Quantifies the disparity between an estimator and observations (e.g squared vs absolue errors).
+
+central-limit-theorem: |
+  The sampling distribution of an estimator converges to a normal (gaussian) distribution even if the underlying samples are not normally distributed.
+
+law-of-large-numbers: |
+  An estimator stabilizes to a true theoretical value (population statistic) as we aggregate more independent observations.
+
+no-free-lunch-theorem: |
+  Any estimator that performs well somewhere, must perform poorly elsewhere.
+
+bootstrap-resampling: |
+  A program like Quarto that can render .py files as interactive Python notebooks with code cells. FYI: marimo is the modern alternative to Jupyter notebooks which you may have heard of/used in the past.
+
+permutation-resampling: |
+  A program like Quarto that can render .py files as interactive Python notebooks with code cells. FYI: marimo is the modern alternative to Jupyter notebooks which you may have heard of/used in the past.
+
+simulation-resampling: |
+  A program like Quarto that can render .py files as interactive Python notebooks with code cells. FYI: marimo is the modern alternative to Jupyter notebooks which you may have heard of/used in the past.
+
+cross-validation-resampling: |
+  A program like Quarto that can render .py files as interactive Python notebooks with code cells. FYI: marimo is the modern alternative to Jupyter notebooks which you may have heard of/used in the past.

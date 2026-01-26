@@ -105,15 +105,15 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link active" href="./schedule.html" aria-current="page"> 
 <span class="menu-text">Schedule</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./guides/terminology.html"> 
+<span class="menu-text">Glossary</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-guides--resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Guides &amp; Resources</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-guides--resources">    
-        <li>
-    <a class="dropdown-item" href="./guides/terminology.html">
- <span class="dropdown-text">Course Terminology</span></a>
-  </li>  
         <li>
     <a class="dropdown-item" href="./guides/git-guide.html">
  <span class="dropdown-text">Git &amp; Github</span></a>
@@ -149,8 +149,8 @@ ul.task-list li input[type="checkbox"] {
         </a>
     </div>
   </nav>
-  <div id="quarto-announcement" data-announcement-id="340ea895a18b7a7eec1fc2c3acdf2be5" class="alert alert-success hidden"><i class="bi bi-megaphone-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
-<p><strong>Site Updates:</strong> Week 3 slides available.</p>
+  <div id="quarto-announcement" data-announcement-id="68dc39bd4a9c65db866abdc1d9de4bdd" class="alert alert-success hidden"><i class="bi bi-megaphone-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>Site Updates:</strong> Week 4 slides, updated Glossary, and Schedule</p>
 </div></div>
 </header>
 <!-- content -->
@@ -235,6 +235,23 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./weeks/03/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./weeks/04/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Overview</span></a>
   </div>
 </li>
@@ -331,6 +348,24 @@ In total, we’ll aim to cover in total: <strong>~4-5 HWs</strong> and <strong>~
 <td>What is a model? Model-based thinking</td>
 <td><code>push</code> <strong>HW 1 by Tues Jan 20</strong></td>
 </tr>
+<tr class="odd">
+<td><em>3</em></td>
+<td><em>Mon Jan 19</em></td>
+<td><em>No class holiday</em></td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Tues Jan 20</td>
+<td>HW 1 review; Python Q&amp;A</td>
+<td><code>push</code> <strong>HW 1 by 1pm</strong></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Wed Jan 21</td>
+<td>Hypothesis testing as model comparison</td>
+<td>-</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -338,9 +373,9 @@ In total, we’ll aim to cover in total: <strong>~4-5 HWs</strong> and <strong>~
 <caption><em>Tentative schedule</em></caption>
 <colgroup>
 <col style="width: 5%">
-<col style="width: 12%">
-<col style="width: 52%">
-<col style="width: 30%">
+<col style="width: 11%">
+<col style="width: 50%">
+<col style="width: 32%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -352,150 +387,132 @@ In total, we’ll aim to cover in total: <strong>~4-5 HWs</strong> and <strong>~
 </thead>
 <tbody>
 <tr class="odd">
-<td><em>3</em></td>
-<td><em>Mon Jan 19</em></td>
-<td><em>No class holiday</em></td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td>3</td>
-<td>Tues Jan 20</td>
-<td>HW 1 review; model comparison</td>
-<td><code>push</code> <strong>HW 1 by 1pm</strong></td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td>Wed Jan 21</td>
-<td>GLM I: Foundations &amp; OLS</td>
-<td>-</td>
-</tr>
-<tr class="even">
 <td>4</td>
 <td>Mon Jan 26</td>
-<td>GLM II: predictor types &amp; design-matrices</td>
-<td>TBD</td>
+<td>Statistical Inference &amp; Resampling</td>
+<td><em>N/A</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>4</td>
 <td>Tues Jan 27</td>
-<td>Model formulas &amp; designs, meet <code>bossanova</code></td>
-<td>TBD</td>
+<td>Bootstrap, permutation, simulation, meet <code>numpy</code> &amp; <code>scipy</code></td>
+<td><code>push</code> lab 03 at least once</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>4</td>
 <td>Wed Jan 28</td>
-<td>GLM III: categorical predictors</td>
-<td>TBD</td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td>Mon Feb 2</td>
-<td>Marginal effects estimation &amp; prediction</td>
-<td>TBD</td>
+<td>GLM I: Foundations</td>
+<td><code>push</code> <strong>HW 2 by Midnight Mon Feb 1</strong></td>
 </tr>
 <tr class="even">
+<td><em>5</em></td>
+<td><em>Mon Feb 2</em></td>
+<td><em>No class, prospective interviews</em></td>
+<td><em>N/A</em></td>
+</tr>
+<tr class="odd">
 <td>5</td>
 <td>Tues Feb 3</td>
-<td>Parameter inference &amp; uncertainty</td>
-<td>TBD</td>
+<td>HW 2 review; meet <code>bossanova</code></td>
+<td><code>push</code> lab 03 at least once</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>5</td>
 <td>Wed Feb 4</td>
-<td>Outcomes types: classifications &amp; counts</td>
+<td>GLM II</td>
 <td>TBD</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>6</td>
 <td>Mon Feb 9</td>
-<td>Resampling I: bootstrapping &amp; permuting</td>
-<td>TBD</td>
-</tr>
-<tr class="odd">
-<td>6</td>
-<td>Tues Feb 10</td>
-<td>Resampling II: power &amp; simulation, meet <code>numpy</code> &amp; <code>scipy</code></td>
+<td>Marginal effects estimation</td>
 <td>TBD</td>
 </tr>
 <tr class="even">
 <td>6</td>
-<td>Wed Feb 11</td>
-<td>Resampling III: generalization &amp; cross-validation</td>
-<td>TBD</td>
+<td>Tues Feb 10</td>
+<td>Models as tools: inference, prediction, exploration</td>
+<td><code>push</code> lab 04 at least once</td>
 </tr>
 <tr class="odd">
+<td>6</td>
+<td>Wed Feb 11</td>
+<td>Final Project planning</td>
+<td>schedule meeting with instructors</td>
+</tr>
+<tr class="even">
 <td><em>7</em></td>
 <td><em>Mon Feb 16</em></td>
 <td><em>No class holiday</em></td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>7</td>
 <td>Tues Feb 17</td>
 <td>LMMs I</td>
-<td>TBD</td>
+<td><code>push</code> lab 05 at least once</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>7</td>
 <td>Wed Feb 18</td>
 <td>LMMs II: Complete/partial/non-pooling</td>
-<td>TBD</td>
+<td><code>push</code> <strong>HW 3 by Midnight Mon Feb 23</strong></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>8</td>
 <td>Mon Feb 23</td>
 <td>LMMs III: RFX syntax, “rm-ANOVA”</td>
 <td>TBD</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>8</td>
 <td>Tues Feb 24</td>
-<td>Unsupervised Learning I: essence of linear algebra</td>
+<td>HW 3 review; essence of linear algebra</td>
 <td>TBD</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>8</td>
 <td>Wed Feb 25</td>
 <td>Unsupervised Learning II: PCA and friends, meet <code>sklearn</code></td>
-<td><code>push</code> <strong>Last HW by Tues Mar 3</strong></td>
+<td><code>push</code> <strong>HW 4 by Midnight Mar 2</strong></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>9</td>
 <td>Mon Mar 2</td>
 <td>TBD</td>
 <td>TBD</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>9</td>
 <td>Tues Mar 3</td>
-<td>TBD, last hw review</td>
+<td>HW 4 reivew; TBD</td>
 <td>TBD</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>9</td>
 <td>Wed Mar 4</td>
 <td>TBD</td>
 <td>TBD</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>10</td>
 <td>Mon Mar 9</td>
 <td><em>final project time</em></td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>10</td>
 <td>Tues Mar 10</td>
 <td><em>final project time</em></td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>10</td>
 <td>Wed Mar 11</td>
 <td>Course Wrap-Up</td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>FW</td>
 <td>Mar 16-18</td>
 <td><em>work on final project</em></td>
@@ -506,7 +523,27 @@ In total, we’ll aim to cover in total: <strong>~4-5 HWs</strong> and <strong>~
 <!-- Planning -->
 <!-- | 9    | Mon Mar 2    | Regularization: ridge, Tikhonov, Bayes                        | TBD                                      |
 | 9    | Tues Mar 3   | Neural Networks: convolution, recursion, & attention          | `push` lab 09 at least once              |
-| 9    | Wed Mar 4    | Timeseries: stationarity & auto-correlation                   | TBD                                      | -->
+| 9    | Wed Mar 4    | Timeseries: stationarity & auto-correlation                   | TBD                                      | 
+
+| 5    | Mon Feb 2    | Marginal effects estimation & prediction                  | TBD                              |
+| 5    | Tues Feb 3   | Parameter inference & uncertainty                         | TBD                              |
+| 5    | Wed Feb 4    | Outcomes types: classifications & counts                  | TBD                              |
+| 6    | Mon Feb 9    | Resampling I: bootstrapping & permuting                   | TBD                              |
+| 6    | Tues Feb 10  | Resampling II: power & simulation, meet `numpy` & `scipy` | TBD                              |
+| 6    | Wed Feb 11   | Resampling III: generalization & cross-validation         | TBD                              |
+| *7*  | *Mon Feb 16* | *No class holiday*                                        | -                                |
+| 7    | Tues Feb 17  | LMMs I                                                    | TBD                              |
+| 7    | Wed Feb 18   | LMMs II: Complete/partial/non-pooling                     | TBD                              |
+| 8    | Mon Feb 23   | LMMs III: RFX syntax, "rm-ANOVA"                          | TBD                              |
+| 8    | Tues Feb 24  | Unsupervised Learning I: essence of linear algebra        | TBD                              |
+| 8    | Wed Feb 25   | Unsupervised Learning II: PCA and friends, meet `sklearn` | `push` **Last HW by Tues Mar 3** |
+| 9    | Mon Mar 2    | TBD                                                       | TBD                              |
+| 9    | Tues Mar 3   | TBD, last hw review                                       | TBD                              |
+| 9    | Wed Mar 4    | TBD                                                       | TBD                              |
+| 10   | Mon Mar 9    | *final project time*                                      | -                                |
+| 10   | Tues Mar 10  | *final project time*                                      | -                                |
+| 10   | Wed Mar 11   | Course Wrap-Up                                            | -                                |
+| FW   | Mar 16-18    | *work on final project*                                   | `push` **Final Project by TBD**  | -->
 
 
 

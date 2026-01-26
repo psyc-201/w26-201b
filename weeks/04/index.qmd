@@ -1,0 +1,29 @@
+---
+sidebar: weeks
+title: "Week 4"
+---
+
+## Overview
+
+### Learning Goals
+
+- [ ] Understand the mechanics of the sampling distribution
+- [ ] Understand what statistical *inference* means in practice
+
+## Slides
+
+::: {.callout-tip title="Slides Wed Jan 26" collapse=true}
+![](slides/01-26.pdf){width=100% height=600}
+:::
+
+## Materials
+
+:::{.callout-caution icon=false title="📚 Lab (coming soon)"}
+<!-- [Github Classroom Assignment](https://classroom.github.com/a/b1GlmbPx) -->
+:::
+
+## Mentioned References
+
+- Statistics for Hackers
+  - [Download](https://www.dropbox.com/scl/fi/h47lt2s0s5m67rr6ds34t/statistics-for-hackers.mp4?rlkey=un51flgwvjl4who6o2iowowy8&dl=0)
+  - [Youtube](https://www.youtube.com/watch?v=Iq9DzN6mvYA)
