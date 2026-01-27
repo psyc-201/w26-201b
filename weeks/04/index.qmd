@@ -18,8 +18,8 @@ title: "Week 4"
 
 ## Materials
 
-:::{.callout-caution icon=false title="📚 Lab (coming soon)"}
-<!-- [Github Classroom Assignment](https://classroom.github.com/a/b1GlmbPx) -->
+:::{.callout-caution icon=false title="📚 Lab"}
+[Github Classroom Assignment](https://classroom.github.com/a/4fpqkA1P)
 :::
 
 ## Mentioned References
