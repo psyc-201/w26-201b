@@ -9,7 +9,12 @@ title: "Week 4"
 
 - [ ] Understand the mechanics of the sampling distribution
 - [ ] Understand what statistical *inference* means in practice
-
+- [ ] Understand the "4 Horseman" of resampling:
+  - Monte-Carlo simulation (assumptions)
+   - Bootstrap (resampling with replacement)
+  - Permutation (shuffling)
+  - Cross-validation (generalization)
+ 
 ## Slides
 
 ::: {.callout-tip title="Slides Wed Jan 26" collapse=true}
@@ -27,3 +32,5 @@ title: "Week 4"
 - Statistics for Hackers
   - [Download](https://www.dropbox.com/scl/fi/h47lt2s0s5m67rr6ds34t/statistics-for-hackers.mp4?rlkey=un51flgwvjl4who6o2iowowy8&dl=0)
   - [Youtube](https://www.youtube.com/watch?v=Iq9DzN6mvYA)
+- [The Importance of Data Splitting](https://mlu-explain.github.io/train-test-validation/)
+- [Cross Validation](https://mlu-explain.github.io/cross-validation/)
