@@ -32,7 +32,7 @@ website:
   announcement:
     icon: megaphone-fill
     dismissable: false
-    content: "**Site Updates:** Week 4 slides, updated Glossary, and Schedule"
+    content: "**Site Updates:** HW 2 now available"
     type: success
     position: below-navbar
   title: "PSYC 201B"

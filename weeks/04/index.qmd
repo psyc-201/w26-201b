@@ -5,6 +5,10 @@ title: "Week 4"
 
 ## Overview
 
+:::{.callout-caution icon=false title="📚 HW2 (Deadline 11:59pm Mon Feb 2)"}
+[Github Classroom Assignment](https://classroom.github.com/a/XUZSRI9R)
+:::
+
 ### Learning Goals
 
 - [ ] Understand the mechanics of the sampling distribution
@@ -34,3 +38,21 @@ title: "Week 4"
   - [Youtube](https://www.youtube.com/watch?v=Iq9DzN6mvYA)
 - [The Importance of Data Splitting](https://mlu-explain.github.io/train-test-validation/)
 - [Cross Validation](https://mlu-explain.github.io/cross-validation/)
+
+## Additional References
+
+### Modeling & Inference
+
+- [Overview of basic statistical models](readings/DAAMCA_Ch2.pdf)
+- [Overview of basic statistical inference](readings/DAAMCA_Ch4.pdf)
+- [What is sampling?](readings/StatsThinking21-07-sampling.pdf)
+- [Statistical Inference & Hypothesis testing](readings/ROS_Chap4_Stat_Inference.pdf)
+- [Statistical Inference enables Bad Science. Statistical Thinking Enables Good Science](readings/2019-Tong.pdf)
+
+### Resampling Approaches
+
+- [Hypothesis testing with randomization (Permutation)](https://openintro-ims.netlify.app/foundations-randomization)
+- [Confidence intervals with Bootstrapping](https://openintro-ims.netlify.app/foundations-bootstrapping)
+- [Bootstrapping a single mean](https://openintro-ims.netlify.app/inference-one-mean)
+- [Inference with statistical models](https://openintro-ims.netlify.app/foundations-mathematical)
+
