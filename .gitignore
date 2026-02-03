@@ -51,5 +51,4 @@ _widgets/
 **/prep/*
 
 # Incremental slides
-slides/
 .zed/
