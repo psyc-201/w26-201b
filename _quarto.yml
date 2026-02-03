@@ -32,7 +32,7 @@ website:
   announcement:
     icon: megaphone-fill
     dismissable: false
-    content: "**Site Updates:** HW 2 now available"
+    content: "**Site Updates:** Anonymous feedback form added"
     type: success
     position: below-navbar
   title: "PSYC 201B"
@@ -55,6 +55,8 @@ website:
           - guides/python-resources.qmd
       - text: Previous course versions
         href: https://psyc201b.github.io/PSYC-201B/
+      - text: Anonymous Feedback
+        href: https://forms.gle/eXfTXVqYxCCFbv9c7
 
   sidebar:
     - id: weeks
