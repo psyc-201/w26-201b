@@ -55,4 +55,5 @@ title: "Week 4"
 - [Bootstrapping a single mean](https://openintro-ims.netlify.app/inference-one-mean)
 - [The Importance of Data Splitting](https://mlu-explain.github.io/train-test-validation/)
 - [Cross Validation](https://mlu-explain.github.io/cross-validation/)
+- [Permutation test](https://www.jwilber.me/permutationtest/#)
 

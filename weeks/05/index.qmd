@@ -1,0 +1,30 @@
+---
+sidebar: weeks
+title: "Week 5"
+---
+
+## Overview
+
+### Learning Goals
+
+- [ ] Review the "4 Horseman" of inference:
+  - Monte-Carlo simulation (assumptions)
+  - Bootstrap (resampling with replacement)
+  - Permutation (shuffling)
+  - Cross-validation (generalization)
+- [ ] Understand the General Linear Model (GLM)
+- [ ] Understand the Ordinary-Least-Squares (OLS) estimator
+ 
+## Slides
+
+::: {.callout-tip title="Slides Tues Feb 3" collapse=true}
+![](slides/02-03-glm.key.pdf){width=100% height=600}
+:::
+
+## Mentioned References
+
+- [Linear Regression Visual Walkthrough](https://mlu-explain.github.io/linear-regression/)
+
+<!-- ## Additional References -->
+
+<!-- - [There is only one kind of test](https://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html) -->

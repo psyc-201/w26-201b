@@ -23,22 +23,22 @@ In total, we'll aim to cover in total: **~4-5 HWs** and **~6-7 labs**
 | 4    | Mon Jan 26   | Statistics for Hackers: Resampling approaches             | *N/A*                                 |
 | 4    | Tues Jan 27  | Monte-carlo simulation & bootstrap resampling             | `push` lab 03 at least once           |
 | 4    | Wed Jan 28   | Permutation testing & cross-validation                    | `push` **HW 2 by Midnight Mon Feb 1** |
+| *5*  | *Mon Feb 2*  | *No class, prospective interviews*                         | *N/A*                                 |
 :::
 
 | Week | Date         | Content                                                    | Assignment Due?                       |
 |------|--------------|------------------------------------------------------------|---------------------------------------|
-| *5*  | *Mon Feb 2*  | *No class, prospective interviews*                         | *N/A*                                 |
 | 5    | Tues Feb 3   | HW 2 review; GLM Foundations                               | -                                     |
 | 5    | Wed Feb 4    | GLM II                                                     | TBD                                   |
-| 6    | Mon Feb 9    | Marginal effects estimation                                | TBD                                   |
+| 6    | Mon Feb 9    | Modeling, meet `bossanova`                                 | `push` lab at least once              |
 | 6    | Tues Feb 10  | Models as tools: inference, prediction, exploration        | `push` lab at least once              |
-| 6    | Wed Feb 11   | Final Project planning                                     | schedule meeting with instructors     |
+| 6    | Wed Feb 11   | **Final Project planning**                                 | **chat with instructors before leaving** |
 | *7*  | *Mon Feb 16* | *No class holiday*                                         | -                                     |
-| 7    | Tues Feb 17  | LMMs I                                                     | `push` lab at least once              |
-| 7    | Wed Feb 18   | LMMs II: Complete/partial/non-pooling                      | `push` **HW 3 by Midnight Mon Feb 23** |
-| 8    | Mon Feb 23   | LMMs III: RFX syntax, "rm-ANOVA"                           | TBD                                   |
-| 8    | Tues Feb 24  | HW 3 review; essence of linear algebra                     | TBD                                   |
-| 8    | Wed Feb 25   | Unsupervised Learning II: PCA and friends, meet `sklearn`  | `push` **HW 4 by Midnight Mar 2**      |
+| 7    | Tues Feb 17  | Extending the GLM                                          | `push` lab at least once              |
+| 7    | Wed Feb 18   | LMM I                                                      | `push` **HW 3 by Midnight Mon Feb 23** |
+| 8    | Mon Feb 23   | LMMs II                                                    | -                                   |
+| 8    | Tues Feb 24  | HW 3 review                                                | -                                   |
+| 8    | Wed Feb 25   | TBD                                                        | `push` **HW 4 by Midnight Mar 2**      |
 | 9    | Mon Mar 2    | TBD                                                        | TBD                                   |
 | 9    | Tues Mar 3   | HW 4 reivew; TBD                                           | TBD                                   |
 | 9    | Wed Mar 4    | TBD                                                        | TBD                                   |

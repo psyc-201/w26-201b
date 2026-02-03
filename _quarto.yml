@@ -12,8 +12,8 @@ project:
     - "!slides/"
     - "!classroom/"
     - "!weeks/**/prep/"
-    - "!weeks/0[5-9]/**"
-    - "!weeks/[5-9][0-9]/**"
+    - "!weeks/0[6-9]/**"
+    - "!weeks/[6-9][0-9]/**"
 
 # filters:
   # - marimo-team/marimo
@@ -32,7 +32,7 @@ website:
   announcement:
     icon: megaphone-fill
     dismissable: false
-    content: "**Site Updates:** Anonymous feedback form added"
+    content: "**Site Updates:** Slides Week 5, Anonymous feedback form,schedule updates"
     type: success
     position: below-navbar
   title: "PSYC 201B"
@@ -89,6 +89,10 @@ website:
           contents:
             - text: "Overview"
               href: weeks/04/index.qmd
+        - section: "Week 5"
+          contents:
+            - text: "Overview"
+              href: weeks/05/index.qmd
 
 bibliography: references.bib
 

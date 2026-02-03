@@ -10,7 +10,7 @@ This week we'll cover course logistics, introduce the two cultures of statistica
 ## Slides
 
 ::: {.callout-tip icon=false title="🛝 Mon Jan 5th - Course Intro" collapse=true}
-![](slides/01-05.pdf){width=100% height=600}
+![](slides/01-05-intro.pdf){width=100% height=600}
 :::
 
 ## Materials
