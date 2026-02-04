@@ -1,0 +1,528 @@
+---
+title: "Common Formulas Reference"
+subtitle: "Definitions, intuitions, and numpy for basic statistical quantities"
+sidebar: weeks
+toc: true
+toc-depth: 3
+execute:
+  eval: false
+---
+
+::: {.callout-tip title="How to Use This Reference"}
+Each formula includes:
+
+- **Definition** — the mathematical formula
+- **Intuition** — what it means conceptually
+- **NumPy** — simple code to compute it
+
+See also: [Notation Reference](notation.qmd) | [Glossary](terminology.qmd)
+:::
+
+```{python}
+import numpy as np
+```
+
+---
+
+## Aggregation & Summarization
+
+These formulas reduce a collection of values down to a single summary.
+
+### Mean
+
+::: {.callout-note icon=false title="Definition"}
+$$\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i$$
+:::
+
+**Intuition:** The *average* of all data points. Also called the *expected value* in probability contexts. The mean is the value that minimizes the **sum of squared distances** from each data point.
+
+```{python}
+mean = np.mean(x)
+```
+
+---
+
+### Median
+
+::: {.callout-note icon=false title="Definition"}
+The middle value after sorting the data from lowest to highest. If $n$ is even, it's the average of the two middle values.
+:::
+
+**Intuition:** The value that splits the data in half — 50% above, 50% below. The median minimizes the **sum of absolute distances** from each data point. More robust to outliers than the mean.
+
+```{python}
+median = np.median(x)
+```
+
+---
+
+### Mode
+
+::: {.callout-note icon=false title="Definition"}
+The most frequently occurring value in the data.
+:::
+
+**Intuition:** The "most common" value. Most useful for categorical data or discrete distributions. A distribution can have multiple modes (bimodal, multimodal).
+
+```{python}
+from scipy import stats
+mode = stats.mode(x, keepdims=False).mode
+```
+
+---
+
+### Variance
+
+::: {.callout-note icon=false title="Definition"}
+$$s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2$$
+:::
+
+**Intuition:** The average squared distance of each data point from the mean. Measures how *spread out* the data are.
+
+- Larger variance = more spread
+- We divide by $n-1$ (not $n$) to get an unbiased estimate — this accounts for the fact that we estimated $\bar{x}$ from the same data
+
+```{python}
+# ddof=1 gives sample variance (divides by n-1)
+variance = np.var(x, ddof=1)
+```
+
+::: {.callout-warning title="NumPy Default"}
+`np.var(x)` divides by $n$ by default (population variance). Use `ddof=1` for sample variance.
+:::
+
+---
+
+### Standard Deviation
+
+::: {.callout-note icon=false title="Definition"}
+$$s = \sqrt{\frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2} = \sqrt{s^2}$$
+:::
+
+**Intuition:** The square root of variance. Puts spread back in the **original units** of the data (variance is in squared units).
+
+- If heights are in cm, SD is in cm (variance would be in cm²)
+
+```{python}
+# ddof=1 for sample SD
+sd = np.std(x, ddof=1)
+```
+
+---
+
+### Z-Score (Standardization)
+
+::: {.callout-note icon=false title="Definition"}
+$$z_i = \frac{x_i - \bar{x}}{s}$$
+:::
+
+**Intuition:** How many standard deviations is $x_i$ from the mean?
+
+- $z = 0$: at the mean
+- $z = 1$: one SD above the mean
+- $z = -2$: two SDs below the mean
+
+Z-scores let you compare values across different scales (e.g., comparing test scores from different exams).
+
+```{python}
+z_scores = (x - np.mean(x)) / np.std(x, ddof=1)
+
+# Or using scipy
+from scipy.stats import zscore
+z_scores = zscore(x, ddof=1)
+```
+
+---
+
+## Relationships & Similarity
+
+These formulas describe how two variables relate to each other.
+
+### Dot Product
+
+::: {.callout-note icon=false title="Definition"}
+$$\mathbf{x}^\top\mathbf{y} = \sum_{i=1}^n x_i y_i$$
+:::
+
+**Intuition:** Multiply corresponding elements and add them up. If $x$ and $y$ tend to be large together (or small together), the dot product will be large. The building block for correlation and regression.
+
+```{python}
+dot_product = np.dot(x, y)
+
+# Equivalent:
+dot_product = np.sum(x * y)
+```
+
+---
+
+### Covariance
+
+::: {.callout-note icon=false title="Definition"}
+$$\text{Cov}(x, y) = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})$$
+
+Or in matrix notation:
+$$\text{Cov}(x, y) = \frac{(\mathbf{x} - \bar{x})^\top(\mathbf{y} - \bar{y})}{n-1}$$
+:::
+
+**Intuition:** Do $x$ and $y$ move together *around their respective means*?
+
+- Positive covariance: when $x$ is above its mean, $y$ tends to be above its mean
+- Negative covariance: when $x$ is above its mean, $y$ tends to be below its mean
+- Zero covariance: no linear relationship
+
+The magnitude depends on the scales of $x$ and $y$, so covariance is hard to interpret directly.
+
+```{python}
+# Manual calculation
+cov_xy = np.sum((x - x.mean()) * (y - y.mean())) / (len(x) - 1)
+
+# Using numpy (returns 2x2 matrix; off-diagonal is covariance)
+cov_matrix = np.cov(x, y)
+cov_xy = cov_matrix[0, 1]
+```
+
+---
+
+### Pearson Correlation
+
+::: {.callout-note icon=false title="Definition"}
+$$r = \frac{\text{Cov}(x, y)}{s_x \cdot s_y} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2} \sqrt{\sum_{i=1}^n (y_i - \bar{y})^2}}$$
+:::
+
+**Intuition:** Covariance scaled to a standard range. Measures the **strength and direction of linear relationship**.
+
+- $r = 1$: perfect positive linear relationship
+- $r = -1$: perfect negative linear relationship
+- $r = 0$: no linear relationship
+- $|r| \approx 0.1$: weak, $|r| \approx 0.3$: moderate, $|r| \approx 0.5$+: strong
+
+**Equivalent view:** Correlation is the average dot product of z-scores:
+$$r = \frac{1}{n-1} \sum_{i=1}^n z_{x_i} \cdot z_{y_i}$$
+
+```{python}
+# Using numpy (returns 2x2 matrix; off-diagonal is correlation)
+corr_matrix = np.corrcoef(x, y)
+r = corr_matrix[0, 1]
+
+# Using scipy (also gives p-value)
+from scipy.stats import pearsonr
+result = pearsonr(x, y)
+r = result.statistic
+p_value = result.pvalue
+```
+
+---
+
+## Uncertainty
+
+These formulas quantify how much estimates might vary.
+
+### Standard Error of the Mean
+
+::: {.callout-note icon=false title="Definition"}
+$$SE_{\bar{x}} = \frac{s}{\sqrt{n}}$$
+:::
+
+**Intuition:** How much would the sample mean vary if we repeated the study? The SE quantifies **uncertainty in the mean**, not spread in the data.
+
+- Larger $n$ → smaller SE (more data = more precise estimate)
+- SE decreases with $\sqrt{n}$, so you need 4× the sample size to halve the SE
+
+```{python}
+se_mean = np.std(x, ddof=1) / np.sqrt(len(x))
+
+# Or using scipy
+from scipy.stats import sem
+se_mean = sem(x)
+```
+
+::: {.callout-important title="SD vs. SE"}
+- **SD** describes spread of *individual observations*
+- **SE** describes uncertainty of *the mean*
+
+They answer different questions!
+:::
+
+---
+
+### Residual Variance
+
+::: {.callout-note icon=false title="Definition"}
+$$\hat{\sigma}^2 = \frac{\sum_i (y_i - \hat{y}_i)^2}{n - p - 1} = \frac{SSE}{n - p - 1}$$
+:::
+
+**Intuition:** The average squared residual, adjusted for degrees of freedom. Measures how much variance the model *doesn't* explain.
+
+- $n$ = number of observations
+- $p$ = number of predictors (not counting intercept)
+- $n - p - 1$ = residual degrees of freedom
+
+We divide by $n - p - 1$ because we "used up" degrees of freedom estimating coefficients.
+
+```{python}
+n = len(y)
+p = X.shape[1] - 1  # predictors (excluding intercept column)
+residuals = y - y_hat
+SSE = np.sum(residuals**2)
+sigma2_hat = SSE / (n - p - 1)
+sigma_hat = np.sqrt(sigma2_hat)  # residual standard deviation
+```
+
+---
+
+### Variance of Coefficients
+
+::: {.callout-note icon=false title="Definition"}
+$$\text{Var}(\hat{\boldsymbol{\beta}}) = \hat{\sigma}^2 (\mathbf{X}^\top\mathbf{X})^{-1}$$
+:::
+
+**Intuition:** How uncertain are we about each coefficient estimate?
+
+- Larger $\hat{\sigma}^2$ (noisier data) → more uncertainty
+- The diagonal of $(\mathbf{X}^\top\mathbf{X})^{-1}$ reflects predictor spread and collinearity:
+  - More spread in $X$ → smaller variance (more precise)
+  - Correlated predictors → larger variance (less precise)
+
+```{python}
+var_beta = sigma2_hat * np.linalg.inv(X.T @ X)
+# Diagonal elements are variances for each coefficient
+```
+
+---
+
+### Standard Error of Coefficients
+
+::: {.callout-note icon=false title="Definition"}
+$$SE(\hat{\beta}_j) = \sqrt{\hat{\sigma}^2 \cdot [(\mathbf{X}^\top\mathbf{X})^{-1}]_{jj}}$$
+:::
+
+**Intuition:** Square root of the variance — puts uncertainty in the same units as the coefficient. Used to construct confidence intervals and t-tests.
+
+```{python}
+se_beta = np.sqrt(np.diag(var_beta))
+```
+
+---
+
+### Confidence Interval
+
+::: {.callout-note icon=false title="Definition"}
+$$\hat{\beta}_j \pm t_{\alpha/2, \, df} \cdot SE(\hat{\beta}_j)$$
+
+For a 95% CI: $\alpha = 0.05$, so use $t_{0.025, \, df}$
+:::
+
+**Intuition:** A range of plausible values for the true coefficient. If we repeated the study many times, 95% of the intervals would contain the true $\beta$.
+
+```{python}
+from scipy.stats import t
+
+confidence = 0.95
+df = n - p - 1
+t_crit = t.ppf((1 + confidence) / 2, df)
+
+ci_lower = beta_hat - t_crit * se_beta
+ci_upper = beta_hat + t_crit * se_beta
+```
+
+::: {.callout-tip title="CI and Significance"}
+If the 95% CI doesn't include 0, then $p < 0.05$ for the test that $\beta = 0$.
+:::
+
+---
+
+## Inference & Model Comparison
+
+These formulas help us draw conclusions and compare models.
+
+### t-Statistic
+
+::: {.callout-note icon=false title="Definition"}
+$$t = \frac{\hat{\beta}_j - \beta_0}{SE(\hat{\beta}_j)}$$
+
+Usually testing $\beta_0 = 0$:
+$$t = \frac{\hat{\beta}_j}{SE(\hat{\beta}_j)}$$
+:::
+
+**Intuition:** How many standard errors is the estimate from the null value (usually 0)?
+
+- $|t| > 2$ roughly corresponds to $p < 0.05$ (for moderate sample sizes)
+- Larger $|t|$ = stronger evidence against the null
+
+Under the null hypothesis, $t \sim t_{n-p-1}$ (t-distribution with $n - p - 1$ degrees of freedom).
+
+```{python}
+t_stat = beta_hat / se_beta
+
+# p-values (two-tailed)
+from scipy.stats import t
+df = n - p - 1
+p_values = 2 * (1 - t.cdf(np.abs(t_stat), df))
+```
+
+---
+
+### R-squared
+
+::: {.callout-note icon=false title="Definition"}
+$$R^2 = 1 - \frac{SS_{res}}{SS_{tot}} = 1 - \frac{\sum_i(y_i - \hat{y}_i)^2}{\sum_i(y_i - \bar{y})^2}$$
+:::
+
+**Intuition:** What proportion of variance in $y$ does the model explain?
+
+- $R^2 = 0$: model explains nothing (predicting $\bar{y}$ for everyone)
+- $R^2 = 1$: model explains everything (perfect predictions)
+- $R^2 = 0.3$: model explains 30% of the variance
+
+::: {.callout-warning title="Caution"}
+$R^2$ always increases when you add predictors, even useless ones. Use adjusted $R^2$ or other criteria when comparing models with different numbers of predictors.
+:::
+
+```{python}
+SS_tot = np.sum((y - np.mean(y))**2)
+SS_res = np.sum((y - y_hat)**2)
+R2 = 1 - SS_res / SS_tot
+```
+
+---
+
+### F-Statistic
+
+::: {.callout-note icon=false title="Definition"}
+$$F = \frac{(SS_{tot} - SS_{res})/p}{SS_{res}/(n-p-1)} = \frac{MS_{model}}{MS_{error}}$$
+:::
+
+**Intuition:** Does the model explain more variance than expected by chance? The F-statistic is a ratio of two variances:
+
+- **Numerator**: variance explained by the model (per predictor)
+- **Denominator**: variance left unexplained (per residual df)
+
+If the model is useful, $F >> 1$. Under the null hypothesis (model explains nothing), $F \sim F(p, n-p-1)$.
+
+```{python}
+SS_model = SS_tot - SS_res
+MS_model = SS_model / p
+MS_error = SS_res / (n - p - 1)
+F_stat = MS_model / MS_error
+
+# p-value
+from scipy.stats import f
+p_value = 1 - f.cdf(F_stat, p, n - p - 1)
+```
+
+---
+
+## The General Linear Model
+
+The GLM is the framework that ties everything together. It specifies *how* we model the relationship between predictors and outcomes.
+
+### The Model Equation
+
+::: {.callout-note icon=false title="Definition"}
+**Scalar form** (one observation):
+$$y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_p x_{ip} + \epsilon_i$$
+
+**Matrix form** (all observations):
+$$\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon}$$
+
+where $\boldsymbol{\epsilon} \sim N(\mathbf{0}, \sigma^2\mathbf{I})$
+:::
+
+**Intuition:** Every observation is the sum of:
+
+1. **Systematic part** ($\mathbf{X}\boldsymbol{\beta}$): The predictable pattern based on our predictors
+2. **Random part** ($\boldsymbol{\epsilon}$): Everything we can't explain (noise, unmeasured factors)
+
+The assumption $\boldsymbol{\epsilon} \sim N(\mathbf{0}, \sigma^2\mathbf{I})$ means:
+
+- Errors average to zero (no systematic bias)
+- All errors have the same variance (homoscedasticity)
+- Errors are uncorrelated with each other (independence)
+
+```{python}
+# Design matrix: n observations, p predictors + intercept
+# First column is 1s for the intercept
+X = np.column_stack([np.ones(n), x1, x2])  # shape: (n, p+1)
+y = np.array([...])  # shape: (n,)
+```
+
+---
+
+### OLS Estimator
+
+::: {.callout-note icon=false title="Definition"}
+$$\hat{\boldsymbol{\beta}} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{y}$$
+:::
+
+**Intuition:** OLS (Ordinary Least Squares) finds the coefficients that **minimize the sum of squared residuals**:
+$$\min_{\boldsymbol{\beta}} \sum_i (y_i - \hat{y}_i)^2$$
+
+Reading the formula:
+
+- $\mathbf{X}^\top\mathbf{y}$ captures how each predictor relates to the outcome
+- $(\mathbf{X}^\top\mathbf{X})^{-1}$ adjusts for relationships among predictors (removes redundancy)
+
+```{python}
+# Full formula
+XtX = X.T @ X
+XtX_inv = np.linalg.inv(XtX)
+Xty = X.T @ y
+beta_hat = XtX_inv @ Xty
+
+# Or use numpy's built-in (more numerically stable)
+beta_hat = np.linalg.lstsq(X, y, rcond=None)[0]
+```
+
+---
+
+### Predicted Values
+
+::: {.callout-note icon=false title="Definition"}
+$$\hat{\mathbf{y}} = \mathbf{X}\hat{\boldsymbol{\beta}}$$
+:::
+
+**Intuition:** The model's predictions for each observation, given the estimated coefficients.
+
+```{python}
+y_hat = X @ beta_hat  # matrix multiplication
+```
+
+---
+
+### Residuals
+
+::: {.callout-note icon=false title="Definition"}
+$$e_i = y_i - \hat{y}_i$$
+
+Or in matrix form: $\mathbf{e} = \mathbf{y} - \hat{\mathbf{y}}$
+:::
+
+**Intuition:** The "leftover" after the model makes its prediction. Residuals are our best estimate of the unknown errors $\epsilon$.
+
+- Positive residual: model under-predicted
+- Negative residual: model over-predicted
+- If residuals show patterns, the model is missing something
+
+```{python}
+residuals = y - y_hat
+```
+
+---
+
+## Summary: From Data to Inference
+
+| Category | What it does | Key formulas |
+|----------|--------------|--------------|
+| **Aggregation** | Summarize a variable | Mean, Median, Variance, SD |
+| **Relationships** | Measure association | Covariance, Correlation |
+| **Uncertainty** | Quantify precision | SE, Confidence Intervals |
+| **Inference** | Draw conclusions | t-statistic, F-statistic, R² |
+| **GLM** | Model specification | $y = X\beta + \epsilon$, OLS |
+
+The typical workflow:
+
+1. **Specify model** → design matrix $\mathbf{X}$ and outcome $\mathbf{y}$
+2. **Estimate** → $\hat{\boldsymbol{\beta}} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{y}$
+3. **Predict** → $\hat{\mathbf{y}} = \mathbf{X}\hat{\boldsymbol{\beta}}$
+4. **Quantify uncertainty** → $SE$, confidence intervals
+5. **Draw conclusions** → t-tests, F-tests, $R^2$
