@@ -6,6 +6,9 @@ toc: true
 toc-depth: 3
 execute:
   eval: false
+format:
+  html:
+    code-fold: false
 ---
 
 ::: {.callout-tip title="How to Use This Reference"}
@@ -13,16 +16,16 @@ Each formula includes:
 
 - **Definition** — the mathematical formula
 - **Intuition** — what it means conceptually
-- **NumPy** — simple code to compute it
+- **Code** — [`numpy`](https://numpy.org/doc/stable/) and [`scipy`](https://docs.scipy.org/doc/scipy/reference/stats.html) Python code to compute it
 
 See also: [Notation Reference](notation.qmd) | [Glossary](terminology.qmd)
 :::
 
 ```{python}
+# Libraries
 import numpy as np
+from scipy import stats as st
 ```
-
----
 
 ## Aggregation & Summarization
 
@@ -34,13 +37,11 @@ These formulas reduce a collection of values down to a single summary.
 $$\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i$$
 :::
 
-**Intuition:** The *average* of all data points. Also called the *expected value* in probability contexts. The mean is the value that minimizes the **sum of squared distances** from each data point.
+**Intuition:** The *average* of all data points. Also called the **expected value** in probability contexts. The mean is the value that minimizes the **sum of squared distances** from each data point.
 
 ```{python}
-mean = np.mean(x)
+np.mean(x)
 ```
-
----
 
 ### Median
 
@@ -51,10 +52,8 @@ The middle value after sorting the data from lowest to highest. If $n$ is even, 
 **Intuition:** The value that splits the data in half — 50% above, 50% below. The median minimizes the **sum of absolute distances** from each data point. More robust to outliers than the mean.
 
 ```{python}
-median = np.median(x)
+np.median(x)
 ```
-
----
 
 ### Mode
 
@@ -65,11 +64,8 @@ The most frequently occurring value in the data.
 **Intuition:** The "most common" value. Most useful for categorical data or discrete distributions. A distribution can have multiple modes (bimodal, multimodal).
 
 ```{python}
-from scipy import stats
-mode = stats.mode(x, keepdims=False).mode
+st.mode(x)
 ```
-
----
 
 ### Variance
 
@@ -84,14 +80,12 @@ $$s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2$$
 
 ```{python}
 # ddof=1 gives sample variance (divides by n-1)
-variance = np.var(x, ddof=1)
+np.var(x, ddof=1)
 ```
 
 ::: {.callout-warning title="NumPy Default"}
 `np.var(x)` divides by $n$ by default (population variance). Use `ddof=1` for sample variance.
 :::
-
----
 
 ### Standard Deviation
 
@@ -105,10 +99,8 @@ $$s = \sqrt{\frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2} = \sqrt{s^2}$$
 
 ```{python}
 # ddof=1 for sample SD
-sd = np.std(x, ddof=1)
+np.std(x, ddof=1)
 ```
-
----
 
 ### Z-Score (Standardization)
 
@@ -125,14 +117,12 @@ $$z_i = \frac{x_i - \bar{x}}{s}$$
 Z-scores let you compare values across different scales (e.g., comparing test scores from different exams).
 
 ```{python}
-z_scores = (x - np.mean(x)) / np.std(x, ddof=1)
+# numpy
+(x - np.mean(x)) / np.std(x, ddof=1)
 
-# Or using scipy
-from scipy.stats import zscore
-z_scores = zscore(x, ddof=1)
+# scipy
+st.zscore(x, ddof=1)
 ```
-
----
 
 ## Relationships & Similarity
 
@@ -153,8 +143,6 @@ dot_product = np.dot(x, y)
 dot_product = np.sum(x * y)
 ```
 
----
-
 ### Covariance
 
 ::: {.callout-note icon=false title="Definition"}
@@ -166,6 +154,7 @@ $$\text{Cov}(x, y) = \frac{(\mathbf{x} - \bar{x})^\top(\mathbf{y} - \bar{y})}{n-
 
 **Intuition:** Do $x$ and $y$ move together *around their respective means*?
 
+- The *mean-centered* dot-product
 - Positive covariance: when $x$ is above its mean, $y$ tends to be above its mean
 - Negative covariance: when $x$ is above its mean, $y$ tends to be below its mean
 - Zero covariance: no linear relationship
@@ -176,12 +165,10 @@ The magnitude depends on the scales of $x$ and $y$, so covariance is hard to int
 # Manual calculation
 cov_xy = np.sum((x - x.mean()) * (y - y.mean())) / (len(x) - 1)
 
-# Using numpy (returns 2x2 matrix; off-diagonal is covariance)
+# numpy (returns 2x2 matrix; off-diagonal is covariance)
 cov_matrix = np.cov(x, y)
 cov_xy = cov_matrix[0, 1]
 ```
-
----
 
 ### Pearson Correlation
 
@@ -200,18 +187,13 @@ $$r = \frac{\text{Cov}(x, y)}{s_x \cdot s_y} = \frac{\sum_{i=1}^n (x_i - \bar{x}
 $$r = \frac{1}{n-1} \sum_{i=1}^n z_{x_i} \cdot z_{y_i}$$
 
 ```{python}
-# Using numpy (returns 2x2 matrix; off-diagonal is correlation)
+# numpy (returns 2x2 matrix; off-diagonal is correlation)
 corr_matrix = np.corrcoef(x, y)
 r = corr_matrix[0, 1]
 
-# Using scipy (also gives p-value)
-from scipy.stats import pearsonr
-result = pearsonr(x, y)
-r = result.statistic
-p_value = result.pvalue
+# scipy (also gives p-value)
+st.pearsonr(x, y)
 ```
-
----
 
 ## Uncertainty
 
@@ -229,11 +211,11 @@ $$SE_{\bar{x}} = \frac{s}{\sqrt{n}}$$
 - SE decreases with $\sqrt{n}$, so you need 4× the sample size to halve the SE
 
 ```{python}
-se_mean = np.std(x, ddof=1) / np.sqrt(len(x))
+# numpy
+np.std(x, ddof=1) / np.sqrt(len(x))
 
-# Or using scipy
-from scipy.stats import sem
-se_mean = sem(x)
+# scipy
+st.sem(x)
 ```
 
 ::: {.callout-important title="SD vs. SE"}
@@ -243,21 +225,19 @@ se_mean = sem(x)
 They answer different questions!
 :::
 
----
-
-### Residual Variance
+### Model Variance / Average Error
 
 ::: {.callout-note icon=false title="Definition"}
 $$\hat{\sigma}^2 = \frac{\sum_i (y_i - \hat{y}_i)^2}{n - p - 1} = \frac{SSE}{n - p - 1}$$
 :::
 
-**Intuition:** The average squared residual, adjusted for degrees of freedom. Measures how much variance the model *doesn't* explain.
+**Intuition:** The average squared error, adjusted for the number of paramters (degrees of freedom). Measures how much variance the model *doesn't* explain.
 
 - $n$ = number of observations
 - $p$ = number of predictors (not counting intercept)
 - $n - p - 1$ = residual degrees of freedom
 
-We divide by $n - p - 1$ because we "used up" degrees of freedom estimating coefficients.
+We divide by $n - p - 1$ because it takes $p$ parameters to calculate $\hat{y}$.
 
 ```{python}
 n = len(y)
@@ -267,8 +247,6 @@ SSE = np.sum(residuals**2)
 sigma2_hat = SSE / (n - p - 1)
 sigma_hat = np.sqrt(sigma2_hat)  # residual standard deviation
 ```
-
----
 
 ### Variance of Coefficients
 
@@ -288,8 +266,6 @@ var_beta = sigma2_hat * np.linalg.inv(X.T @ X)
 # Diagonal elements are variances for each coefficient
 ```
 
----
-
 ### Standard Error of Coefficients
 
 ::: {.callout-note icon=false title="Definition"}
@@ -302,8 +278,6 @@ $$SE(\hat{\beta}_j) = \sqrt{\hat{\sigma}^2 \cdot [(\mathbf{X}^\top\mathbf{X})^{-
 se_beta = np.sqrt(np.diag(var_beta))
 ```
 
----
-
 ### Confidence Interval
 
 ::: {.callout-note icon=false title="Definition"}
@@ -315,11 +289,9 @@ For a 95% CI: $\alpha = 0.05$, so use $t_{0.025, \, df}$
 **Intuition:** A range of plausible values for the true coefficient. If we repeated the study many times, 95% of the intervals would contain the true $\beta$.
 
 ```{python}
-from scipy.stats import t
-
 confidence = 0.95
 df = n - p - 1
-t_crit = t.ppf((1 + confidence) / 2, df)
+t_crit = st.t.ppf((1 + confidence) / 2, df)
 
 ci_lower = beta_hat - t_crit * se_beta
 ci_upper = beta_hat + t_crit * se_beta
@@ -328,8 +300,6 @@ ci_upper = beta_hat + t_crit * se_beta
 ::: {.callout-tip title="CI and Significance"}
 If the 95% CI doesn't include 0, then $p < 0.05$ for the test that $\beta = 0$.
 :::
-
----
 
 ## Inference & Model Comparison
 
@@ -355,12 +325,9 @@ Under the null hypothesis, $t \sim t_{n-p-1}$ (t-distribution with $n - p - 1$ d
 t_stat = beta_hat / se_beta
 
 # p-values (two-tailed)
-from scipy.stats import t
 df = n - p - 1
-p_values = 2 * (1 - t.cdf(np.abs(t_stat), df))
+p_values = 2 * (1 - st.t.cdf(np.abs(t_stat), df))
 ```
-
----
 
 ### R-squared
 
@@ -384,8 +351,6 @@ SS_res = np.sum((y - y_hat)**2)
 R2 = 1 - SS_res / SS_tot
 ```
 
----
-
 ### F-Statistic
 
 ::: {.callout-note icon=false title="Definition"}
@@ -406,11 +371,8 @@ MS_error = SS_res / (n - p - 1)
 F_stat = MS_model / MS_error
 
 # p-value
-from scipy.stats import f
-p_value = 1 - f.cdf(F_stat, p, n - p - 1)
+p_value = 1 - st.f.cdf(F_stat, p, n - p - 1)
 ```
-
----
 
 ## The General Linear Model
 
@@ -446,35 +408,6 @@ X = np.column_stack([np.ones(n), x1, x2])  # shape: (n, p+1)
 y = np.array([...])  # shape: (n,)
 ```
 
----
-
-### OLS Estimator
-
-::: {.callout-note icon=false title="Definition"}
-$$\hat{\boldsymbol{\beta}} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{y}$$
-:::
-
-**Intuition:** OLS (Ordinary Least Squares) finds the coefficients that **minimize the sum of squared residuals**:
-$$\min_{\boldsymbol{\beta}} \sum_i (y_i - \hat{y}_i)^2$$
-
-Reading the formula:
-
-- $\mathbf{X}^\top\mathbf{y}$ captures how each predictor relates to the outcome
-- $(\mathbf{X}^\top\mathbf{X})^{-1}$ adjusts for relationships among predictors (removes redundancy)
-
-```{python}
-# Full formula
-XtX = X.T @ X
-XtX_inv = np.linalg.inv(XtX)
-Xty = X.T @ y
-beta_hat = XtX_inv @ Xty
-
-# Or use numpy's built-in (more numerically stable)
-beta_hat = np.linalg.lstsq(X, y, rcond=None)[0]
-```
-
----
-
 ### Predicted Values
 
 ::: {.callout-note icon=false title="Definition"}
@@ -486,8 +419,6 @@ $$\hat{\mathbf{y}} = \mathbf{X}\hat{\boldsymbol{\beta}}$$
 ```{python}
 y_hat = X @ beta_hat  # matrix multiplication
 ```
-
----
 
 ### Residuals
 
@@ -506,8 +437,6 @@ Or in matrix form: $\mathbf{e} = \mathbf{y} - \hat{\mathbf{y}}$
 ```{python}
 residuals = y - y_hat
 ```
-
----
 
 ## Summary: From Data to Inference
 
