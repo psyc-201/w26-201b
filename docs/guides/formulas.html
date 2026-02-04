@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Common Formulas Reference – PSYC 201B</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-9e05abaf0c4d7ef785fecc2ac9f6505e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.14.16/dist/main.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.14.16/dist/style.css" rel="stylesheet" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&amp;family=Lora&amp;family=PT+Sans:wght@400;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+</head><body class="nav-sidebar docked nav-fixed quarto-light"><marimo-filename hidden=""></marimo-filename>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../assets/custom.css">
+
+
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../logo25.png" alt="" class="navbar-logo light-content">
+    <img src="../logo25.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">PSYC 201B</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../guides/terminology.html"> 
+<span class="menu-text">Glossary</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-guides--resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Guides &amp; Resources</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-guides--resources">    
+        <li>
+    <a class="dropdown-item" href="../guides/git-guide.html">
+ <span class="dropdown-text">Git &amp; Github</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guides/classroom-guide.html">
+ <span class="dropdown-text">Github Classroom</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guides/python-resources.html">
+ <span class="dropdown-text">Python Resources</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guides/notation.html">
+ <span class="dropdown-text">Mathematical Notation Reference</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../guides/formulas.html">
+ <span class="dropdown-text">Common Formulas Reference</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://psyc201b.github.io/PSYC-201B/"> 
+<span class="menu-text">Previous course versions</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://forms.gle/eXfTXVqYxCCFbv9c7"> 
+<span class="menu-text">Anonymous Feedback</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/psyc-201/w26-201b" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Common Formulas Reference</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+  <div id="quarto-announcement" data-announcement-id="168069d033cf860c2caa96a467f40ee0" class="alert alert-success hidden"><i class="bi bi-megaphone-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>Site Updates:</strong> Slides Week 5, Anonymous feedback form,schedule updates</p>
+</div></div>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../weeks/01/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../weeks/01/lab/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">“Pre-flight” Lab Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../weeks/01/lab/python-fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python Fundamentals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../weeks/01/lab/polars-crash-course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Polars (dataframes) Crash Course</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../weeks/02/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../weeks/02/lab/seaborn-crash-course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Seaborn (plotting) Crash Course</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../weeks/02/lab/eda-workflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EDA Workflows</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../weeks/03/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../weeks/04/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 5</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../weeks/05/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-big-picture-data-model-error" id="toc-the-big-picture-data-model-error" class="nav-link active" data-scroll-target="#the-big-picture-data-model-error">The Big Picture: Data = Model + Error</a></li>
+  <li><a href="#aggregation-summarization" id="toc-aggregation-summarization" class="nav-link" data-scroll-target="#aggregation-summarization">Aggregation &amp; Summarization</a>
+  <ul class="collapse">
+  <li><a href="#mean" id="toc-mean" class="nav-link" data-scroll-target="#mean">Mean</a></li>
+  <li><a href="#median" id="toc-median" class="nav-link" data-scroll-target="#median">Median</a></li>
+  <li><a href="#mode" id="toc-mode" class="nav-link" data-scroll-target="#mode">Mode</a></li>
+  <li><a href="#variance" id="toc-variance" class="nav-link" data-scroll-target="#variance">Variance</a></li>
+  <li><a href="#standard-deviation" id="toc-standard-deviation" class="nav-link" data-scroll-target="#standard-deviation">Standard Deviation</a></li>
+  <li><a href="#standard-error-of-the-mean" id="toc-standard-error-of-the-mean" class="nav-link" data-scroll-target="#standard-error-of-the-mean">Standard Error of the Mean</a></li>
+  <li><a href="#z-score-standardization" id="toc-z-score-standardization" class="nav-link" data-scroll-target="#z-score-standardization">Z-Score (Standardization)</a></li>
+  </ul></li>
+  <li><a href="#relationships-similarity" id="toc-relationships-similarity" class="nav-link" data-scroll-target="#relationships-similarity">Relationships &amp; Similarity</a>
+  <ul class="collapse">
+  <li><a href="#dot-product" id="toc-dot-product" class="nav-link" data-scroll-target="#dot-product">Dot Product</a></li>
+  <li><a href="#covariance" id="toc-covariance" class="nav-link" data-scroll-target="#covariance">Covariance</a></li>
+  <li><a href="#pearson-correlation" id="toc-pearson-correlation" class="nav-link" data-scroll-target="#pearson-correlation">Pearson Correlation</a></li>
+  </ul></li>
+  <li><a href="#the-linear-model" id="toc-the-linear-model" class="nav-link" data-scroll-target="#the-linear-model">The Linear Model</a>
+  <ul class="collapse">
+  <li><a href="#the-model-equation" id="toc-the-model-equation" class="nav-link" data-scroll-target="#the-model-equation">The Model Equation</a></li>
+  <li><a href="#predicted-values" id="toc-predicted-values" class="nav-link" data-scroll-target="#predicted-values">Predicted Values</a></li>
+  <li><a href="#residuals" id="toc-residuals" class="nav-link" data-scroll-target="#residuals">Residuals</a></li>
+  <li><a href="#ols-estimator" id="toc-ols-estimator" class="nav-link" data-scroll-target="#ols-estimator">OLS Estimator</a></li>
+  <li><a href="#residual-variance-model-error" id="toc-residual-variance-model-error" class="nav-link" data-scroll-target="#residual-variance-model-error">Residual Variance (Model Error)</a></li>
+  <li><a href="#variance-of-coefficients" id="toc-variance-of-coefficients" class="nav-link" data-scroll-target="#variance-of-coefficients">Variance of Coefficients</a></li>
+  <li><a href="#standard-error-of-coefficients" id="toc-standard-error-of-coefficients" class="nav-link" data-scroll-target="#standard-error-of-coefficients">Standard Error of Coefficients</a></li>
+  </ul></li>
+  <li><a href="#model-fit" id="toc-model-fit" class="nav-link" data-scroll-target="#model-fit">Model Fit</a>
+  <ul class="collapse">
+  <li><a href="#pre-proportional-reduction-in-error" id="toc-pre-proportional-reduction-in-error" class="nav-link" data-scroll-target="#pre-proportional-reduction-in-error">PRE: Proportional Reduction in Error</a></li>
+  <li><a href="#r-squared" id="toc-r-squared" class="nav-link" data-scroll-target="#r-squared">R-squared</a></li>
+  <li><a href="#log-likelihood" id="toc-log-likelihood" class="nav-link" data-scroll-target="#log-likelihood">Log-Likelihood</a></li>
+  <li><a href="#aic-akaike-information-criterion" id="toc-aic-akaike-information-criterion" class="nav-link" data-scroll-target="#aic-akaike-information-criterion">AIC (Akaike Information Criterion)</a></li>
+  <li><a href="#bic-bayesian-information-criterion" id="toc-bic-bayesian-information-criterion" class="nav-link" data-scroll-target="#bic-bayesian-information-criterion">BIC (Bayesian Information Criterion)</a></li>
+  </ul></li>
+  <li><a href="#statistical-inference" id="toc-statistical-inference" class="nav-link" data-scroll-target="#statistical-inference">Statistical Inference</a>
+  <ul class="collapse">
+  <li><a href="#t-statistic" id="toc-t-statistic" class="nav-link" data-scroll-target="#t-statistic">t-Statistic</a></li>
+  <li><a href="#f-statistic" id="toc-f-statistic" class="nav-link" data-scroll-target="#f-statistic">F-Statistic</a></li>
+  <li><a href="#p-value" id="toc-p-value" class="nav-link" data-scroll-target="#p-value">p-value</a></li>
+  <li><a href="#confidence-interval" id="toc-confidence-interval" class="nav-link" data-scroll-target="#confidence-interval">Confidence Interval</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Common Formulas Reference</h1>
+<p class="subtitle lead">Definitions, intuitions, and code for statistical quantities</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-tip callout-titled" title="How to Use This Reference">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>How to Use This Reference
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Each formula includes:</p>
+<ul>
+<li><strong>Definition</strong> — the mathematical formula</li>
+<li><strong>Intuition</strong> — what it means conceptually</li>
+<li><strong>Code</strong> — <a href="https://numpy.org/doc/stable/"><code>numpy</code></a> and <a href="https://docs.scipy.org/doc/scipy/reference/stats.html"><code>scipy</code></a> to compute it</li>
+</ul>
+<p>See also: <a href="../guides/notation.html">Notation Reference</a> | <a href="../guides/terminology.html">Glossary</a></p>
+</div>
+</div>
+<div id="e3fc86fe" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> scipy <span class="im">import</span> stats <span class="im">as</span> st</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="the-big-picture-data-model-error" class="level2">
+<h2 class="anchored" data-anchor-id="the-big-picture-data-model-error">The Big Picture: Data = Model + Error</h2>
+<p>Every statistical analysis follows the same fundamental structure:</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="The Fundamental Equation">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The Fundamental Equation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[\text{Data} = \text{Model} + \text{Error}\]</span></p>
+<p>Or with symbols: <span class="math display">\[y_i = \hat{y}_i + e_i\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> We decompose each observation into:</p>
+<ol type="1">
+<li><strong>Model</strong> (<span class="math inline">\(\hat{y}\)</span>): Our best prediction based on some systematic pattern</li>
+<li><strong>Error</strong> (<span class="math inline">\(e\)</span>): Everything we can’t explain — noise, unmeasured factors, randomness</li>
+</ol>
+<p>All the formulas in this guide are variations on this theme:</p>
+<ul>
+<li><strong>Aggregation</strong>: The simplest model predicts the mean for everyone</li>
+<li><strong>Relationships</strong>: We improve predictions by using other variables</li>
+<li><strong>Model fit</strong>: How well does the model explain the data?</li>
+<li><strong>Inference</strong>: How confident are we in our conclusions?</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Two Perspectives, One Framework">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Two Perspectives, One Framework
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Whether you’re focused on <strong>explanation</strong> (understanding <em>why</em>) or <strong>prediction</strong> (forecasting <em>what</em>), the math is the same. The difference is in what you emphasize: coefficients (<span class="math inline">\(\hat{\beta}\)</span>) for explanation, predictions (<span class="math inline">\(\hat{y}\)</span>) for forecasting.</p>
+</div>
+</div>
+</section>
+<section id="aggregation-summarization" class="level2">
+<h2 class="anchored" data-anchor-id="aggregation-summarization">Aggregation &amp; Summarization</h2>
+<p>These formulas reduce a collection of values to a single summary. The <strong>mean</strong> is the foundation — it’s the simplest possible “model.”</p>
+<section id="mean" class="level3">
+<h3 class="anchored" data-anchor-id="mean">Mean</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> The mean is the <strong>best 1-parameter model</strong> for your data — if you had to guess a single value for everyone, the mean minimizes your total squared error.</p>
+<div id="d14fc3e5" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>np.mean(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="median" class="level3">
+<h3 class="anchored" data-anchor-id="median">Median</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[\tilde{x} = \begin{cases} x_{(\frac{n+1}{2})} &amp; \text{if } n \text{ is odd} \\[6pt] \frac{x_{(\frac{n}{2})} + x_{(\frac{n}{2}+1)}}{2} &amp; \text{if } n \text{ is even} \end{cases}\]</span></p>
+<p>where <span class="math inline">\(x_{(k)}\)</span> denotes the <span class="math inline">\(k\)</span>th value after sorting.</p>
+</div>
+</div>
+<p><strong>Intuition:</strong> The median is the <strong>middle value</strong> — it splits the data so 50% are above and 50% below. Unlike the mean, the median minimizes <strong>absolute</strong> error rather than squared error, making it robust to outliers.</p>
+<div id="f2771368" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>np.median(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="mode" class="level3">
+<h3 class="anchored" data-anchor-id="mode">Mode</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[\text{mode} = \arg\max_{x_i} P(X = x_i)\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> The <strong>most frequent value</strong> — the one that occurs with highest probability. Most useful for categorical or discrete data. A distribution can have multiple modes (bimodal, multimodal).</p>
+<div id="aead5916" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>st.mode(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="variance" class="level3">
+<h3 class="anchored" data-anchor-id="variance">Variance</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> Variance is the <strong>average squared prediction error</strong> when your model is just the mean. It measures how spread out the data are around the center.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Same Formula, Different Lens">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Same Formula, Different Lens
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Variance can be written as: <span class="math display">\[s^2 = \frac{SSE}{n - 1} = \frac{\sum(x_i - \bar{x})^2}{n - 1}\]</span></p>
+<p>This is <strong>Mean Squared Error (MSE)</strong> where the “model” is <span class="math inline">\(\bar{x}\)</span>. The connection between variance and model error runs throughout statistics.</p>
+</div>
+</div>
+<div id="eab1468e" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># ddof=1 gives sample variance (divides by n-1)</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>np.var(x, ddof<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Why n-1? Parameters, not 'degrees of freedom'">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why n-1? Parameters, not ‘degrees of freedom’
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We divide by <span class="math inline">\(n-1\)</span> rather than <span class="math inline">\(n\)</span> because we <strong>estimated one parameter</strong> (the mean) from the data before calculating variance.</p>
+<p>Think of it this way: to compute variance, we first need <span class="math inline">\(\bar{x}\)</span>. That’s one calculation that “uses up” information. We have <span class="math inline">\(n\)</span> data points but only <span class="math inline">\(n-1\)</span> independent pieces of information left for estimating spread.</p>
+<p>Throughout this guide, when you see <span class="math inline">\(n - k\)</span> in a denominator, <span class="math inline">\(k\)</span> is the <strong>number of parameters estimated</strong> to make the calculation possible.</p>
+</div>
+</div>
+</section>
+<section id="standard-deviation" class="level3">
+<h3 class="anchored" data-anchor-id="standard-deviation">Standard Deviation</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[s = \sqrt{s^2} = \sqrt{\frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2}\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> The square root of variance — puts spread back in the <strong>original units</strong> of the data.</p>
+<div id="bb3ce4ed" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>np.std(x, ddof<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="standard-error-of-the-mean" class="level3">
+<h3 class="anchored" data-anchor-id="standard-error-of-the-mean">Standard Error of the Mean</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[SE_{\bar{x}} = \frac{s}{\sqrt{n}}\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> How much would the sample mean vary if we repeated the study? SE quantifies <strong>uncertainty in the mean</strong>, not spread in individual observations.</p>
+<ul>
+<li>Larger <span class="math inline">\(n\)</span> → smaller SE (more data = more precise estimate)</li>
+<li>SE decreases with <span class="math inline">\(\sqrt{n}\)</span>, so 4× the sample size halves the SE</li>
+</ul>
+<div id="00bf70f8" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># numpy</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>np.std(x, ddof<span class="op">=</span><span class="dv">1</span>) <span class="op">/</span> np.sqrt(<span class="bu">len</span>(x))</span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co"># scipy</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>st.sem(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="SD vs. SE: Different Questions">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>SD vs.&nbsp;SE: Different Questions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Statistic</th>
+<th>Question it answers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>SD</strong> (<span class="math inline">\(s\)</span>)</td>
+<td>How spread out are <em>individual observations</em>?</td>
+</tr>
+<tr class="even">
+<td><strong>SE</strong> (<span class="math inline">\(SE_{\bar{x}}\)</span>)</td>
+<td>How precise is our estimate of <em>the mean</em>?</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="z-score-standardization" class="level3">
+<h3 class="anchored" data-anchor-id="z-score-standardization">Z-Score (Standardization)</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[z_i = \frac{x_i - \bar{x}}{s}\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> How many standard deviations is <span class="math inline">\(x_i\)</span> from the mean?</p>
+<ul>
+<li><span class="math inline">\(z = 0\)</span>: at the mean</li>
+<li><span class="math inline">\(z = 1\)</span>: one SD above the mean</li>
+<li><span class="math inline">\(z = -2\)</span>: two SDs below the mean</li>
+</ul>
+<p>Z-scores put variables on a common scale, enabling comparison across different measurements.</p>
+<div id="894aa879" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># numpy</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>(x <span class="op">-</span> np.mean(x)) <span class="op">/</span> np.std(x, ddof<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co"># scipy</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>st.zscore(x, ddof<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="relationships-similarity" class="level2">
+<h2 class="anchored" data-anchor-id="relationships-similarity">Relationships &amp; Similarity</h2>
+<p>These formulas describe how two variables relate. The core operation is the <strong>dot product</strong> — measuring how two vectors “point in the same direction.”</p>
+<section id="dot-product" class="level3">
+<h3 class="anchored" data-anchor-id="dot-product">Dot Product</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[\mathbf{x}^\top\mathbf{y} = \sum_{i=1}^n x_i y_i\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> Multiply corresponding elements and sum. If <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> tend to be large together (or small together), the dot product is large. This is the foundation for covariance, correlation, and regression.</p>
+<div id="ef569a38" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>np.dot(x, y)</span>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="co"># Equivalent</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>np.<span class="bu">sum</span>(x <span class="op">*</span> y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="covariance" class="level3">
+<h3 class="anchored" data-anchor-id="covariance">Covariance</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[\text{Cov}(x, y) = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> The <strong>mean-centered dot product</strong> — do <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> move together around their respective means?</p>
+<ul>
+<li>Positive: when <span class="math inline">\(x\)</span> is above its mean, <span class="math inline">\(y\)</span> tends to be too</li>
+<li>Negative: when <span class="math inline">\(x\)</span> is above its mean, <span class="math inline">\(y\)</span> tends to be below</li>
+<li>Zero: no linear relationship</li>
+</ul>
+<p>The magnitude depends on the scales of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, making covariance hard to interpret directly.</p>
+<div id="b7f7d6e0" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># numpy (returns 2x2 matrix; off-diagonal is covariance)</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>np.cov(x, y)[<span class="dv">0</span>, <span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="pearson-correlation" class="level3">
+<h3 class="anchored" data-anchor-id="pearson-correlation">Pearson Correlation</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[r = \frac{\text{Cov}(x, y)}{s_x \cdot s_y}\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> Covariance scaled to [-1, 1]. Measures <strong>strength and direction</strong> of linear relationship.</p>
+<ul>
+<li><span class="math inline">\(r = 1\)</span>: perfect positive relationship</li>
+<li><span class="math inline">\(r = -1\)</span>: perfect negative relationship</li>
+<li><span class="math inline">\(r = 0\)</span>: no linear relationship</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled" title="Same Formula, Different Lens">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Same Formula, Different Lens
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Correlation is the <strong>average dot product of z-scores</strong>: <span class="math display">\[r = \frac{1}{n-1} \sum_{i=1}^n z_{x_i} \cdot z_{y_i}\]</span></p>
+<p>When both variables are standardized, their dot product (similarity) <em>is</em> their correlation.</p>
+</div>
+</div>
+<div id="fed894d4" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># numpy</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>np.corrcoef(x, y)[<span class="dv">0</span>, <span class="dv">1</span>]</span>
+<span id="cb11-3"><a href="#cb11-3"></a></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="co"># scipy (includes p-value)</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>st.pearsonr(x, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="the-linear-model" class="level2">
+<h2 class="anchored" data-anchor-id="the-linear-model">The Linear Model</h2>
+<p>Now we move from describing single variables and relationships to <strong>building predictive models</strong>. The General Linear Model (GLM) is the workhorse of statistics.</p>
+<section id="the-model-equation" class="level3">
+<h3 class="anchored" data-anchor-id="the-model-equation">The Model Equation</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Single observation:</strong> <span class="math display">\[y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_p x_{ip} + \epsilon_i\]</span></p>
+<p><strong>Matrix form:</strong> <span class="math display">\[\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon}\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> Each observation equals a linear combination of predictors plus random error. The coefficients (<span class="math inline">\(\beta\)</span>) tell us how much each predictor contributes.</p>
+<div id="3e77cbea" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Design matrix: first column is 1s for intercept</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>X <span class="op">=</span> np.column_stack([np.ones(n), x1, x2])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="predicted-values" class="level3">
+<h3 class="anchored" data-anchor-id="predicted-values">Predicted Values</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[\hat{y}_i = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_p x_{ip}\]</span></p>
+<p><strong>Matrix form:</strong> <span class="math display">\[\hat{\mathbf{y}} = \mathbf{X}\hat{\boldsymbol{\beta}}\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> The model’s best guess for each observation — the “Model” part of Data = Model + Error.</p>
+<div id="823cd660" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>y_hat <span class="op">=</span> X <span class="op">@</span> beta_hat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="residuals" class="level3">
+<h3 class="anchored" data-anchor-id="residuals">Residuals</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[e_i = y_i - \hat{y}_i\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> The “Error” part of Data = Model + Error. What’s left after the model makes its prediction.</p>
+<ul>
+<li>Positive residual: model under-predicted</li>
+<li>Negative residual: model over-predicted</li>
+<li>Patterns in residuals suggest the model is missing something</li>
+</ul>
+<div id="395ece1a" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>residuals <span class="op">=</span> y <span class="op">-</span> y_hat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="ols-estimator" class="level3">
+<h3 class="anchored" data-anchor-id="ols-estimator">OLS Estimator</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[\hat{\boldsymbol{\beta}} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{y}\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> OLS (Ordinary Least Squares) finds coefficients that <strong>minimize total squared error</strong>: <span class="math display">\[\min_{\boldsymbol{\beta}} \sum_i (y_i - \hat{y}_i)^2\]</span></p>
+<p>Reading the formula:</p>
+<ul>
+<li><span class="math inline">\(\mathbf{X}^\top\mathbf{y}\)</span>: how each predictor relates to the outcome</li>
+<li><span class="math inline">\((\mathbf{X}^\top\mathbf{X})^{-1}\)</span>: adjusts for relationships among predictors</li>
+</ul>
+<div id="8b064113" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Full formula</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>beta_hat <span class="op">=</span> np.linalg.inv(X.T <span class="op">@</span> X) <span class="op">@</span> X.T <span class="op">@</span> y</span>
+<span id="cb15-3"><a href="#cb15-3"></a></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="co"># More stable</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>beta_hat <span class="op">=</span> np.linalg.lstsq(X, y, rcond<span class="op">=</span><span class="va">None</span>)[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="residual-variance-model-error" class="level3">
+<h3 class="anchored" data-anchor-id="residual-variance-model-error">Residual Variance (Model Error)</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[\hat{\sigma}^2 = \frac{\sum_i (y_i - \hat{y}_i)^2}{n - p - 1} = \frac{SSE}{n - p - 1}\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> The <strong>average squared prediction error</strong> of the model. This is the same structure as variance, but now:</p>
+<ul>
+<li>The “model” is the regression line (not just the mean)</li>
+<li>We’ve estimated <span class="math inline">\(p + 1\)</span> parameters (intercept + <span class="math inline">\(p\)</span> slopes)</li>
+<li>So we divide by <span class="math inline">\(n - (p + 1) = n - p - 1\)</span></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled" title="Same Formula, Different Lens">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Same Formula, Different Lens
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Statistic</th>
+<th>Model</th>
+<th>Parameters</th>
+<th>Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Variance</td>
+<td>Mean only</td>
+<td>1</td>
+<td><span class="math inline">\(SSE / (n - 1)\)</span></td>
+</tr>
+<tr class="even">
+<td>Residual variance</td>
+<td>Regression</td>
+<td><span class="math inline">\(p + 1\)</span></td>
+<td><span class="math inline">\(SSE / (n - p - 1)\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Both are “average squared error” — they differ only in what model generated the predictions.</p>
+</div>
+</div>
+<div id="bd9798e8" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>n <span class="op">=</span> <span class="bu">len</span>(y)</span>
+<span id="cb16-2"><a href="#cb16-2"></a>p <span class="op">=</span> X.shape[<span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>  <span class="co"># predictors (not counting intercept)</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>SSE <span class="op">=</span> np.<span class="bu">sum</span>(residuals<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb16-4"><a href="#cb16-4"></a>sigma2_hat <span class="op">=</span> SSE <span class="op">/</span> (n <span class="op">-</span> p <span class="op">-</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="variance-of-coefficients" class="level3">
+<h3 class="anchored" data-anchor-id="variance-of-coefficients">Variance of Coefficients</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[\text{Var}(\hat{\boldsymbol{\beta}}) = \hat{\sigma}^2 (\mathbf{X}^\top\mathbf{X})^{-1}\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> How uncertain are we about each coefficient?</p>
+<ul>
+<li>Larger <span class="math inline">\(\hat{\sigma}^2\)</span> (noisier data) → more uncertainty</li>
+<li>Diagonal of <span class="math inline">\((\mathbf{X}^\top\mathbf{X})^{-1}\)</span> reflects predictor spread and collinearity</li>
+</ul>
+<div id="cc10d84f" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a>var_beta <span class="op">=</span> sigma2_hat <span class="op">*</span> np.linalg.inv(X.T <span class="op">@</span> X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="standard-error-of-coefficients" class="level3">
+<h3 class="anchored" data-anchor-id="standard-error-of-coefficients">Standard Error of Coefficients</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[SE(\hat{\beta}_j) = \sqrt{\text{Var}(\hat{\beta}_j)}\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> Uncertainty in the same units as the coefficient. Used for t-tests and confidence intervals.</p>
+<div id="0b77777c" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>se_beta <span class="op">=</span> np.sqrt(np.diag(var_beta))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="model-fit" class="level2">
+<h2 class="anchored" data-anchor-id="model-fit">Model Fit</h2>
+<p>How well does the model explain the data?</p>
+<section id="pre-proportional-reduction-in-error" class="level3">
+<h3 class="anchored" data-anchor-id="pre-proportional-reduction-in-error">PRE: Proportional Reduction in Error</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[PRE = \frac{SSE_C - SSE_A}{SSE_C}\]</span></p>
+<p>where <span class="math inline">\(C\)</span> = compact (simpler) model, <span class="math inline">\(A\)</span> = augmented (complex) model</p>
+</div>
+</div>
+<p><strong>Intuition:</strong> What proportion of the simpler model’s error is eliminated by the complex model?</p>
+<ul>
+<li><span class="math inline">\(PRE = 0\)</span>: complex model is no better</li>
+<li><span class="math inline">\(PRE = 1\)</span>: complex model explains everything the simple model missed</li>
+<li><span class="math inline">\(PRE = 0.10\)</span>: complex model reduces error by 10%</li>
+</ul>
+<div id="81a62296" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>PRE <span class="op">=</span> (SSE_compact <span class="op">-</span> SSE_augmented) <span class="op">/</span> SSE_compact</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="r-squared" class="level3">
+<h3 class="anchored" data-anchor-id="r-squared">R-squared</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[R^2 = 1 - \frac{SS_{res}}{SS_{tot}} = \frac{SS_{tot} - SS_{res}}{SS_{tot}}\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> What proportion of variance does the model explain?</p>
+<ul>
+<li><span class="math inline">\(R^2 = 0\)</span>: model explains nothing</li>
+<li><span class="math inline">\(R^2 = 1\)</span>: model explains everything</li>
+<li><span class="math inline">\(R^2 = 0.3\)</span>: model explains 30% of variance</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled" title="Same Formula, Different Lens">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Same Formula, Different Lens
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(R^2\)</span> <strong>is</strong> PRE when:</p>
+<ul>
+<li>Compact model = “predict the mean for everyone”</li>
+<li>Augmented model = “predict using regression”</li>
+</ul>
+<p><span class="math display">\[R^2 = \frac{SSE(\text{mean}) - SSE(\text{regression})}{SSE(\text{mean})} = PRE\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Caution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(R^2\)</span> always increases when you add predictors, even useless ones. Use adjusted <span class="math inline">\(R^2\)</span>, AIC, or BIC for model selection.</p>
+</div>
+</div>
+<div id="dd3b101d" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>SS_tot <span class="op">=</span> np.<span class="bu">sum</span>((y <span class="op">-</span> np.mean(y))<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb20-2"><a href="#cb20-2"></a>SS_res <span class="op">=</span> np.<span class="bu">sum</span>((y <span class="op">-</span> y_hat)<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb20-3"><a href="#cb20-3"></a>R2 <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> SS_res <span class="op">/</span> SS_tot</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="log-likelihood" class="level3">
+<h3 class="anchored" data-anchor-id="log-likelihood">Log-Likelihood</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[\log L = \sum_{i=1}^n \log p(y_i \mid \hat{\theta})\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> How probable is the observed data under the fitted model? Higher (less negative) is better.</p>
+<ul>
+<li>Foundation for AIC, BIC, and likelihood ratio tests</li>
+<li>Used for comparing models fit with Maximum Likelihood</li>
+</ul>
+<div id="0a7a32d6" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># For a linear model with normal errors</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>log_lik <span class="op">=</span> <span class="op">-</span>n<span class="op">/</span><span class="dv">2</span> <span class="op">*</span> np.log(<span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">*</span> sigma2_hat) <span class="op">-</span> SSE <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> sigma2_hat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="aic-akaike-information-criterion" class="level3">
+<h3 class="anchored" data-anchor-id="aic-akaike-information-criterion">AIC (Akaike Information Criterion)</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[AIC = -2 \log L + 2k\]</span></p>
+<p>where <span class="math inline">\(k\)</span> = number of parameters</p>
+</div>
+</div>
+<p><strong>Intuition:</strong> Balances fit against complexity. The <span class="math inline">\(2k\)</span> term <strong>penalizes</strong> adding parameters.</p>
+<ul>
+<li>Lower AIC = better model</li>
+<li>Difference of 2+ is meaningful; &lt;2 is negligible</li>
+</ul>
+<div id="49ac93ff" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>k <span class="op">=</span> p <span class="op">+</span> <span class="dv">2</span>  <span class="co"># slopes + intercept + sigma^2</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>AIC <span class="op">=</span> <span class="op">-</span><span class="dv">2</span> <span class="op">*</span> log_lik <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> k</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="bic-bayesian-information-criterion" class="level3">
+<h3 class="anchored" data-anchor-id="bic-bayesian-information-criterion">BIC (Bayesian Information Criterion)</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[BIC = -2 \log L + k \log(n)\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> Like AIC but with a <strong>stronger penalty</strong> for complexity (especially with large <span class="math inline">\(n\)</span>).</p>
+<ul>
+<li>Lower BIC = better model</li>
+<li>Tends to select simpler models than AIC</li>
+</ul>
+<div id="5fa512f9" class="cell" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>BIC <span class="op">=</span> <span class="op">-</span><span class="dv">2</span> <span class="op">*</span> log_lik <span class="op">+</span> k <span class="op">*</span> np.log(n)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="AIC vs BIC">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>AIC vs BIC
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>Penalty</th>
+<th>Tends to select</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AIC</td>
+<td><span class="math inline">\(2k\)</span></td>
+<td>Better predictions (may overfit)</td>
+</tr>
+<tr class="even">
+<td>BIC</td>
+<td><span class="math inline">\(k \log(n)\)</span></td>
+<td>Simpler models (more conservative)</td>
+</tr>
+</tbody>
+</table>
+<p>Neither is “correct” — they answer slightly different questions about model quality.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="statistical-inference" class="level2">
+<h2 class="anchored" data-anchor-id="statistical-inference">Statistical Inference</h2>
+<p>How confident are we in our conclusions? Statistical inference provides tools for testing hypotheses about parameters and comparing models.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Two Sides of the Same Coin">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Two Sides of the Same Coin
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 44%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Test</th>
+<th>What it tests</th>
+<th>When to use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>t-statistic</strong></td>
+<td>Is a <em>single parameter</em> different from 0?</td>
+<td>Testing individual coefficients</td>
+</tr>
+<tr class="even">
+<td><strong>F-statistic</strong></td>
+<td>Do <em>multiple parameters together</em> improve the model?</td>
+<td>Comparing nested models</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key insight:</strong> When testing a single parameter, <span class="math inline">\(F = t^2\)</span>. The F-test generalizes the t-test to multiple parameters simultaneously.</p>
+</div>
+</div>
+<section id="t-statistic" class="level3">
+<h3 class="anchored" data-anchor-id="t-statistic">t-Statistic</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[t = \frac{\hat{\beta}_j}{SE(\hat{\beta}_j)}\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> Signal-to-noise ratio for a single coefficient. How many standard errors is the estimate from zero?</p>
+<ul>
+<li><span class="math inline">\(|t| &gt; 2\)</span> roughly corresponds to <span class="math inline">\(p &lt; 0.05\)</span></li>
+<li>Larger <span class="math inline">\(|t|\)</span> = stronger evidence the coefficient isn’t zero</li>
+</ul>
+<div id="eabc3c63" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a>t_stat <span class="op">=</span> beta_hat <span class="op">/</span> se_beta</span>
+<span id="cb24-2"><a href="#cb24-2"></a>p_values <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> st.t.cdf(np.<span class="bu">abs</span>(t_stat), n <span class="op">-</span> p <span class="op">-</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="f-statistic" class="level3">
+<h3 class="anchored" data-anchor-id="f-statistic">F-Statistic</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[F = \frac{(SSE_C - SSE_A) / (p_A - p_C)}{SSE_A / (n - p_A)}\]</span></p>
+<p>Or equivalently: <span class="math display">\[F = \frac{PRE / (p_A - p_C)}{(1 - PRE) / (n - p_A)}\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> Is the error reduction “worth it”? The F-statistic is a ratio:</p>
+<ul>
+<li><strong>Numerator</strong>: Error reduction <em>per added parameter</em></li>
+<li><strong>Denominator</strong>: Remaining error <em>per observation</em> (adjusted for parameters)</li>
+</ul>
+<p>If the added parameters help, <span class="math inline">\(F &gt;&gt; 1\)</span>.</p>
+<div id="ee7b2277" class="cell" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># Comparing compact vs augmented model</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>df1 <span class="op">=</span> p_A <span class="op">-</span> p_C  <span class="co"># parameters added</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a>df2 <span class="op">=</span> n <span class="op">-</span> p_A    <span class="co"># residual df for augmented model</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a>F_stat <span class="op">=</span> (PRE <span class="op">/</span> df1) <span class="op">/</span> ((<span class="dv">1</span> <span class="op">-</span> PRE) <span class="op">/</span> df2)</span>
+<span id="cb25-5"><a href="#cb25-5"></a></span>
+<span id="cb25-6"><a href="#cb25-6"></a><span class="co"># p-value</span></span>
+<span id="cb25-7"><a href="#cb25-7"></a>p_value <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> st.f.cdf(F_stat, df1, df2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="p-value" class="level3">
+<h3 class="anchored" data-anchor-id="p-value">p-value</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[p = P(\text{test statistic at least as extreme} \mid H_0 \text{ true})\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> If there were truly no effect, how surprising would our result be?</p>
+<ul>
+<li>Small <span class="math inline">\(p\)</span> (e.g., &lt; 0.05): result is unlikely under the null → reject <span class="math inline">\(H_0\)</span></li>
+<li>Large <span class="math inline">\(p\)</span>: result is compatible with the null → fail to reject <span class="math inline">\(H_0\)</span></li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled" title="What p-values are NOT">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>What p-values are NOT
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>NOT the probability the null is true</li>
+<li>NOT the probability of replication</li>
+<li>NOT a measure of effect size</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="confidence-interval" class="level3">
+<h3 class="anchored" data-anchor-id="confidence-interval">Confidence Interval</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[\hat{\beta}_j \pm t_{\alpha/2} \cdot SE(\hat{\beta}_j)\]</span></p>
+</div>
+</div>
+<p><strong>Intuition:</strong> A range of plausible values for the true parameter. If we repeated the study many times, 95% of intervals would contain the true <span class="math inline">\(\beta\)</span>.</p>
+<ul>
+<li>If the CI excludes 0, the coefficient is “significant” at that level</li>
+<li>Wider CI = more uncertainty</li>
+</ul>
+<div id="18103697" class="cell" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>t_crit <span class="op">=</span> st.t.ppf(<span class="fl">0.975</span>, df<span class="op">=</span>n <span class="op">-</span> p <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb26-2"><a href="#cb26-2"></a>ci_lower <span class="op">=</span> beta_hat <span class="op">-</span> t_crit <span class="op">*</span> se_beta</span>
+<span id="cb26-3"><a href="#cb26-3"></a>ci_upper <span class="op">=</span> beta_hat <span class="op">+</span> t_crit <span class="op">*</span> se_beta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 36%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Category</th>
+<th>What it does</th>
+<th>Key formulas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Aggregation</strong></td>
+<td>Summarize a variable</td>
+<td>Mean, Median, Mode, Variance, SD, SE</td>
+</tr>
+<tr class="even">
+<td><strong>Relationships</strong></td>
+<td>Measure association</td>
+<td>Covariance, Correlation</td>
+</tr>
+<tr class="odd">
+<td><strong>Linear Model</strong></td>
+<td>Predict outcomes</td>
+<td>OLS, Residuals, <span class="math inline">\(\hat{\sigma}^2\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Model Fit</strong></td>
+<td>Evaluate model quality</td>
+<td>PRE, <span class="math inline">\(R^2\)</span>, Log-lik, AIC, BIC</td>
+</tr>
+<tr class="odd">
+<td><strong>Inference</strong></td>
+<td>Test hypotheses</td>
+<td>t-stat, F-stat, p-value, CI</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The workflow:</strong></p>
+<ol type="1">
+<li><strong>Specify</strong> → What’s your model? (Design matrix <span class="math inline">\(\mathbf{X}\)</span>, outcome <span class="math inline">\(\mathbf{y}\)</span>)</li>
+<li><strong>Estimate</strong> → Fit parameters (<span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span>)</li>
+<li><strong>Evaluate</strong> → How good is the fit? (<span class="math inline">\(R^2\)</span>, AIC, BIC)</li>
+<li><strong>Compare</strong> → Is complexity worth it? (PRE, F-test)</li>
+<li><strong>Infer</strong> → What can we conclude? (t-tests, CIs, p-values)</li>
+</ol>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
