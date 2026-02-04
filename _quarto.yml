@@ -53,6 +53,8 @@ website:
           - guides/git-guide.qmd
           - guides/classroom-guide.qmd
           - guides/python-resources.qmd
+          - guides/formulas.md
+          - guides/modeling.qmd
       - text: Previous course versions
         href: https://psyc201b.github.io/PSYC-201B/
       - text: Anonymous Feedback
