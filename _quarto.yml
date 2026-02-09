@@ -12,8 +12,8 @@ project:
     - "!slides/"
     - "!classroom/"
     - "!weeks/**/prep/"
-    - "!weeks/0[6-9]/**"
-    - "!weeks/[6-9][0-9]/**"
+    - "!weeks/0[7-9]/**"
+    - "!weeks/[7-9][0-9]/**"
 
 # filters:
   # - marimo-team/marimo
@@ -32,7 +32,7 @@ website:
   announcement:
     icon: megaphone-fill
     dismissable: false
-    content: "**Site Updates:** Slides Week 5, Anonymous feedback form,schedule updates"
+    content: "**Site Updates:** Final Project Details, Slides Week 6"
     type: success
     position: below-navbar
   title: "PSYC 201B"
@@ -46,12 +46,12 @@ website:
     left:
       - text: Schedule
         href: schedule.qmd
-      - text: Glossary
-        href: guides/terminology.qmd
-      - text: Open Datasets
-        href: datasets.qmd
       - text: Final Project
         href: weeks/final/project.qmd
+      - text: Open Datasets
+        href: datasets.qmd
+      - text: Glossary
+        href: guides/terminology.qmd
       - text: Guides & Resources
         menu:
           - guides/git-guide.qmd
@@ -59,10 +59,10 @@ website:
           - guides/python-resources.qmd
           - guides/notation.qmd
           - guides/formulas.qmd
-      - text: Previous course versions
-        href: https://psyc201b.github.io/PSYC-201B/
       - text: Anonymous Feedback
         href: https://forms.gle/eXfTXVqYxCCFbv9c7
+      - text: Previous course versions
+        href: https://psyc201b.github.io/PSYC-201B/
 
   sidebar:
     - id: weeks
@@ -99,6 +99,10 @@ website:
           contents:
             - text: "Overview"
               href: weeks/05/index.qmd
+        - section: "Week 6"
+          contents:
+            - text: "Overview"
+              href: weeks/06/index.qmd
 
 bibliography: references.bib
 

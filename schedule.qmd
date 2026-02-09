@@ -9,50 +9,50 @@ In total, we'll aim to cover in total: **~4-5 HWs** and **~6-7 labs**
 :::
 
 ::: {.completed-weeks}
-| Week | Date       | Content                                                            | Assignment Due?                                               |
+| Week | Date | Content | Assignment Due? |
 |------|------------|--------------------------------------------------------------------|---------------------------------------------------------------|
-| 1    | Mon Jan 5  | Course Intro                                                       | *N/A*                                                         |
-| 1    | Tues Jan 6 | Laptop setup, Github Clasroom workflow, `quarto`, Python notebooks | `push` [lab 01](/weeks/01/#materials) at least once           |
-| 1    | Wed Jan 6  | Python essentials, dataframes, meet `polars`                       | `push` *updated* [lab 01](/weeks/01/#materials) at least once |
-| 2    | Mon Jan 12   | Two cultures of statistics, sampling theory               | **skim readings for Wed Jan 14** |
-| 2    | Tues Jan 13  | Data visualization, meet `seaborn` & `matplotlib`         | `push` lab 02 at least once      |
-| 2    | Wed Jan 14   | What is a model? Model-based thinking                     | `push` **HW 1 by Tues Jan 20**   |
-| *3*  | *Mon Jan 19* | *No class holiday*                                        | -                                |
-| 3    | Tues Jan 20  | HW 1 review; Python Q&A                                   | `push` **HW 1 by 1pm**           |
-| 3    | Wed Jan 21   | Hypothesis testing as model comparison                    | -                              |
-| 4    | Mon Jan 26   | Statistics for Hackers: Resampling approaches             | *N/A*                                 |
-| 4    | Tues Jan 27  | Monte-carlo simulation & bootstrap resampling             | `push` lab 03 at least once           |
-| 4    | Wed Jan 28   | Permutation testing & cross-validation                    | `push` **HW 2 by Midnight Mon Feb 1** |
-| *5*  | *Mon Feb 2*  | *No class, prospective interviews*                         | *N/A*                                 |
+| 1 | Mon Jan 5 | Course Intro | _N/A_ |
+| 1 | Tues Jan 6 | Laptop setup, Github Clasroom workflow, `quarto`, Python notebooks | `push` [lab 01](/weeks/01/#materials) at least once |
+| 1 | Wed Jan 6 | Python essentials, dataframes, meet `polars` | `push` _updated_ [lab 01](/weeks/01/#materials) at least once |
+| 2 | Mon Jan 12 | Two cultures of statistics, sampling theory | **skim readings for Wed Jan 14** |
+| 2 | Tues Jan 13 | Data visualization, meet `seaborn` & `matplotlib` | `push` lab 02 at least once |
+| 2 | Wed Jan 14 | What is a model? Model-based thinking | `push` **HW 1 by Tues Jan 20** |
+| _3_ | _Mon Jan 19_ | _No class holiday_ | - |
+| 3 | Tues Jan 20 | HW 1 review; Python Q&A | `push` **HW 1 by 1pm** |
+| 3 | Wed Jan 21 | Hypothesis testing as model comparison | - |
+| 4 | Mon Jan 26 | Statistics for Hackers: Resampling approaches | _N/A_ |
+| 4 | Tues Jan 27 | Monte-carlo simulation & bootstrap resampling | `push` lab 03 at least once |
+| 4 | Wed Jan 28 | Permutation testing & cross-validation | `push` **HW 2 by Midnight Mon Feb 1** |
+| _5_ | _Mon Feb 2_ | _No class, prospective interviews_ | _N/A_ |
+| 5 | Tues Feb 3 | HW 2 review; GLM Foundations | - |
+| 5 | Wed Feb 4 | GLM II | **checkout [linear algebra materials](/weeks/05/#mentioned-references) for Mon Feb 9** |
 :::
 
-| Week | Date         | Content                                                    | Assignment Due?                       |
-|------|--------------|------------------------------------------------------------|---------------------------------------|
-| 5    | Tues Feb 3   | HW 2 review; GLM Foundations                               | -                                     |
-| 5    | Wed Feb 4    | GLM II                                                     | **checkout [linear algebra materials](/weeks/05/#mentioned-references) for Mon Feb 9** |
-| 6    | Mon Feb 9    | Modeling, meet `bossanova`                                 | `push` lab at least once              |
-| 6    | Tues Feb 10  | Models as tools: inference, prediction, exploration        | `push` lab at least once              |
-| 6    | Wed Feb 11   | **[Final Project](/weeks/final/project.qmd) planning**     | **chat with instructors before leaving** |
-| *7*  | *Mon Feb 16* | *No class holiday*                                         | -                                     |
-| 7    | Tues Feb 17  | Extending the GLM                                          | `push` lab at least once              |
-| 7    | Wed Feb 18   | LMM I                                                      | `push` **HW 3 by Midnight Mon Feb 23** |
-| 8    | Mon Feb 23   | LMMs II                                                    | -                                   |
-| 8    | Tues Feb 24  | HW 3 review                                                | -                                   |
-| 8    | Wed Feb 25   | TBD                                                        | `push` **HW 4 by Midnight Mar 2**      |
-| 9    | Mon Mar 2    | TBD                                                        | TBD                                   |
-| 9    | Tues Mar 3   | HW 4 reivew; TBD                                           | TBD                                   |
-| 9    | Wed Mar 4    | TBD                                                        | TBD                                   |
-| 10   | Mon Mar 9    | *final project time*                                       | -                                     |
-| 10   | Tues Mar 10  | *final project time*                                       | -                                     |
-| 10   | Wed Mar 11   | Course Wrap-Up                                             | -                                     |
-| FW   | Mar 16-18    | *work on final project*                                    | `push` **[Final Project](/weeks/final/project.qmd) by TBD** |
-: *Tentative schedule*
+| Week | Date         | Content                                                | Assignment Due?                                             |
+| ---- | ------------ | ------------------------------------------------------ | ----------------------------------------------------------- |
+| 6    | Mon Feb 9    | GLM III                                                | -                                                           |
+| 6    | Tues Feb 10  | Meet `bossanova`                                       | `push` lab at least once                                    |
+| 6    | Wed Feb 11   | **[Final Project](/weeks/final/project.qmd) planning** | `push` **HW 3 by Midnight Mon Feb 16**                      |
+| _7_  | _Mon Feb 16_ | _No class holiday_                                     | -                                                           |
+| 7    | Tues Feb 17  | HW 3 review                                            | `push` lab at least once                                    |
+| 7    | Wed Feb 18   | GLM IV                                                 |                               -                            |
+| 8    | Mon Feb 23   | LMMs I                                                 | -                                                           |
+| 8    | Tues Feb 24  | LMMs II                                                | `push` **HW 4 by Midnight Mon Mar 2**                       |
+| 8    | Wed Feb 25   | LMMs III                                               | **Final Project Proposal Due**                                                            |
+| 9    | Mon Mar 2    | TBD                                                    | -                                                         |
+| 9    | Tues Mar 3   | HW 4 review                                            | -                                                         |
+| 9    | Wed Mar 4    | TBD                                                    | -                                                         |
+| 10   | Mon Mar 9    | _final project time_                                   | -                                                           |
+| 10   | Tues Mar 10  | _final project time_                                   | -                                                           |
+| 10   | Wed Mar 11   | Course Wrap-Up                                         | -                                                           |
+| FW   | Tues Mar 17  | Final Project Deadline                                 | `push` **[Final Project](/weeks/final/project.qmd)** |
 
+: _Tentative schedule_
 
 <!-- Planning -->
 <!-- | 9    | Mon Mar 2    | Regularization: ridge, Tikhonov, Bayes                        | TBD                                      |
 | 9    | Tues Mar 3   | Neural Networks: convolution, recursion, & attention          | `push` lab 09 at least once              |
-| 9    | Wed Mar 4    | Timeseries: stationarity & auto-correlation                   | TBD                                      | 
+| 9    | Wed Mar 4    | Timeseries: stationarity & auto-correlation                   | TBD                                      |
 
 | 5    | Mon Feb 2    | Marginal effects estimation & prediction                  | TBD                              |
 | 5    | Tues Feb 3   | Parameter inference & uncertainty                         | TBD                              |

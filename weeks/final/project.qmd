@@ -6,101 +6,73 @@ format:
     page-layout: full
 ---
 
-## Overview
+*All deadlines mean by midnight that day. So Wed Feb 11th means by 12:00am.*
 
-The final project is your opportunity to apply the statistical modeling skills you've learned throughout the course to a real dataset. Your deliverable is a **publication-quality abstract, methods section, and results section** — the kind you'd submit to a journal — rendered as a reproducible `.qmd` document with all supporting code.
+| Week | Date | Milestone |
+| ----- |------|-----------|
+|  6   | Wed Feb 11 | Initial meeting with instructors |
+|  8   | Wed Feb 25 | Project proposal due |
+|  Finals  | Tues Mar 17 | Final project due |
 
-:::{.callout-tip}
-Looking for data? Check out the [Open Datasets](/datasets.qmd) page for a curated collection of publicly available datasets.
-:::
+The final project is your opportunity to apply the statistical modeling skills you've learned throughout the course to a real dataset. Your deliverable is a **publication-quality Abstract, Methods, & Results document** — the kind you'd submit to a journal as part of a full manuscript — rendered as a reproducible `.qmd` document with all supporting materials (e.g. code, data) in a github repository. Your instructors will grade you based on the [rubric](#rubric) which isn't designed to trick you, but help you focus on these core skills:
 
-## Timeline
+1. **Research Question**
+  - Formulate a clear, answerable research question that requires statistical analysis given an *existing* dataset
+  - What inference(s) are you hoping to make? What assumptions might those require? How will you validate this?
+  - We *do not* want you to collect new data or design a new experiment. Instead you should focus on acquiring, cleaning, and organizing an existing dataset to make it amenable to your research question(s).
+2. **Data Analysis**
+  - *Exploratory Data Analysis* — Summary statistics, visualizations, data quality assessment
+  - *Statistical Modeling* — You hypotheses articulated as statistical model(s) with diagnostic evaluation where appropriate
+  - *Inference/Prediction* — Approaches relevant to your question: parameter inference, cross-validated prediction performance, etc
+  - *Interpretation* — What do the results mean? How do they relate to your assumptions? What future directions?
 
-| Date | Milestone |
-|------|-----------|
-| Wed, Feb 11 | Initial meeting with instructors |
-| Week 8 (Feb 27) | Project proposal due (via GitHub Classroom) |
-| Week 10 (Mar 13) | Draft analysis due (optional feedback) |
-| Saturday, Mar 21 | Final project due |
+## 1. Pick Solo or Group
 
-## Project Options
-
-:::{.callout-important}
-In all cases, you must choose a **new question** to answer — not something you or someone else has previously analyzed. The dataset can be familiar, but the research question must be original.
-:::
-
-### Solo or Group
-
-You may work **solo** or in a **group**. If working in a group, see the [additional requirements below](#group-requirements).
-
-### Dataset
-
-Regardless of solo or group, choose one of the following:
-
-1. **Existing dataset from your 201A or first-year project** — a dataset you already have access to from prior coursework or your first-year research
-2. **Existing dataset in your lab** — data your lab has collected that you have permission to use
-3. **New open dataset** — find one from the [Open Datasets](/datasets.qmd) page
-4. **New simulated dataset** — generate synthetic data to answer your question (discuss with instructors first)
-
-### Group Requirements {#group-requirements}
-
-Groups may provide a single submission, but you must:
+You may work **solo** or in a **group**. In either case you'll use a project template that we'll provide in a few weeks, configured like our labs and HWs (Python environment, Quarto, Notebooks). Groups may provide a single submission, but you must:
 
 - Include a [CRediT author statement](https://www.elsevier.com/researcher/author/policies-and-guidelines/credit-author-statement) describing each member's contributions
-- Demonstrate evidence of collaboration via GitHub — each person must contribute at least 1 commit to the project repository
+- Demonstrate evidence of collaboration via GitHub — each person must contribute at least 1 commit/PR to the project repository
 
-## Requirements
+## 2. Pick a Dataset
 
-### 1. Research Question
+:::{.callout-important}
+In all cases, you must choose a **new question** to answer — not something you or someone else has previously analyzed. In other words, no reproducibility/replication focused projects. Think about *extending* prior work instead.
+:::
 
-Formulate a clear, answerable research question that requires statistical analysis.
+Regardless of solo or group, you must choose one of the following options for your dataset:
 
-### 2. Analysis
+1. **Existing dataset from your 201A or first-year project**
+2. **Existing dataset in your lab**
+3. **New open dataset**
+4. **New simulated dataset**
 
-Your analysis should include:
+For option 3 we've put together a large list of [open datasets](/datasets) that you can browse based on your research interests. By no means should you feel limited to using a dataset on this list! These are just to help you get started. 
 
-1. **Exploratory Data Analysis** — Summary statistics, visualizations, data quality assessment
-2. **Statistical Modeling** — At least one model from the course (GLM, LMM, etc.) with diagnostics and comparison (if appropriate)
-3. **Inference or Prediction** — Parameter estimates with uncertainty, hypothesis tests or confidence intervals, OR cross-validated prediction performance
-4. **Interpretation** — What do the results mean? Limitations and future directions
+For option 4 you should discuss with your instructors what you're thinking and why you want to pursue this option.
 
-### 3. Deliverables
+## 3. Work & Submit
 
-Your submission is a **GitHub repository** containing all of the following:
+Both your **project proposal** and your **final submission** will be in the form of a **GitHub repository** just like our labs and HWs. We'll provide a template soon, that you'll use to submit your initial project proposal. Then you'll update the *same* repository to `commit` and `push` your work. When you're done your final `commit` should make sure to include:
 
-1. **Reproducible Python environment** — `pyproject.toml` + `README` with instructions so anyone can reproduce your work
-2. **Quarto document** — A rendered `.qmd` file with publication-quality:
-    - Abstract (~150-250 words)
-    - Methods (see rubric below)
-    - Results with relevant figures, tables, and references
-3. **Data files and analysis scripts** — with informative descriptions in the `README`
-    - Separate raw data from any preprocessed/cleaned data you create
-    - If datasets are too large for GitHub (>5 MB), provide a download link and retrieval instructions in the `README` so someone can still reproduce your work
-
-## Proposal Template
-
-Submit a 1-page proposal via GitHub Classroom including:
-
-1. **Research question** (1-2 sentences)
-2. **Data source** (what data, where from, sample size)
-3. **Proposed analysis** (what models/methods)
-4. **Expected challenges** (what might be tricky?)
+1. **Quarto document**
+  - A `.qmd` file and rendered PDF that includes:
+  - title, authors, and relevant meta-data
+  - Abstract
+  - Methods
+  - Results with relevant figures & tables
+  - References
+2. **Data files and analysis scripts**
+  - You should update your project `README.md` with informative descriptions of all relevant analysis & data files. Feel free to perform your core work using Marimo notebooks if you find those easier. Just make sure they are documented and your final submission is still a Quarto `.qmd` file
+  - You should make sure to separate raw data files from any preprocessed/cleaned data by making new files 
+  - If datasets are too large for GitHub (>5 MB), provide a download link and retrieval instructions in the `README` so someone can still reproduce your work
+3. **Reproducible Python environment** 
+  - While we'll configure the template with all the Python packages we've been using throughout the course, feel free to use additional tools if you want. Just make sure to use `uv add` so they're tracked automatically in your `pyproject.toml` file and a collaborator/reviewer gets them when they `git clone` and run `uv sync`.
 
 ## Collaboration & GenAI Policy
 
-Whether working solo or in a group, you are welcome to discuss ideas, troubleshoot code, and give feedback with classmates outside your group — but all submitted writing and analysis must be your own (or your group's). If you use GenAI tools, the course [GenAI policy](/#generative-ai-course-policy) applies — include a transcript with your submission.
+Whether working solo or in a group, you are welcome to discuss ideas, troubleshoot code, and give feedback with classmates outside your group — but all submitted writing and analysis must be your own (or your group's). If you use GenAI tools, make sure to review the course [GenAI policy](/#generative-ai-course-policy) (i.e. use it as a tool not a cheat-code) and **include a transcript with your submission.**
 
-## Example Projects
-
-Past successful projects have included:
-
-- Predicting movie ratings with mixed models (repeated measures per user)
-- Analyzing experimental psychology data with factorial ANOVA/LMM
-- Logistic regression for predicting customer churn from survey data
-- Bootstrap power analysis for a planned study
-- Factor analysis of survey responses with model comparison
-
-## Grading Rubric
+## Rubric
 
 ### General Formatting & Prose (10%)
 
@@ -131,7 +103,3 @@ Past successful projects have included:
 | Excellent (14-15) | Good (11-13) | Adequate (8-10) | Needs Improvement (0-7) |
 |:---|:---|:---|:---|
 | Goes beyond basic analyses with appropriate techniques (e.g., model comparison via AIC/BIC or cross-validation, bootstrap inference, mixed-effects modeling for nested data). Analytical choices justified by citing course materials or methodological literature. Demonstrates thoughtful engagement with the "why" behind modeling decisions | Incorporates some techniques beyond the basics. Analytical choices generally justified. Shows familiarity with course best practices | Primarily basic analyses without much justification. Limited connection to course concepts or methodological reasoning | Only rudimentary analyses. No justification for modeling choices. Does not engage with course material |
-
-## Submission
-
-Push your completed repository via GitHub Classroom by **Saturday, March 21, 2026**.

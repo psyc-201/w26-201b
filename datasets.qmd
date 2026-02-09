@@ -7,6 +7,8 @@ format:
 
 A searchable collection of open datasets for practice and projects. Use the search box to filter across all columns.
 
+*Last updated February 2026*  
+
 ```{ojs}
 //| echo: false
 
