@@ -143,16 +143,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Schedule</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./guides/terminology.html"> 
-<span class="menu-text">Glossary</span></a>
+    <a class="nav-link" href="./weeks/final/project.html"> 
+<span class="menu-text">Final Project</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./datasets.html" aria-current="page"> 
 <span class="menu-text">Open Datasets</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./weeks/final/project.html"> 
-<span class="menu-text">Final Project</span></a>
+    <a class="nav-link" href="./guides/terminology.html"> 
+<span class="menu-text">Glossary</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-guides--resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
@@ -182,12 +182,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="https://psyc201b.github.io/PSYC-201B/"> 
-<span class="menu-text">Previous course versions</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="https://forms.gle/eXfTXVqYxCCFbv9c7"> 
 <span class="menu-text">Anonymous Feedback</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://psyc201b.github.io/PSYC-201B/"> 
+<span class="menu-text">Previous course versions</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -196,8 +196,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
       </div> <!-- /container-fluid -->
     </nav>
-  <div id="quarto-announcement" data-announcement-id="168069d033cf860c2caa96a467f40ee0" class="alert alert-success hidden"><i class="bi bi-megaphone-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
-<p><strong>Site Updates:</strong> Slides Week 5, Anonymous feedback form,schedule updates</p>
+  <div id="quarto-announcement" data-announcement-id="323af6053f0b7e9cd993858dd203dbf9" class="alert alert-success hidden"><i class="bi bi-megaphone-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>Site Updates:</strong> Final Project Details, Slides Week 6</p>
 </div></div>
 </header>
 <!-- content -->
@@ -230,23 +230,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>A searchable collection of open datasets for practice and projects. Use the search box to filter across all columns.</p>
+<p><em>Last updated February 2026</em></p>
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="13" data-source-offset="-1"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 12;"><span id="cb1-13"><a href="#cb1-13"></a>datasets <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"assets/data/open-datasets.csv"</span>)<span class="op">.</span><span class="fu">csv</span>({ <span class="dt">typed</span><span class="op">:</span> <span class="kw">true</span> })</span>
-<span id="cb1-14"><a href="#cb1-14"></a></span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="co">// Get unique categories for filter</span></span>
-<span id="cb1-16"><a href="#cb1-16"></a>allCategories <span class="op">=</span> [<span class="st">"All"</span><span class="op">,</span> <span class="op">...</span><span class="kw">new</span> <span class="bu">Set</span>(datasets<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">category</span>)<span class="op">.</span><span class="fu">filter</span>(c <span class="kw">=&gt;</span> c))]</span>
-<span id="cb1-17"><a href="#cb1-17"></a></span>
-<span id="cb1-18"><a href="#cb1-18"></a>viewof search <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">search</span>(datasets<span class="op">,</span> {</span>
-<span id="cb1-19"><a href="#cb1-19"></a>  <span class="dt">placeholder</span><span class="op">:</span> <span class="st">"Search datasets..."</span><span class="op">,</span></span>
-<span id="cb1-20"><a href="#cb1-20"></a>  <span class="dt">columns</span><span class="op">:</span> [<span class="st">"dataset"</span><span class="op">,</span> <span class="st">"notes"</span><span class="op">,</span> <span class="st">"category"</span>]</span>
-<span id="cb1-21"><a href="#cb1-21"></a>})</span>
-<span id="cb1-22"><a href="#cb1-22"></a></span>
-<span id="cb1-23"><a href="#cb1-23"></a>viewof categoryFilter <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(allCategories<span class="op">,</span> {</span>
-<span id="cb1-24"><a href="#cb1-24"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Category"</span><span class="op">,</span></span>
-<span id="cb1-25"><a href="#cb1-25"></a>  <span class="dt">value</span><span class="op">:</span> <span class="st">"All"</span></span>
-<span id="cb1-26"><a href="#cb1-26"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="15" data-source-offset="-1"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 14;"><span id="cb1-15"><a href="#cb1-15"></a>datasets <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"assets/data/open-datasets.csv"</span>)<span class="op">.</span><span class="fu">csv</span>({ <span class="dt">typed</span><span class="op">:</span> <span class="kw">true</span> })</span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co">// Get unique categories for filter</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a>allCategories <span class="op">=</span> [<span class="st">"All"</span><span class="op">,</span> <span class="op">...</span><span class="kw">new</span> <span class="bu">Set</span>(datasets<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">category</span>)<span class="op">.</span><span class="fu">filter</span>(c <span class="kw">=&gt;</span> c))]</span>
+<span id="cb1-19"><a href="#cb1-19"></a></span>
+<span id="cb1-20"><a href="#cb1-20"></a>viewof search <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">search</span>(datasets<span class="op">,</span> {</span>
+<span id="cb1-21"><a href="#cb1-21"></a>  <span class="dt">placeholder</span><span class="op">:</span> <span class="st">"Search datasets..."</span><span class="op">,</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a>  <span class="dt">columns</span><span class="op">:</span> [<span class="st">"dataset"</span><span class="op">,</span> <span class="st">"notes"</span><span class="op">,</span> <span class="st">"category"</span>]</span>
+<span id="cb1-23"><a href="#cb1-23"></a>})</span>
+<span id="cb1-24"><a href="#cb1-24"></a></span>
+<span id="cb1-25"><a href="#cb1-25"></a>viewof categoryFilter <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(allCategories<span class="op">,</span> {</span>
+<span id="cb1-26"><a href="#cb1-26"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Category"</span><span class="op">,</span></span>
+<span id="cb1-27"><a href="#cb1-27"></a>  <span class="dt">value</span><span class="op">:</span> <span class="st">"All"</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -280,9 +281,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="32" data-source-offset="-1"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 31;"><span id="cb2-32"><a href="#cb2-32"></a>filtered <span class="op">=</span> categoryFilter <span class="op">===</span> <span class="st">"All"</span> <span class="op">?</span> search <span class="op">:</span> search<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">category</span> <span class="op">===</span> categoryFilter)</span>
-<span id="cb2-33"><a href="#cb2-33"></a></span>
-<span id="cb2-34"><a href="#cb2-34"></a><span class="fu">md</span><span class="vs">`**</span><span class="sc">${</span>filtered<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs">** datasets </span><span class="sc">${</span>filtered<span class="op">.</span><span class="at">length</span> <span class="op">!==</span> datasets<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"(filtered)"</span> <span class="op">:</span> <span class="st">""</span><span class="sc">}</span><span class="vs">`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="34" data-source-offset="-1"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 33;"><span id="cb2-34"><a href="#cb2-34"></a>filtered <span class="op">=</span> categoryFilter <span class="op">===</span> <span class="st">"All"</span> <span class="op">?</span> search <span class="op">:</span> search<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">category</span> <span class="op">===</span> categoryFilter)</span>
+<span id="cb2-35"><a href="#cb2-35"></a></span>
+<span id="cb2-36"><a href="#cb2-36"></a><span class="fu">md</span><span class="vs">`**</span><span class="sc">${</span>filtered<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs">** datasets </span><span class="sc">${</span>filtered<span class="op">.</span><span class="at">length</span> <span class="op">!==</span> datasets<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"(filtered)"</span> <span class="op">:</span> <span class="st">""</span><span class="sc">}</span><span class="vs">`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -300,27 +301,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <details class="code-fold hidden">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="36" data-source-offset="-195"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 35;"><span id="cb3-36"><a href="#cb3-36"></a>Inputs<span class="op">.</span><span class="fu">table</span>(filtered<span class="op">,</span> {</span>
-<span id="cb3-37"><a href="#cb3-37"></a>  <span class="dt">columns</span><span class="op">:</span> [<span class="st">"category"</span><span class="op">,</span> <span class="st">"dataset"</span><span class="op">,</span> <span class="st">"notes"</span>]<span class="op">,</span></span>
-<span id="cb3-38"><a href="#cb3-38"></a>  <span class="dt">header</span><span class="op">:</span> {</span>
-<span id="cb3-39"><a href="#cb3-39"></a>    <span class="dt">category</span><span class="op">:</span> <span class="st">"Category"</span><span class="op">,</span></span>
-<span id="cb3-40"><a href="#cb3-40"></a>    <span class="dt">dataset</span><span class="op">:</span> <span class="st">"Dataset"</span><span class="op">,</span></span>
-<span id="cb3-41"><a href="#cb3-41"></a>    <span class="dt">notes</span><span class="op">:</span> <span class="st">"Notes"</span></span>
-<span id="cb3-42"><a href="#cb3-42"></a>  }<span class="op">,</span></span>
-<span id="cb3-43"><a href="#cb3-43"></a>  <span class="dt">width</span><span class="op">:</span> {</span>
-<span id="cb3-44"><a href="#cb3-44"></a>    <span class="dt">category</span><span class="op">:</span> <span class="dv">120</span><span class="op">,</span></span>
-<span id="cb3-45"><a href="#cb3-45"></a>    <span class="dt">dataset</span><span class="op">:</span> <span class="dv">250</span><span class="op">,</span></span>
-<span id="cb3-46"><a href="#cb3-46"></a>    <span class="dt">notes</span><span class="op">:</span> <span class="dv">400</span></span>
-<span id="cb3-47"><a href="#cb3-47"></a>  }<span class="op">,</span></span>
-<span id="cb3-48"><a href="#cb3-48"></a>  <span class="dt">format</span><span class="op">:</span> {</span>
-<span id="cb3-49"><a href="#cb3-49"></a>    <span class="dt">dataset</span><span class="op">:</span> (x<span class="op">,</span> i<span class="op">,</span> data) <span class="kw">=&gt;</span> {</span>
-<span id="cb3-50"><a href="#cb3-50"></a>      <span class="kw">const</span> row <span class="op">=</span> filtered[i]<span class="op">;</span></span>
-<span id="cb3-51"><a href="#cb3-51"></a>      <span class="cf">return</span> row<span class="op">?.</span><span class="at">url</span> <span class="op">?</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;a href="</span><span class="sc">${</span>row<span class="op">.</span><span class="at">url</span><span class="sc">}</span><span class="vs">" target="_blank"&gt;</span><span class="sc">${</span>x<span class="sc">}</span><span class="vs">&lt;/a&gt;`</span> <span class="op">:</span> x<span class="op">;</span></span>
-<span id="cb3-52"><a href="#cb3-52"></a>    }</span>
-<span id="cb3-53"><a href="#cb3-53"></a>  }<span class="op">,</span></span>
-<span id="cb3-54"><a href="#cb3-54"></a>  <span class="dt">sort</span><span class="op">:</span> <span class="st">"dataset"</span><span class="op">,</span></span>
-<span id="cb3-55"><a href="#cb3-55"></a>  <span class="dt">rows</span><span class="op">:</span> <span class="dv">25</span></span>
-<span id="cb3-56"><a href="#cb3-56"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="38" data-source-offset="-195"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 37;"><span id="cb3-38"><a href="#cb3-38"></a>Inputs<span class="op">.</span><span class="fu">table</span>(filtered<span class="op">,</span> {</span>
+<span id="cb3-39"><a href="#cb3-39"></a>  <span class="dt">columns</span><span class="op">:</span> [<span class="st">"category"</span><span class="op">,</span> <span class="st">"dataset"</span><span class="op">,</span> <span class="st">"notes"</span>]<span class="op">,</span></span>
+<span id="cb3-40"><a href="#cb3-40"></a>  <span class="dt">header</span><span class="op">:</span> {</span>
+<span id="cb3-41"><a href="#cb3-41"></a>    <span class="dt">category</span><span class="op">:</span> <span class="st">"Category"</span><span class="op">,</span></span>
+<span id="cb3-42"><a href="#cb3-42"></a>    <span class="dt">dataset</span><span class="op">:</span> <span class="st">"Dataset"</span><span class="op">,</span></span>
+<span id="cb3-43"><a href="#cb3-43"></a>    <span class="dt">notes</span><span class="op">:</span> <span class="st">"Notes"</span></span>
+<span id="cb3-44"><a href="#cb3-44"></a>  }<span class="op">,</span></span>
+<span id="cb3-45"><a href="#cb3-45"></a>  <span class="dt">width</span><span class="op">:</span> {</span>
+<span id="cb3-46"><a href="#cb3-46"></a>    <span class="dt">category</span><span class="op">:</span> <span class="dv">120</span><span class="op">,</span></span>
+<span id="cb3-47"><a href="#cb3-47"></a>    <span class="dt">dataset</span><span class="op">:</span> <span class="dv">250</span><span class="op">,</span></span>
+<span id="cb3-48"><a href="#cb3-48"></a>    <span class="dt">notes</span><span class="op">:</span> <span class="dv">400</span></span>
+<span id="cb3-49"><a href="#cb3-49"></a>  }<span class="op">,</span></span>
+<span id="cb3-50"><a href="#cb3-50"></a>  <span class="dt">format</span><span class="op">:</span> {</span>
+<span id="cb3-51"><a href="#cb3-51"></a>    <span class="dt">dataset</span><span class="op">:</span> (x<span class="op">,</span> i<span class="op">,</span> data) <span class="kw">=&gt;</span> {</span>
+<span id="cb3-52"><a href="#cb3-52"></a>      <span class="kw">const</span> row <span class="op">=</span> filtered[i]<span class="op">;</span></span>
+<span id="cb3-53"><a href="#cb3-53"></a>      <span class="cf">return</span> row<span class="op">?.</span><span class="at">url</span> <span class="op">?</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;a href="</span><span class="sc">${</span>row<span class="op">.</span><span class="at">url</span><span class="sc">}</span><span class="vs">" target="_blank"&gt;</span><span class="sc">${</span>x<span class="sc">}</span><span class="vs">&lt;/a&gt;`</span> <span class="op">:</span> x<span class="op">;</span></span>
+<span id="cb3-54"><a href="#cb3-54"></a>    }</span>
+<span id="cb3-55"><a href="#cb3-55"></a>  }<span class="op">,</span></span>
+<span id="cb3-56"><a href="#cb3-56"></a>  <span class="dt">sort</span><span class="op">:</span> <span class="st">"dataset"</span><span class="op">,</span></span>
+<span id="cb3-57"><a href="#cb3-57"></a>  <span class="dt">rows</span><span class="op">:</span> <span class="dv">25</span></span>
+<span id="cb3-58"><a href="#cb3-58"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
