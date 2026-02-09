@@ -1,19 +1,53 @@
 ---
 sidebar: weeks
 title: "Final Project"
+format:
+  html:
+    page-layout: full
 ---
 
 ## Overview
 
-The final project is your opportunity to apply the statistical modeling skills you've learned throughout the course to a research question of your choice.
+The final project is your opportunity to apply the statistical modeling skills you've learned throughout the course to a real dataset. Your deliverable is a **publication-quality abstract, methods section, and results section** — the kind you'd submit to a journal — rendered as a reproducible `.qmd` document with all supporting code.
+
+:::{.callout-tip}
+Looking for data? Check out the [Open Datasets](/datasets.qmd) page for a curated collection of publicly available datasets.
+:::
 
 ## Timeline
 
 | Date | Milestone |
 |------|-----------|
-| Week 8 (Feb 27) | Project proposal due |
+| Wed, Feb 11 | Initial meeting with instructors |
+| Week 8 (Feb 27) | Project proposal due (via GitHub Classroom) |
 | Week 10 (Mar 13) | Draft analysis due (optional feedback) |
-| Final Exam Week (Mar 21) | Final project due |
+| Saturday, Mar 21 | Final project due |
+
+## Project Options
+
+:::{.callout-important}
+In all cases, you must choose a **new question** to answer — not something you or someone else has previously analyzed. The dataset can be familiar, but the research question must be original.
+:::
+
+### Solo or Group
+
+You may work **solo** or in a **group**. If working in a group, see the [additional requirements below](#group-requirements).
+
+### Dataset
+
+Regardless of solo or group, choose one of the following:
+
+1. **Existing dataset from your 201A or first-year project** — a dataset you already have access to from prior coursework or your first-year research
+2. **Existing dataset in your lab** — data your lab has collected that you have permission to use
+3. **New open dataset** — find one from the [Open Datasets](/datasets.qmd) page
+4. **New simulated dataset** — generate synthetic data to answer your question (discuss with instructors first)
+
+### Group Requirements {#group-requirements}
+
+Groups may provide a single submission, but you must:
+
+- Include a [CRediT author statement](https://www.elsevier.com/researcher/author/policies-and-guidelines/credit-author-statement) describing each member's contributions
+- Demonstrate evidence of collaboration via GitHub — each person must contribute at least 1 commit to the project repository
 
 ## Requirements
 
@@ -21,69 +55,40 @@ The final project is your opportunity to apply the statistical modeling skills y
 
 Formulate a clear, answerable research question that requires statistical analysis.
 
-### 2. Data
-
-- Use a publicly available dataset OR
-- Use data from your own research (with appropriate permissions)
-- Minimum 100 observations recommended
-
-### 3. Analysis
+### 2. Analysis
 
 Your analysis should include:
 
-1. **Exploratory Data Analysis**
-   - Summary statistics
-   - Visualizations
-   - Data quality assessment
+1. **Exploratory Data Analysis** — Summary statistics, visualizations, data quality assessment
+2. **Statistical Modeling** — At least one model from the course (GLM, LMM, etc.) with diagnostics and comparison (if appropriate)
+3. **Inference or Prediction** — Parameter estimates with uncertainty, hypothesis tests or confidence intervals, OR cross-validated prediction performance
+4. **Interpretation** — What do the results mean? Limitations and future directions
 
-2. **Statistical Modeling**
-   - At least one model from the course (GLM, LMM, etc.)
-   - Model diagnostics
-   - Model comparison (if appropriate)
+### 3. Deliverables
 
-3. **Inference or Prediction**
-   - Parameter estimates with uncertainty
-   - Hypothesis tests or confidence intervals
-   - OR cross-validated prediction performance
+Your submission is a **GitHub repository** containing all of the following:
 
-4. **Interpretation**
-   - What do the results mean?
-   - Limitations
-   - Future directions
-
-### 4. Deliverables
-
-1. **Rendered .qmd file** (HTML or PDF)
-   - Introduction and research question
-   - Methods
-   - Results (with code)
-   - Discussion
-
-2. **Data and code**
-   - All code should be reproducible
-   - Include data or instructions for obtaining it
-
-## Grading Rubric
-
-| Component | Points |
-|-----------|--------|
-| Research question clarity | 10 |
-| Data preparation and EDA | 15 |
-| Appropriate model choice | 20 |
-| Model fitting and diagnostics | 20 |
-| Interpretation and conclusions | 20 |
-| Code quality and reproducibility | 10 |
-| Writing and presentation | 5 |
-| **Total** | **100** |
+1. **Reproducible Python environment** — `pyproject.toml` + `README` with instructions so anyone can reproduce your work
+2. **Quarto document** — A rendered `.qmd` file with publication-quality:
+    - Abstract (~150-250 words)
+    - Methods (see rubric below)
+    - Results with relevant figures, tables, and references
+3. **Data files and analysis scripts** — with informative descriptions in the `README`
+    - Separate raw data from any preprocessed/cleaned data you create
+    - If datasets are too large for GitHub (>5 MB), provide a download link and retrieval instructions in the `README` so someone can still reproduce your work
 
 ## Proposal Template
 
-Submit a 1-page proposal including:
+Submit a 1-page proposal via GitHub Classroom including:
 
 1. **Research question** (1-2 sentences)
 2. **Data source** (what data, where from, sample size)
 3. **Proposed analysis** (what models/methods)
 4. **Expected challenges** (what might be tricky?)
+
+## Collaboration & GenAI Policy
+
+Whether working solo or in a group, you are welcome to discuss ideas, troubleshoot code, and give feedback with classmates outside your group — but all submitted writing and analysis must be your own (or your group's). If you use GenAI tools, the course [GenAI policy](/#generative-ai-course-policy) applies — include a transcript with your submission.
 
 ## Example Projects
 
@@ -91,18 +96,42 @@ Past successful projects have included:
 
 - Predicting movie ratings with mixed models (repeated measures per user)
 - Analyzing experimental psychology data with factorial ANOVA/LMM
-- Logistic regression for predicting customer churn
-- Power analysis for a planned study
-- Factor analysis of survey responses
+- Logistic regression for predicting customer churn from survey data
+- Bootstrap power analysis for a planned study
+- Factor analysis of survey responses with model comparison
 
-## Resources
+## Grading Rubric
 
-- Office hours: TBD
-- Course materials: All previous weeks
-- Statistical consulting: TBD
+### General Formatting & Prose (10%)
+
+| Excellent (9-10) | Good (7-8) | Adequate (5-6) | Needs Improvement (0-4) |
+|:---|:---|:---|:---|
+| Publication-quality writing: clear, concise, and error-free. APA-style reporting of statistics (e.g., *F*(1, 48) = 12.3, *p* < .001, *d* = 0.45). Figures and tables are properly labeled, referenced in text, and enhance the narrative. Complete, properly formatted references | Generally clear writing with minor errors. Statistics mostly reported in APA style with occasional inconsistencies. Figures/tables present with minor labeling issues. References present but may have formatting gaps | Understandable but unpolished writing. Inconsistent statistical reporting format. Figures/tables incomplete or poorly integrated. Several grammatical errors or missing references | Unclear or confusing writing. Statistics poorly reported or missing key values. Missing or unprofessional figures/tables. Pervasive grammatical issues |
+
+### Methods Section Clarity & Completeness (30%)
+
+| Excellent (27-30) | Good (21-26) | Adequate (15-20) | Needs Improvement (0-14) |
+|:---|:---|:---|:---|
+| **Data:** Complete description of the dataset — source, how it was collected, sample characteristics, sample size, and any exclusions or missing data handling explained. **Variables:** All variables clearly operationalized (what was measured, how, units/scales). **Analytical Approach:** Statistical models justified with clear rationale; specifies assumption checks, alpha levels, and software/packages used. Sufficient detail for an independent researcher to reproduce the analysis | All major components present with some details missing. Variables adequately described. Analytical choices mostly justified. Minor gaps that wouldn't prevent replication | Key information present but lacks depth. Some variables poorly described. Limited justification for analytical choices. Replication would be challenging | Major components missing or inadequate. Insufficient detail for understanding the analysis. No justification for analytical decisions. Replication not possible |
+
+### Results Interpretation, Assumptions, & Limitations (30%)
+
+| Excellent (27-30) | Good (21-26) | Adequate (15-20) | Needs Improvement (0-14) |
+|:---|:---|:---|:---|
+| **Assumptions:** Explicitly tests all relevant assumptions (normality, homogeneity, independence, linearity); appropriate diagnostic plots; states whether assumptions are met and describes remedial actions if not. **Results:** All analyses clearly reported with complete statistics (test statistics, df, p-values, effect sizes, CIs); figures and tables enhance understanding. **Interpretation:** Accurate; avoids over-interpreting null results; appropriately cautious with causal language. **Limitations:** Thoughtful discussion of methodological and statistical limitations, including threats to validity | Most assumptions checked appropriately. Results clearly reported with minor omissions. Interpretation generally sound with appropriate caution. Limitations discussed but may lack depth or miss key issues | Basic assumption checking but incomplete. Results reported but missing key statistics (e.g., no effect sizes or CIs). Some understanding shown but may over-interpret. Limitations mentioned but superficial | Assumptions not checked or inadequately addressed. Results poorly reported or incomplete. Misinterpretation of findings. Limitations absent or lacking understanding |
+
+### Code Quality & Reproducibility (15%)
+
+| Excellent (14-15) | Good (11-13) | Adequate (8-10) | Needs Improvement (0-7) |
+|:---|:---|:---|:---|
+| Code runs without errors and reproduces all results. Well-organized with clear headers and comments. Follows best practices (relative paths, no hardcoding). Includes package versions and random seed where applicable. Data cleaning transparent and justified. Efficient and readable code | Code runs with minimal adjustments. Generally well-organized with adequate comments. Reproduces main results. Minor issues with paths or organization | Code runs but requires troubleshooting. Limited organization or comments. Reproduces some but not all results. Hardcoded paths or unclear workflow | Code doesn't run or has major errors. Poorly organized and difficult to follow. Cannot reproduce reported results. Missing key analysis steps |
+
+### Innovation & Integration (15%)
+
+| Excellent (14-15) | Good (11-13) | Adequate (8-10) | Needs Improvement (0-7) |
+|:---|:---|:---|:---|
+| Goes beyond basic analyses with appropriate techniques (e.g., model comparison via AIC/BIC or cross-validation, bootstrap inference, mixed-effects modeling for nested data). Analytical choices justified by citing course materials or methodological literature. Demonstrates thoughtful engagement with the "why" behind modeling decisions | Incorporates some techniques beyond the basics. Analytical choices generally justified. Shows familiarity with course best practices | Primarily basic analyses without much justification. Limited connection to course concepts or methodological reasoning | Only rudimentary analyses. No justification for modeling choices. Does not engage with course material |
 
 ## Submission
 
-Submit via GitHub Classroom by **Saturday, March 21, 2026**.
-
-Good luck!
+Push your completed repository via GitHub Classroom by **Saturday, March 21, 2026**.

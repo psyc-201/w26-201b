@@ -32,7 +32,7 @@ In total, we'll aim to cover in total: **~4-5 HWs** and **~6-7 labs**
 | 5    | Wed Feb 4    | GLM II                                                     | **checkout [linear algebra materials](/weeks/05/#mentioned-references) for Mon Feb 9** |
 | 6    | Mon Feb 9    | Modeling, meet `bossanova`                                 | `push` lab at least once              |
 | 6    | Tues Feb 10  | Models as tools: inference, prediction, exploration        | `push` lab at least once              |
-| 6    | Wed Feb 11   | **Final Project planning**                                 | **chat with instructors before leaving** |
+| 6    | Wed Feb 11   | **[Final Project](/weeks/final/project.qmd) planning**     | **chat with instructors before leaving** |
 | *7*  | *Mon Feb 16* | *No class holiday*                                         | -                                     |
 | 7    | Tues Feb 17  | Extending the GLM                                          | `push` lab at least once              |
 | 7    | Wed Feb 18   | LMM I                                                      | `push` **HW 3 by Midnight Mon Feb 23** |
@@ -45,7 +45,7 @@ In total, we'll aim to cover in total: **~4-5 HWs** and **~6-7 labs**
 | 10   | Mon Mar 9    | *final project time*                                       | -                                     |
 | 10   | Tues Mar 10  | *final project time*                                       | -                                     |
 | 10   | Wed Mar 11   | Course Wrap-Up                                             | -                                     |
-| FW   | Mar 16-18    | *work on final project*                                    | `push` **Final Project by TBD**       |
+| FW   | Mar 16-18    | *work on final project*                                    | `push` **[Final Project](/weeks/final/project.qmd) by TBD** |
 : *Tentative schedule*
 
 

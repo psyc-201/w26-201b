@@ -1,0 +1,57 @@
+---
+title: "Open Datasets"
+format:
+  html:
+    page-layout: full
+---
+
+A searchable collection of open datasets for practice and projects. Use the search box to filter across all columns.
+
+```{ojs}
+//| echo: false
+
+datasets = FileAttachment("assets/data/open-datasets.csv").csv({ typed: true })
+
+// Get unique categories for filter
+allCategories = ["All", ...new Set(datasets.map(d => d.category).filter(c => c))]
+
+viewof search = Inputs.search(datasets, {
+  placeholder: "Search datasets...",
+  columns: ["dataset", "notes", "category"]
+})
+
+viewof categoryFilter = Inputs.select(allCategories, {
+  label: "Category",
+  value: "All"
+})
+```
+
+```{ojs}
+//| echo: false
+
+filtered = categoryFilter === "All" ? search : search.filter(d => d.category === categoryFilter)
+
+md`**${filtered.length}** datasets ${filtered.length !== datasets.length ? "(filtered)" : ""}`
+
+Inputs.table(filtered, {
+  columns: ["category", "dataset", "notes"],
+  header: {
+    category: "Category",
+    dataset: "Dataset",
+    notes: "Notes"
+  },
+  width: {
+    category: 120,
+    dataset: 250,
+    notes: 400
+  },
+  format: {
+    dataset: (x, i, data) => {
+      const row = filtered[i];
+      return row?.url ? htl.html`<a href="${row.url}" target="_blank">${x}</a>` : x;
+    }
+  },
+  sort: "dataset",
+  rows: 25
+})
+```

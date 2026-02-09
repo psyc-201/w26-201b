@@ -4,49 +4,49 @@
     "href": "weeks/final/project.html",
     "title": "Final Project",
     "section": "",
-    "text": "The final project is your opportunity to apply the statistical modeling skills you’ve learned throughout the course to a research question of your choice."
+    "text": "The final project is your opportunity to apply the statistical modeling skills you’ve learned throughout the course to a real dataset. Your deliverable is a publication-quality abstract, methods section, and results section — the kind you’d submit to a journal — rendered as a reproducible .qmd document with all supporting code.\n\n\n\n\n\n\nTip\n\n\n\nLooking for data? Check out the Open Datasets page for a curated collection of publicly available datasets."
   },
   {
     "objectID": "weeks/final/project.html#overview",
     "href": "weeks/final/project.html#overview",
     "title": "Final Project",
     "section": "",
-    "text": "The final project is your opportunity to apply the statistical modeling skills you’ve learned throughout the course to a research question of your choice."
+    "text": "The final project is your opportunity to apply the statistical modeling skills you’ve learned throughout the course to a real dataset. Your deliverable is a publication-quality abstract, methods section, and results section — the kind you’d submit to a journal — rendered as a reproducible .qmd document with all supporting code.\n\n\n\n\n\n\nTip\n\n\n\nLooking for data? Check out the Open Datasets page for a curated collection of publicly available datasets."
   },
   {
     "objectID": "weeks/final/project.html#timeline",
     "href": "weeks/final/project.html#timeline",
     "title": "Final Project",
     "section": "Timeline",
-    "text": "Timeline\n\n\n\nDate\nMilestone\n\n\n\n\nWeek 8 (Feb 27)\nProject proposal due\n\n\nWeek 10 (Mar 13)\nDraft analysis due (optional feedback)\n\n\nFinal Exam Week (Mar 21)\nFinal project due"
+    "text": "Timeline\n\n\n\nDate\nMilestone\n\n\n\n\nWed, Feb 11\nInitial meeting with instructors\n\n\nWeek 8 (Feb 27)\nProject proposal due (via GitHub Classroom)\n\n\nWeek 10 (Mar 13)\nDraft analysis due (optional feedback)\n\n\nSaturday, Mar 21\nFinal project due"
   },
   {
     "objectID": "weeks/final/project.html#requirements",
     "href": "weeks/final/project.html#requirements",
     "title": "Final Project",
     "section": "Requirements",
-    "text": "Requirements\n\n1. Research Question\nFormulate a clear, answerable research question that requires statistical analysis.\n\n\n2. Data\n\nUse a publicly available dataset OR\nUse data from your own research (with appropriate permissions)\nMinimum 100 observations recommended\n\n\n\n3. Analysis\nYour analysis should include:\n\nExploratory Data Analysis\n\nSummary statistics\nVisualizations\nData quality assessment\n\nStatistical Modeling\n\nAt least one model from the course (GLM, LMM, etc.)\nModel diagnostics\nModel comparison (if appropriate)\n\nInference or Prediction\n\nParameter estimates with uncertainty\nHypothesis tests or confidence intervals\nOR cross-validated prediction performance\n\nInterpretation\n\nWhat do the results mean?\nLimitations\nFuture directions\n\n\n\n\n4. Deliverables\n\nRendered .qmd file (HTML or PDF)\n\nIntroduction and research question\nMethods\nResults (with code)\nDiscussion\n\nData and code\n\nAll code should be reproducible\nInclude data or instructions for obtaining it"
+    "text": "Requirements\n\n1. Research Question\nFormulate a clear, answerable research question that requires statistical analysis.\n\n\n2. Analysis\nYour analysis should include:\n\nExploratory Data Analysis — Summary statistics, visualizations, data quality assessment\nStatistical Modeling — At least one model from the course (GLM, LMM, etc.) with diagnostics and comparison (if appropriate)\nInference or Prediction — Parameter estimates with uncertainty, hypothesis tests or confidence intervals, OR cross-validated prediction performance\nInterpretation — What do the results mean? Limitations and future directions\n\n\n\n3. Deliverables\nYour submission is a GitHub repository containing all of the following:\n\nReproducible Python environment — pyproject.toml + README with instructions so anyone can reproduce your work\nQuarto document — A rendered .qmd file with publication-quality:\n\nAbstract (~150-250 words)\nMethods (see rubric below)\nResults with relevant figures, tables, and references\n\nData files and analysis scripts — with informative descriptions in the README\n\nSeparate raw data from any preprocessed/cleaned data you create\nIf datasets are too large for GitHub (&gt;5 MB), provide a download link and retrieval instructions in the README so someone can still reproduce your work"
   },
   {
     "objectID": "weeks/final/project.html#grading-rubric",
     "href": "weeks/final/project.html#grading-rubric",
     "title": "Final Project",
     "section": "Grading Rubric",
-    "text": "Grading Rubric\n\n\n\nComponent\nPoints\n\n\n\n\nResearch question clarity\n10\n\n\nData preparation and EDA\n15\n\n\nAppropriate model choice\n20\n\n\nModel fitting and diagnostics\n20\n\n\nInterpretation and conclusions\n20\n\n\nCode quality and reproducibility\n10\n\n\nWriting and presentation\n5\n\n\nTotal\n100"
+    "text": "Grading Rubric\n\nGeneral Formatting & Prose (10%)\n\n\n\n\n\n\n\n\n\nExcellent (9-10)\nGood (7-8)\nAdequate (5-6)\nNeeds Improvement (0-4)\n\n\n\n\nPublication-quality writing: clear, concise, and error-free. APA-style reporting of statistics (e.g., F(1, 48) = 12.3, p &lt; .001, d = 0.45). Figures and tables are properly labeled, referenced in text, and enhance the narrative. Complete, properly formatted references\nGenerally clear writing with minor errors. Statistics mostly reported in APA style with occasional inconsistencies. Figures/tables present with minor labeling issues. References present but may have formatting gaps\nUnderstandable but unpolished writing. Inconsistent statistical reporting format. Figures/tables incomplete or poorly integrated. Several grammatical errors or missing references\nUnclear or confusing writing. Statistics poorly reported or missing key values. Missing or unprofessional figures/tables. Pervasive grammatical issues\n\n\n\n\n\nMethods Section Clarity & Completeness (30%)\n\n\n\n\n\n\n\n\n\nExcellent (27-30)\nGood (21-26)\nAdequate (15-20)\nNeeds Improvement (0-14)\n\n\n\n\nData: Complete description of the dataset — source, how it was collected, sample characteristics, sample size, and any exclusions or missing data handling explained. Variables: All variables clearly operationalized (what was measured, how, units/scales). Analytical Approach: Statistical models justified with clear rationale; specifies assumption checks, alpha levels, and software/packages used. Sufficient detail for an independent researcher to reproduce the analysis\nAll major components present with some details missing. Variables adequately described. Analytical choices mostly justified. Minor gaps that wouldn’t prevent replication\nKey information present but lacks depth. Some variables poorly described. Limited justification for analytical choices. Replication would be challenging\nMajor components missing or inadequate. Insufficient detail for understanding the analysis. No justification for analytical decisions. Replication not possible\n\n\n\n\n\nResults Interpretation, Assumptions, & Limitations (30%)\n\n\n\n\n\n\n\n\n\nExcellent (27-30)\nGood (21-26)\nAdequate (15-20)\nNeeds Improvement (0-14)\n\n\n\n\nAssumptions: Explicitly tests all relevant assumptions (normality, homogeneity, independence, linearity); appropriate diagnostic plots; states whether assumptions are met and describes remedial actions if not. Results: All analyses clearly reported with complete statistics (test statistics, df, p-values, effect sizes, CIs); figures and tables enhance understanding. Interpretation: Accurate; avoids over-interpreting null results; appropriately cautious with causal language. Limitations: Thoughtful discussion of methodological and statistical limitations, including threats to validity\nMost assumptions checked appropriately. Results clearly reported with minor omissions. Interpretation generally sound with appropriate caution. Limitations discussed but may lack depth or miss key issues\nBasic assumption checking but incomplete. Results reported but missing key statistics (e.g., no effect sizes or CIs). Some understanding shown but may over-interpret. Limitations mentioned but superficial\nAssumptions not checked or inadequately addressed. Results poorly reported or incomplete. Misinterpretation of findings. Limitations absent or lacking understanding\n\n\n\n\n\nCode Quality & Reproducibility (15%)\n\n\n\n\n\n\n\n\n\nExcellent (14-15)\nGood (11-13)\nAdequate (8-10)\nNeeds Improvement (0-7)\n\n\n\n\nCode runs without errors and reproduces all results. Well-organized with clear headers and comments. Follows best practices (relative paths, no hardcoding). Includes package versions and random seed where applicable. Data cleaning transparent and justified. Efficient and readable code\nCode runs with minimal adjustments. Generally well-organized with adequate comments. Reproduces main results. Minor issues with paths or organization\nCode runs but requires troubleshooting. Limited organization or comments. Reproduces some but not all results. Hardcoded paths or unclear workflow\nCode doesn’t run or has major errors. Poorly organized and difficult to follow. Cannot reproduce reported results. Missing key analysis steps\n\n\n\n\n\nInnovation & Integration (15%)\n\n\n\n\n\n\n\n\n\nExcellent (14-15)\nGood (11-13)\nAdequate (8-10)\nNeeds Improvement (0-7)\n\n\n\n\nGoes beyond basic analyses with appropriate techniques (e.g., model comparison via AIC/BIC or cross-validation, bootstrap inference, mixed-effects modeling for nested data). Analytical choices justified by citing course materials or methodological literature. Demonstrates thoughtful engagement with the “why” behind modeling decisions\nIncorporates some techniques beyond the basics. Analytical choices generally justified. Shows familiarity with course best practices\nPrimarily basic analyses without much justification. Limited connection to course concepts or methodological reasoning\nOnly rudimentary analyses. No justification for modeling choices. Does not engage with course material"
   },
   {
     "objectID": "weeks/final/project.html#proposal-template",
     "href": "weeks/final/project.html#proposal-template",
     "title": "Final Project",
     "section": "Proposal Template",
-    "text": "Proposal Template\nSubmit a 1-page proposal including:\n\nResearch question (1-2 sentences)\nData source (what data, where from, sample size)\nProposed analysis (what models/methods)\nExpected challenges (what might be tricky?)"
+    "text": "Proposal Template\nSubmit a 1-page proposal via GitHub Classroom including:\n\nResearch question (1-2 sentences)\nData source (what data, where from, sample size)\nProposed analysis (what models/methods)\nExpected challenges (what might be tricky?)"
   },
   {
     "objectID": "weeks/final/project.html#example-projects",
     "href": "weeks/final/project.html#example-projects",
     "title": "Final Project",
     "section": "Example Projects",
-    "text": "Example Projects\nPast successful projects have included:\n\nPredicting movie ratings with mixed models (repeated measures per user)\nAnalyzing experimental psychology data with factorial ANOVA/LMM\nLogistic regression for predicting customer churn\nPower analysis for a planned study\nFactor analysis of survey responses"
+    "text": "Example Projects\nPast successful projects have included:\n\nPredicting movie ratings with mixed models (repeated measures per user)\nAnalyzing experimental psychology data with factorial ANOVA/LMM\nLogistic regression for predicting customer churn from survey data\nBootstrap power analysis for a planned study\nFactor analysis of survey responses with model comparison"
   },
   {
     "objectID": "weeks/final/project.html#resources",
@@ -60,7 +60,7 @@
     "href": "weeks/final/project.html#submission",
     "title": "Final Project",
     "section": "Submission",
-    "text": "Submission\nSubmit via GitHub Classroom by Saturday, March 21, 2026.\nGood luck!"
+    "text": "Submission\nPush your completed repository via GitHub Classroom by Saturday, March 21, 2026."
   },
   {
     "objectID": "weeks/04/index.html",
@@ -1427,5 +1427,33 @@
       "Week 5",
       "Overview"
     ]
+  },
+  {
+    "objectID": "weeks/final/project.html#project-options",
+    "href": "weeks/final/project.html#project-options",
+    "title": "Final Project",
+    "section": "Project Options",
+    "text": "Project Options\n\n\n\n\n\n\nImportant\n\n\n\nIn all cases, you must choose a new question to answer — not something you or someone else has previously analyzed. The dataset can be familiar, but the research question must be original.\n\n\n\nSolo or Group\nYou may work solo or in a group. If working in a group, see the additional requirements below.\n\n\nDataset\nRegardless of solo or group, choose one of the following:\n\nExisting dataset from your 201A or first-year project — a dataset you already have access to from prior coursework or your first-year research\nExisting dataset in your lab — data your lab has collected that you have permission to use\nNew open dataset — find one from the Open Datasets page\nNew simulated dataset — generate synthetic data to answer your question (discuss with instructors first)\n\n\n\nGroup Requirements\nGroups may provide a single submission, but you must:\n\nInclude a CRediT author statement describing each member’s contributions\nDemonstrate evidence of collaboration via GitHub — each person must contribute at least 1 commit to the project repository"
+  },
+  {
+    "objectID": "datasets.html",
+    "href": "datasets.html",
+    "title": "Open Datasets",
+    "section": "",
+    "text": "A searchable collection of open datasets for practice and projects. Use the search box to filter across all columns.\n\n\nCode\ndatasets = FileAttachment(\"assets/data/open-datasets.csv\").csv({ typed: true })\n\n// Get unique categories for filter\nallCategories = [\"All\", ...new Set(datasets.map(d =&gt; d.category).filter(c =&gt; c))]\n\nviewof search = Inputs.search(datasets, {\n  placeholder: \"Search datasets...\",\n  columns: [\"dataset\", \"notes\", \"category\"]\n})\n\nviewof categoryFilter = Inputs.select(allCategories, {\n  label: \"Category\",\n  value: \"All\"\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCode\nfiltered = categoryFilter === \"All\" ? search : search.filter(d =&gt; d.category === categoryFilter)\n\nmd`**${filtered.length}** datasets ${filtered.length !== datasets.length ? \"(filtered)\" : \"\"}`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCode\nInputs.table(filtered, {\n  columns: [\"category\", \"dataset\", \"notes\"],\n  header: {\n    category: \"Category\",\n    dataset: \"Dataset\",\n    notes: \"Notes\"\n  },\n  width: {\n    category: 120,\n    dataset: 250,\n    notes: 400\n  },\n  format: {\n    dataset: (x, i, data) =&gt; {\n      const row = filtered[i];\n      return row?.url ? htl.html`&lt;a href=\"${row.url}\" target=\"_blank\"&gt;${x}&lt;/a&gt;` : x;\n    }\n  },\n  sort: \"dataset\",\n  rows: 25\n})"
+  },
+  {
+    "objectID": "weeks/final/project.html#collaboration-policy",
+    "href": "weeks/final/project.html#collaboration-policy",
+    "title": "Final Project",
+    "section": "Collaboration Policy",
+    "text": "Collaboration Policy\nThe final project is an individual assignment. You are welcome to discuss ideas, troubleshoot code, and give feedback to classmates, but all writing and analysis must be your own. If you use GenAI tools, the course GenAI policy applies — include a transcript."
+  },
+  {
+    "objectID": "weeks/final/project.html#collaboration-genai-policy",
+    "href": "weeks/final/project.html#collaboration-genai-policy",
+    "title": "Final Project",
+    "section": "Collaboration & GenAI Policy",
+    "text": "Collaboration & GenAI Policy\nWhether working solo or in a group, you are welcome to discuss ideas, troubleshoot code, and give feedback with classmates outside your group — but all submitted writing and analysis must be your own (or your group’s). If you use GenAI tools, the course GenAI policy applies — include a transcript with your submission."
   }
 ]

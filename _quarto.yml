@@ -48,6 +48,10 @@ website:
         href: schedule.qmd
       - text: Glossary
         href: guides/terminology.qmd
+      - text: Open Datasets
+        href: datasets.qmd
+      - text: Final Project
+        href: weeks/final/project.qmd
       - text: Guides & Resources
         menu:
           - guides/git-guide.qmd

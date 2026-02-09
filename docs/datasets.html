@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PSYC 201B</title>
+<title>Open Datasets – PSYC 201B</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -68,13 +103,15 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 <script type="module" src="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.14.16/dist/main.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/@marimo-team/islands@0.14.16/dist/style.css" rel="stylesheet" crossorigin="anonymous">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&amp;family=Lora&amp;family=PT+Sans:wght@400;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
-</head><body class="nav-sidebar docked nav-fixed quarto-light"><marimo-filename hidden=""></marimo-filename>
+</head><body class="nav-fixed quarto-light"><marimo-filename hidden=""></marimo-filename>
 
 
 <link rel="stylesheet" href="assets/custom.css">
@@ -110,7 +147,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Glossary</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./datasets.html"> 
+    <a class="nav-link active" href="./datasets.html" aria-current="page"> 
 <span class="menu-text">Open Datasets</span></a>
   </li>  
   <li class="nav-item">
@@ -159,308 +196,155 @@ ul.task-list li input[type="checkbox"] {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
   <div id="quarto-announcement" data-announcement-id="168069d033cf860c2caa96a467f40ee0" class="alert alert-success hidden"><i class="bi bi-megaphone-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
 <p><strong>Site Updates:</strong> Slides Week 5, Anonymous feedback form,schedule updates</p>
 </div></div>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 1</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./weeks/01/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Overview</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./weeks/01/lab/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">“Pre-flight” Lab Setup</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./weeks/01/lab/python-fundamentals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Python Fundamentals</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./weeks/01/lab/polars-crash-course.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Polars (dataframes) Crash Course</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 2</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./weeks/02/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Overview</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./weeks/02/lab/seaborn-crash-course.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Seaborn (plotting) Crash Course</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./weeks/02/lab/eda-workflows.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">EDA Workflows</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 3</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./weeks/03/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Overview</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 4</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./weeks/04/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Overview</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 5</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./weeks/05/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Overview</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#statistical-intuitions-for-social-scientists" id="toc-statistical-intuitions-for-social-scientists" class="nav-link active" data-scroll-target="#statistical-intuitions-for-social-scientists">Statistical Intuitions for Social Scientists</a>
-  <ul>
-  <li><a href="#course-goals" id="toc-course-goals" class="nav-link" data-scroll-target="#course-goals">Course Goals</a></li>
-  <li><a href="#instructional-team" id="toc-instructional-team" class="nav-link" data-scroll-target="#instructional-team">Instructional Team</a></li>
-  <li><a href="#when-and-where" id="toc-when-and-where" class="nav-link" data-scroll-target="#when-and-where">When and Where</a></li>
-  <li><a href="#how-well-learn" id="toc-how-well-learn" class="nav-link" data-scroll-target="#how-well-learn">How we’ll learn</a>
-  <ul class="collapse">
-  <li><a href="#github-classroom" id="toc-github-classroom" class="nav-link" data-scroll-target="#github-classroom">Github Classroom</a></li>
-  <li><a href="#course-website" id="toc-course-website" class="nav-link" data-scroll-target="#course-website">Course Website</a></li>
-  <li><a href="#slack" id="toc-slack" class="nav-link" data-scroll-target="#slack">Slack</a></li>
-  </ul></li>
-  <li><a href="#mastery-based-grading" id="toc-mastery-based-grading" class="nav-link" data-scroll-target="#mastery-based-grading">Mastery based Grading</a></li>
-  <li><a href="#generative-ai-course-policy" id="toc-generative-ai-course-policy" class="nav-link" data-scroll-target="#generative-ai-course-policy">Generative AI Course Policy</a></li>
-  <li><a href="#academic-integrity" id="toc-academic-integrity" class="nav-link" data-scroll-target="#academic-integrity">Academic Integrity</a></li>
-  <li><a href="#absence-policy" id="toc-absence-policy" class="nav-link" data-scroll-target="#absence-policy">Absence Policy</a></li>
-  <li><a href="#osd-accommodations" id="toc-osd-accommodations" class="nav-link" data-scroll-target="#osd-accommodations">OSD Accommodations</a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content column-page" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Open Datasets</h1>
+</div>
 
 
 
+<div class="quarto-title-meta column-page">
 
-<section id="statistical-intuitions-for-social-scientists" class="level1 unnumbered">
-<h1 class="unnumbered">Statistical Intuitions for Social Scientists</h1>
-<p><strong>Current version:</strong> Winter 2026<br>
-<strong>Pre-requisites:</strong> PSYC 201A or instructor approval</p>
-<p>Rapid advances in computing have revolutionized modern statistical practice, offering approaches that transcend traditional training in psychological statistics (Efron et al 2016). And yet at the heart of these developments are just a handful of fundamental ideas (Gelman 2021). This course is designed to help you interactively develop your own statistical intuitions about these ideas using the Python programming language. At the core of the class is a deep understanding of the General-Linear-Model (GLM) and its extensions (e.g.&nbsp;multi-level models), through which you’ll learn how to adopt model-based thinking rather than classic statistical ritualization. We’ll also explore the “Two Cultures” of statistical modeling (explanation vs prediction) (Breiman, 2001), integrating ideas from both to build a robust foundation for you to pursue more advanced topics &amp; coursework (e.g.&nbsp;machine-learning, econometrics).</p>
-<p>The “living” open-course materials are available at <a href="https://stat-intuitions.com">https://stat-intuitions.com</a> and developed with the following goals in mind:</p>
-<ul>
-<li>Serve as the primary resource for all course related materials (e.g.&nbsp;slides, readings, notebooks, etc)<br>
-</li>
-<li>Be openly accessible to all past, current, future, students and the general public (live lectures &amp; grading currently only available for enrolled students)</li>
-<li>Serve as a reference resource for members of the Psych Department at UCSD, continually updated each course year and between course offerings</li>
-</ul>
-<section id="course-goals" class="level3">
-<h3 class="anchored" data-anchor-id="course-goals">Course Goals</h3>
-<ul>
-<li>Learn to adopt <strong>model-based-thinking rather</strong> than statistical ritualization</li>
-<li>Acquire a deep understanding of the <strong>General-Linear-Model</strong> (GLM) and its extensions</li>
-<li>Develop <strong>statistical &amp; inferential intuitions from first principles</strong> using modern computational approaches (e.g.&nbsp;simulation, resampling, permutation)</li>
-<li>Develop <strong>cross-disciplinary technical &amp; conceptual skills</strong> that lay the foundation for advanced coursework (e.g.&nbsp;deep-learning, econometrics)</li>
-</ul>
-</section>
-<section id="instructional-team" class="level3">
-<h3 class="anchored" data-anchor-id="instructional-team">Instructional Team</h3>
-<p><strong>Lecturer:</strong> <a href="https://sciminds.studio">Eshin Jolly</a><br>
-<strong>TA:</strong> <a href="https://www.vislearnlab.org/people">Jane Yang</a><br>
-<strong>Office Hours:</strong> Slack or by appointment</p>
-</section>
-<section id="when-and-where" class="level3">
-<h3 class="anchored" data-anchor-id="when-and-where">When and Where</h3>
-<p><strong>Communication:</strong> Slack<br>
-<strong>Location:</strong> Mandler 3545 (Crick Conference Room)<br>
-<strong>Schedule:</strong> M/T/W 2-3:50pm</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The week-by-week schedule is available on the <a href="./schedule.html">schedule page</a></p>
-</div>
-</div>
-</section>
-<section id="how-well-learn" class="level2">
-<h2 class="anchored" data-anchor-id="how-well-learn">How we’ll learn</h2>
-<section id="github-classroom" class="level3">
-<h3 class="anchored" data-anchor-id="github-classroom">Github Classroom</h3>
-<p>We will be using <strong>Github Classroom</strong> to manage all course materials (labs, HWs, interactive lectures). Each week, we’ll update the course website with a new assignment repository link that we’ll keep updated that that week’s materials. <strong>At the start of class/lab, or when a HW problem-set is made available, you should accept assignments and <code>git clone</code> them to your local computer to work interactively</strong>.</p>
-<p>When you’re finished with an assignment or when you want to get feedback on work-in-progress, <strong>you should <code>commit</code> your changes to your local copy of the assignment, and then <code>push</code> them to Github</strong>. This will allow your instructors to review your work, provide Feedback, and/or have a private discussion with you while referencing questions/issues in your code directly. At the same time, you’ll be building up a set of references (with feedback) that you can always check-out and refresh after this class is over!</p>
-</section>
-<section id="course-website" class="level3">
-<h3 class="anchored" data-anchor-id="course-website">Course Website</h3>
-<p>When in doubt, this course website should be the <strong>first place</strong> you look for any logistical information! We’ll update it regularly and each week with a <strong>new sidebar section.</strong></p>
-</section>
-<section id="slack" class="level3">
-<h3 class="anchored" data-anchor-id="slack">Slack</h3>
-<p>All course communications will occur over Slack in <code>#w26-201b</code> channel. Keep an eye out here for all announcements, additional links/resources, and logistics updates.</p>
-</section>
-</section>
-<section id="mastery-based-grading" class="level2">
-<h2 class="anchored" data-anchor-id="mastery-based-grading">Mastery based Grading</h2>
-<p>Weʼre interested in grading you on your ability to achieve the skill sets that are taught in this course regardless of your starting experience with Python. For this reason, you can attempt any Github Classroom assignment (lab or HW) multiple times, especially if you think you could do better or if you want to incorporate instructor feedback. Practically, this just means making additional code changes and pushing another commit to your assignment. Your instructors will automatically be able to see your code changes and your latest submission. Weʼll grade you based partially on your accurate completion of the assignment, but mostly on your ability to demonstrate: - You attempted the assignment in good-faith (lecture, lab, or HW notebooks) - You made effort to clearly document and explain your thought process, reasoning, code, and where/why you got stuck if you did - What attempts you made to fix issues you ran into, how you approached debugging, and what you learned from the process - Why you made a particular choice in your code/analysis, and/or what assumptions you made for a particular statistical inference</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Component</th>
-<th>Weight</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Labs &amp; Engagement</td>
-<td>30%</td>
-</tr>
-<tr class="even">
-<td>Homeworks</td>
-<td>40%</td>
-</tr>
-<tr class="odd">
-<td><a href="./weeks/final/project.html">Final Project</a></td>
-<td>30%</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="generative-ai-course-policy" class="level2">
-<h2 class="anchored" data-anchor-id="generative-ai-course-policy">Generative AI Course Policy</h2>
-<p><em>Adapted from the UC San Diego &amp; University of Waterloo Academic Integrity Offices</em></p>
-<div class="callout callout-style-default callout-warning callout-titled" title="GenAI is known to fabricate sources/facts and can perpetuate biases/misunderstanding">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>GenAI is known to fabricate sources/facts and can perpetuate biases/misunderstanding
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You should also be aware that there are copyright and privacy concerns with these tools. You should exercise caution when using large portions of content from AI sources for these reasons. Also, you are accountable for the content and accuracy of all work you submit in this class, including any supported by generative AI.</p>
-</div>
-</div>
-<p>We encourage the use of Generative artificial intelligence (GenAI) tools like <a href="https://chatgpt.com/">OpenAI’s ChatGPT</a>, <a href="https://claude.ai/">Anthropic’s Claude</a>, and/or <a href="https://gemini.google.com/app">Google’s Gemini</a> to help you master concepts and skills in this class in accordance with the UCSD Academic Integrity Guidelines on GenAI and the following guidelines:</p>
-<ol type="1">
-<li>If you use GenAI for any submitted coursework, <strong>you must attach a link or text transcript to any assignments you submit.</strong> Many services offer a “share your chat” link-creation function or you can use a Google Chrome Browser Extension like ChatGPT Exporter or Claude Exporter. This will help us provide feedback on using LLM tools effectively (if desired) and make it transparent to us how you are completing assignments, while respecting the standards of academic integrity.</li>
-<li>Directly prompting GenAI with course assignments, or copying/pasting GenAI output instead of performing the work yourself, <strong>will not earn you assignment credit and could result in an academic integrity violation.</strong></li>
-</ol>
-<p>Instead you should <strong>aim to master GenAI as tools that supplement your programming and critical thinking skills</strong>, not as a substitute for them. They can be especially helpful for: debugging and troubleshooting unfamiliar code, reviewing Python fundamentals, reasoning about statistical concepts via analogy/example, or simply conversing in natural language about technical concepts.</p>
-</section>
-<section id="academic-integrity" class="level2">
-<h2 class="anchored" data-anchor-id="academic-integrity">Academic Integrity</h2>
-<p>All students are expected to adhere to standards of academic integrity. Cheating of any kind on any assignment will not be tolerated. It is disrespectful to your peers, the university, and to your instructors. If you are unsure what might constitute a violation of academic integrity, ask your instructors and/or the UCSD website on academic integrity: http://academicintegrity.ucsd.edu. Any evidence of academic misconduct will be reported to the Academic Integrity Office.</p>
-</section>
-<section id="absence-policy" class="level2">
-<h2 class="anchored" data-anchor-id="absence-policy">Absence Policy</h2>
-<p>Family emergencies and illness are excused absences, as per UCSD policy. Please do not come to class if you have active symptoms (instead, please rest!). In general, absences will have a direct impact on your ability to learn the skills presented in this course as well as your participation grade.</p>
-<p>That being said, <strong>life happens</strong> and we genuinely care about your well-being. Sometimes you simply can’t be in class or turn in an assignment on time. There may also be times when I’m unable to make it to class for a given reason, and I will ask for your grace and understanding then as well. Please, prioritize your well-being in graduate school and use this class as a way for you to learn skills that will be useful for your career (versus focusing on passing the requirements for a grade).</p>
-</section>
-<section id="osd-accommodations" class="level2">
-<h2 class="anchored" data-anchor-id="osd-accommodations">OSD Accommodations</h2>
-<p>Any student with a documented disability will be accommodated according to University policy. For details, please consult the Office of Students with Disabilities (OSD): http://disabilities.ucsd.edu. If you require accommodation for any component of the course, please provide the instructor with documentation from OSD as soon as possible. Please note that accommodations cannot be made retroactively under any circumstances.</p>
-<hr>
-<p><em>This syllabus is subject to change. Check the course website (stat-intuitions.com) for the most up-to-date information.</em></p>
+    
+  
+    
+  </div>
+  
 
 
-</section>
-</section>
+</header>
+
+
+<p>A searchable collection of open datasets for practice and projects. Use the search box to filter across all columns.</p>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="13" data-source-offset="-1"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 12;"><span id="cb1-13"><a href="#cb1-13"></a>datasets <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"assets/data/open-datasets.csv"</span>)<span class="op">.</span><span class="fu">csv</span>({ <span class="dt">typed</span><span class="op">:</span> <span class="kw">true</span> })</span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co">// Get unique categories for filter</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a>allCategories <span class="op">=</span> [<span class="st">"All"</span><span class="op">,</span> <span class="op">...</span><span class="kw">new</span> <span class="bu">Set</span>(datasets<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">category</span>)<span class="op">.</span><span class="fu">filter</span>(c <span class="kw">=&gt;</span> c))]</span>
+<span id="cb1-17"><a href="#cb1-17"></a></span>
+<span id="cb1-18"><a href="#cb1-18"></a>viewof search <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">search</span>(datasets<span class="op">,</span> {</span>
+<span id="cb1-19"><a href="#cb1-19"></a>  <span class="dt">placeholder</span><span class="op">:</span> <span class="st">"Search datasets..."</span><span class="op">,</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a>  <span class="dt">columns</span><span class="op">:</span> [<span class="st">"dataset"</span><span class="op">,</span> <span class="st">"notes"</span><span class="op">,</span> <span class="st">"category"</span>]</span>
+<span id="cb1-21"><a href="#cb1-21"></a>})</span>
+<span id="cb1-22"><a href="#cb1-22"></a></span>
+<span id="cb1-23"><a href="#cb1-23"></a>viewof categoryFilter <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(allCategories<span class="op">,</span> {</span>
+<span id="cb1-24"><a href="#cb1-24"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Category"</span><span class="op">,</span></span>
+<span id="cb1-25"><a href="#cb1-25"></a>  <span class="dt">value</span><span class="op">:</span> <span class="st">"All"</span></span>
+<span id="cb1-26"><a href="#cb1-26"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="32" data-source-offset="-1"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 31;"><span id="cb2-32"><a href="#cb2-32"></a>filtered <span class="op">=</span> categoryFilter <span class="op">===</span> <span class="st">"All"</span> <span class="op">?</span> search <span class="op">:</span> search<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">category</span> <span class="op">===</span> categoryFilter)</span>
+<span id="cb2-33"><a href="#cb2-33"></a></span>
+<span id="cb2-34"><a href="#cb2-34"></a><span class="fu">md</span><span class="vs">`**</span><span class="sc">${</span>filtered<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs">** datasets </span><span class="sc">${</span>filtered<span class="op">.</span><span class="at">length</span> <span class="op">!==</span> datasets<span class="op">.</span><span class="at">length</span> <span class="op">?</span> <span class="st">"(filtered)"</span> <span class="op">:</span> <span class="st">""</span><span class="sc">}</span><span class="vs">`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="36" data-source-offset="-195"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 35;"><span id="cb3-36"><a href="#cb3-36"></a>Inputs<span class="op">.</span><span class="fu">table</span>(filtered<span class="op">,</span> {</span>
+<span id="cb3-37"><a href="#cb3-37"></a>  <span class="dt">columns</span><span class="op">:</span> [<span class="st">"category"</span><span class="op">,</span> <span class="st">"dataset"</span><span class="op">,</span> <span class="st">"notes"</span>]<span class="op">,</span></span>
+<span id="cb3-38"><a href="#cb3-38"></a>  <span class="dt">header</span><span class="op">:</span> {</span>
+<span id="cb3-39"><a href="#cb3-39"></a>    <span class="dt">category</span><span class="op">:</span> <span class="st">"Category"</span><span class="op">,</span></span>
+<span id="cb3-40"><a href="#cb3-40"></a>    <span class="dt">dataset</span><span class="op">:</span> <span class="st">"Dataset"</span><span class="op">,</span></span>
+<span id="cb3-41"><a href="#cb3-41"></a>    <span class="dt">notes</span><span class="op">:</span> <span class="st">"Notes"</span></span>
+<span id="cb3-42"><a href="#cb3-42"></a>  }<span class="op">,</span></span>
+<span id="cb3-43"><a href="#cb3-43"></a>  <span class="dt">width</span><span class="op">:</span> {</span>
+<span id="cb3-44"><a href="#cb3-44"></a>    <span class="dt">category</span><span class="op">:</span> <span class="dv">120</span><span class="op">,</span></span>
+<span id="cb3-45"><a href="#cb3-45"></a>    <span class="dt">dataset</span><span class="op">:</span> <span class="dv">250</span><span class="op">,</span></span>
+<span id="cb3-46"><a href="#cb3-46"></a>    <span class="dt">notes</span><span class="op">:</span> <span class="dv">400</span></span>
+<span id="cb3-47"><a href="#cb3-47"></a>  }<span class="op">,</span></span>
+<span id="cb3-48"><a href="#cb3-48"></a>  <span class="dt">format</span><span class="op">:</span> {</span>
+<span id="cb3-49"><a href="#cb3-49"></a>    <span class="dt">dataset</span><span class="op">:</span> (x<span class="op">,</span> i<span class="op">,</span> data) <span class="kw">=&gt;</span> {</span>
+<span id="cb3-50"><a href="#cb3-50"></a>      <span class="kw">const</span> row <span class="op">=</span> filtered[i]<span class="op">;</span></span>
+<span id="cb3-51"><a href="#cb3-51"></a>      <span class="cf">return</span> row<span class="op">?.</span><span class="at">url</span> <span class="op">?</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;a href="</span><span class="sc">${</span>row<span class="op">.</span><span class="at">url</span><span class="sc">}</span><span class="vs">" target="_blank"&gt;</span><span class="sc">${</span>x<span class="sc">}</span><span class="vs">&lt;/a&gt;`</span> <span class="op">:</span> x<span class="op">;</span></span>
+<span id="cb3-52"><a href="#cb3-52"></a>    }</span>
+<span id="cb3-53"><a href="#cb3-53"></a>  }<span class="op">,</span></span>
+<span id="cb3-54"><a href="#cb3-54"></a>  <span class="dt">sort</span><span class="op">:</span> <span class="st">"dataset"</span><span class="op">,</span></span>
+<span id="cb3-55"><a href="#cb3-55"></a>  <span class="dt">rows</span><span class="op">:</span> <span class="dv">25</span></span>
+<span id="cb3-56"><a href="#cb3-56"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-3" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+
+
 
 </main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxuZGF0YXNldHMgPSBGaWxlQXR0YWNobWVudChcImFzc2V0cy9kYXRhL29wZW4tZGF0YXNldHMuY3N2XCIpLmNzdih7IHR5cGVkOiB0cnVlIH0pXG5cbi8vIEdldCB1bmlxdWUgY2F0ZWdvcmllcyBmb3IgZmlsdGVyXG5hbGxDYXRlZ29yaWVzID0gW1wiQWxsXCIsIC4uLm5ldyBTZXQoZGF0YXNldHMubWFwKGQgPT4gZC5jYXRlZ29yeSkuZmlsdGVyKGMgPT4gYykpXVxuXG52aWV3b2Ygc2VhcmNoID0gSW5wdXRzLnNlYXJjaChkYXRhc2V0cywge1xuICBwbGFjZWhvbGRlcjogXCJTZWFyY2ggZGF0YXNldHMuLi5cIixcbiAgY29sdW1uczogW1wiZGF0YXNldFwiLCBcIm5vdGVzXCIsIFwiY2F0ZWdvcnlcIl1cbn0pXG5cbnZpZXdvZiBjYXRlZ29yeUZpbHRlciA9IElucHV0cy5zZWxlY3QoYWxsQ2F0ZWdvcmllcywge1xuICBsYWJlbDogXCJDYXRlZ29yeVwiLFxuICB2YWx1ZTogXCJBbGxcIlxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxuZmlsdGVyZWQgPSBjYXRlZ29yeUZpbHRlciA9PT0gXCJBbGxcIiA/IHNlYXJjaCA6IHNlYXJjaC5maWx0ZXIoZCA9PiBkLmNhdGVnb3J5ID09PSBjYXRlZ29yeUZpbHRlcilcblxubWRgKioke2ZpbHRlcmVkLmxlbmd0aH0qKiBkYXRhc2V0cyAke2ZpbHRlcmVkLmxlbmd0aCAhPT0gZGF0YXNldHMubGVuZ3RoID8gXCIoZmlsdGVyZWQpXCIgOiBcIlwifWBcblxuSW5wdXRzLnRhYmxlKGZpbHRlcmVkLCB7XG4gIGNvbHVtbnM6IFtcImNhdGVnb3J5XCIsIFwiZGF0YXNldFwiLCBcIm5vdGVzXCJdLFxuICBoZWFkZXI6IHtcbiAgICBjYXRlZ29yeTogXCJDYXRlZ29yeVwiLFxuICAgIGRhdGFzZXQ6IFwiRGF0YXNldFwiLFxuICAgIG5vdGVzOiBcIk5vdGVzXCJcbiAgfSxcbiAgd2lkdGg6IHtcbiAgICBjYXRlZ29yeTogMTIwLFxuICAgIGRhdGFzZXQ6IDI1MCxcbiAgICBub3RlczogNDAwXG4gIH0sXG4gIGZvcm1hdDoge1xuICAgIGRhdGFzZXQ6ICh4LCBpLCBkYXRhKSA9PiB7XG4gICAgICBjb25zdCByb3cgPSBmaWx0ZXJlZFtpXTtcbiAgICAgIHJldHVybiByb3c/LnVybCA/IGh0bC5odG1sYDxhIGhyZWY9XCIke3Jvdy51cmx9XCIgdGFyZ2V0PVwiX2JsYW5rXCI+JHt4fTwvYT5gIDogeDtcbiAgICB9XG4gIH0sXG4gIHNvcnQ6IFwiZGF0YXNldFwiLFxuICByb3dzOiAyNVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnc2VhcmNoJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2NhdGVnb3J5RmlsdGVyJykifV19
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../..";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

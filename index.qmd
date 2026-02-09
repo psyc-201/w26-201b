@@ -69,7 +69,7 @@ assignment (lab or HW) multiple times, especially if you think you could do bett
 |-----------|--------|
 | Labs & Engagement | 30% |
 | Homeworks | 40% |
-| Final Project | 30% |
+| [Final Project](/weeks/final/project.qmd) | 30% |
 
 
 ## Generative AI Course Policy

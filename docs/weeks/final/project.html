@@ -109,6 +109,14 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="../../guides/terminology.html"> 
 <span class="menu-text">Glossary</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../datasets.html"> 
+<span class="menu-text">Open Datasets</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../../weeks/final/project.html" aria-current="page"> 
+<span class="menu-text">Final Project</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-guides--resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Guides &amp; Resources</span>
@@ -166,7 +174,7 @@ ul.task-list li input[type="checkbox"] {
 </div></div>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="sidebar-menu-container"> 
@@ -298,23 +306,35 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#timeline" id="toc-timeline" class="nav-link" data-scroll-target="#timeline">Timeline</a></li>
+  <li><a href="#project-options" id="toc-project-options" class="nav-link" data-scroll-target="#project-options">Project Options</a>
+  <ul>
+  <li><a href="#solo-or-group" id="toc-solo-or-group" class="nav-link" data-scroll-target="#solo-or-group">Solo or Group</a></li>
+  <li><a href="#dataset" id="toc-dataset" class="nav-link" data-scroll-target="#dataset">Dataset</a></li>
+  <li><a href="#group-requirements" id="toc-group-requirements" class="nav-link" data-scroll-target="#group-requirements">Group Requirements</a></li>
+  </ul></li>
   <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a>
   <ul>
   <li><a href="#research-question" id="toc-research-question" class="nav-link" data-scroll-target="#research-question">1. Research Question</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">2. Data</a></li>
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">3. Analysis</a></li>
-  <li><a href="#deliverables" id="toc-deliverables" class="nav-link" data-scroll-target="#deliverables">4. Deliverables</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">2. Analysis</a></li>
+  <li><a href="#deliverables" id="toc-deliverables" class="nav-link" data-scroll-target="#deliverables">3. Deliverables</a></li>
   </ul></li>
-  <li><a href="#grading-rubric" id="toc-grading-rubric" class="nav-link" data-scroll-target="#grading-rubric">Grading Rubric</a></li>
   <li><a href="#proposal-template" id="toc-proposal-template" class="nav-link" data-scroll-target="#proposal-template">Proposal Template</a></li>
+  <li><a href="#collaboration-genai-policy" id="toc-collaboration-genai-policy" class="nav-link" data-scroll-target="#collaboration-genai-policy">Collaboration &amp; GenAI Policy</a></li>
   <li><a href="#example-projects" id="toc-example-projects" class="nav-link" data-scroll-target="#example-projects">Example Projects</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#grading-rubric" id="toc-grading-rubric" class="nav-link" data-scroll-target="#grading-rubric">Grading Rubric</a>
+  <ul>
+  <li><a href="#general-formatting-prose-10" id="toc-general-formatting-prose-10" class="nav-link" data-scroll-target="#general-formatting-prose-10">General Formatting &amp; Prose (10%)</a></li>
+  <li><a href="#methods-section-clarity-completeness-30" id="toc-methods-section-clarity-completeness-30" class="nav-link" data-scroll-target="#methods-section-clarity-completeness-30">Methods Section Clarity &amp; Completeness (30%)</a></li>
+  <li><a href="#results-interpretation-assumptions-limitations-30" id="toc-results-interpretation-assumptions-limitations-30" class="nav-link" data-scroll-target="#results-interpretation-assumptions-limitations-30">Results Interpretation, Assumptions, &amp; Limitations (30%)</a></li>
+  <li><a href="#code-quality-reproducibility-15" id="toc-code-quality-reproducibility-15" class="nav-link" data-scroll-target="#code-quality-reproducibility-15">Code Quality &amp; Reproducibility (15%)</a></li>
+  <li><a href="#innovation-integration-15" id="toc-innovation-integration-15" class="nav-link" data-scroll-target="#innovation-integration-15">Innovation &amp; Integration (15%)</a></li>
+  </ul></li>
   <li><a href="#submission" id="toc-submission" class="nav-link" data-scroll-target="#submission">Submission</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-body" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -323,7 +343,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-body">
 
     
   
@@ -337,7 +357,20 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>The final project is your opportunity to apply the statistical modeling skills you’ve learned throughout the course to a research question of your choice.</p>
+<p>The final project is your opportunity to apply the statistical modeling skills you’ve learned throughout the course to a real dataset. Your deliverable is a <strong>publication-quality abstract, methods section, and results section</strong> — the kind you’d submit to a journal — rendered as a reproducible <code>.qmd</code> document with all supporting code.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Looking for data? Check out the <a href="../../datasets.html">Open Datasets</a> page for a curated collection of publicly available datasets.</p>
+</div>
+</div>
 </section>
 <section id="timeline" class="level2">
 <h2 class="anchored" data-anchor-id="timeline">Timeline</h2>
@@ -350,19 +383,61 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td>Week 8 (Feb 27)</td>
-<td>Project proposal due</td>
+<td>Wed, Feb 11</td>
+<td>Initial meeting with instructors</td>
 </tr>
 <tr class="even">
+<td>Week 8 (Feb 27)</td>
+<td>Project proposal due (via GitHub Classroom)</td>
+</tr>
+<tr class="odd">
 <td>Week 10 (Mar 13)</td>
 <td>Draft analysis due (optional feedback)</td>
 </tr>
-<tr class="odd">
-<td>Final Exam Week (Mar 21)</td>
+<tr class="even">
+<td>Saturday, Mar 21</td>
 <td>Final project due</td>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="project-options" class="level2">
+<h2 class="anchored" data-anchor-id="project-options">Project Options</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In all cases, you must choose a <strong>new question</strong> to answer — not something you or someone else has previously analyzed. The dataset can be familiar, but the research question must be original.</p>
+</div>
+</div>
+<section id="solo-or-group" class="level3">
+<h3 class="anchored" data-anchor-id="solo-or-group">Solo or Group</h3>
+<p>You may work <strong>solo</strong> or in a <strong>group</strong>. If working in a group, see the <a href="#group-requirements">additional requirements below</a>.</p>
+</section>
+<section id="dataset" class="level3">
+<h3 class="anchored" data-anchor-id="dataset">Dataset</h3>
+<p>Regardless of solo or group, choose one of the following:</p>
+<ol type="1">
+<li><strong>Existing dataset from your 201A or first-year project</strong> — a dataset you already have access to from prior coursework or your first-year research</li>
+<li><strong>Existing dataset in your lab</strong> — data your lab has collected that you have permission to use</li>
+<li><strong>New open dataset</strong> — find one from the <a href="../../datasets.html">Open Datasets</a> page</li>
+<li><strong>New simulated dataset</strong> — generate synthetic data to answer your question (discuss with instructors first)</li>
+</ol>
+</section>
+<section id="group-requirements" class="level3">
+<h3 class="anchored" data-anchor-id="group-requirements">Group Requirements</h3>
+<p>Groups may provide a single submission, but you must:</p>
+<ul>
+<li>Include a <a href="https://www.elsevier.com/researcher/author/policies-and-guidelines/credit-author-statement">CRediT author statement</a> describing each member’s contributions</li>
+<li>Demonstrate evidence of collaboration via GitHub — each person must contribute at least 1 commit to the project repository</li>
+</ul>
+</section>
 </section>
 <section id="requirements" class="level2">
 <h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
@@ -370,110 +445,38 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="research-question">1. Research Question</h3>
 <p>Formulate a clear, answerable research question that requires statistical analysis.</p>
 </section>
-<section id="data" class="level3">
-<h3 class="anchored" data-anchor-id="data">2. Data</h3>
-<ul>
-<li>Use a publicly available dataset OR</li>
-<li>Use data from your own research (with appropriate permissions)</li>
-<li>Minimum 100 observations recommended</li>
-</ul>
-</section>
 <section id="analysis" class="level3">
-<h3 class="anchored" data-anchor-id="analysis">3. Analysis</h3>
+<h3 class="anchored" data-anchor-id="analysis">2. Analysis</h3>
 <p>Your analysis should include:</p>
 <ol type="1">
-<li><strong>Exploratory Data Analysis</strong>
-<ul>
-<li>Summary statistics</li>
-<li>Visualizations</li>
-<li>Data quality assessment</li>
-</ul></li>
-<li><strong>Statistical Modeling</strong>
-<ul>
-<li>At least one model from the course (GLM, LMM, etc.)</li>
-<li>Model diagnostics</li>
-<li>Model comparison (if appropriate)</li>
-</ul></li>
-<li><strong>Inference or Prediction</strong>
-<ul>
-<li>Parameter estimates with uncertainty</li>
-<li>Hypothesis tests or confidence intervals</li>
-<li>OR cross-validated prediction performance</li>
-</ul></li>
-<li><strong>Interpretation</strong>
-<ul>
-<li>What do the results mean?</li>
-<li>Limitations</li>
-<li>Future directions</li>
-</ul></li>
+<li><strong>Exploratory Data Analysis</strong> — Summary statistics, visualizations, data quality assessment</li>
+<li><strong>Statistical Modeling</strong> — At least one model from the course (GLM, LMM, etc.) with diagnostics and comparison (if appropriate)</li>
+<li><strong>Inference or Prediction</strong> — Parameter estimates with uncertainty, hypothesis tests or confidence intervals, OR cross-validated prediction performance</li>
+<li><strong>Interpretation</strong> — What do the results mean? Limitations and future directions</li>
 </ol>
 </section>
 <section id="deliverables" class="level3">
-<h3 class="anchored" data-anchor-id="deliverables">4. Deliverables</h3>
+<h3 class="anchored" data-anchor-id="deliverables">3. Deliverables</h3>
+<p>Your submission is a <strong>GitHub repository</strong> containing all of the following:</p>
 <ol type="1">
-<li><strong>Rendered .qmd file</strong> (HTML or PDF)
+<li><strong>Reproducible Python environment</strong> — <code>pyproject.toml</code> + <code>README</code> with instructions so anyone can reproduce your work</li>
+<li><strong>Quarto document</strong> — A rendered <code>.qmd</code> file with publication-quality:
 <ul>
-<li>Introduction and research question</li>
-<li>Methods</li>
-<li>Results (with code)</li>
-<li>Discussion</li>
+<li>Abstract (~150-250 words)</li>
+<li>Methods (see rubric below)</li>
+<li>Results with relevant figures, tables, and references</li>
 </ul></li>
-<li><strong>Data and code</strong>
+<li><strong>Data files and analysis scripts</strong> — with informative descriptions in the <code>README</code>
 <ul>
-<li>All code should be reproducible</li>
-<li>Include data or instructions for obtaining it</li>
+<li>Separate raw data from any preprocessed/cleaned data you create</li>
+<li>If datasets are too large for GitHub (&gt;5 MB), provide a download link and retrieval instructions in the <code>README</code> so someone can still reproduce your work</li>
 </ul></li>
 </ol>
 </section>
 </section>
-<section id="grading-rubric" class="level2">
-<h2 class="anchored" data-anchor-id="grading-rubric">Grading Rubric</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Component</th>
-<th>Points</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Research question clarity</td>
-<td>10</td>
-</tr>
-<tr class="even">
-<td>Data preparation and EDA</td>
-<td>15</td>
-</tr>
-<tr class="odd">
-<td>Appropriate model choice</td>
-<td>20</td>
-</tr>
-<tr class="even">
-<td>Model fitting and diagnostics</td>
-<td>20</td>
-</tr>
-<tr class="odd">
-<td>Interpretation and conclusions</td>
-<td>20</td>
-</tr>
-<tr class="even">
-<td>Code quality and reproducibility</td>
-<td>10</td>
-</tr>
-<tr class="odd">
-<td>Writing and presentation</td>
-<td>5</td>
-</tr>
-<tr class="even">
-<td><strong>Total</strong></td>
-<td><strong>100</strong></td>
-</tr>
-</tbody>
-</table>
-</section>
 <section id="proposal-template" class="level2">
 <h2 class="anchored" data-anchor-id="proposal-template">Proposal Template</h2>
-<p>Submit a 1-page proposal including:</p>
+<p>Submit a 1-page proposal via GitHub Classroom including:</p>
 <ol type="1">
 <li><strong>Research question</strong> (1-2 sentences)</li>
 <li><strong>Data source</strong> (what data, where from, sample size)</li>
@@ -481,29 +484,162 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Expected challenges</strong> (what might be tricky?)</li>
 </ol>
 </section>
+<section id="collaboration-genai-policy" class="level2">
+<h2 class="anchored" data-anchor-id="collaboration-genai-policy">Collaboration &amp; GenAI Policy</h2>
+<p>Whether working solo or in a group, you are welcome to discuss ideas, troubleshoot code, and give feedback with classmates outside your group — but all submitted writing and analysis must be your own (or your group’s). If you use GenAI tools, the course <a href="../../#generative-ai-course-policy">GenAI policy</a> applies — include a transcript with your submission.</p>
+</section>
 <section id="example-projects" class="level2">
 <h2 class="anchored" data-anchor-id="example-projects">Example Projects</h2>
 <p>Past successful projects have included:</p>
 <ul>
 <li>Predicting movie ratings with mixed models (repeated measures per user)</li>
 <li>Analyzing experimental psychology data with factorial ANOVA/LMM</li>
-<li>Logistic regression for predicting customer churn</li>
-<li>Power analysis for a planned study</li>
-<li>Factor analysis of survey responses</li>
+<li>Logistic regression for predicting customer churn from survey data</li>
+<li>Bootstrap power analysis for a planned study</li>
+<li>Factor analysis of survey responses with model comparison</li>
 </ul>
 </section>
-<section id="resources" class="level2">
-<h2 class="anchored" data-anchor-id="resources">Resources</h2>
-<ul>
-<li>Office hours: TBD</li>
-<li>Course materials: All previous weeks</li>
-<li>Statistical consulting: TBD</li>
-</ul>
+<section id="grading-rubric" class="level2">
+<h2 class="anchored" data-anchor-id="grading-rubric">Grading Rubric</h2>
+<section id="general-formatting-prose-10" class="level3">
+<h3 class="anchored" data-anchor-id="general-formatting-prose-10">General Formatting &amp; Prose (10%)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Excellent (9-10)</th>
+<th style="text-align: left;">Good (7-8)</th>
+<th style="text-align: left;">Adequate (5-6)</th>
+<th style="text-align: left;">Needs Improvement (0-4)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Publication-quality writing: clear, concise, and error-free. APA-style reporting of statistics (e.g., <em>F</em>(1, 48) = 12.3, <em>p</em> &lt; .001, <em>d</em> = 0.45). Figures and tables are properly labeled, referenced in text, and enhance the narrative. Complete, properly formatted references</td>
+<td style="text-align: left;">Generally clear writing with minor errors. Statistics mostly reported in APA style with occasional inconsistencies. Figures/tables present with minor labeling issues. References present but may have formatting gaps</td>
+<td style="text-align: left;">Understandable but unpolished writing. Inconsistent statistical reporting format. Figures/tables incomplete or poorly integrated. Several grammatical errors or missing references</td>
+<td style="text-align: left;">Unclear or confusing writing. Statistics poorly reported or missing key values. Missing or unprofessional figures/tables. Pervasive grammatical issues</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="methods-section-clarity-completeness-30" class="level3">
+<h3 class="anchored" data-anchor-id="methods-section-clarity-completeness-30">Methods Section Clarity &amp; Completeness (30%)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Excellent (27-30)</th>
+<th style="text-align: left;">Good (21-26)</th>
+<th style="text-align: left;">Adequate (15-20)</th>
+<th style="text-align: left;">Needs Improvement (0-14)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Data:</strong> Complete description of the dataset — source, how it was collected, sample characteristics, sample size, and any exclusions or missing data handling explained. <strong>Variables:</strong> All variables clearly operationalized (what was measured, how, units/scales). <strong>Analytical Approach:</strong> Statistical models justified with clear rationale; specifies assumption checks, alpha levels, and software/packages used. Sufficient detail for an independent researcher to reproduce the analysis</td>
+<td style="text-align: left;">All major components present with some details missing. Variables adequately described. Analytical choices mostly justified. Minor gaps that wouldn’t prevent replication</td>
+<td style="text-align: left;">Key information present but lacks depth. Some variables poorly described. Limited justification for analytical choices. Replication would be challenging</td>
+<td style="text-align: left;">Major components missing or inadequate. Insufficient detail for understanding the analysis. No justification for analytical decisions. Replication not possible</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="results-interpretation-assumptions-limitations-30" class="level3">
+<h3 class="anchored" data-anchor-id="results-interpretation-assumptions-limitations-30">Results Interpretation, Assumptions, &amp; Limitations (30%)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Excellent (27-30)</th>
+<th style="text-align: left;">Good (21-26)</th>
+<th style="text-align: left;">Adequate (15-20)</th>
+<th style="text-align: left;">Needs Improvement (0-14)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Assumptions:</strong> Explicitly tests all relevant assumptions (normality, homogeneity, independence, linearity); appropriate diagnostic plots; states whether assumptions are met and describes remedial actions if not. <strong>Results:</strong> All analyses clearly reported with complete statistics (test statistics, df, p-values, effect sizes, CIs); figures and tables enhance understanding. <strong>Interpretation:</strong> Accurate; avoids over-interpreting null results; appropriately cautious with causal language. <strong>Limitations:</strong> Thoughtful discussion of methodological and statistical limitations, including threats to validity</td>
+<td style="text-align: left;">Most assumptions checked appropriately. Results clearly reported with minor omissions. Interpretation generally sound with appropriate caution. Limitations discussed but may lack depth or miss key issues</td>
+<td style="text-align: left;">Basic assumption checking but incomplete. Results reported but missing key statistics (e.g., no effect sizes or CIs). Some understanding shown but may over-interpret. Limitations mentioned but superficial</td>
+<td style="text-align: left;">Assumptions not checked or inadequately addressed. Results poorly reported or incomplete. Misinterpretation of findings. Limitations absent or lacking understanding</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="code-quality-reproducibility-15" class="level3">
+<h3 class="anchored" data-anchor-id="code-quality-reproducibility-15">Code Quality &amp; Reproducibility (15%)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Excellent (14-15)</th>
+<th style="text-align: left;">Good (11-13)</th>
+<th style="text-align: left;">Adequate (8-10)</th>
+<th style="text-align: left;">Needs Improvement (0-7)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Code runs without errors and reproduces all results. Well-organized with clear headers and comments. Follows best practices (relative paths, no hardcoding). Includes package versions and random seed where applicable. Data cleaning transparent and justified. Efficient and readable code</td>
+<td style="text-align: left;">Code runs with minimal adjustments. Generally well-organized with adequate comments. Reproduces main results. Minor issues with paths or organization</td>
+<td style="text-align: left;">Code runs but requires troubleshooting. Limited organization or comments. Reproduces some but not all results. Hardcoded paths or unclear workflow</td>
+<td style="text-align: left;">Code doesn’t run or has major errors. Poorly organized and difficult to follow. Cannot reproduce reported results. Missing key analysis steps</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="innovation-integration-15" class="level3">
+<h3 class="anchored" data-anchor-id="innovation-integration-15">Innovation &amp; Integration (15%)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Excellent (14-15)</th>
+<th style="text-align: left;">Good (11-13)</th>
+<th style="text-align: left;">Adequate (8-10)</th>
+<th style="text-align: left;">Needs Improvement (0-7)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Goes beyond basic analyses with appropriate techniques (e.g., model comparison via AIC/BIC or cross-validation, bootstrap inference, mixed-effects modeling for nested data). Analytical choices justified by citing course materials or methodological literature. Demonstrates thoughtful engagement with the “why” behind modeling decisions</td>
+<td style="text-align: left;">Incorporates some techniques beyond the basics. Analytical choices generally justified. Shows familiarity with course best practices</td>
+<td style="text-align: left;">Primarily basic analyses without much justification. Limited connection to course concepts or methodological reasoning</td>
+<td style="text-align: left;">Only rudimentary analyses. No justification for modeling choices. Does not engage with course material</td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 <section id="submission" class="level2">
 <h2 class="anchored" data-anchor-id="submission">Submission</h2>
-<p>Submit via GitHub Classroom by <strong>Saturday, March 21, 2026</strong>.</p>
-<p>Good luck!</p>
+<p>Push your completed repository via GitHub Classroom by <strong>Saturday, March 21, 2026</strong>.</p>
 
 
 </section>
