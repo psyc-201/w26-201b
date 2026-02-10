@@ -17,6 +17,12 @@ title: "Week 6"
  ![](slides/02-09-glm-02.pdf){width=100% height=600} 
 :::
 
+## Materials
+
+:::{.callout-caution icon=false title="📚 Lab"}
+[Github Classroom Assignment](https://classroom.github.com/a/-LW97_Kt)
+:::
+
 ## Mentioned References
 - [The Little Book of Linear Algebra](https://little-book-of.github.io/linear-algebra/)
 - [OLS Regression](https://setosa.io/ev/ordinary-least-squares-regression/)
