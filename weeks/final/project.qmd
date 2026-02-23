@@ -11,7 +11,7 @@ format:
 | Week | Date | Milestone |
 | ----- |------|-----------|
 |  6   | Wed Feb 11 | Initial meeting with instructors |
-|  8   | Wed Feb 25 | Project proposal due |
+|  9   | Mon Mar 2 | Project proposal due |
 |  Finals  | Tues Mar 17 | Final project due |
 
 The final project is your opportunity to apply the statistical modeling skills you've learned throughout the course to a real dataset. Your deliverable is a **publication-quality Abstract, Methods, & Results document** — the kind you'd submit to a journal as part of a full manuscript — rendered as a reproducible `.qmd` document with all supporting materials (e.g. code, data) in a github repository. Your instructors will grade you based on the [rubric](#rubric) which isn't designed to trick you, but help you focus on these core skills:

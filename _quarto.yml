@@ -12,12 +12,6 @@ project:
     - "!slides/"
     - "!classroom/"
     - "!weeks/**/prep/"
-    - "!weeks/0[7-9]/**"
-    - "!weeks/[7-9][0-9]/**"
-
-# filters:
-  # - marimo-team/marimo
-  # - glossary
 
 external-env: true
 jupyter: w26-201b
@@ -32,7 +26,7 @@ website:
   announcement:
     icon: megaphone-fill
     dismissable: false
-    content: "**Site Updates:** Final Project Details, Slides Week 6"
+    content: "**Site Updates:** Schedule updates; Slides Week 7"
     type: success
     position: below-navbar
   title: "PSYC 201B"
@@ -95,6 +89,10 @@ website:
           contents:
             - text: "Overview"
               href: weeks/04/index.qmd
+            - text: "Simulation & Bootstrapping"
+              href: weeks/04/lab/01-sampling.qmd
+            - text: "Permutation & Cross-Validation"
+              href: weeks/04/lab/02-explanation-prediction.qmd
         - section: "Week 5"
           contents:
             - text: "Overview"
@@ -103,6 +101,14 @@ website:
           contents:
             - text: "Overview"
               href: weeks/06/index.qmd
+            - text: "Regression Basics"
+              href: weeks/06/lab/01-glm-basics.qmd
+            - text: "Categorical Predictors"
+              href: weeks/06/lab/02-categorical-coding.qmd
+        - section: "Week 8"
+          contents:
+            - text: "Overview"
+              href: weeks/08/index.qmd
 
 bibliography: references.bib
 

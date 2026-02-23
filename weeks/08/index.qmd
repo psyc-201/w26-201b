@@ -1,0 +1,51 @@
+---
+sidebar: weeks
+title: "Week 8"
+---
+
+## Overview
+
+### Learning Goals
+
+- [ ] Understand the Design Matrix
+- [ ] Understand Marginal Effects Estimation
+- [ ] Understand Parameter Inference
+ 
+## Slides
+
+::: {.callout-tip title="Slides Mon Feb 23" collapse=true}
+ ![](slides/02-23.pdf){width=100% height=600} 
+:::
+
+<!--
+::: {.callout-tip title="Slides Tues Feb 24" collapse=true}
+ ![](slides/02-24.pdf){width=100% height=600} 
+:::
+-->
+
+## Materials
+
+:::{.callout-caution icon=false title="📚 Lab (same as last week!)"}
+[Github Classroom Assignment](https://classroom.github.com/a/-LW97_Kt)
+:::
+
+## Readings
+
+- **The Truth About Linear Regression (TALR)**
+  - [Chapter 3: Simple Regression](readings/talr-03.pdf)
+  - [Chapter 6: Diagnostics & Residuals](readings/talr-06.pdf)
+  - [Chapter 7: Parameter Inference](readings/talr-inference.pdf)
+  - [Chapter 7: P-values](readings/talr-pvalues.pdf)
+- [DAAMCA Chapter 4: Statistical Inferences about Parameter Values](readings/DAAMCA_Ch4.pdf)
+- [10 Quick tips to improve your regression modeling](readings/ROS_Quick_Tips.pdf)
+- [Theory-Testing in Psychology & Physics: A Methodological Paradox (Meehl, 1967)](readings/1967-meehl.pdf)
+- [ROS Chapter 11: Assumptions, diagnostics, and model evaluation](readings/ROS_Chap11.pdf)
+
+## Optional References
+
+*We covered essential details in class but you can refer to these chapters for additional details*  
+
+- [Regression & Other Stories (ROS) Chapter 6: Background on Regression Modeling](readings/ROS_Chap6.pdf)
+- [ROS Chapter 12: Transformations & Regression](readings/ROS_Chap12.pdf)
+- [TALR Chapter 4: Ordinary Least Squares (OLS)](readings/talr-04.pdf)
+- [TALR Chapter 5: Maximum Likelihood Estimation (MLE) "guesstimation"](readings/talr-05.pdf)

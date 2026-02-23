@@ -26,50 +26,25 @@ In total, we'll aim to cover in total: **~4-5 HWs** and **~6-7 labs**
 | _5_ | _Mon Feb 2_ | _No class, prospective interviews_ | _N/A_ |
 | 5 | Tues Feb 3 | HW 2 review; GLM Foundations | - |
 | 5 | Wed Feb 4 | GLM II | **checkout [linear algebra materials](/weeks/05/#mentioned-references) for Mon Feb 9** |
+| 6    | Mon Feb 9    | GLM III                                                | -                                                           |
+| 6    | Tues Feb 10  | Meet `bossanova`                                       | `push` lab at least once                                    |
+| 6    | Wed Feb 11   | **[Final Project](/weeks/final/project.qmd) planning** | `push` lab at least once                      |
+| _7_  | _Mon Feb 16_ | _No class holiday_                                     | -                                                           |
+| _7_    | _Tues Feb 17_  | _Class cancelled_                                  | -                                                           |
+| _7_    | _Wed Feb 18_   | _Class cancelled_                                  |                               -                            |
 :::
 
 | Week | Date         | Content                                                | Assignment Due?                                             |
 | ---- | ------------ | ------------------------------------------------------ | ----------------------------------------------------------- |
-| 6    | Mon Feb 9    | GLM III                                                | -                                                           |
-| 6    | Tues Feb 10  | Meet `bossanova`                                       | `push` lab at least once                                    |
-| 6    | Wed Feb 11   | **[Final Project](/weeks/final/project.qmd) planning** | `push` **HW 3 by Midnight Mon Feb 16**                      |
-| _7_  | _Mon Feb 16_ | _No class holiday_                                     | -                                                           |
-| 7    | Tues Feb 17  | HW 3 review                                            | `push` lab at least once                                    |
-| 7    | Wed Feb 18   | GLM IV                                                 |                               -                            |
-| 8    | Mon Feb 23   | LMMs I                                                 | -                                                           |
-| 8    | Tues Feb 24  | LMMs II                                                | `push` **HW 4 by Midnight Mon Mar 2**                       |
-| 8    | Wed Feb 25   | LMMs III                                               | **Final Project Proposal Due**                                                            |
-| 9    | Mon Mar 2    | TBD                                                    | -                                                         |
-| 9    | Tues Mar 3   | HW 4 review                                            | -                                                         |
-| 9    | Wed Mar 4    | TBD                                                    | -                                                         |
-| 10   | Mon Mar 9    | _final project time_                                   | -                                                           |
-| 10   | Tues Mar 10  | _final project time_                                   | -                                                           |
+| 8    | Mon Feb 23   | GLM IV                                                 | Review readings for tomorrow's discussion                   |
+| 8    | Tues Feb 24  | GLM Discussion & Lab                                   | `push` lab at least once                                    |
+| 8    | Wed Feb 25   | GLM VI                                                 | `push` **HW 3 by Midnight Mon Mar 2**                       |
+| 9    | Mon Mar 2    | LMMs                                                   | **Final Project Proposal Due**                             |
+| 9    | Tues Mar 3   | HW 3 review; LMMs II                                   | -                                                         |
+| 9    | Wed Mar 4    | LMMs III                                               | `push` **HW 4 by Midnight Mon Mar 9**                 |
+| 10   | Mon Mar 9    | TBD                                                    | -                                                           |
+| 10   | Tues Mar 10  | HW 4 review; final project time                        | -                                                           |
 | 10   | Wed Mar 11   | Course Wrap-Up                                         | -                                                           |
 | FW   | Tues Mar 17  | Final Project Deadline                                 | `push` **[Final Project](/weeks/final/project.qmd)** |
 
 : _Tentative schedule_
-
-<!-- Planning -->
-<!-- | 9    | Mon Mar 2    | Regularization: ridge, Tikhonov, Bayes                        | TBD                                      |
-| 9    | Tues Mar 3   | Neural Networks: convolution, recursion, & attention          | `push` lab 09 at least once              |
-| 9    | Wed Mar 4    | Timeseries: stationarity & auto-correlation                   | TBD                                      |
-
-| 5    | Mon Feb 2    | Marginal effects estimation & prediction                  | TBD                              |
-| 5    | Tues Feb 3   | Parameter inference & uncertainty                         | TBD                              |
-| 5    | Wed Feb 4    | Outcomes types: classifications & counts                  | TBD                              |
-| 6    | Mon Feb 9    | Resampling I: bootstrapping & permuting                   | TBD                              |
-| 6    | Tues Feb 10  | Resampling II: power & simulation, meet `numpy` & `scipy` | TBD                              |
-| 6    | Wed Feb 11   | Resampling III: generalization & cross-validation         | TBD                              |
-| *7*  | *Mon Feb 16* | *No class holiday*                                        | -                                |
-| 7    | Tues Feb 17  | LMMs I                                                    | TBD                              |
-| 7    | Wed Feb 18   | LMMs II: Complete/partial/non-pooling                     | TBD                              |
-| 8    | Mon Feb 23   | LMMs III: RFX syntax, "rm-ANOVA"                          | TBD                              |
-| 8    | Tues Feb 24  | Unsupervised Learning I: essence of linear algebra        | TBD                              |
-| 8    | Wed Feb 25   | Unsupervised Learning II: PCA and friends, meet `sklearn` | `push` **Last HW by Tues Mar 3** |
-| 9    | Mon Mar 2    | TBD                                                       | TBD                              |
-| 9    | Tues Mar 3   | TBD, last hw review                                       | TBD                              |
-| 9    | Wed Mar 4    | TBD                                                       | TBD                              |
-| 10   | Mon Mar 9    | *final project time*                                      | -                                |
-| 10   | Tues Mar 10  | *final project time*                                      | -                                |
-| 10   | Wed Mar 11   | Course Wrap-Up                                            | -                                |
-| FW   | Mar 16-18    | *work on final project*                                   | `push` **Final Project by TBD**  | -->
