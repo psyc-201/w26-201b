@@ -17,11 +17,11 @@ title: "Week 8"
  ![](slides/02-23.pdf){width=100% height=600} 
 :::
 
-<!--
+
 ::: {.callout-tip title="Slides Tues Feb 24" collapse=true}
  ![](slides/02-24.pdf){width=100% height=600} 
 :::
--->
+
 
 ## Materials
 
