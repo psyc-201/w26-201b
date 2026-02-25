@@ -25,8 +25,8 @@ title: "Week 8"
 
 ## Materials
 
-:::{.callout-caution icon=false title="📚 Lab (same as last week!)"}
-[Github Classroom Assignment](https://classroom.github.com/a/-LW97_Kt)
+:::{.callout-caution icon=false title="📚 Lab"}
+[Github Classroom Assignment](https://classroom.github.com/a/hI4DwE-w)
 :::
 
 ## Readings
