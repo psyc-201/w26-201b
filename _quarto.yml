@@ -26,7 +26,7 @@ website:
   announcement:
     icon: megaphone-fill
     dismissable: false
-    content: "**Site Updates:** Slides Week 8"
+    content: "**Site Updates:** Final Project template available; Schedule updates"
     type: success
     position: below-navbar
   title: "PSYC 201B"

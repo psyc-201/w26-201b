@@ -32,16 +32,16 @@ In total, we'll aim to cover in total: **~4-5 HWs** and **~6-7 labs**
 | _7_  | _Mon Feb 16_ | _No class holiday_                                     | -                                                           |
 | _7_    | _Tues Feb 17_  | _Class cancelled_                                  | -                                                           |
 | _7_    | _Wed Feb 18_   | _Class cancelled_                                  |                               -                            |
+| 8    | Mon Feb 23   | GLM IV                                                 | Review readings for tomorrow's discussion                   |
+| 8    | Tues Feb 24  | GLM Discussion & Lab                                   | -                                     |
+| 8    | Wed Feb 25   | GLM VI                                                 | `push` lab at least once                                    |
 :::
 
 | Week | Date         | Content                                                | Assignment Due?                                             |
 | ---- | ------------ | ------------------------------------------------------ | ----------------------------------------------------------- |
-| 8    | Mon Feb 23   | GLM IV                                                 | Review readings for tomorrow's discussion                   |
-| 8    | Tues Feb 24  | GLM Discussion & Lab                                   | `push` lab at least once                                    |
-| 8    | Wed Feb 25   | GLM VI                                                 | `push` **HW 3 by Midnight Mon Mar 2**                       |
-| 9    | Mon Mar 2    | LMMs                                                   | **Final Project Proposal Due**                             |
-| 9    | Tues Mar 3   | HW 3 review; LMMs II                                   | -                                                         |
-| 9    | Wed Mar 4    | LMMs III                                               | `push` **HW 4 by Midnight Mon Mar 9**                 |
+| 9    | Mon Mar 2    | Marginal effects & GLMs                                | -                                                           |
+| 9    | Tues Mar 3   | Lab Review; LMMs                                       | **Final Project Proposal Due**                              |
+| 9    | Wed Mar 4    | LMMs II                                                | `push` **HW 4 by Midnight Mon Mar 9**                 |
 | 10   | Mon Mar 9    | TBD                                                    | -                                                           |
 | 10   | Tues Mar 10  | HW 4 review; final project time                        | -                                                           |
 | 10   | Wed Mar 11   | Course Wrap-Up                                         | -                                                           |
