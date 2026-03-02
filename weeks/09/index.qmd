@@ -16,11 +16,10 @@ title: "Week 9"
 :::
 
 
-## Optional References
+## Readings
 
-*We covered essential details in class but you can refer to these chapters for additional details*  
-
-- [Regression & Other Stories (ROS) Chapter 6: Background on Regression Modeling](readings/ROS_Chap6.pdf)
-- [ROS Chapter 12: Transformations & Regression](readings/ROS_Chap12.pdf)
-- [TALR Chapter 4: Ordinary Least Squares (OLS)](readings/talr-04.pdf)
-- [TALR Chapter 5: Maximum Likelihood Estimation (MLE) "guesstimation"](readings/talr-05.pdf)
+- [Interactions in Logit Regressions: Why positive may mean negative](https://datacolada.org/57)
+- [The logic of `emmeans`](https://rvlenth.github.io/emmeans/articles/basics.html) (R library)
+- [From model to meaning with `marginaleffects`](https://marginaleffects.com/bonus/get_started.html) (R library)
+- [Marginalia: What the heck are marginal effects](https://www.andrewheiss.com/blog/2022/05/20/marginalia/)
+- [Guide to Effect Sizes & Confidence Intervals](https://matthewbjane.quarto.pub/)
