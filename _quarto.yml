@@ -109,6 +109,10 @@ website:
           contents:
             - text: "Overview"
               href: weeks/08/index.qmd
+        - section: "Week 9"
+          contents:
+            - text: "Overview"
+              href: weeks/09/index.qmd
 
 bibliography: references.bib
 

@@ -23,7 +23,7 @@ Throughout the course we''ll make use of the following Python libraries in case 
 - [`matplotlib`](https://matplotlib.org/)
 - [`scipy`](https://scipy.org/) 
 - [`numpy`](https://numpy.org/doc/stable/index.html)
-- [`bossanova`]()
+- [`bossanova`](https://sciminds.ucsd.edu/bossanova)
 - [`scikit-learn`](https://scikit-learn.org/stable/)
 
 ### `polars` - DataFrames & tidy data analysis
@@ -64,7 +64,7 @@ Throughout the course we''ll make use of the following Python libraries in case 
 
 ### `bossanova` - intuitive formula-based statistical modeling
 
-- [Documentation & tutorials]()
+- [Documentation & tutorials](https://sciminds.ucsd.edu/bossanova)
 
 ### `scikit-learn` - machine-learning
 

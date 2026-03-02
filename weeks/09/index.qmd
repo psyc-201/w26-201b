@@ -1,0 +1,26 @@
+---
+sidebar: weeks
+title: "Week 9"
+---
+
+## Overview
+
+### Learning Goals
+
+- [ ] Understand Marginal Effects Estimation
+ 
+## Slides
+
+::: {.callout-tip title="Slides Mon March 02" collapse=true}
+ ![](slides/03-02.pdf){width=100% height=600} 
+:::
+
+
+## Optional References
+
+*We covered essential details in class but you can refer to these chapters for additional details*  
+
+- [Regression & Other Stories (ROS) Chapter 6: Background on Regression Modeling](readings/ROS_Chap6.pdf)
+- [ROS Chapter 12: Transformations & Regression](readings/ROS_Chap12.pdf)
+- [TALR Chapter 4: Ordinary Least Squares (OLS)](readings/talr-04.pdf)
+- [TALR Chapter 5: Maximum Likelihood Estimation (MLE) "guesstimation"](readings/talr-05.pdf)
