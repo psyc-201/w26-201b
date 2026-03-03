@@ -23,3 +23,7 @@ title: "Week 9"
 - [From model to meaning with `marginaleffects`](https://marginaleffects.com/bonus/get_started.html) (R library)
 - [Marginalia: What the heck are marginal effects](https://www.andrewheiss.com/blog/2022/05/20/marginalia/)
 - [Guide to Effect Sizes & Confidence Intervals](https://matthewbjane.quarto.pub/)
+
+## References
+
+- [`bossanova` documentation](https://sciminds.ucsd.edu/bossanova/cheatsheet/)
