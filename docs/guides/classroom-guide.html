@@ -422,10 +422,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#quick-way" id="toc-quick-way" class="nav-link" data-scroll-target="#quick-way">Quick way</a></li>
   <li><a href="#manual-steps" id="toc-manual-steps" class="nav-link" data-scroll-target="#manual-steps">Manual steps</a>
   <ul class="collapse">
-  <li><a href="#check-for-the-update" id="toc-check-for-the-update" class="nav-link" data-scroll-target="#check-for-the-update">1. Check for the update</a></li>
-  <li><a href="#fetch-and-merge-the-update" id="toc-fetch-and-merge-the-update" class="nav-link" data-scroll-target="#fetch-and-merge-the-update">2. Fetch and merge the update</a></li>
-  <li><a href="#resolve-conflicts-in-vs-code" id="toc-resolve-conflicts-in-vs-code" class="nav-link" data-scroll-target="#resolve-conflicts-in-vs-code">3. Resolve conflicts in VS Code</a></li>
-  <li><a href="#push-and-re-setup" id="toc-push-and-re-setup" class="nav-link" data-scroll-target="#push-and-re-setup">4. Push and re-setup</a></li>
+  <li><a href="#save-and-push-any-uncommitted-work" id="toc-save-and-push-any-uncommitted-work" class="nav-link" data-scroll-target="#save-and-push-any-uncommitted-work">1. Save and push any uncommitted work</a></li>
+  <li><a href="#check-for-the-update" id="toc-check-for-the-update" class="nav-link" data-scroll-target="#check-for-the-update">2. Check for the update</a></li>
+  <li><a href="#checkout-the-update" id="toc-checkout-the-update" class="nav-link" data-scroll-target="#checkout-the-update">3. Checkout the update</a></li>
+  <li><a href="#merge-your-work-into-the-update" id="toc-merge-your-work-into-the-update" class="nav-link" data-scroll-target="#merge-your-work-into-the-update">4. Merge your work into the update</a></li>
+  <li><a href="#push-and-switch-back-to-main" id="toc-push-and-switch-back-to-main" class="nav-link" data-scroll-target="#push-and-switch-back-to-main">5. Push and switch back to main</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -496,43 +497,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="manual-steps" class="level3">
 <h3 class="anchored" data-anchor-id="manual-steps">Manual steps</h3>
+<p>Open a terminal and <code>cd</code> into your assignment folder.</p>
+<section id="save-and-push-any-uncommitted-work" class="level4">
+<h4 class="anchored" data-anchor-id="save-and-push-any-uncommitted-work">1. Save and push any uncommitted work</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">git</span> add .</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Save work"</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
 <section id="check-for-the-update" class="level4">
-<h4 class="anchored" data-anchor-id="check-for-the-update">1. Check for the update</h4>
-<p>Open a terminal, <code>cd</code> into your assignment folder, and run:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">gh</span> pr list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If you see a PR titled “GitHub Classroom: Sync Assignment”, continue below.</p>
+<h4 class="anchored" data-anchor-id="check-for-the-update">2. Check for the update</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="ex">gh</span> pr list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you see a PR titled “GitHub Classroom: Sync Assignment”, note the <strong>number</strong> (e.g.&nbsp;<code>3</code>) and continue.</p>
 </section>
-<section id="fetch-and-merge-the-update" class="level4">
-<h4 class="anchored" data-anchor-id="fetch-and-merge-the-update">2. Fetch and merge the update</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">git</span> fetch origin</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">git</span> merge origin/psyc-201/main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>If the merge completes with no errors</strong>, skip to Step 4.</p>
-<p><strong>If you see <code>CONFLICT</code></strong>, continue to Step 3.</p>
+<section id="checkout-the-update" class="level4">
+<h4 class="anchored" data-anchor-id="checkout-the-update">3. Checkout the update</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="ex">gh</span> pr checkout <span class="at">--detach</span> <span class="op">&lt;</span>NUMBER<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This puts you on the instructor’s latest code in a “detached HEAD” state. We use <code>--detach</code> because the PR’s branch is also called <code>main</code>, which would collide with your local <code>main</code>.</p>
 </section>
-<section id="resolve-conflicts-in-vs-code" class="level4">
-<h4 class="anchored" data-anchor-id="resolve-conflicts-in-vs-code">3. Resolve conflicts in VS Code</h4>
-<p><code>git merge</code> will tell you which files have conflicts. First, make sure VS Code is configured as your merge tool (you only need to do this once):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="va">VSCODE</span><span class="op">=</span><span class="st">"/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">git</span> config merge.tool vscode</span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="fu">git</span> config mergetool.vscode.cmd <span class="st">"</span><span class="va">$VSCODE</span><span class="st"> --wait --merge </span><span class="dt">\$</span><span class="st">REMOTE </span><span class="dt">\$</span><span class="st">LOCAL </span><span class="dt">\$</span><span class="st">BASE </span><span class="dt">\$</span><span class="st">MERGED"</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="fu">git</span> config mergetool.keepBackup false</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Then run this to open each conflicted file in VS Code’s merge editor:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">git</span> mergetool</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="merge-your-work-into-the-update" class="level4">
+<h4 class="anchored" data-anchor-id="merge-your-work-into-the-update">4. Merge your work into the update</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">git</span> fetch origin main</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">git</span> merge origin/main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>If the merge completes with no errors</strong>, skip to Step 5.</p>
+<p><strong>If you see <code>CONFLICT</code></strong>, you’ll need to resolve them. First, make sure VS Code is configured as your merge tool (you only need to do this once):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="va">VSCODE</span><span class="op">=</span><span class="st">"/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">git</span> config merge.tool vscode</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="fu">git</span> config mergetool.vscode.cmd <span class="st">"</span><span class="va">$VSCODE</span><span class="st"> --wait --merge </span><span class="dt">\$</span><span class="st">REMOTE </span><span class="dt">\$</span><span class="st">LOCAL </span><span class="dt">\$</span><span class="st">BASE </span><span class="dt">\$</span><span class="st">MERGED"</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="fu">git</span> config mergetool.keepBackup false</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">git</span> mergetool</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>For each file, VS Code will open a 3-panel merge editor. The key terms to know:</p>
 <ul>
-<li><strong>Current</strong> (also called “ours” or “local”) = the version on <em>your</em> branch, i.e.&nbsp;your work</li>
-<li><strong>Incoming</strong> (also called “theirs” or “remote”) = the version being merged <em>in</em>, i.e.&nbsp;instructor updates</li>
+<li><strong>Current</strong> (also called “ours” or “local”) = the instructor’s update</li>
+<li><strong>Incoming</strong> (also called “theirs” or “remote”) = your work</li>
 </ul>
-<p>For each conflicting section, click <strong>Accept Current</strong> to keep your version or <strong>Accept Incoming</strong> to take the instructor’s version. The <strong>bottom panel</strong> shows the result of your choices. When you’re happy with it, click <strong>Complete Merge</strong> (bottom-right) to finish that file.</p>
-<p><code>git mergetool</code> will automatically move to the next conflicted file until all are resolved. Then commit the merge:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Merge instructor updates"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For each conflicting section, click <strong>Accept Current</strong> to take the instructor’s version or <strong>Accept Incoming</strong> to keep yours. The <strong>bottom panel</strong> shows the result of your choices. When you’re happy with it, click <strong>Complete Merge</strong> (bottom-right) to finish that file.</p>
+<p><code>git mergetool</code> will automatically move to the next conflicted file. When all are resolved:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Merge instructor updates"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="push-and-re-setup" class="level4">
-<h4 class="anchored" data-anchor-id="push-and-re-setup">4. Push and re-setup</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">git</span> push</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="ex">uv</span> sync</span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="ex">uv</span> run poe setup</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The PR on GitHub will automatically close after you push. If everything worked you should see the new/updated files in your local folder, and you can hack on them as you normally would.</p>
+<section id="push-and-switch-back-to-main" class="level4">
+<h4 class="anchored" data-anchor-id="push-and-switch-back-to-main">5. Push and switch back to main</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">git</span> push origin HEAD:main</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">git</span> checkout main</span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="fu">git</span> pull <span class="at">--no-rebase</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The PR on GitHub will automatically close. Now re-setup your environment:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1"></a><span class="ex">uv</span> sync</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="ex">uv</span> run poe setup</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If everything worked you should see the new/updated files in your local folder, and you can hack on them as you normally would.</p>
 
 
 </section>

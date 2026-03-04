@@ -40,30 +40,42 @@ This will check for updates, merge them in, open VS Code if there are any confli
 
 ### Manual steps
 
-#### 1. Check for the update
+Open a terminal and `cd` into your assignment folder.
 
-Open a terminal, `cd` into your assignment folder, and run:
+#### 1. Save and push any uncommitted work
+
+```bash
+git add .
+git commit -m "Save work"
+git push
+```
+
+#### 2. Check for the update
 
 ```bash
 gh pr list
 ```
 
-If you see a PR titled "GitHub Classroom: Sync Assignment", continue below.
+If you see a PR titled "GitHub Classroom: Sync Assignment", note the **number** (e.g. `3`) and continue.
 
-#### 2. Fetch and merge the update
+#### 3. Checkout the update
 
 ```bash
-git fetch origin
-git merge origin/psyc-201/main
+gh pr checkout --detach <NUMBER>
 ```
 
-**If the merge completes with no errors**, skip to Step 4.
+This puts you on the instructor's latest code in a "detached HEAD" state. We use `--detach` because the PR's branch is also called `main`, which would collide with your local `main`.
 
-**If you see `CONFLICT`**, continue to Step 3.
+#### 4. Merge your work into the update
 
-#### 3. Resolve conflicts in VS Code
+```bash
+git fetch origin main
+git merge origin/main
+```
 
-`git merge` will tell you which files have conflicts. First, make sure VS Code is configured as your merge tool (you only need to do this once):
+**If the merge completes with no errors**, skip to Step 5.
+
+**If you see `CONFLICT`**, you'll need to resolve them. First, make sure VS Code is configured as your merge tool (you only need to do this once):
 
 ```bash
 VSCODE="/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
@@ -72,7 +84,7 @@ git config mergetool.vscode.cmd "$VSCODE --wait --merge \$REMOTE \$LOCAL \$BASE 
 git config mergetool.keepBackup false
 ```
 
-Then run this to open each conflicted file in VS Code's merge editor:
+Then run:
 
 ```bash
 git mergetool
@@ -80,24 +92,31 @@ git mergetool
 
 For each file, VS Code will open a 3-panel merge editor. The key terms to know:
 
-- **Current** (also called "ours" or "local") = the version on *your* branch, i.e. your work
-- **Incoming** (also called "theirs" or "remote") = the version being merged *in*, i.e. instructor updates
+- **Current** (also called "ours" or "local") = the instructor's update
+- **Incoming** (also called "theirs" or "remote") = your work
 
-For each conflicting section, click **Accept Current** to keep your version or **Accept Incoming** to take the instructor's version. The **bottom panel** shows the result of your choices. When you're happy with it, click **Complete Merge** (bottom-right) to finish that file.
+For each conflicting section, click **Accept Current** to take the instructor's version or **Accept Incoming** to keep yours. The **bottom panel** shows the result of your choices. When you're happy with it, click **Complete Merge** (bottom-right) to finish that file.
 
-`git mergetool` will automatically move to the next conflicted file until all are resolved. Then commit the merge:
+`git mergetool` will automatically move to the next conflicted file. When all are resolved:
 
 ```bash
 git commit -m "Merge instructor updates"
 ```
 
-#### 4. Push and re-setup
+#### 5. Push and switch back to main
 
 ```bash
-git push
+git push origin HEAD:main
+git checkout main
+git pull --no-rebase
+```
+
+The PR on GitHub will automatically close. Now re-setup your environment:
+
+```bash
 uv sync
 uv run poe setup
 ```
 
-The PR on GitHub will automatically close after you push. If everything worked you should see the new/updated files in your local folder, and you can hack on them as you normally would.
+If everything worked you should see the new/updated files in your local folder, and you can hack on them as you normally would.
 
