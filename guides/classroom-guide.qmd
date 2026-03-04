@@ -26,16 +26,78 @@ You'll *always* be able to access your assignment repositories, history, and ins
 
 ## Updating Assignments
 
-Occasionally, we'll update assignments that you've already accepted and `git clone`-d to your local computer with additional files (e.g. solutions). Here's how you can `git pull` them to your local computer
+Occasionally, we'll update assignments that you've already accepted and `git clone`-d to your local computer with additional files, solutions, or package updates. When this happens, a Pull Request titled **"GitHub Classroom: Sync Assignment"** will automatically appear on your repository.
 
-1. Follow the assignment link to go to the repository on github.com that you cloned to first start the assignment. It will be named MM-DD-YOURGITHUBID, e.g. "01-21-ejolly"
-2. Click on "Pull Requests"
-3. Click on "Github Classroom: Sync Assignment"
-4. Click on green "Merge pull request" button
-5. After the button turns purple, indicating the "merge is complete" open up a terminal on your local computer and `cd` into the folder you cloned from this repository, e.g. "01-21-ejolly"
-6. Use `git status` to check if you've saved some changes, but haven't yet `git commit` them. If you don't see "*nothing to commit, working tree clean*", you'll need to `git add` and `git commit` your changed files
-7. Run `git pull` to download the latest changes from github
-8. If you get any wonky error message, run `git merge --no-ff`, and then type the following commands to exit the window that opens: `:`, `w`, `q`, `enter`
+### Quick way
 
-If everything worked you should see some *new* files in your local folder, and you can hack on them as you normally would.
+We've included a script in each assignment repo that handles the entire update process for you:
+
+```bash
+uv run poe update-assignment
+```
+
+This will check for updates, merge them in, open VS Code if there are any conflicts to resolve, push your changes, and re-setup your environment. **We recommend understanding the manual steps below so you know what's happening under the hood.**
+
+### Manual steps
+
+#### 1. Check for the update
+
+Open a terminal, `cd` into your assignment folder, and run:
+
+```bash
+gh pr list
+```
+
+If you see a PR titled "GitHub Classroom: Sync Assignment", continue below.
+
+#### 2. Fetch and merge the update
+
+```bash
+git fetch origin
+git merge origin/psyc-201/main
+```
+
+**If the merge completes with no errors**, skip to Step 4.
+
+**If you see `CONFLICT`**, continue to Step 3.
+
+#### 3. Resolve conflicts in VS Code
+
+`git merge` will tell you which files have conflicts. First, make sure VS Code is configured as your merge tool (you only need to do this once):
+
+```bash
+VSCODE="/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
+git config merge.tool vscode
+git config mergetool.vscode.cmd "$VSCODE --wait --merge \$REMOTE \$LOCAL \$BASE \$MERGED"
+git config mergetool.keepBackup false
+```
+
+Then run this to open each conflicted file in VS Code's merge editor:
+
+```bash
+git mergetool
+```
+
+For each file, VS Code will open a 3-panel merge editor. The key terms to know:
+
+- **Current** (also called "ours" or "local") = the version on *your* branch, i.e. your work
+- **Incoming** (also called "theirs" or "remote") = the version being merged *in*, i.e. instructor updates
+
+For each conflicting section, click **Accept Current** to keep your version or **Accept Incoming** to take the instructor's version. The **bottom panel** shows the result of your choices. When you're happy with it, click **Complete Merge** (bottom-right) to finish that file.
+
+`git mergetool` will automatically move to the next conflicted file until all are resolved. Then commit the merge:
+
+```bash
+git commit -m "Merge instructor updates"
+```
+
+#### 4. Push and re-setup
+
+```bash
+git push
+uv sync
+uv run poe setup
+```
+
+The PR on GitHub will automatically close after you push. If everything worked you should see the new/updated files in your local folder, and you can hack on them as you normally would.
 
