@@ -41,7 +41,7 @@ In total, we'll aim to cover in total: **~4-5 HWs** and **~6-7 labs**
 | ---- | ------------ | ------------------------------------------------------ | ----------------------------------------------------------- |
 | 9    | Mon Mar 2    | Marginal effects & GLMs                                | -                                                           |
 | 9    | Tues Mar 3   | Lab Review; Logistic Regression                        | **Final Project Proposal Due**                              |
-| 9    | Wed Mar 4    | LMMs                                                   | `push` **HW 4 by Midnight Mon Mar 9**                 |
+| 9    | Wed Mar 4    | LMMs                                                   | `push` **`challenge.py` notebook by Midnight Mon Mar 9**    |
 | 10   | Mon Mar 9    | TBD                                                    | -                                                           |
 | 10   | Tues Mar 10  | HW 4 review; final project time                        | -                                                           |
 | 10   | Wed Mar 11   | Course Wrap-Up                                         | -                                                           |

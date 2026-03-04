@@ -8,6 +8,12 @@ title: "Week 9"
 ### Learning Goals
 
 - [ ] Understand Marginal Effects Estimation
+
+:::{.callout-note title="Marginal Effects Mixing Board"}
+You can play with an interactive *mixing board* using the Palmer penguins dataset at: [https://model-mixing-board.surge.sh](https://model-mixing-board.surge.sh). See it it helps build your intuitions!
+:::
+
+
  
 ## Slides
 
@@ -23,7 +29,71 @@ title: "Week 9"
 - [From model to meaning with `marginaleffects`](https://marginaleffects.com/bonus/get_started.html) (R library)
 - [Marginalia: What the heck are marginal effects](https://www.andrewheiss.com/blog/2022/05/20/marginalia/)
 - [Guide to Effect Sizes & Confidence Intervals](https://matthewbjane.quarto.pub/)
-
-## References
-
 - [`bossanova` documentation](https://sciminds.ucsd.edu/bossanova/cheatsheet/)
+
+--- 
+
+## Updating Assignments More Easily
+
+*These instructions are also on [classroom guide page](https://stat-intuitions.com/guides/classroom-guide.html)*
+
+### 1. Check for the update
+
+Open a terminal, `cd` into your assignment folder, and run:
+
+```bash
+gh pr list
+```
+
+If you see a PR titled "GitHub Classroom: Sync Assignment", continue below.
+
+### 2. Fetch and merge the update
+
+```bash
+git fetch origin
+git merge origin/psyc-201/main
+```
+
+**If the merge completes with no errors**, skip to Step 4.
+
+**If you see `CONFLICT`**, continue to Step 3.
+
+### 3. Resolve conflicts in VS Code
+
+`git merge` will tell you which files have conflicts. First, make sure VS Code is configured as your merge tool (you only need to do this once):
+
+```bash
+VSCODE="/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
+git config merge.tool vscode
+git config mergetool.vscode.cmd "$VSCODE --wait --merge \$REMOTE \$LOCAL \$BASE \$MERGED"
+git config mergetool.keepBackup false
+```
+
+Then run this to open each conflicted file in VS Code's merge editor:
+
+```bash
+git mergetool
+```
+
+For each file, VS Code will open a 3-panel merge editor. The key terms to know:
+
+- **Current** (also called "ours" or "local") = the version on *your* branch, i.e. your work
+- **Incoming** (also called "theirs" or "remote") = the version being merged *in*, i.e. instructor updates
+
+For each conflicting section, click **Accept Current** to keep your version or **Accept Incoming** to take the instructor's version. The **bottom panel** shows the result of your choices. When you're happy with it, click **Complete Merge** (bottom-right) to finish that file.
+
+`git mergetool` will automatically move to the next conflicted file until all are resolved. Then commit the merge:
+
+```bash
+git commit -m "Merge instructor updates"
+```
+
+### 4. Push and re-setup
+
+```bash
+git push
+uv sync
+uv run poe setup
+```
+
+The PR on GitHub will automatically close after you push. If everything worked you should see the new/updated files in your local folder, and you can hack on them as you normally would.
