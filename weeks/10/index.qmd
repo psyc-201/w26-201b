@@ -1,0 +1,50 @@
+---
+sidebar: weeks
+title: "Week 10"
+---
+
+## Overview
+
+### Learning Goals
+
+- [ ] Understand multi-level (linear-mixed) models
+- [ ] Course Wrap-Up
+
+ 
+## Slides
+
+::: {.callout-tip title="Slides Mon March 09" collapse=true}
+ ![](slides/03-09.pdf){width=100% height=600} 
+:::
+
+<!--
+::: {.callout-tip title="Slides Mon March 11" collapse=true}
+ ![](slides/03-11.pdf){width=100% height=600} 
+:::
+-->
+
+## Lots of LMM Resources
+
+### General
+
+- [Hierarchical Models Viz](http://mfviz.com/hierarchical-models/)
+- [Standard Operating Procedures for LMMs by D2P2 Lab](https://decision-lab.org/wp-content/uploads/2020/07/SOP_Mixed_Models_D2P2_v1_0_0.pdf)
+- [Why I don't use the term "fixed and random effects" by Andrew Gelman](https://statmodeling.stat.columbia.edu/2005/01/25/why_i_dont_use/)
+- [What is the upside of treating a factor as random?](https://stats.stackexchange.com/a/113636) (*Great answer by Jake Westfall, another well-respected developer of LMM tools and techniques*)
+- [Centering in LMMs](https://web.pdx.edu/~newsomj/mlrclass/ho_centering.pdf)
+- [How to Center in LMMs](https://philippmasur.de/2018/05/23/how-to-center-in-multilevel-models/)
+- [`bossanova` comparison to rm-ANOVA](https://sciminds.ucsd.edu/bossanova/linear-models/within-subject/)
+
+### R specific Resources
+
+- [Mixed Models with R](https://m-clark.github.io/mixed-models-with-R/)
+- [A tutorial for performing LMM analyses by Bodo Winter](https://bodowinter.com/tutorial/bw_LME_tutorial.pdf) (*Eshin really enjoyed this when he was in grad-school*) 
+- [R `lme4` Random Effects Cheatsheet](https://paulrjohnson.net/blog/2022-11-01-multilevel-model-r-cheatsheet/) 
+- [Introducing linear mixed-effects models](https://psyteachr.github.io/stat-models-v1/introducing-linear-mixed-effects-models.html)
+- [Mixed Models Workshop Tutorial](https://ourcodingclub.github.io/tutorials/mixed-models) 
+
+### Essential Readings
+
+- Clark, H. H. (1973). The language-as-fixed-effect fallacy: A critique of language statistics in psychological research. Journal of Verbal Learning and Verbal Behavior, 12(4), 335–359.
+- Baayen, R. H., Davidson, D. J., & Bates, D. M. (2008). Mixed-effects modeling with crossed random effects for subjects and items. Journal of Memory and Language, 59(4), 390–412.
+- Barr, D. J., Levy, R., Scheepers, C., & Tily, H. J. (2013). Random effects structure for confirmatory hypothesis testing: Keep it maximal. Journal of Memory and Language, 68(3), 255–278.
