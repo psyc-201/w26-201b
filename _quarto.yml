@@ -12,6 +12,7 @@ project:
     - "!slides/"
     - "!classroom/"
     - "!weeks/**/prep/"
+    - "!grades/"
 
 external-env: true
 jupyter: w26-201b

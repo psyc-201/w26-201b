@@ -41,9 +41,9 @@ The last date to `commit` and `push` any updates to previous labs, HWs, and chal
 
 | Week | Date         | Content                                                | Assignment Due?                                             |
 | ---- | ------------ | ------------------------------------------------------ | ----------------------------------------------------------- |
-| 10   | Mon Mar 9    | LMMs                                                   | -                                                           |
-| 10   | Tues Mar 10  | Challenge Review; LMMs lab                             | -                                                           |
-| 10   | Wed Mar 11   | Course Wrap-Up; final project time                     | -                                                           |
+| 10   | Mon Mar 9    | LMMs                                                   | -                                                |
+| 10   | Tues Mar 10  | LMMs lab; Proposal Review                              | -                                                 |
+| 10   | Wed Mar 11   | Course Wrap-Up; final project time                     | -                                                  |
 | FW   | Tues Mar 17  | Final Project Deadline                                 | `push` **[Final Project](/weeks/final/project.qmd)** |
 | FW   | Friday Mar 19 | Last day to `push` to any labs/hws/challenges          | -       |
 
