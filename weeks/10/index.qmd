@@ -24,7 +24,9 @@ title: "Week 10"
 
 ## Resources
 
+- [Mathematical Thinking Isn't What You Think It Is](https://www.quantamagazine.org/mathematical-thinking-isnt-what-you-think-it-is-20241118/)
 - [So you want to be a Wizard](https://jvns.ca/wizard-zine.pdf) 
+- [The Lady Tasting Tea: How Statistics Revolutionized Science in the Twentieth Century](https://old.maa.org/press/maa-reviews/the-lady-tasting-tea-how-statistics-revolutionized-science-in-the-twentieth-century)
 
 ### General LMM Resources
 
