@@ -41,6 +41,9 @@ planning/
 assets/summaries/
 assets/pdfs/
 
+# Grading workspace (roster, student submissions)
+grading/
+
 # GitHub Classroom (assignments developed locally, pushed to separate repos)
 classroom/
 dev/

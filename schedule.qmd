@@ -4,8 +4,7 @@ title: "Schedule"
 ---
 
 :::{.callout-note}
-We've marked future assignments as TBD to allow us to adjust the pacing as needed.  
-In total, we'll aim to cover in total: **~4-5 HWs** and **~6-7 labs**
+The last date to `commit` and `push` any updates to previous labs, HWs, and challenges for mastery-based grading is **March 20th by midnight**.
 :::
 
 ::: {.completed-weeks}
@@ -35,16 +34,17 @@ In total, we'll aim to cover in total: **~4-5 HWs** and **~6-7 labs**
 | 8    | Mon Feb 23   | GLM IV                                                 | Review readings for tomorrow's discussion                   |
 | 8    | Tues Feb 24  | GLM Discussion & Lab                                   | -                                     |
 | 8    | Wed Feb 25   | GLM VI                                                 | `push` lab at least once                                    |
+| 9    | Mon Mar 2    | Marginal effects & GLMs                                | -                                                           |
+| 9    | Tues Mar 3   | Lab Review                                             | **Final Project Proposal Due**                              |
+| 9    | Wed Mar 4    | Lab Logistic Regression                                | `push` **`challenge.py` notebook by Midnight Mon Mar 9**    |
 :::
 
 | Week | Date         | Content                                                | Assignment Due?                                             |
 | ---- | ------------ | ------------------------------------------------------ | ----------------------------------------------------------- |
-| 9    | Mon Mar 2    | Marginal effects & GLMs                                | -                                                           |
-| 9    | Tues Mar 3   | Lab Review; Logistic Regression                        | **Final Project Proposal Due**                              |
-| 9    | Wed Mar 4    | LMMs                                                   | `push` **`challenge.py` notebook by Midnight Mon Mar 9**    |
-| 10   | Mon Mar 9    | TBD                                                    | -                                                           |
-| 10   | Tues Mar 10  | HW 4 review; final project time                        | -                                                           |
-| 10   | Wed Mar 11   | Course Wrap-Up                                         | -                                                           |
+| 10   | Mon Mar 9    | LMMs                                                   | -                                                           |
+| 10   | Tues Mar 10  | Challenge Review; LMMs lab                             | -                                                           |
+| 10   | Wed Mar 11   | Course Wrap-Up; final project time                     | -                                                           |
 | FW   | Tues Mar 17  | Final Project Deadline                                 | `push` **[Final Project](/weeks/final/project.qmd)** |
+| FW   | Friday Mar 19 | Last day to `push` to any labs/hws/challenges          | -       |
 
 : _Tentative schedule_

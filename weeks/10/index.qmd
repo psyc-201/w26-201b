@@ -17,15 +17,16 @@ title: "Week 10"
  ![](slides/03-09.pdf){width=100% height=600} 
 :::
 
-<!--
-::: {.callout-tip title="Slides Mon March 11" collapse=true}
+
+::: {.callout-tip title="Slides Wed March 11" collapse=true}
  ![](slides/03-11.pdf){width=100% height=600} 
 :::
--->
 
-## Lots of LMM Resources
+## Resources
 
-### General
+- [So you want to be a Wizard](https://jvns.ca/wizard-zine.pdf) 
+
+### General LMM Resources
 
 - [Hierarchical Models Viz](http://mfviz.com/hierarchical-models/)
 - [Standard Operating Procedures for LMMs by D2P2 Lab](https://decision-lab.org/wp-content/uploads/2020/07/SOP_Mixed_Models_D2P2_v1_0_0.pdf)

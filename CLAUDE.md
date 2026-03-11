@@ -54,6 +54,30 @@ When updating a template repo that students have already forked:
 
 ---
 
+## Grading
+
+- **Directory**: `grading/` (gitignored from main repo)
+- **Roster**: `grading/classroom_roster.csv` — canonical student list with `identifier`, `github_username`, `github_id`, `name`
+- Use `classroom_roster.csv` as the source of truth for scripting against student repos
+
+### Collecting Student Submissions
+
+`grading/fetch_proposals.sh` fetches proposal PDFs for all students:
+1. Reads handles from `classroom_roster.csv`
+2. Tries `pdfs/proposal.pdf` then `proposal.pdf` at repo root
+3. Validates downloaded files are actual PDFs
+4. Reports students needing local builds from `.qmd`
+
+```bash
+bash grading/fetch_proposals.sh    # Downloads to grading/proposals/
+```
+
+Output naming convention: `first-last.pdf` (lowercase, hyphenated).
+
+Student repos follow the pattern `final-project-<github_handle>` in the `psyc-201` org.
+
+---
+
 ## Key Directories
 
 ```
@@ -65,6 +89,11 @@ w26/
 ├── assets/
 │   ├── pdfs/           # Reading PDFs
 │   └── summaries/      # Generated reading summaries
+├── grading/            # Grading workspace (gitignored)
+│   ├── classroom_roster.csv  # Student roster (identifier, github_username, github_id, name)
+│   ├── grade.py             # CLI grading toolkit (uv run python grade.py --help)
+│   ├── fetch_proposals.sh   # Download proposal PDFs from student repos
+│   └── proposals/           # Collected student proposal PDFs
 ├── dev/                # Development scratch (not rendered)
 ├── planning/           # Legacy planning docs (gitignored)
 └── classroom/          # GitHub Classroom work (gitignored)
