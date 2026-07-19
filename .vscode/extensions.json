@@ -13,7 +13,6 @@
     "marimo-team.vscode-marimo",
 
     // Git tools
-    "waderyan.gitblame",
     "mhutchie.git-graph"
   ],
   "unwantedRecommendations": [
