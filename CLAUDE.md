@@ -4,14 +4,21 @@
 
 **PSYC 201B: Statistical Intuitions for Social Scientists** (Winter 2026) — graduate statistics course at UC San Diego. Quarto-based course website.
 
-**Pedagogical Reference**: See [`PEDAGOGY.md`](PEDAGOGY.md) for teaching philosophy, content sequencing, scaffolding patterns, and assessment design.
+**Pedagogical Reference**: See [`stat-intuitions.exe.xyz/docs/PEDAGOGY.md`](stat-intuitions.exe.xyz/docs/PEDAGOGY.md) for teaching philosophy, content sequencing, scaffolding patterns, and assessment design (removed from repo root post-course).
 
 ## Essential Commands
 
+All site commands run from `site/` (the Quarto project root):
+
 ```bash
+cd site
 uv run poe quarto       # Preview site (localhost:9999)
-quarto render           # Full build to docs/
+quarto render           # Full build to ../docs/ (repo root)
 ```
+
+> **Layout rationale**: The Quarto project lives in `site/` with `output-dir: ../docs` because (1) GitHub Pages deploys from the branch and can only serve `/` or `/docs`, and (2) Quarto walks the *entire* project directory on every render/preview — keeping `classroom/` (~560k files) and `grades/` outside `site/` cut project inspection from 66s to ~2s. Never move large non-site directories into `site/`.
+>
+> **Caveat**: Because `docs/` is outside the project dir, Quarto refuses to auto-clean stale output files. If cruft accumulates: `rm -r docs && (cd site && quarto render)`.
 
 ---
 
@@ -23,27 +30,11 @@ quarto render           # Full build to docs/
 
 > **Important**: Each directory under `classroom/templates/` and `classroom/assignments/` is a **separate git repository** (not a submodule). This is intentional — they have their own remotes in the psyc-201 org. When working in these directories, git commands operate on that repo, not the main course repo.
 
-## Grading
+## Grading (archived — course complete)
 
-- **Directory**: `grading/` (gitignored from main repo)
-- **Roster**: `grading/classroom_roster.csv` — canonical student list with `identifier`, `github_username`, `github_id`, `name`
-- Use `classroom_roster.csv` as the source of truth for scripting against student repos
-
-### Collecting Student Submissions
-
-`grading/fetch_proposals.sh` fetches proposal PDFs for all students:
-1. Reads handles from `classroom_roster.csv`
-2. Tries `pdfs/proposal.pdf` then `proposal.pdf` at repo root
-3. Validates downloaded files are actual PDFs
-4. Reports students needing local builds from `.qmd`
-
-```bash
-bash grading/fetch_proposals.sh    # Downloads to grading/proposals/
-```
-
-Output naming convention: `first-last.pdf` (lowercase, hyphenated).
-
-Student repos follow the pattern `final-project-<github_handle>` in the `psyc-201` org.
+- **Directory**: `grades/` (gitignored from main repo)
+- Contents: `final-project-grades.csv`/`.md`, per-student final project work under `grades/gh-classroom/<last-first>/`, teaching evaluation PDF
+- Student repos follow the pattern `final-project-<github_handle>` in the `psyc-201` org
 
 ---
 
@@ -51,20 +42,21 @@ Student repos follow the pattern `final-project-<github_handle>` in the `psyc-20
 
 ```
 w26/
-├── weeks/              # Weekly content (01-06, final)
-│   └── XX/slides/      # Lecture PDFs per week
-├── guides/             # Student-facing guides (published)
-├── slides/             # Source slide PDFs (master copies)
-├── assets/
-│   ├── pdfs/           # Reading PDFs
-│   └── summaries/      # Generated reading summaries
-├── grading/            # Grading workspace (gitignored)
-│   ├── classroom_roster.csv  # Student roster (identifier, github_username, github_id, name)
-│   ├── grade.py             # CLI grading toolkit (uv run python grade.py --help)
-│   ├── fetch_proposals.sh   # Download proposal PDFs from student repos
-│   └── proposals/           # Collected student proposal PDFs
-├── dev/                # Development scratch (not rendered)
-├── planning/           # Legacy planning docs (gitignored)
+├── site/               # Quarto project root (run all quarto/uv commands here)
+│   ├── _quarto.yml     # output-dir: ../docs
+│   ├── pyproject.toml  # Site build env (uv); jupyter kernel: w26-201b
+│   ├── weeks/          # Weekly content (01-10, final)
+│   │   ├── XX/slides/  # Lecture PDFs per week (published copies)
+│   │   └── XX/lab/     # Lab notebooks (wks 1-2: .qmd/jupyter; wks 4/6: marimo .py)
+│   ├── guides/         # Student-facing guides (published)
+│   └── assets/
+│       ├── pdfs/       # Reading PDFs (gitignored)
+│       └── summaries/  # Generated reading summaries (gitignored)
+├── docs/               # Rendered site (GitHub Pages serves this; stat-intuitions.com)
+├── slides/             # Source slide PDFs (master copies, untracked)
+├── grades/             # Grading archive (gitignored)
+├── dev/                # Development scratch (gitignored)
+├── sidecar/            # Side pipeline (lectures/papers notes, untracked)
 └── classroom/          # GitHub Classroom work (gitignored)
     ├── templates/      # Assignment templates
     └── assignments/    # Student submissions (cloned repos)

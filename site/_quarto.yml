@@ -1,18 +1,12 @@
 project:
   type: website
-  output-dir: docs
+  output-dir: ../docs
   preview:
     port: 9999
   render:
     - "*.qmd"
     - "!**/wip/*"
     - "!**/prep/*"
-    - "!dev/"
-    - "!specs/"
-    - "!slides/"
-    - "!classroom/"
-    - "!weeks/**/prep/"
-    - "!grades/"
 
 external-env: true
 jupyter: w26-201b

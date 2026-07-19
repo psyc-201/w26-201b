@@ -6,7 +6,7 @@ build/
 dist/
 wheels/
 *.egg-info
-weeks/**/prep/
+**/prep/
 
 # Virtual environments
 .venv
@@ -16,7 +16,7 @@ weeks/**/prep/
 *.webm
 
 # Quarto
-/.quarto/
+.quarto/
 **/*.quarto_ipynb
 _book/
 _extensions/
@@ -38,8 +38,8 @@ node_modules/
 
 # Planning docs (not version controlled)
 planning/
-assets/summaries/
-assets/pdfs/
+site/assets/summaries/
+site/assets/pdfs/
 
 # Grading workspace (roster, student submissions)
 grades/
