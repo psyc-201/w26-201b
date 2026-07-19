@@ -224,18 +224,17 @@ def _(m_eth):
 @app.cell
 def _(mo):
     mo.md(r"""
-    But we can control which group is the reference group for more control using the `.set_contrasts()` method and `.fit()` again:
+    But we can control which group is the reference group directly *in the model formula* using `treatment()` and fitting again:
     """)
     return
 
 
 @app.cell
-def _(m_eth):
+def _(credit, model):
     # bossanova methods can be chained like polars!
     (
-        m_eth
-        .set_contrasts(Ethnicity=('treatment', 'Caucasian')) # change contrasts
-        .fit() # refit model
+        model("Balance ~ treatment(Ethnicity, ref='Caucasian')", credit) # contrasts in-formula
+        .fit() # fit model
         .params # inspect params
     )
     return
@@ -299,7 +298,7 @@ def _(mo):
 
 @app.cell
 def _(credit, model):
-    m_sum = model("Balance ~ Ethnicity", credit).set_contrasts(Ethnicity='sum')
+    m_sum = model("Balance ~ sum(Ethnicity)", credit)
     m_sum.plot_design()
     return (m_sum,)
 
@@ -379,7 +378,7 @@ def _(mo):
 
 @app.cell
 def _(credit, model):
-    m_poly = model("Balance ~ Ethnicity", credit).set_contrasts(Ethnicity='poly')
+    m_poly = model("Balance ~ poly(Ethnicity)", credit)
     m_poly.plot_design()
     return (m_poly,)
 
@@ -432,8 +431,9 @@ def _(mo):
 
 @app.cell
 def _(m_eth, m_poly, m_sum, pl, sns):
-    # Each model's predictions
-    all_fits = pl.DataFrame({"Treatment": m_eth.data['fitted'], "Sum": m_sum.data['fitted'], "Poly": m_poly.data["fitted"]})
+    # Each model's predictions (.fit() first so this cell doesn't rely on
+    # fits that happened in other cells, which marimo's graph can't order on)
+    all_fits = pl.DataFrame({"Treatment": m_eth.fit().data['fitted'], "Sum": m_sum.fit().data['fitted'], "Poly": m_poly.fit().data["fitted"]})
 
     # Make a correlation matrix
     ax = sns.heatmap(all_fits.corr().to_pandas(), vmin=-1, vmax=1, cmap='coolwarm', linewidths=1, annot=True, yticklabels=all_fits.columns)

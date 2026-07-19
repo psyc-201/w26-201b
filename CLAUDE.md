@@ -95,6 +95,29 @@ Prior year materials for reference:
 
 ---
 
+## Marimo Labs on the Site (weeks 4 & 6)
+
+The wk4/wk6 lab notebooks are marimo `.py` files (source of truth, shared with
+classroom templates). The site renders them via the **quarto-marimo engine
+extension** (v0.4.5, requires marimo >=0.23.1) from *derived* `.qmd` files:
+
+```bash
+cd site
+uv run python marimo2qmd.py weeks/04/lab/01-sampling.py   # .py -> .qmd (see script docstring)
+```
+
+Re-run after editing a lab `.py`; commit both files. Notes:
+
+- Each generated `.qmd` carries `external-env: true` in its frontmatter (the
+  engine ignores the project-level key) so cells execute in `site/.venv`.
+- `_extensions/marimo-team/marimo/extract.py` has a **local patch** (marked
+  `LOCAL PATCH`) that chdirs to the document dir so `helpers.py` imports and
+  `./data/*.csv` reads resolve. `_extensions/` is gitignored — re-apply the
+  patch if `quarto update marimo-team/quarto-marimo` overwrites it.
+- Rendered pages are static-with-islands. Full in-browser reactivity (WASM)
+  would additionally need `helpers.py` folded into the notebooks and data
+  loading over HTTP — not currently wired up.
+
 ## Lab Notebook Conventions
 
 Lab notebooks are **marimo** `.py` files (not Jupyter) in classroom template repos.

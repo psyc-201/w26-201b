@@ -38,7 +38,7 @@ title: "Week 8"
   - [Chapter 7: P-values](readings/talr-pvalues.pdf)
 - [DAAMCA Chapter 4: Statistical Inferences about Parameter Values](readings/DAAMCA_Ch4.pdf)
 - [10 Quick tips to improve your regression modeling](readings/ROS_Quick_Tips.pdf)
-- [Theory-Testing in Psychology & Physics: A Methodological Paradox (Meehl, 1967)](readings/1967-meehl.pdf)
+- [Theory-Testing in Psychology & Physics: A Methodological Paradox (Meehl, 1967)](readings/1967-Meehl.pdf)
 - [ROS Chapter 11: Assumptions, diagnostics, and model evaluation](readings/ROS_Chap11.pdf)
 
 ## Optional References

@@ -54,7 +54,7 @@ Regardless of solo or group, you must choose one of the following options for yo
 3. **New open dataset**
 4. **New simulated dataset**
 
-For option 3 we've put together a large list of [open datasets](/datasets) that you can browse based on your research interests. By no means should you feel limited to using a dataset on this list! These are just to help you get started. 
+For option 3 we've put together a large list of [open datasets](/datasets.qmd) that you can browse based on your research interests. By no means should you feel limited to using a dataset on this list! These are just to help you get started. 
 
 For option 4 you should discuss with your instructors what you're thinking and why you want to pursue this option.
 

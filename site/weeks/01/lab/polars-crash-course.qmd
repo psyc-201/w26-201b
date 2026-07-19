@@ -1393,6 +1393,6 @@ step4
 Here a few additional resources that might be helpful on your journey:
 
 - [Polars official intro tutorial](https://docs.pola.rs/user-guide/getting-started/)
-- [More Comprehensive intro to Polars](https://bebi103a.github.io/lessons/06/intro_to_polars.html#)
-- [TidyData analysis in Polars](https://bebi103a.github.io/lessons/06/tidy_data.html)
+- [More Comprehensive intro to Polars](https://bebi103a.github.io/lessons/eda/polars/intro_to_polars.html)
+- [TidyData analysis in Polars](https://bebi103a.github.io/lessons/eda/polars/tidy_data.html)
 - [Polars patterns vs R's dplyr](https://www.emilyriederer.com/post/py-rgo-polars/#what-are-dplyrs-ergonomics)

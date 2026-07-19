@@ -595,12 +595,6 @@ def _(mo):
 
 
 @app.cell
-def _():
-    _train_estimator
-    return
-
-
-@app.cell
 def _(col, n_test, n_train, penguins, pl):
     # Number of random splits
     nsplits = 500
@@ -937,7 +931,7 @@ def _(mo):
     See if you can use one of [the following](https://scikit-learn.org/stable/api/sklearn.metrics.html#regression-metrics) to evaluate the mean/median differently.
 
     Then change up the *splitter* and see how they interact
-    ::
+    :::
     """)
     return
 

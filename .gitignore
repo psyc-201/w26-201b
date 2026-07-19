@@ -57,3 +57,6 @@ _widgets/
 .zed/
 stat-intuitions.exe.xyz
 experimental/
+
+# playwright-cli session artifacts
+.playwright-cli/
