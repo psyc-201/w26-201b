@@ -6,8 +6,6 @@
 
 **Pedagogical Reference**: See [`PEDAGOGY.md`](PEDAGOGY.md) for teaching philosophy, content sequencing, scaffolding patterns, and assessment design.
 
----
-
 ## Essential Commands
 
 ```bash
@@ -24,35 +22,6 @@ quarto render           # Full build to docs/
 - **Local workspace**: `classroom/` (gitignored from main repo)
 
 > **Important**: Each directory under `classroom/templates/` and `classroom/assignments/` is a **separate git repository** (not a submodule). This is intentional — they have their own remotes in the psyc-201 org. When working in these directories, git commands operate on that repo, not the main course repo.
-
-### Templates (cumulative)
-| Template | Content |
-|----------|---------|
-| `201b-ghct-01-basic` | Python fundamentals |
-| `201b-ghct-02-pydata` | + Polars, Seaborn |
-| `201b-ghct-04-pydata-resampling` | + Resampling/bootstrap |
-| `201b-ghct-05-models` | + bossanova, GLM, model comparison |
-| `w26-hw-01` | HW1 template |
-| `w26-hw-02` | HW2 template |
-
-### Active Assignments (GitHub Classroom repos)
-| Assignment | Template | Week |
-|------------|----------|------|
-| `201b-w26-wk01-lab-*` | `201b-ghct-01-basic` | 1 |
-| `201b-w26-wk04-lab-*` | `201b-ghct-04-pydata-resampling` | 4 |
-| `201b-w26-wk06-lab-*` | `201b-ghct-05-models` | 6 |
-| `201b-w26-hw-01-*` | `w26-hw-01` | 2-3 |
-| `201b-w26-hw-02-*` | `w26-hw-02` | 4-5 |
-
-### Updating a Live Assignment
-
-When updating a template repo that students have already forked:
-- **NEVER edit existing files** — causes merge conflicts when students `git pull`
-- **Only add new files** (notebooks, data, etc.)
-- Safe to edit: `pyproject.toml`, `README.md` (students don't modify these)
-- Always verify with `git diff --cached` before pushing
-
----
 
 ## Grading
 
@@ -120,15 +89,7 @@ Prior year materials for reference:
 | **seaborn** | Visualization | https://seaborn.pydata.org/ |
 | **marimo** | Reactive notebooks (replaces Jupyter) | https://docs.marimo.io/ |
 
-> **Always consult bossanova docs first** for API questions — resource notebooks in `classroom/` may use older statsmodels patterns.
-
-### Key bossanova API patterns
-- `model("y ~ x", data).fit()` — fit a model
-- `.set_contrasts(var='treatment'|'sum'|'poly')` — coding schemes
-- `.explore("y ~ x", **kwargs)` → `.effects` — marginal effects (the "mixing board")
-- `.jointtest()` / `.infer("joint")` — ANOVA-style omnibus tests
-- `compare(m1, m2)` — nested model comparison (F-test, PRE)
-- `.plot_resid()`, `.plot_design()`, `.plot_mee()`, `.plot_vif()` — diagnostics
+> Always refer to the [bossanova docs](https://sciminds.ucsd.edu/bossanova/cheatsheet/) for latest API
 
 ---
 
@@ -154,74 +115,3 @@ Lab notebooks are **marimo** `.py` files (not Jupyter) in classroom template rep
 - **Data**: Datasets live in `data/` within each template repo
 
 ---
-
-## GitHub Pages Troubleshooting
-
-If deployments get stuck in "queued" status:
-
-```bash
-gh api repos/psyc-201/w26-201b/pages --jq '{status}'  # Check status
-gh api -X POST repos/psyc-201/w26-201b/pages/builds   # Reset if "errored"
-gh run list --limit 5                                  # Monitor progress
-```
-
----
-
-## Linear (Issue Tracking)
-
-- **Team**: Ejolly
-- **Project**: W26-201b
-
-### Statuses
-
-| Name | Type | Use |
-|------|------|-----|
-| Backlog | unstarted | Default for new issues not yet prioritized |
-| Todo | unstarted | Prioritized, ready to work |
-| In Progress | started | Actively being worked on |
-| Done | completed | Finished |
-| Canceled | canceled | Won't do |
-
-### Labels (required on every issue)
-
-| Label | When to use |
-|-------|-------------|
-| Lab | Lab exercises and coding practice |
-| Lecture | Lecture content and slides |
-| HW | Homework assignments |
-| Bug | Broken behavior, regressions |
-| Improvement | Refactoring, performance, code quality |
-
-### Milestones
-
-Assign based on scope — no default:
-- **Week 6** through **Week 10**
-- **Finals**
-
-### Priorities
-
-0=None, 1=Urgent, 2=High, 3=Normal, 4=Low
-
-### Key MCP Tools
-
-| Action | Tool |
-|--------|------|
-| Find work | `mcp__linear-server__list_issues` (filter by state, project) |
-| View details | `mcp__linear-server__get_issue` |
-| Create issue | `mcp__linear-server__create_issue` (team: "Ejolly", project: "W26-201b") |
-| Update issue | `mcp__linear-server__update_issue` |
-| Add comment | `mcp__linear-server__create_comment` |
-| List labels | `mcp__linear-server__list_issue_labels` |
-| List milestones | `mcp__linear-server__list_milestones` (project: "W26-201b") |
-
-### Session Start
-
-- Check for **In Progress** issues (stale claims from previous sessions)
-- Check **Backlog** and **Todo** for available work
-
-### Session Close Protocol
-
-Before saying "done" or "complete":
-1. Create issues for remaining/discovered work
-2. Update issue states (close completed, note in-progress)
-3. Commit code changes
