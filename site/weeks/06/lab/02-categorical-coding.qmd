@@ -1,10 +1,20 @@
 ---
+sidebar: weeks
 title: "Categorical Predictors & Coding Schemes"
 author: "Eshin Jolly"
-sidebar: weeks
-external-env: true
-marimo-version: 0.23.14
+code-line-numbers: false
+code-fold: show
+code-overflow: wrap
+execute:
+  warning: false
 ---
+```{python}
+import polars as pl
+from polars import col
+import seaborn as sns
+from bossanova import model
+```
+
 
 In the previous notebook we added a **2-level** categorical predictor (`Student`: Yes / No) using **treatment coding**. That was straightforward — one dummy variable, one reference group, done.
 
@@ -21,15 +31,8 @@ By the end you'll know how to:
 - Distinguish between the **joint test** (omnibus) and **individual parameter** questions
 - Combine multiple categorical predictors (additive & interaction)
 
-```{python .marimo}
-import marimo as mo
-import polars as pl
-from polars import col
-import seaborn as sns
-from bossanova import model
-```
 
-```{python .marimo}
+```{python}
 credit = pl.read_csv("./data/credit.csv")
 credit.head()
 ```
@@ -44,7 +47,6 @@ Quick reminder of the variables we'll focus on today:
 | Student    | Yes / No                             | Categorical (2 levels) |
 | Married    | Yes / No                             | Categorical (2 levels) |
 
-<!---->
 ## Three-Level Categorical: The Default
 
 In the previous notebook we modeled `Student` (2 levels) — that required **1** dummy column ($k - 1 = 2 - 1 = 1$).
@@ -59,7 +61,7 @@ $$
 
 Let's visualize first:
 
-```{python .marimo}
+```{python}
 sns.catplot(
     data=credit.to_pandas(),
     x="Ethnicity",
@@ -74,23 +76,24 @@ sns.catplot(
 
 Now let's take a look at the design matrix:
 
-```{python .marimo}
+```{python}
 m_eth = model("Balance ~ Ethnicity", credit)
 m_eth.plot_design()
 ```
 
-```{python .marimo}
+```{python}
 m_eth.designmat.head()
 ```
 
 Let's try to understand what the default encoding is doing here by just grabbing the unique rows that correspond to each unique factor level of Ethnicity:
 
-```{python .marimo}
+```{python}
 # Sort just to make it easier to discuss
 m_eth.designmat.unique().sort(by='Ethnicity[Caucasian]')
 ```
 
 Here's how we can read this:
+
 - Each **row** corresponds to one unique possible factor level. From top to bottom:
   - `[1 0 0]`: African American
   - `[1 1 0]`: Asian
@@ -100,7 +103,6 @@ Here's how we can read this:
   - `Ethnicity[Asian]`: difference between Asian - African American
   - `Ethnicity[Caucasian]`: difference between Caucasian - African American
 
-<!---->
 And in GLM terms:
 
 - The **reference level** is chosen alphabetically → **African American**
@@ -110,7 +112,7 @@ And in GLM terms:
 
 With 3 levels we get $k - 1 = 2$ dummy columns. The reference group *doesn't need its own column* — it's captured by the **Intercept.**
 
-```{python .marimo}
+```{python}
 # Group Means:
 group_means = (
     credit
@@ -121,7 +123,7 @@ group_means = (
 group_means
 ```
 
-```{python .marimo}
+```{python}
 # Parameter estimates
 m_eth.fit().params
 ```
@@ -134,7 +136,6 @@ Different coding schemes change what the Intercept and slopes *mean*, but — as
 
 Let's compare three schemes side-by-side.
 
-<!---->
 ### 1. Treatment Coding (default)
 
 We've already seen this one:
@@ -146,14 +147,14 @@ We've already seen this one:
 | **Design matrix** | 0/1 pattern (reference = all zeros) |
 | **Best when** | There's a natural reference group (e.g., control condition) |
 
-```{python .marimo}
+```{python}
 # Recap: treatment coding params (already fit above)
 m_eth.params
 ```
 
 But we can control which group is the reference group directly *in the model formula* using `treatment()` and fitting again:
 
-```{python .marimo}
+```{python}
 # bossanova methods can be chained like polars!
 (
     model("Balance ~ treatment(Ethnicity, ref='Caucasian')", credit) # contrasts in-formula
@@ -165,7 +166,7 @@ But we can control which group is the reference group directly *in the model for
 Notice how the *Intercept* now reflect the mean of the Caucasian group.
 Like other software `bossanova` will automatically calculate the remaining codes for the other factor levels, but loses their names (because you can specify very complicated codes!).
 
-```{python .marimo}
+```{python}
 # Reverse alphabetical sort using the negative list slicing trick!
 group_means[::-1]
 ```
@@ -177,7 +178,7 @@ Make a figure in seaborn to help you visualize the data and check
 
 *hint: we've simply moved things around so the "frame-of-reference" is the Caucasian group*
 
-```{python .marimo}
+```{python}
 # Your code here
 ```
 
@@ -196,12 +197,12 @@ Sum coding changes what the Intercept and slopes represent:
 
 The key property: each column in the design matrix **sums to zero** across levels — hence "sum" coding.
 
-```{python .marimo}
+```{python}
 m_sum = model("Balance ~ sum(Ethnicity)", credit)
 m_sum.plot_design()
 ```
 
-```{python .marimo}
+```{python}
 m_sum.designmat.unique()
 ```
 
@@ -215,13 +216,13 @@ You can interpret this encoding scheme as having the same effect that *mean cent
 >
 > This is the coding scheme most naturally connected to ANOVA-style thinking, where we ask "how do groups differ from the overall average?" while accounting for imbalances in group-sizes.
 
-```{python .marimo}
+```{python}
 # Verify: Intercept should be the grand mean (unweighted mean of group means)
 grand_mean = group_means.select(col("mean_balance").mean())
 grand_mean
 ```
 
-```{python .marimo}
+```{python}
 m_sum.fit().params
 ```
 
@@ -229,7 +230,7 @@ m_sum.fit().params
 
 Like before, see if you can figure out what the other two parameters represent in terms of group-means. It's tricky! And you'll need to "mix" groups together
 
-```{python .marimo}
+```{python}
 # Your code here
 ```
 
@@ -248,12 +249,12 @@ Let's see what happens when we apply it to Ethnicity — even though Ethnicity h
 
 > For `Ethnicity`, the order is just alphabetical — there's no reason "African American → Asian → Caucasian" should be treated as a progression, so the "linear" and "quadratic" trends are not particularly informative in this example, but you can imagine a study design or dataset where they might be (e.g. pain severity, ses, etc).
 
-```{python .marimo}
+```{python}
 m_poly = model("Balance ~ poly(Ethnicity)", credit)
 m_poly.plot_design()
 ```
 
-```{python .marimo}
+```{python}
 m_poly.designmat.unique()
 ```
 
@@ -261,13 +262,13 @@ The design matrix shows **orthogonal** contrast weights. The first parameter cap
 
 For example check out the correlation between polynomial encoding:
 
-```{python .marimo}
+```{python}
 m_poly.plot_vif()
 ```
 
 Vs sum coding:
 
-```{python .marimo}
+```{python}
 m_sum.plot_vif()
 ```
 
@@ -275,9 +276,8 @@ But **critically** notice that the model's *predictions* do not change!
 
 We're just mixing things around but not fundamentally changing anything about the GLM's behavior!
 
-```{python .marimo}
-# Each model's predictions (.fit() first so this cell doesn't rely on
-# fits that happened in other cells, which marimo's graph can't order on)
+```{python}
+# Each model's predictions (re-fit so this cell is self-contained)
 all_fits = pl.DataFrame({"Treatment": m_eth.fit().data['fitted'], "Sum": m_sum.fit().data['fitted'], "Poly": m_poly.fit().data["fitted"]})
 
 # Make a correlation matrix
@@ -296,19 +296,19 @@ ax.set_title("Correlation Matrix of Model Predictions")
 | **Predictions** | Same | Same | Same |
 | **$R^2$** | Same | Same | Same |
 
-<!---->
 ## Joint (Omnibus/ANOVA tests) & Model Comparison
 
 Here's the big idea to connect a few pieces together:
+
 - We have a factor with 3 levels, but the exact estimates we calculate depend on our coding scheme
 - We're just interested in whether Ethnicity matters *overall* for predicting credit-card balance
 - So how can we do this? **Model comparison**
 
-```{python .marimo}
+```{python}
 from bossanova import compare
 ```
 
-```{python .marimo}
+```{python}
 # Compact model: no Ethnicity (intercept only)
 m_compact = model("Balance ~ 1", credit).fit()
 
@@ -318,7 +318,7 @@ compare(m_compact, m_eth)
 
 Now run the next code cell and check-out the output:
 
-```{python .marimo}
+```{python}
 m_eth.jointtest()
 ```
 
@@ -331,7 +331,6 @@ An omnibus/F/jointtest, tests all parameters that reflect a factor variable simu
 It's just **nested model comparison** between a compact model *without* the term, and an augmented model *including* the term.
 The F-ratio tells us the uncertainty we should have in our PRE when this term is included in the model - *how much better does it predict credit card balance?*
 
-<!---->
 Critically, our coding scheme *does not effect* the joint-test!
 
 We'll explain more in class, but what `jointtest` is doing behind-the-scenes is what Psychologists (almost exclusively) call a "Type-III Sum-of-Squares" test.
@@ -342,12 +341,12 @@ However, if you're manually doing this with other tools in Python or in R (e.g. 
 
 This is just a (pointless) statistical relic that `bossanova` just does the "right thing" for you when you ask for a `jointtest`.
 
-```{python .marimo}
+```{python}
 # Sum coding
 m_sum.jointtest()
 ```
 
-```{python .marimo}
+```{python}
 # Polynomial coding
 m_poly.jointtest()
 ```
@@ -364,7 +363,6 @@ The F-statistic and p-value from `compare()` match `.jointtest()` exactly. They'
 >
 > Think of it this way: the **joint test** asks whether the predictor is *worth including*, while the **individual parameters** tell you the *specific pattern* — and the pattern's description depends on how you coded the levels.
 
-<!---->
 ## Two Factor Models
 
 Let's increase the complexity a bit and include Student (which we've previously seen) as another variable.
@@ -372,22 +370,23 @@ Remember it has 2 levels (Yes/No).
 
 We'll start with the default (treatment coding):
 
-```{python .marimo}
+```{python}
 m_add = model("Balance ~ Ethnicity + Student", credit)
 m_add.plot_design()
 ```
 
-```{python .marimo}
+```{python}
 m_add.designmat.unique()
 ```
 
 Notice now how there are 6 unique combinations required to capture all of our factor level combinations:
+
 - Ethnicity: 3 levels, k = 2
 - Student: 2 levels, k = 1
 - 2 + 1 = **3 columns to represent all possible differences**
 - 3 + 2 (+ 1) = **6 combinations to represent each unique difference**
 
-```{python .marimo}
+```{python}
 m_add.fit().params
 ```
 
@@ -395,18 +394,18 @@ m_add.fit().params
 
 See if you can figure out what these parameter estimates represent?
 
-```{python .marimo}
+```{python}
 # Your code here
 ```
 
 Let's take it a step further and include an interaction:
 
-```{python .marimo}
+```{python}
 m_int = model("Balance ~ Ethnicity * Student", credit)
 m_int.plot_design()
 ```
 
-```{python .marimo}
+```{python}
 m_int.designmat.unique()
 ```
 
@@ -416,17 +415,14 @@ Call `.fit()` and then inspect `.params` and try to understand what each paramet
 
 It'll be helpful to use `polars` to aggregate the groups first and verify
 
-```{python .marimo}
+```{python}
 # You code here
 ```
 
-```{python .marimo}
-
-```
 
 Now let's run a jointtest (traditional ANOVA):
 
-```{python .marimo}
+```{python}
 m_int.jointtest()
 ```
 
@@ -440,7 +436,7 @@ To test if the interaction is **worth it** we need create a *compact* model that
 
 That's just our `Balance ~ Ethnicity + Student` model from earlier!
 
-```{python .marimo}
+```{python}
 compare(m_add, m_int)
 ```
 
@@ -452,10 +448,9 @@ Now to test "main effects" we need to remove 1 variable at a time, while keeping
 
 `Balance ~ Ethnicity + Student + Ethnicity:Student`
 
-<!---->
 So we need to create 2 more nested models:
 
-```{python .marimo}
+```{python}
 # Drop Ethnicity (keep interaction!)
 drop_eth = model("Balance ~ Student + Ethnicity:Student", credit).fit()
 
@@ -463,17 +458,17 @@ drop_eth = model("Balance ~ Student + Ethnicity:Student", credit).fit()
 drop_student = model("Balance ~ Ethnicity + Ethnicity:Student", credit).fit()
 ```
 
-```{python .marimo}
+```{python}
 # Main effect of Ethnicity
 compare(drop_eth, m_int)
 ```
 
-```{python .marimo}
+```{python}
 # Main effect of Student
 compare(drop_student, m_int)
 ```
 
-```{python .marimo}
+```{python}
 # Just to compare
 m_int.jointtest()
 ```
@@ -490,18 +485,20 @@ Use the cells below to practice. Some ideas:
 
 *Tip: If you're confused make some plots to help you out!*
 
-```{python .marimo}
+```{python}
 credit.head()
 ```
 
-```{python .marimo}
+```{python}
 # Your code here
 ```
 
-```{python .marimo}
+```{python}
 # Your code here
 ```
 
-```{python .marimo}
+```{python}
 # Your code here
 ```
+
+

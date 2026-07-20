@@ -60,3 +60,4 @@ experimental/
 
 # playwright-cli session artifacts
 .playwright-cli/
+__marimo__/

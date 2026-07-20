@@ -1,10 +1,19 @@
 ---
+sidebar: weeks
 title: "Regression Basics"
 author: "Eshin Jolly"
-sidebar: weeks
-external-env: true
-marimo-version: 0.23.14
+code-line-numbers: false
+code-fold: show
+code-overflow: wrap
+execute:
+  warning: false
 ---
+```{python}
+import polars as pl
+from polars import col
+import seaborn as sns
+```
+
 
 We're *finally* going to fit some statistical models the easy way! This tutorial introduces [`bossanova`](https://sciminds.ucsd.edu/bossanova), a new Python library maintained by Eshin & team at the [SciMinds Research Studio](https://sciminds.studio). It's been purposely designed to borrow the best patterns from R and improve upon them based upon the approaches we've been learning about in class. It's also a fully functional statistical library that replaces `lm`, `glm`, `lmer` and `glmer` in R that you can use for any of your projects. We'll continue using `bossanova` for the rest of the course as we get to these additional topics.
 
@@ -38,14 +47,8 @@ We'll use the credit-card dataset mention in class which contains records from 4
 | Ethnicity  | African American / Asian / Caucasian |
 | Balance    | Average credit card debt ($)       |
 
-```{python .marimo}
-import marimo as mo
-import polars as pl
-from polars import col
-import seaborn as sns
-```
 
-```{python .marimo}
+```{python}
 credit = pl.read_csv("./data/credit.csv")
 credit.head()
 ```
@@ -62,7 +65,7 @@ $$
 
 Let's start by visualizing the relationship:
 
-```{python .marimo}
+```{python}
 sns.relplot(
     data=credit.to_pandas(),
     x="Income",
@@ -75,7 +78,7 @@ sns.relplot(
 
 There seems to be a positive relationship — as Income increases, so does Balance. But notice the cluster of observations at the low end of Income. Let's zoom in on people with Income below $50K:
 
-```{python .marimo}
+```{python}
 sns.relplot(
     data=credit.filter(col("Income") < 50).to_pandas(),
     x="Income",
@@ -90,7 +93,7 @@ A large number of people with incomes below this threshold carry a Balance of **
 
 Let's ask `seaborn` to add a regression line to the full data. This gives us a preview before we fit our own model:
 
-```{python .marimo}
+```{python}
 sns.lmplot(
     data=credit.to_pandas(),
     x="Income",
@@ -104,7 +107,6 @@ sns.lmplot(
 
 This confirms our visual intuition about a positive linear relationship. Let's model it ourselves with `bossanova`!
 
-<!---->
 ## Univariate Regression
 
 ### Creating a model
@@ -125,11 +127,11 @@ Here's a quick reference for formula syntax:
 | `y ~ x1 * x2` | Main effects + interaction |
 | `y ~ x1:x2` | Interaction only (no main effects) |
 
-```{python .marimo}
+```{python}
 from bossanova import model
 ```
 
-```{python .marimo}
+```{python}
 m1 = model("Balance ~ Income", credit)
 m1
 ```
@@ -143,13 +145,13 @@ Remember that formula syntax automatically adds an intercept. These two formulas
 
 Before fitting, we can inspect the **design matrix** — the actual numbers the model will work with. This is the $X$ matrix from the GLM equation $\hat{y} = X\hat{\beta}$:
 
-```{python .marimo}
+```{python}
 m1.designmat.head()
 ```
 
 Let's visualize it which is helpful as we get to more complex models
 
-```{python .marimo}
+```{python}
 m1.plot_design()
 ```
 
@@ -162,14 +164,13 @@ m1.plot_design()
 >
 > The heatmap visualization lets you see the structure at a glance. This becomes more useful with multiple predictors.
 
-<!---->
 ### Fitting the model
 
 To estimate the model parameters ($\hat{\beta}$), we can call `.fit()`
 
 This won't return anything, but stores the **parameter estimates** as a dataframe in `.params`
 
-```{python .marimo}
+```{python}
 m1.fit()
 m1.params
 ```
@@ -191,7 +192,7 @@ Before drawing conclusions, we should check that we're not violating the core as
 
 The `.diagnostics` property gives us key fit statistics:
 
-```{python .marimo}
+```{python}
 m1.diagnostics
 ```
 
@@ -207,10 +208,9 @@ m1.diagnostics
 >
 > Our $R^2 \approx 0.21$ means Income alone explains about 21% of the variance in Balance. Not bad for a single predictor, but there's clearly more going on.
 
-<!---->
 We can also check the `.metadata` which summarizes useful info about the data the model use for fitting. This is helpful because we have to drop drows where data is missing and this lets you inspect if/when that's happening!
 
-```{python .marimo}
+```{python}
 m1.metadata
 ```
 
@@ -226,10 +226,9 @@ Similar to libraries like `broom` in R, after calling `.fit()`, the `.data` prop
 | `std_resid` | Standardized residuals |
 | `cooksd` | Cook's distance (influence) |
 
-<!---->
 Most helpful is to inspect the model residuals (errors) to see if any patterns help us diagnose violations of assumptions:
 
-```{python .marimo}
+```{python}
 m1.plot_resid()
 ```
 
@@ -244,16 +243,15 @@ m1.plot_resid()
 >
 > Notice the cluster of large negative residuals at low fitted values — these are the people with low incomes who carry $0 Balance. Our model over-predicts for them because there's no variance in Balance to learn from in that region.
 
-<!---->
 We can see and access these columns directly if needed:
 
-```{python .marimo}
+```{python}
 m1.data.head()
 ```
 
 Let's plot predicted vs observed Balance to see how well our model does:
 
-```{python .marimo}
+```{python}
 sns.relplot(
     data=m1.data.to_pandas(),
     x="fitted",
@@ -274,7 +272,7 @@ The key lesson when interpreting **any** GLM parameter:
 
 So our Intercept of ~$247 is the predicted Balance **when Income = 0**. But is that even in the range of our data?
 
-```{python .marimo}
+```{python}
 sns.displot(
     data=credit.to_pandas(),
     x="Income",
@@ -294,29 +292,28 @@ $$Income\_c_i = Income_i - \overline{Income}$$
 
 This shifts Income so that **0 = the sample mean**.
 
-<!---->
 We can do this manually in polars by creating a new column like this:
 
-```{python .marimo}
+```{python}
 credit.with_columns(Income_c=(col("Income") - col("Income").mean())).head()
 ```
 
 *But* `bossanova` makes this easy for us by allowing us to specify this directly in the formula when we create a `model`:
 
-```{python .marimo}
+```{python}
 # Just wrap a column in center() to transform it!
 m1c = model("Balance ~ center(Income)", credit).fit()
 ```
 
 **Original**
 
-```{python .marimo}
+```{python}
 m1.params
 ```
 
 **Centered**
 
-```{python .marimo}
+```{python}
 m1c.params
 ```
 
@@ -328,13 +325,13 @@ Notice that the Intercept changed, what's going on?
 
 Let's verify that the centered Intercept really is the mean of Balance:
 
-```{python .marimo}
+```{python}
 credit.select(col("Balance").mean())
 ```
 
 And let's verify that the fitted values are identical between both models:
 
-```{python .marimo}
+```{python}
 # Make a new df
 both_fitted = pl.DataFrame({
     'Original Fitted': m1.data['fitted'],
@@ -357,7 +354,6 @@ sns.relplot(
 - You should *almost always* center continuous predictors unless a value of 0 is of theoretical interest
 - Centering becomes **essential** with interactions (as we'll see shortly)
 
-<!---->
 ## Model Comparison
 
 We've estimated a relationship between Income and Balance, but how do we know it's **meaningful**? We can formulate hypotheses as **model comparisons** — comparing a *compact* model to an *augmented* model and asking whether the trade-off between added complexity and reduction in error is **worth it**.
@@ -407,15 +403,15 @@ The F-statistic weighs the error reduction against how many parameters we added.
 
 `bossanova` provides `compare()` to automate this entire process. Pass the models from simplest to most complex:
 
-```{python .marimo}
+```{python}
 from bossanova import compare
 ```
 
-```{python .marimo}
+```{python}
 m0 = model("Balance ~ 1", credit).fit()
 ```
 
-```{python .marimo}
+```{python}
 compare(m0, m1)
 ```
 
@@ -436,12 +432,10 @@ The first row is the baseline (compact model) — it has no comparison values. T
 
 With a large F-statistic and $p < .001$, adding Income significantly improves our predictions. And notice the PRE matches the $R^2$ from `.diagnostics` — for single-predictor models they're the same!
 
-<!---->
 > Note for R users
 
 `compare()` is similar to `anova()` in R (nested model comparison) but a little smarter and adapts the type of comparison statistic and test based on the *type* of model(s) you're comparing. It's also a bit confusingly named based on how you might familiar with talking about ANOVA.
 
-<!---->
 ### Univariate regression recap
 
 We've learned a standard modeling workflow:
@@ -459,7 +453,6 @@ Now let's see what happens when we add more predictors.
 
 ---
 
-<!---->
 ## Multiple Regression
 
 We'll now build **multiple regression** models that combine several predictors at once. We'll work with two continuous predictors:
@@ -469,7 +462,7 @@ We'll now build **multiple regression** models that combine several predictors a
 
 Let's start by visualizing these relationships:
 
-```{python .marimo}
+```{python}
 sns.pairplot(
     data=credit.select("Balance", "Income", "Rating").to_pandas(),
     kind="scatter",
@@ -486,21 +479,20 @@ $$
 \hat{Balance}_i = \beta_0 + \beta_1 \cdot Income_i + \beta_2 \cdot Rating_i
 $$
 
-```{python .marimo}
+```{python}
 m2 = model("Balance ~ Income + Rating", credit)
 ```
 
-```{python .marimo}
+```{python}
 m2.designmat
 ```
 
-```{python .marimo}
+```{python}
 m2.plot_design()
 ```
 
 The design matrix now has three columns: **Intercept**, **Income**, and **Rating**. Each row is still one observation. The heatmap helps you see how the columns differ in scale.
 
-<!---->
 ### Interpreting the coefficients
 
 Remember: each coefficient tells you the expected change in `Balance` for a **1-unit increase** in that predictor, **holding all other predictors at 0**.
@@ -509,20 +501,20 @@ Remember: each coefficient tells you the expected change in `Balance` for a **1-
 - **Income** — change in Balance per additional $1,000 of income, when Rating = 0
 - **Rating** — change in Balance per additional rating point, when Income = 0
 
-```{python .marimo}
+```{python}
 m2.fit()
 m2.params
 ```
 
 Let's inspect diagnostics:
 
-```{python .marimo}
+```{python}
 m2.plot_resid()
 ```
 
 Look at how they've changed from before. If we plot against predictions we can see the same pattern:
 
-```{python .marimo}
+```{python}
 sns.relplot(
     data=m2.data.to_pandas(),
     x="fitted",
@@ -544,7 +536,7 @@ $$
 
 The `*` shorthand in the formula automatically includes both main effects and their interaction:
 
-```{python .marimo}
+```{python}
 m3 = model("Balance ~ Income * Rating", credit)
 m3.plot_design()
 ```
@@ -553,7 +545,7 @@ m3.plot_design()
 
 Remember we learned that creating new predictors that products of others (interaction) will always introduce a correlation. We can see this in the mode before fiting:
 
-```{python .marimo}
+```{python}
 m3.plot_vif()
 ```
 
@@ -567,10 +559,8 @@ m3.plot_vif()
 >
 > Income and Rating are highly correlated (people with higher incomes tend to have higher credit ratings), so expect elevated VIFs here.
 
-<!---->
 Like before we can solve this *and* the interpretation problem by **centering**:
 
-<!---->
 ### Centering with multiple predictors
 
 **Mean-centering** subtracts the mean from each predictor before fitting. This changes *what the coefficients refer to* without changing the model's predictions:
@@ -581,21 +571,21 @@ Like before we can solve this *and* the interpretation problem by **centering**:
 | Income slope = effect when Rating=0 | Income slope = effect at **mean** Rating |
 | Interaction = same either way | Interaction = same either way |
 
-```{python .marimo}
+```{python}
 m3c = model("Balance ~ center(Income) * center(Rating)", credit).fit()
 m3c.vif()
 ```
 
 **Uncentered**
 
-```{python .marimo}
+```{python}
 m3.fit()
 m3.params.select("term", "estimate")
 ```
 
 **Centered**
 
-```{python .marimo}
+```{python}
 m3c.params.select("term", "estimate")
 ```
 
@@ -606,18 +596,16 @@ m3c.params.select("term", "estimate")
 > - **Interaction is identical** — centering never affects interactions
 > - **Predictions are identical** — centering changes interpretation, not fit
 
-<!---->
 ### Additive vs interaction
 
 Let's `compare` both models:
 
-```{python .marimo}
+```{python}
 compare(m2,m3c)
 ```
 
 This shows us that the addition of the *interaction* is worth-it, tho it only reduces error by about 2%
 
-<!---->
 ### Multiple regression takeaways
 
 1. **Multiple regression** lets you include several predictors — each slope is the effect *holding others constant*
@@ -628,7 +616,6 @@ This shows us that the addition of the *interaction* is worth-it, tho it only re
 
 Now let's see what happens when we add a *categorical* predictor.
 
-<!---->
 ## Categorical Predictors (2-levels)
 
 We'll now add a **categorical** predictor: `Student` (Yes / No).
@@ -640,7 +627,7 @@ The key questions:
 
 Let's start by visualizing the data:
 
-```{python .marimo}
+```{python}
 sns.catplot(
     data=credit.to_pandas(),
     x="Student",
@@ -653,7 +640,7 @@ sns.catplot(
 )
 ```
 
-```{python .marimo}
+```{python}
 sns.lmplot(
     data=credit.to_pandas(),
     x="Income",
@@ -673,15 +660,15 @@ $$
 \hat{Balance}_i = \beta_0 + \beta_1 \cdot Income_i + \beta_2 \cdot Student[Yes]_i
 $$
 
-```{python .marimo}
+```{python}
 m4 = model("Balance ~ Income + Student", credit)
 ```
 
-```{python .marimo}
+```{python}
 m4.designmat
 ```
 
-```{python .marimo}
+```{python}
 m4.plot_design()
 ```
 
@@ -696,7 +683,7 @@ m4.plot_design()
 >
 > This is the same coding scheme used in R's `lm()` by default.
 
-```{python .marimo}
+```{python}
 m4.fit()
 m4.params
 ```
@@ -709,19 +696,19 @@ m4.params
 
 The intercept interpretation is awkward — Income = 0 isn't meaningful. We'll fix that with centering shortly.
 
-```{python .marimo}
+```{python}
 m4.diagnostics
 ```
 
-```{python .marimo}
+```{python}
 m4.plot_resid()
 ```
 
-```{python .marimo}
+```{python}
 m4.data
 ```
 
-```{python .marimo}
+```{python}
 # Visualize parallel lines from augmented data
 _g = sns.relplot(
     data=m4.data.to_pandas(),
@@ -739,7 +726,6 @@ _g.map_dataframe(sns.lineplot, x="Income", y="fitted", hue="Student", sort=True)
 
 Notice the lines are **parallel** — adding a categorical predictor with `+` shifts the intercept but keeps the slope the same for both groups.
 
-<!---->
 ### Different slopes: `Balance ~ Income * Student`
 
 Does the **Income → Balance** relationship differ for students? An interaction lets us test this — now each group gets its own slope:
@@ -748,30 +734,30 @@ $$
 \hat{Balance}_i = \beta_0 + \beta_1 \cdot Income_i + \beta_2 \cdot Student[Yes]_i + \beta_3 \cdot Income_i \times Student[Yes]_i
 $$
 
-```{python .marimo}
+```{python}
 m5 = model("Balance ~ Income * Student", credit)
 ```
 
-```{python .marimo}
+```{python}
 m5.designmat
 ```
 
 The new **Income:Student[Yes]** column is the product of the dummy variable x Income — it's non-zero *only* for students. This is what allows the slope to differ between groups.
 
-```{python .marimo}
+```{python}
 m5.fit()
 m5.params
 ```
 
-```{python .marimo}
+```{python}
 m5.diagnostics
 ```
 
-```{python .marimo}
+```{python}
 m5.plot_resid()
 ```
 
-```{python .marimo}
+```{python}
 # Visualize different slopes per Student group
 _g = sns.relplot(
     data=m5.data.to_pandas(),
@@ -795,19 +781,19 @@ The raw coefficients are interpreted "when Income = 0" — which isn't meaningfu
 
 Here we'll create the centered column ourselves with `center()` as a polars expression and use it in the formula:
 
-```{python .marimo}
+```{python}
 m5c = model("Balance ~ center(Income) * Student", credit).fit()
 ```
 
 **Uncentered**
 
-```{python .marimo}
+```{python}
 m5.params.select("term", "estimate")
 ```
 
 **Centered**
 
-```{python .marimo}
+```{python}
 m5c.params.select("term", "estimate")
 ```
 
@@ -824,12 +810,11 @@ m5c.params.select("term", "estimate")
 >
 > The interaction term is unchanged by centering — it's always the *difference in slopes*.
 
-<!---->
 ### Parallel lines vs different slopes
 
 Is this new interaction term worth it?
 
-```{python .marimo}
+```{python}
 compare(m4, m5c)
 ```
 
@@ -855,34 +840,29 @@ We've built five regression models today, each building on the last:
 6. **VIF** diagnoses multicollinearity — centering dramatically reduces the artificial inflation from interaction terms
 7. **Model comparison** (`compare()`) tests whether added complexity is worth the reduction in error
 
-<!---->
 ## Your Turn
 
 `bossanova` includes the `penguins` dataset you've seen before. Try using the cells below to play around and make sure you understand these core concepts
 
-```{python .marimo}
+```{python}
 from bossanova import load_dataset
 
 penguins = load_dataset('penguins')
 penguins.head()
 ```
 
-```{python .marimo}
+```{python}
 # Your code here
 ```
 
-```{python .marimo}
+```{python}
 # Your code here
 ```
 
-```{python .marimo}
+```{python}
 # Your code here
 ```
 
-```{python .marimo}
 
-```
 
-```{python .marimo}
 
-```

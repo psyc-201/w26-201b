@@ -47,7 +47,7 @@ w26/
 │   ├── pyproject.toml  # Site build env (uv); jupyter kernel: w26-201b
 │   ├── weeks/          # Weekly content (01-10, final)
 │   │   ├── XX/slides/  # Lecture PDFs per week (published copies)
-│   │   └── XX/lab/     # Lab notebooks (wks 1-2: .qmd/jupyter; wks 4/6: marimo .py)
+│   │   └── XX/lab/     # Lab notebooks (.qmd, jupyter-executed; wk4 keeps helpers.py)
 │   ├── guides/         # Student-facing guides (published)
 │   └── assets/
 │       ├── pdfs/       # Reading PDFs (gitignored)
@@ -95,28 +95,22 @@ Prior year materials for reference:
 
 ---
 
-## Marimo Labs on the Site (weeks 4 & 6)
+## Week 4 & 6 Labs on the Site
 
-The wk4/wk6 lab notebooks are marimo `.py` files (source of truth, shared with
-classroom templates). The site renders them via the **quarto-marimo engine
-extension** (v0.4.5, requires marimo >=0.23.1) from *derived* `.qmd` files:
+All lab pages (including wks 4/6) are now plain `.qmd` files executed by the
+jupyter engine (`w26-201b` kernel → `site/.venv`), same as wks 1-2. The wk4/wk6
+`.qmd`s were converted one-time from the classroom marimo `.py` notebooks
+(`marimo export ipynb` → `quarto convert` → post-processing) and are now the
+site's source of truth; the marimo `.py` copies were removed from `site/`
+(classroom template repos still carry them).
 
-```bash
-cd site
-uv run python marimo2qmd.py weeks/04/lab/01-sampling.py   # .py -> .qmd (see script docstring)
-```
-
-Re-run after editing a lab `.py`; commit both files. Notes:
-
-- Each generated `.qmd` carries `external-env: true` in its frontmatter (the
-  engine ignores the project-level key) so cells execute in `site/.venv`.
-- `_extensions/marimo-team/marimo/extract.py` has a **local patch** (marked
-  `LOCAL PATCH`) that chdirs to the document dir so `helpers.py` imports and
-  `./data/*.csv` reads resolve. `_extensions/` is gitignored — re-apply the
-  patch if `quarto update marimo-team/quarto-marimo` overwrites it.
-- Rendered pages are static-with-islands. Full in-browser reactivity (WASM)
-  would additionally need `helpers.py` folded into the notebooks and data
-  loading over HTTP — not currently wired up.
+- The 8 wk4 interactive anywidget explorables render as **static snapshots**:
+  hidden cells instantiate each explorer from `weeks/04/lab/helpers.py` and
+  display its default-settings `chart_base64`/`stats_html`. Keep `helpers.py`
+  — the wk4 pages execute against it.
+- The full marimo/WASM pipeline (quarto-marimo engine, wheels, patched
+  extension, in-browser pyodide reactivity) is preserved on the
+  **`marimo-wasm-labs` branch** — see its two commits if reviving it.
 
 ## Lab Notebook Conventions
 

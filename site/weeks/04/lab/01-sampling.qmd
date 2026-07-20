@@ -1,15 +1,34 @@
 ---
+sidebar: weeks
 title: "Sampling Distributions & Simulation"
 author: "Eshin Jolly"
 date: "Jan 27, 2026"
-sidebar: weeks
-external-env: true
-marimo-version: 0.23.14
+code-line-numbers: false
+code-fold: show
+code-overflow: wrap
+execute:
+  warning: false
 ---
+```{python}
+import polars as pl
+import seaborn as sns
+import numpy as np
+```
+
+:::{.callout-note title="About the interactive figures" collapse="true"}
+During the live course this notebook was a reactive [marimo](https://marimo.io)
+notebook with interactive "explorable" widgets. On this page those explorables
+are shown as **static snapshots at their default settings** — the surrounding
+text may still refer to dragging sliders or clicking buttons. To interact with
+them, run the original marimo notebook from your lab assignment repo.
+:::
+
+
 
 In this notebook, we'll explore one of the most important concepts in statistics: the **sampling distribution**. Understanding sampling distributions is key to understanding *where uncertainty comes from* and *how we can quantify it*.
 
 We'll learn two powerful computational approaches:
+
 1. **Monte Carlo Simulation** - generating synthetic data from *assumed* distributions
 2. **Bootstrap** - resampling from *actual* data with replacement
 
@@ -21,16 +40,8 @@ By the end of this notebook, you'll understand why Jake VanderPlas says: **"If y
 This notebook includes **interactive widgets** you can play with to build intuitions *before* writing any code. Drag sliders, change parameters, and watch what happens!
 :::
 
-```{python .marimo}
-import marimo as mo
-import polars as pl
-import seaborn as sns
-import numpy as np
-```
-
 ## (1) Estimators & Loss Functions
 
-<!---->
 Before we can simulate or resample, we need to **fit estimators** to our data. Remember from this week's lectures:
 
 - An **estimator** is a rule for calculating an estimate from data
@@ -45,37 +56,54 @@ $$\text{SSE} = \sum_{i=1}^{n} (x_i - \hat\theta)^2 \qquad \text{SAE} = \sum_{i=1
 
 The mean minimizes SSE; the median minimizes SAE. **Drag the slider** below to verify this yourself:
 
-```{python .marimo hide_code="true"}
+*Static snapshot — interactive in the original marimo lab:*
+
+```{python}
+#| echo: false
+import base64
+import matplotlib.pyplot as plt
+from IPython.display import Image, HTML, display
 from helpers import loss_explorer
-_loss_widget = mo.ui.anywidget(loss_explorer())
-_loss_widget
+
+_w = loss_explorer()
+display(Image(base64.b64decode(_w.chart_base64)))
+display(HTML(_w.stats_html))
+plt.close("all")  # explorer __init__ leaves an open figure; stop inline backend re-displaying it
 ```
 
 :::{.callout-note title="Key Insight: Loss Functions Define Estimators"}
 Notice how:
+
 - The **red curve (SSE)** reaches its minimum at the **mean**
 - The **blue curve (SAE)** reaches its minimum at the **median**
 
 This isn't coincidence — it's *mathematical necessity*. The estimator we choose reflects our assumptions about what kind of errors matter most:
+
 - **SSE**: Penalizes large errors heavily (squared), making the mean sensitive to outliers
 - **SAE**: Treats all errors proportionally, making the median robust to outliers
 :::
 
-<!---->
 ## (2) Three Big Ideas
 
-<!---->
 ### (2.1) Central Limit Theorem (CLT)
 
 The CLT says: regardless of the population's shape, the **sampling distribution of an estimator** becomes approximately normal as sample size grows.
 
 Try it yourself — pick a non-normal distribution (e.g., Exponential or Bimodal), then click **Draw Samples** to watch the sampling distribution emerge:
 
-```{python .marimo hide_code="true"}
+*Static snapshot — interactive in the original marimo lab:*
+
+```{python}
+#| echo: false
+import base64
+import matplotlib.pyplot as plt
+from IPython.display import Image, HTML, display
 from helpers import clt_explorer
 
-_clt_widget = mo.ui.anywidget(clt_explorer())
-_clt_widget
+_w = clt_explorer()
+display(Image(base64.b64decode(_w.chart_base64)))
+display(HTML(_w.stats_html))
+plt.close("all")  # explorer __init__ leaves an open figure; stop inline backend re-displaying it
 ```
 
 :::{.callout-tip title="Tip: Your Turn"}
@@ -85,36 +113,50 @@ Try different combinations and click **Draw Samples** repeatedly to build up the
 - Play with the size of each sample **and** the number of **draws** (simulations). How does each effect the outcome?
 :::
 
-<!---->
 ### (2.2) Law of Large Numbers (LLN)
 
 The LLN says: **as we increase the number of independent observations, a sample estimator converges to the theoretical population estimator**
 
 The widget below uses synthetic heavy-tailed data (t-distribution, df=3) — perfect for seeing wild early fluctuations that eventually settle down. **Drag the slider** to see this in action:
 
-```{python .marimo hide_code="true"}
+*Static snapshot — interactive in the original marimo lab:*
+
+```{python}
+#| echo: false
+import base64
+import matplotlib.pyplot as plt
+from IPython.display import Image, HTML, display
 from helpers import lln_explorer
 
-_lln_widget = mo.ui.anywidget(lln_explorer())
-_lln_widget
+_w = lln_explorer()
+display(Image(base64.b64decode(_w.chart_base64)))
+display(HTML(_w.stats_html))
+plt.close("all")  # explorer __init__ leaves an open figure; stop inline backend re-displaying it
 ```
 
 :::{.callout-note title="Key Takeaway: LLN"}
 Notice how the running average (blue line) bounces wildly at small sample sizes but settles down as n grows. The red band shows the *expected range* based on σ/√n — the theoretical standard error. This is why larger samples give more precise estimates.
 :::
 
-<!---->
 ### (2.3) No Free Lunch
 
 We've seen that the mean minimizes SSE and the median minimizes SAE. But which estimator is *better*?
 
 The **No Free Lunch** principle says: **it depends on the data.** No single estimator is universally optimal. Switch between distributions below and watch the winner change:
 
-```{python .marimo hide_code="true"}
+*Static snapshot — interactive in the original marimo lab:*
+
+```{python}
+#| echo: false
+import base64
+import matplotlib.pyplot as plt
+from IPython.display import Image, HTML, display
 from helpers import nfl_explorer
 
-_nfl_widget = mo.ui.anywidget(nfl_explorer())
-_nfl_widget
+_w = nfl_explorer()
+display(Image(base64.b64decode(_w.chart_base64)))
+display(HTML(_w.stats_html))
+plt.close("all")  # explorer __init__ leaves an open figure; stop inline backend re-displaying it
 ```
 
 :::{.callout-note title="Key Takeaway: No Free Lunch"}
@@ -125,7 +167,6 @@ _nfl_widget
 **Every estimator embodies assumptions defined by their loss-functions** — and those assumptions can help or hurt depending on the data. There is no universally "best" estimator. This is why understanding your data matters!
 :::
 
-<!---->
 ## The Key Distributions in Statistics
 
 Before we dive into code, let's clarify three distributions that are easy to confuse:
@@ -140,9 +181,9 @@ The **sampling distribution** is the key concept. It answers: *"If I collected m
 
 <img src="./figs/fig9.png" width="40%" alt="Figure 1">
 
-<!---->
 :::{.callout-note title="Why does this matter?"}
 The sampling distribution is **the uncertainty bridge**. It connects:
+
 - What we *observed* (our sample)
 - What we *want to know* (the population)
 
@@ -151,12 +192,10 @@ Standard errors, confidence intervals, and p-values all come from reasoning abou
 
 Let's exploring the **sampling distribution** using 2 approaches we saw in "Statistics for Hackers"
 
-<!---->
 ## (3.1) Monte-Carlo Simulation
 
 <img src="./figs/casino.jpg" width="500px" alt="Figure 1">
 
-<!---->
 **Monte-Carlo simulation** uses random sampling from *assumed probability distributions* to understand statistical behavior.
 
 The concept of Monte-Carlo simulation was devised by the mathematicians Stan Ulam and Nicholas Metropolis, who were working to develop an atomic weapon for the US as part of the Manhattan Project. They needed to compute the average distance that a neutron would travel in a substance before it collided with an atomic nucleus, but they could not compute this using standard mathematics. Ulam realized that these computations could be simulated using *random numbers*, just like a casino game.
@@ -166,6 +205,7 @@ In a casino game such as a roulette wheel, numbers are generated at random; to e
 Monte-Carlo asks: **"If the world worked like we assume, what would we expect to see?"**
 
 We:
+
 1. **Assume** a data-generating distribution (e.g., Normal)
 2. **Use our estimates** (μ̂, σ̂) as the distribution parameters
 3. **Simulate** synthetic data from that distribution
@@ -173,29 +213,37 @@ We:
 
 Try it yourself — set the assumed parameters and click **Simulate** to build a sampling distribution:
 
-```{python .marimo hide_code="true"}
+*Static snapshot — interactive in the original marimo lab:*
+
+```{python}
+#| echo: false
+import base64
+import matplotlib.pyplot as plt
+from IPython.display import Image, HTML, display
 from helpers import mc_explorer
 
-_mc_widget = mo.ui.anywidget(mc_explorer())
-_mc_widget
+_w = mc_explorer()
+display(Image(base64.b64decode(_w.chart_base64)))
+display(HTML(_w.stats_html))
+plt.close("all")  # explorer __init__ leaves an open figure; stop inline backend re-displaying it
 ```
 
 :::{.callout-note title="What just happened?"}
 Each click draws **n** synthetic samples from a Normal(μ, σ) distribution, computes the mean of each, and adds them to the sampling distribution on the right.
 
 Key things to notice:
+
 - The sampling distribution is centered on **μ** (the true mean)
 - The **Theoretical SE** (σ/√n) closely matches the **Simulated SE** — that's the CLT!
 - Increasing **n** makes the distribution narrower (more precise estimates)
 - Increasing **σ** makes it wider (more variable data = more uncertain estimates)
 :::
 
-<!---->
 ### Now let's build this in code with real data
 
 Let's load our familiar penguins dataset and see how Monte Carlo simulation works step by step:
 
-```{python .marimo}
+```{python}
 penguins = pl.DataFrame(sns.load_dataset("penguins")).drop_nulls()
 penguins.head()
 ```
@@ -205,7 +253,7 @@ We'll start by fitting some **estimators** given our **sample**:
 - mean
 - standard-deviation
 
-```{python .marimo}
+```{python}
 # Fit our estimators to the data
 estimated_mean = penguins.select("flipper_length_mm").mean().item()
 estimated_std = penguins.select("flipper_length_mm").std().item()
@@ -218,13 +266,13 @@ print(f"Estimated std (σ̂): {estimated_std:.2f} mm")
 
 Before we run thousands of simulations, let's see what **one** looks like. We're going to use a function from the `numpy` library that randomly samples from a normal distrubtion:
 
-```{python .marimo}
+```{python}
 from numpy.random import normal
 ```
 
 Try re-running the cell below multiple times. Notice how the simulated mean and std differ each time
 
-```{python .marimo}
+```{python}
 # Step by step: ONE Monte Carlo simulation
 one_simulation = normal(loc=estimated_mean, scale=estimated_std, size=n_obs)
 simulation_mean = one_simulation.mean()
@@ -242,7 +290,7 @@ print(f"Difference from assumed μ: {simulation_std - estimated_std:+.2f} mm")
 
 Now we can repeat this over-and-over to build up the **sampling distribution** of our estimators. Let's focus on the mean for now:
 
-```{python .marimo}
+```{python}
 # The number of simulations
 nsim = 1000
 
@@ -274,7 +322,7 @@ $$\text{Standard Error (SE)} = \frac{\sigma}{\sqrt{n}} = \text{Standard Deviatio
 
 The SE tells us the standard deviation of the sampling distribution — how much our estimate "bounces around" across hypothetical samples. Let's calculate it:
 
-```{python .marimo}
+```{python}
 # Calculate theoretical SE using the formula
 estimated_se = estimated_std / np.sqrt(n_obs)
 
@@ -306,11 +354,11 @@ Try adjusting the number of simulations or trying a different estimator and crea
 Do you understand what's happening?
 :::
 
-```{python .marimo}
+```{python}
 # Your code here
 ```
 
-```{python .marimo}
+```{python}
 # Your code here
 ```
 
@@ -326,15 +374,14 @@ The idea behind the bootstrap is that we repeatedly sample from the actual datas
 
 In a sense, we treat our particular sample as the *entire population*, and then repeatedly sample with replacement to generate our boot-strapped samples for analysis. This makes the assumption that our particular sample is an accurate reflection of the population, which is probably reasonable for larger samples but can break down when samples are smaller.
 
-<!---->
 <div style="text-align:center">
 <img src="./figs/bootstrap.png" width="70%" alt="Figure 1">
 </div>
 
-<!---->
 Bootstrap asks: **"What can the data itself tell us about uncertainty?"**
 
 Instead of assuming a distribution and simulating from it, we:
+
 1. **Resample** from our actual data WITH replacement
 2. **Calculate** our statistic on each resample
 3. **Build** a sampling distribution from the resamples
@@ -343,28 +390,36 @@ The key insight: *Treat your sample as if it were the population.*
 
 Try it first — click **Resample** to build a bootstrap distribution. Watch the left panel to see which observations get picked (and which don't):
 
-```{python .marimo hide_code="true"}
+*Static snapshot — interactive in the original marimo lab:*
+
+```{python}
+#| echo: false
+import base64
+import matplotlib.pyplot as plt
+from IPython.display import Image, HTML, display
 from helpers import bootstrap_explorer
 
-_boot_widget = mo.ui.anywidget(bootstrap_explorer())
-_boot_widget
+_w = bootstrap_explorer()
+display(Image(base64.b64decode(_w.chart_base64)))
+display(HTML(_w.stats_html))
+plt.close("all")  # explorer __init__ leaves an open figure; stop inline backend re-displaying it
 ```
 
 :::{.callout-note title="What just happened?"}
 Each resample picks observations **with replacement** — some appear multiple times (red dots, larger), others are skipped entirely (gray dots). This mimics the variability we'd see if we could repeatedly sample from the true population.
 
 Key things to notice:
+
 - The bootstrap distribution is centered near the **sample mean**
 - The **Bootstrap SE** estimates the standard error without any formula
 - The **95% CI** comes from the 2.5th and 97.5th percentiles — no normal assumption needed!
 :::
 
-<!---->
 #### Now let's build this in code with real penguins data
 
 Just like with simulation, let's see what **one** bootstrap resample looks like before we scale up. `polars` makes this **super easy!**
 
-```{python .marimo}
+```{python}
 # We can use the .sample() method on a dataframe to sample rows with replacement!
 one_boot_sample = penguins.sample(n=n_obs, with_replacement=True)
 
@@ -384,7 +439,7 @@ print(f"Difference:     {boot_mean - estimated_mean:+.2f} mm")
 
 That's one resample. Some penguins appeared multiple times and others didn't appear at all — this is the variability that makes bootstrap work. Now let's repeat this many times to build a **bootstrap sampling distribution**:
 
-```{python .marimo}
+```{python}
 # We could have used nsim from above
 nboot = 1000
 
@@ -412,7 +467,7 @@ bootstrap_df.head()
 
 Now we can use the same approach as before to compare the standard deviation of our **bootstrapped distribution** to the observed estimator values:
 
-```{python .marimo}
+```{python}
 # Bootstrap SE = standard deviation of bootstrap distribution
 boot_std = bootstrap_df.select('mean').std().item()
 
@@ -441,15 +496,15 @@ Try adjusting the number of bootstraps or trying a different estimator and creat
 Do you understand what's happening?
 :::
 
-```{python .marimo}
+```{python}
 # Your code here
 ```
 
-```{python .marimo}
+```{python}
 # Your code here
 ```
 
-```{python .marimo}
+```{python}
 penguins.sample(n=n_obs, with_replacement=True).select(pl.corr('flipper_length_mm', 'body_mass_g'))
 ```
 
@@ -463,7 +518,7 @@ Bootstrap a 95% confidence interval for the **correlation** between flipper leng
 *Hint: Use `penguins.select(pl.corr("flipper_length_mm", "body_mass_g")).item()`*
 :::
 
-```{python .marimo}
+```{python}
 # Store results
 boot_corrs = []
 
@@ -492,7 +547,7 @@ bootstrap_df_corr = pl.DataFrame(
 bootstrap_df_corr.head()
 ```
 
-```{python .marimo}
+```{python}
 # Estimated correlation
 estimated_corr = penguins.select(pl.corr('flipper_length_mm', 'body_mass_g')).item()
 # Bootstrap stats
@@ -526,6 +581,7 @@ In this notebook, we learned two approaches to understanding sampling distributi
 | **Bootstrap** | "What can the data tell us?" | Resample from actual data |
 
 **Key formulas:**
+
 - **Standard Error**: $\text{SE} = \sigma / \sqrt{n}$
 - **95% CI (normal)**: $\bar{x} \pm 1.96 \times \text{SE}$
 - **95% CI (percentile)**: 2.5th and 97.5th percentiles of bootstrap distribution
@@ -538,17 +594,16 @@ It allows us to move from the reasoning with logic and natural language in the a
 
 <img src="./figs/jake3.png" width="40%" alt="Figure 1">
 
-<!---->
 ## (Challenge): Write a reusable simulation function
 
 You've now written similar loops several times. Let's generalize! A good function should:
+
 1. Take a DataFrame, column name, and statistic name as inputs
 2. Return a DataFrame with the results
 3. Be reusable across different analyses
 
 Here's a pattern for writing a **Monte Carlo simulation function**:
 
-<!---->
 ```python
 # Example usage
 mc_mean_results = monte_carlo_sim(
@@ -561,11 +616,11 @@ mc_mean_results = monte_carlo_sim(
 mc_mean_results.head()
 ```
 
-```{python .marimo}
+```{python}
 # Your code here
 ```
 
-```{python .marimo}
+```{python}
 # Your code here
 ```
 
@@ -587,7 +642,7 @@ def bootstrap_sim(
 ) -> pl.DataFrame:
 ```
 
-```{python .marimo}
+```{python}
 # Your code here
 ```
 
@@ -596,7 +651,7 @@ Can you modify your function to accept a **custom function** for the statistic i
 
 *Hint: Check if `statistic` is callable using `callable(statistic)`*
 
-```{python .marimo}
+```{python}
 # Your code here
 ```
 
@@ -608,3 +663,5 @@ Spend the rest of lab time checking out:
 2. [Cross Validation](https://mlu-explain.github.io/cross-validation/)
 
 These will set you up for tomorrow's notebooks!
+
+
