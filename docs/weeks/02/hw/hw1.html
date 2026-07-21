@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jane Yang">
+<meta name="author" content="Eshin Jolly">
+<meta name="dcterms.date" content="2026-01-20">
+
+<title>HW 1: Data Exploration with Python and Polars – PSYC 201B</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-d2b6c4aa525cd0b085ccc5c8805fc330.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../../assets/custom.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../logo25.png" alt="" class="navbar-logo light-content">
+    <img src="../../../logo25.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">PSYC 201B</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../weeks/final/project.html"> 
+<span class="menu-text">Final Project</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../datasets.html"> 
+<span class="menu-text">Open Datasets</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../guides/terminology.html"> 
+<span class="menu-text">Glossary</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-guides--resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Guides &amp; Resources</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-guides--resources">    
+        <li>
+    <a class="dropdown-item" href="../../../guides/git-guide.html">
+ <span class="dropdown-text">Git &amp; Github</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/classroom-guide.html">
+ <span class="dropdown-text">Github Classroom</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/python-resources.html">
+ <span class="dropdown-text">Python Resources</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/notation.html">
+ <span class="dropdown-text">Mathematical Notation Reference</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/formulas.html">
+ <span class="dropdown-text">Common Formulas Reference</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://forms.gle/eXfTXVqYxCCFbv9c7"> 
+<span class="menu-text">Anonymous Feedback</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://psyc201b.github.io/PSYC-201B/"> 
+<span class="menu-text">Previous course versions</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/psyc-201/w26-201b" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../weeks/02/index.html">Week 2</a></li><li class="breadcrumb-item"><a href="../../../weeks/02/hw/hw1.html">HW 1: Data Exploration</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+  <div id="quarto-announcement" data-announcement-id="463ac3992fb02f6015f02a46d3fd5318" class="alert alert-success hidden"><i class="bi bi-megaphone-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>Site Updates:</strong> Week 10 Slides</p>
+</div></div>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/lab/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">“Pre-flight” Lab Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/lab/python-fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python Fundamentals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/lab/polars-crash-course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Polars (dataframes) Crash Course</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/lab/seaborn-crash-course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Seaborn (plotting) Crash Course</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/lab/eda-workflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EDA Workflows</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/hw/hw1.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">HW 1: Data Exploration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/03/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/lab/01-sampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Simulation &amp; Bootstrapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/lab/02-explanation-prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Permutation &amp; Cross-Validation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/hw/hw2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HW 2: Resampling Inference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 5</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/05/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 6</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/06/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/06/lab/01-glm-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regression Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/06/lab/02-categorical-coding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Categorical Predictors</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 8</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/08/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/08/lab/01-parameter-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Parameter Inference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 9</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/lab/01-marginal-effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Marginal Effects &amp; the Mixing Board</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/lab/02-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Logistic Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/lab/challenge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HW/Challenge 3: Modeling Workflow</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 10</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/10/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/10/lab/01-mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mixed Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/10/lab/02-odds-and-ends.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Odds &amp; Ends</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#part-1-loading-and-exploring-the-data" id="toc-part-1-loading-and-exploring-the-data" class="nav-link" data-scroll-target="#part-1-loading-and-exploring-the-data">Part 1: Loading and Exploring the Data</a>
+  <ul>
+  <li><a href="#task-1.1-load-the-data" id="toc-task-1.1-load-the-data" class="nav-link" data-scroll-target="#task-1.1-load-the-data">Task 1.1: Load the Data</a></li>
+  <li><a href="#task-1.2-initial-data-inspection" id="toc-task-1.2-initial-data-inspection" class="nav-link" data-scroll-target="#task-1.2-initial-data-inspection">Task 1.2: Initial Data Inspection</a></li>
+  <li><a href="#task-1.3-understanding-the-variables" id="toc-task-1.3-understanding-the-variables" class="nav-link" data-scroll-target="#task-1.3-understanding-the-variables">Task 1.3: Understanding the Variables</a></li>
+  </ul></li>
+  <li><a href="#part-2-basic-data-manipulation" id="toc-part-2-basic-data-manipulation" class="nav-link" data-scroll-target="#part-2-basic-data-manipulation">Part 2: Basic Data Manipulation</a>
+  <ul>
+  <li><a href="#task-2.1-filtering-data" id="toc-task-2.1-filtering-data" class="nav-link" data-scroll-target="#task-2.1-filtering-data">Task 2.1: Filtering Data</a></li>
+  <li><a href="#task-2.2-selecting-columns" id="toc-task-2.2-selecting-columns" class="nav-link" data-scroll-target="#task-2.2-selecting-columns">Task 2.2: Selecting Columns</a></li>
+  <li><a href="#task-2.3-creating-new-columns" id="toc-task-2.3-creating-new-columns" class="nav-link" data-scroll-target="#task-2.3-creating-new-columns">Task 2.3: Creating New Columns</a></li>
+  <li><a href="#task-2.4-conditional-columns" id="toc-task-2.4-conditional-columns" class="nav-link" data-scroll-target="#task-2.4-conditional-columns">Task 2.4: Conditional Columns</a></li>
+  </ul></li>
+  <li><a href="#part-3-summary-statistics" id="toc-part-3-summary-statistics" class="nav-link" data-scroll-target="#part-3-summary-statistics">Part 3: Summary Statistics</a>
+  <ul>
+  <li><a href="#task-3.1-overall-statistics" id="toc-task-3.1-overall-statistics" class="nav-link" data-scroll-target="#task-3.1-overall-statistics">Task 3.1: Overall Statistics</a></li>
+  <li><a href="#task-3.2-statistics-by-condition" id="toc-task-3.2-statistics-by-condition" class="nav-link" data-scroll-target="#task-3.2-statistics-by-condition">Task 3.2: Statistics by Condition</a></li>
+  <li><a href="#task-3.3-statistics-by-multiple-factors" id="toc-task-3.3-statistics-by-multiple-factors" class="nav-link" data-scroll-target="#task-3.3-statistics-by-multiple-factors">Task 3.3: Statistics by Multiple Factors</a></li>
+  <li><a href="#task-3.4-cat-level-statistics" id="toc-task-3.4-cat-level-statistics" class="nav-link" data-scroll-target="#task-3.4-cat-level-statistics">Task 3.4: Cat-Level Statistics</a></li>
+  </ul></li>
+  <li><a href="#part-4-data-visualization" id="toc-part-4-data-visualization" class="nav-link" data-scroll-target="#part-4-data-visualization">Part 4: Data Visualization</a>
+  <ul>
+  <li><a href="#task-4.1-histogram-of-looking-times" id="toc-task-4.1-histogram-of-looking-times" class="nav-link" data-scroll-target="#task-4.1-histogram-of-looking-times">Task 4.1: Histogram of Looking Times</a></li>
+  <li><a href="#task-4.2-boxplot-by-condition" id="toc-task-4.2-boxplot-by-condition" class="nav-link" data-scroll-target="#task-4.2-boxplot-by-condition">Task 4.2: Boxplot by Condition</a></li>
+  <li><a href="#task-4.3-boxplot-by-setting-and-age-category" id="toc-task-4.3-boxplot-by-setting-and-age-category" class="nav-link" data-scroll-target="#task-4.3-boxplot-by-setting-and-age-category">Task 4.3: Boxplot by Setting and Age Category</a></li>
+  <li><a href="#task-4.4-scatter-plot" id="toc-task-4.4-scatter-plot" class="nav-link" data-scroll-target="#task-4.4-scatter-plot">Task 4.4: Scatter Plot</a></li>
+  </ul></li>
+  <li><a href="#part-5-advanced-data-manipulation" id="toc-part-5-advanced-data-manipulation" class="nav-link" data-scroll-target="#part-5-advanced-data-manipulation">Part 5: Advanced Data Manipulation</a>
+  <ul>
+  <li><a href="#task-5.1-filtering-with-multiple-conditions" id="toc-task-5.1-filtering-with-multiple-conditions" class="nav-link" data-scroll-target="#task-5.1-filtering-with-multiple-conditions">Task 5.1: Filtering with Multiple Conditions</a></li>
+  <li><a href="#task-5.2-calculating-percentiles" id="toc-task-5.2-calculating-percentiles" class="nav-link" data-scroll-target="#task-5.2-calculating-percentiles">Task 5.2: Calculating Percentiles</a></li>
+  <li><a href="#task-5.3-counting-unique-values" id="toc-task-5.3-counting-unique-values" class="nav-link" data-scroll-target="#task-5.3-counting-unique-values">Task 5.3: Counting Unique Values</a></li>
+  <li><a href="#task-5.4-reshaping-data" id="toc-task-5.4-reshaping-data" class="nav-link" data-scroll-target="#task-5.4-reshaping-data">Task 5.4: Reshaping Data</a></li>
+  </ul></li>
+  <li><a href="#part-6-interpretation-and-reflection" id="toc-part-6-interpretation-and-reflection" class="nav-link" data-scroll-target="#part-6-interpretation-and-reflection">Part 6: Interpretation and Reflection</a>
+  <ul>
+  <li><a href="#task-6.1-summary-of-findings" id="toc-task-6.1-summary-of-findings" class="nav-link" data-scroll-target="#task-6.1-summary-of-findings">Task 6.1: Summary of Findings</a></li>
+  </ul></li>
+  <li><a href="#optional-challenge-questions" id="toc-optional-challenge-questions" class="nav-link" data-scroll-target="#optional-challenge-questions">Optional: Challenge Questions</a>
+  <ul>
+  <li><a href="#challenge-1-outlier-detection" id="toc-challenge-1-outlier-detection" class="nav-link" data-scroll-target="#challenge-1-outlier-detection">Challenge 1: Outlier Detection</a></li>
+  <li><a href="#challenge-2-looking-time-by-cat" id="toc-challenge-2-looking-time-by-cat" class="nav-link" data-scroll-target="#challenge-2-looking-time-by-cat">Challenge 2: Looking Time by Cat</a></li>
+  <li><a href="#challenge-3-looking-time-by-number-of-cohabitants" id="toc-challenge-3-looking-time-by-number-of-cohabitants" class="nav-link" data-scroll-target="#challenge-3-looking-time-by-number-of-cohabitants">Challenge 3: Looking Time by Number of Cohabitants</a></li>
+  </ul></li>
+  <li><a href="#submission-checklist" id="toc-submission-checklist" class="nav-link" data-scroll-target="#submission-checklist">Submission Checklist</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../weeks/02/index.html">Week 2</a></li><li class="breadcrumb-item"><a href="../../../weeks/02/hw/hw1.html">HW 1: Data Exploration</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">HW 1: Data Exploration with Python and Polars</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jane Yang </p>
+             <p>Eshin Jolly </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 20, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    <p><strong>Deadline: 2pm Tuesday Jan 13th, 2026</strong> | This homework is designed to help you practice the <code>polars</code> (DataFrame) and <code>seaborn</code> (data-visualization) skills you learned in the first two weeks of the course. You should reference those lab notebooks to help you out (also available on course website). You’re allowed to work on this HW by yourself OR with other students. If you do work together please add your partner(s) names to the <code>author</code> field above.</p>
+  </div>
+</div>
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-tip callout-titled" title="Grading">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Grading
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Your Instructors will grade the <strong>last <code>git push</code></strong> you submit by the deadline.<br>
+However, after we review the HW together during lab, you can push additional changes to improve your grade.<br>
+To receive <strong>full</strong> credit you must be both <strong>accurate</strong> and <strong>explain</strong> your process.</p>
+<p>What’s most important to us is your ability to demonstrate:</p>
+<ul>
+<li>You attempted the assignment in good-faith</li>
+<li>You made effort to clearly document and explain your thought process, reasoning, code, and where/why you got stuck if you did</li>
+<li>What attempts you made to fix issues you ran into, how you approached debugging, and what you learned from the process</li>
+<li>Why you made a particular choice in your code/analysis, and/or what assumptions you made for a particular statistical inference</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Additional Resources">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Additional Resources
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>In additon to previous lab materials you make also find it helpful to keep the online API (help) documentation open for:</p>
+<ul>
+<li><a href="https://docs.pola.rs/api/python/stable/reference/index.html"><code>polars</code></a></li>
+<li><a href="https://seaborn.pydata.org/api.html#function-interface"><code>seaborn</code></a></li>
+<li><a href="https://matplotlib.org/cheatsheets/"><code>matplotlib</code> cheatsheets</a></li>
+</ul>
+<p><strong>Remember to ping your instructors on Github/Slack if you get stuck!</strong></p>
+</div>
+</div>
+</div>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">Background</h2>
+<p>For this assignment, you’ll be working with data from a hypothetical psychology experiment investigating how different factors influence looking times in a cat name recognition task (inspired by <a href="https://www.nature.com/articles/s41598-022-10261-5">this paper</a>).</p>
+<p><strong>The Experiment:</strong></p>
+<p>Cats were presented with their own name (congruent condition) or another cat’s name (incongruent condition) while researchers measured how long they looked at the stimulus. The experiment manipulated several factors:</p>
+<ul>
+<li><strong>Condition</strong>: Whether the cat heard their own name (congruent) or another cat’s name (incongruent)</li>
+<li><strong>Setting</strong>: Whether the experiment took place in a cafe or house environment</li>
+<li><strong>Age</strong>: The age of the cat (in years)</li>
+</ul>
+<p>Each cat completed multiple trials across different combinations of these factors. The researchers measured:</p>
+<ul>
+<li><strong>Looking Time</strong>: How long the cat looked at the stimulus (in seconds)</li>
+</ul>
+<p><strong>Research Questions:</strong></p>
+<ol type="1">
+<li>Do cats look longer at congruent (own name) or incongruent (other name) conditions?</li>
+<li>Does the setting (cafe vs.&nbsp;house) affect looking time?</li>
+<li>Does age affect looking time?</li>
+<li>Are there interactions between these factors?</li>
+</ol>
+<hr>
+</section>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>First, let’s import the libraries we’ll need for this assignment. We’ll use:</p>
+<ul>
+<li><strong>Polars</strong> (<code>pl</code>) for working with DataFrames</li>
+<li><strong>Seaborn</strong> (<code>sns</code>) and <strong>Matplotlib</strong> (<code>plt</code>) for creating visualizations</li>
+</ul>
+<div id="faa49b6d" class="cell" data-execution_count="2">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Import libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> polars <span class="im">as</span> pl <span class="co"># dataframes</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> polars <span class="im">import</span> col <span class="co"># column short-hand</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">import</span> seaborn <span class="im">as</span> sns <span class="co"># data-viz</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt <span class="co"># viz tweaking</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># Set plotting style</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>sns.set_style(<span class="st">'whitegrid'</span>)</span>
+<span id="cb1-9"><a href="#cb1-9"></a>plt.style.use(<span class="st">'ggplot'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr>
+</section>
+<section id="part-1-loading-and-exploring-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="part-1-loading-and-exploring-the-data">Part 1: Loading and Exploring the Data</h2>
+<section id="task-1.1-load-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="task-1.1-load-the-data">Task 1.1: Load the Data</h3>
+<p>The data for this assignment is stored in a CSV file called <code>cat_name_recognition.csv</code> located in the <code>data/</code> directory. Use Polars to load this file into a DataFrame called <code>df</code>.</p>
+<div id="cb589927" class="cell" data-execution_count="3">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Your code here</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="co"># Load the CSV file using pl.read_csv()</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># Example: df = pl.read_csv('data/cat_name_recognition.csv')</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="task-1.2-initial-data-inspection" class="level3">
+<h3 class="anchored" data-anchor-id="task-1.2-initial-data-inspection">Task 1.2: Initial Data Inspection</h3>
+<p>Once you’ve loaded the data, let’s get familiar with it. Answer the following questions by writing code in the cell below:</p>
+<ol type="1">
+<li>How many rows and columns does the dataset have?</li>
+<li>What are the names of all the columns?</li>
+<li>What are the data types of each column?</li>
+<li>Display the first 10 rows of the data</li>
+</ol>
+<div id="7e58726c" class="cell" data-execution_count="4">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Your code here</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co"># Use .shape, .columns, .dtypes, and .head() to explore the data</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="task-1.3-understanding-the-variables" class="level3">
+<h3 class="anchored" data-anchor-id="task-1.3-understanding-the-variables">Task 1.3: Understanding the Variables</h3>
+<p>Write a brief description (2-3 sentences) of what you observe about the structure of the data. What variables are present? What do they seem to represent?</p>
+<p><strong>Your response here:</strong></p>
+</section>
+</section>
+<section id="part-2-basic-data-manipulation" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-basic-data-manipulation">Part 2: Basic Data Manipulation</h2>
+<section id="task-2.1-filtering-data" class="level3">
+<h3 class="anchored" data-anchor-id="task-2.1-filtering-data">Task 2.1: Filtering Data</h3>
+<p>Create a new DataFrame called <code>congruent_trials</code> that contains only trials where cats heard their own name (i.e., where <code>condition == 'congruent'</code>).</p>
+<div id="fc7f717c" class="cell" data-execution_count="5">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Your code here</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># Use .filter() to select rows where condition equals 'congruent'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="task-2.2-selecting-columns" class="level3">
+<h3 class="anchored" data-anchor-id="task-2.2-selecting-columns">Task 2.2: Selecting Columns</h3>
+<p>Create a new DataFrame called <code>looking_data</code> that contains only the <code>cat_id</code>, <code>condition</code>, <code>setting</code>, <code>age</code>, and <code>looking_time</code> columns.</p>
+<div id="d1d9b444" class="cell" data-execution_count="6">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Your code here</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co"># Use .select() to choose specific columns</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="task-2.3-creating-new-columns" class="level3">
+<h3 class="anchored" data-anchor-id="task-2.3-creating-new-columns">Task 2.3: Creating New Columns</h3>
+<p>Add a new column to the original DataFrame called <code>looking_time_ms</code> that converts looking time from seconds to milliseconds (multiply by 1000).</p>
+<div id="c40d082f" class="cell" data-execution_count="7">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Your code here</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co"># Use .with_columns() to add a new column</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co"># Remember: looking_time_ms = looking_time * 1000</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="task-2.4-conditional-columns" class="level3">
+<h3 class="anchored" data-anchor-id="task-2.4-conditional-columns">Task 2.4: Conditional Columns</h3>
+<p>Create a new column called <code>lt_category</code> that categorizes looking times as:</p>
+<ul>
+<li>“short” if looking time &lt; 2.0 seconds</li>
+<li>“medium” if looking time is between 2.0 and 3.0 seconds</li>
+<li>“long” if looking time &gt; 3.0 seconds</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Hint">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Hint
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>You’ll need to use <a href="https://docs.pola.rs/api/python/dev/reference/expressions/api/polars.when.html"><code>pl.when()</code></a> and <a href="https://docs.pola.rs/api/python/dev/reference/expressions/api/polars.lit.html"><code>pl.lit()</code></a> for this.</em></p>
+</div>
+</div>
+<div id="0357f392" class="cell" data-execution_count="8">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Your code here</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co"># Import when and lit if needed: from polars import when, lit</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co"># Use .with_columns() with conditional logic</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="part-3-summary-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="part-3-summary-statistics">Part 3: Summary Statistics</h2>
+<section id="task-3.1-overall-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="task-3.1-overall-statistics">Task 3.1: Overall Statistics</h3>
+<p>Calculate the mean, median, and standard deviation of looking times across all trials. Display these in a single DataFrame.</p>
+<div id="1d97888a" class="cell" data-execution_count="9">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Your code here</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="co"># Use .select() with col('looking_time').mean(), .median(), .std()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="task-3.2-statistics-by-condition" class="level3">
+<h3 class="anchored" data-anchor-id="task-3.2-statistics-by-condition">Task 3.2: Statistics by Condition</h3>
+<p>Calculate the mean looking time separately for congruent and incongruent conditions. Which condition has longer looking times?</p>
+<div id="056cc05e" class="cell" data-execution_count="10">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Your code here</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="co"># Use .group_by('condition') followed by .agg() to calculate mean looking time</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="task-3.3-statistics-by-multiple-factors" class="level3">
+<h3 class="anchored" data-anchor-id="task-3.3-statistics-by-multiple-factors">Task 3.3: Statistics by Multiple Factors</h3>
+<p>First, create a categorical age variable by categorizing age into “young” (age &lt; 5 years) and “old” (age &gt;= 5 years). Then calculate the mean looking time for each combination of condition, setting, and age category. Your result should have 8 rows (2 conditions × 2 settings × 2 age categories = 8 combinations).</p>
+<div id="e61b5e80" class="cell" data-execution_count="11">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Your code here</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co"># Step 1: Create age_category column using conditional logic</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co"># Step 2: Use .group_by() with multiple columns: ['condition', 'setting', 'age_category']</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="task-3.4-cat-level-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="task-3.4-cat-level-statistics">Task 3.4: Cat-Level Statistics</h3>
+<p>For each cat, calculate:</p>
+<ul>
+<li>Their mean looking time</li>
+<li>The number of trials they completed</li>
+<li>Their mean age (should be the same for all trials, but calculate it anyway)</li>
+</ul>
+<p>Display this in a DataFrame with one row per cat.</p>
+<div id="d2494cee" class="cell" data-execution_count="12">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Your code here</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="co"># Use .group_by('cat_id') and .agg() with multiple expressions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="part-4-data-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="part-4-data-visualization">Part 4: Data Visualization</h2>
+<section id="task-4.1-histogram-of-looking-times" class="level3">
+<h3 class="anchored" data-anchor-id="task-4.1-histogram-of-looking-times">Task 4.1: Histogram of Looking Times</h3>
+<p>Create a histogram showing the distribution of looking times across all trials. Use <strong>seaborn’s <code>sns.histplot()</code></strong> function for this task. Add appropriate labels to the x-axis, y-axis, and title.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Hint">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Hint
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>You’ll need to convert the Polars DataFrame to pandas format using <code>.to_pandas()</code> for seaborn to work with it.</em></p>
+</div>
+</div>
+<div id="326d556d" class="cell" data-execution_count="13">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Your code here</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="co"># Use sns.histplot() to create the histogram</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="co"># Don't forget plt.xlabel(), plt.ylabel(), plt.title()</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="co"># Example: sns.histplot(data=df_pandas, x='looking_time', bins=30)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="task-4.2-boxplot-by-condition" class="level3">
+<h3 class="anchored" data-anchor-id="task-4.2-boxplot-by-condition">Task 4.2: Boxplot by Condition</h3>
+<p>Create a boxplot comparing looking times for congruent vs.&nbsp;incongruent conditions using <strong>seaborn’s <code>sns.boxplot()</code></strong>. Which condition has longer looking times on average?</p>
+<div id="ad316388" class="cell" data-execution_count="14">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Your code here</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="co"># Use sns.boxplot() to create the boxplot</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="co"># Remember to convert to pandas if needed: df.to_pandas()</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="co"># Example: sns.boxplot(data=df_pandas, x='condition', y='looking_time')</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="task-4.3-boxplot-by-setting-and-age-category" class="level3">
+<h3 class="anchored" data-anchor-id="task-4.3-boxplot-by-setting-and-age-category">Task 4.3: Boxplot by Setting and Age Category</h3>
+<p>First, create the age category variable (young/old) as in Task 3.3. Then create a more complex visualization showing looking times across all combinations of setting and age category. Use a grouped boxplot or faceted plot.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Hint">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Hint
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You might want to use <code>sns.boxplot()</code> with the <code>hue</code> parameter, or create separate subplots.*</p>
+</div>
+</div>
+<div id="a342ea60" class="cell" data-execution_count="15">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Your code here</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="co"># Step 1: Create age_category column if you haven't already</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="co"># Step 2: Try using sns.boxplot() with x, y, and hue parameters</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="co"># Or create subplots using plt.subplots()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="task-4.4-scatter-plot" class="level3">
+<h3 class="anchored" data-anchor-id="task-4.4-scatter-plot">Task 4.4: Scatter Plot</h3>
+<p>Create a scatter plot showing the relationship between looking time and age using <strong>seaborn’s <code>sns.scatterplot()</code></strong>. Consider adding a trend line using <code>sns.regplot()</code>. Do older cats tend to look longer or shorter than younger cats?</p>
+<div id="e84df875" class="cell" data-execution_count="16">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Your code here</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="co"># Use sns.scatterplot() to create the scatter plot</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="co"># Consider adding a trend line: sns.regplot()</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="co"># Example: sns.scatterplot(data=df_pandas, x='age', y='looking_time')</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="part-5-advanced-data-manipulation" class="level2">
+<h2 class="anchored" data-anchor-id="part-5-advanced-data-manipulation">Part 5: Advanced Data Manipulation</h2>
+<section id="task-5.1-filtering-with-multiple-conditions" class="level3">
+<h3 class="anchored" data-anchor-id="task-5.1-filtering-with-multiple-conditions">Task 5.1: Filtering with Multiple Conditions</h3>
+<p>Create a DataFrame called <code>long_congruent</code> that contains only trials where:</p>
+<ul>
+<li>Looking time is greater than 3.0 seconds, AND</li>
+<li>The condition was congruent</li>
+</ul>
+<div id="aa888253" class="cell" data-execution_count="17">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Your code here</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="co"># Use .filter() with multiple conditions using &amp; (and) or | (or)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="task-5.2-calculating-percentiles" class="level3">
+<h3 class="anchored" data-anchor-id="task-5.2-calculating-percentiles">Task 5.2: Calculating Percentiles</h3>
+<p>Calculate the 25th, 50th (median), and 75th percentiles of looking time. These are useful summary statistics that describe the distribution of the data.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Hint">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Hint
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>Polars has a <a href="https://docs.pola.rs/api/python/dev/reference/expressions/api/polars.quantile.html"><code>.quantile()</code></a> method you can use.</em></p>
+</div>
+</div>
+<div id="054380f2" class="cell" data-execution_count="18">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># Your code here</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="co"># Use col('looking_time').quantile() with different quantile values</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="task-5.3-counting-unique-values" class="level3">
+<h3 class="anchored" data-anchor-id="task-5.3-counting-unique-values">Task 5.3: Counting Unique Values</h3>
+<p>For each cat, count how many unique combinations of condition, setting, and trial they experienced. This tells us if all cats saw all conditions.</p>
+<div id="635b2cae" class="cell" data-execution_count="19">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># Your code here</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="co"># Use .group_by() and .agg() with .n_unique() on multiple columns</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="co"># Or use .group_by() with multiple columns and count rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="task-5.4-reshaping-data" class="level3">
+<h3 class="anchored" data-anchor-id="task-5.4-reshaping-data">Task 5.4: Reshaping Data</h3>
+<p>Create a “wide” format DataFrame where each row represents one cat, and columns represent mean looking times for each condition (congruent and incongruent).</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Hint">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Hint
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>You’ll need to:</em></p>
+<ol type="1">
+<li><em>First calculate mean looking time by cat and condition</em></li>
+<li><em>Then use <code>.pivot()</code> to reshape from long to wide format</em></li>
+</ol>
+</div>
+</div>
+<div id="e7db7448" class="cell" data-execution_count="20">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># Your code here</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="co"># Step 1: Group by cat and condition, calculate mean looking time</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="co"># Step 2: Use .pivot() to reshape</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="part-6-interpretation-and-reflection" class="level2">
+<h2 class="anchored" data-anchor-id="part-6-interpretation-and-reflection">Part 6: Interpretation and Reflection</h2>
+<section id="task-6.1-summary-of-findings" class="level3">
+<h3 class="anchored" data-anchor-id="task-6.1-summary-of-findings">Task 6.1: Summary of Findings</h3>
+<p>Based on your analyses above, write a brief summary (3-4 sentences) of your main findings:</p>
+<ol type="1">
+<li>Which condition (congruent or incongruent) had longer looking times?</li>
+<li>Did setting (cafe vs.&nbsp;house) affect looking time? If so, how?</li>
+<li>Did age affect looking time? If so, how?</li>
+<li>Were there any notable interactions between factors?</li>
+</ol>
+<p><strong>Your response here:</strong></p>
+</section>
+</section>
+<section id="optional-challenge-questions" class="level2">
+<h2 class="anchored" data-anchor-id="optional-challenge-questions">Optional: Challenge Questions</h2>
+<p>If you finish early and want an extra challenge, try these:</p>
+<section id="challenge-1-outlier-detection" class="level3">
+<h3 class="anchored" data-anchor-id="challenge-1-outlier-detection">Challenge 1: Outlier Detection</h3>
+<p>Identify trials where looking times are more than 3 standard deviations away from the mean. How many such trials are there? Should these be excluded from analysis?</p>
+<div id="87481096" class="cell" data-execution_count="21">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="challenge-2-looking-time-by-cat" class="level3">
+<h3 class="anchored" data-anchor-id="challenge-2-looking-time-by-cat">Challenge 2: Looking Time by Cat</h3>
+<p>Create a visualization showing each cat’s mean looking time, ordered from shortest to longest. Use <strong>seaborn’s <code>sns.barplot()</code></strong> or <code>sns.pointplot()</code> for this task. This helps identify if there are systematic differences between cats.</p>
+<div id="ee1918ed" class="cell" data-execution_count="22">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># Your code here</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="co"># Use sns.barplot() or sns.pointplot() to create the visualization</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="challenge-3-looking-time-by-number-of-cohabitants" class="level3">
+<h3 class="anchored" data-anchor-id="challenge-3-looking-time-by-number-of-cohabitants">Challenge 3: Looking Time by Number of Cohabitants</h3>
+<p>Calculate mean looking time for different numbers of cohabitants. Create a visualization using <strong>seaborn’s <code>sns.barplot()</code></strong> or <code>sns.boxplot()</code> showing how looking time varies with the number of cohabitants. You might want to categorize n_cohabitants into bins (e.g., low, medium, high) for easier visualization.</p>
+<div id="a10907d1" class="cell" data-execution_count="23">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># Your code here</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="co"># Use sns.barplot() or sns.boxplot() to create the visualization</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr>
+</section>
+</section>
+<section id="submission-checklist" class="level2">
+<h2 class="anchored" data-anchor-id="submission-checklist">Submission Checklist</h2>
+<p>Before submitting, make sure you have:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Completed all required tasks (Parts 1-6) including written responses</label></li>
+<li><label><input type="checkbox">Reviewed the Grading guidelines at the top</label></li>
+<li><label><input type="checkbox">Checked that all code cells run without errors</label></li>
+<li><label><input type="checkbox">Committed and pushed your changes to git</label></li>
+</ul>
+<p><strong>Good luck!</strong></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

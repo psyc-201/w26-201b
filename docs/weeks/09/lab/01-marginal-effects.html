@@ -1,0 +1,2608 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eshin Jolly">
+<meta name="dcterms.date" content="2026-03-02">
+
+<title>Marginal Effects &amp; the Mixing Board – PSYC 201B</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-0441d281c0042f78ca5e6da214781463.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/custom.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../logo25.png" alt="" class="navbar-logo light-content">
+    <img src="../../../logo25.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">PSYC 201B</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../weeks/final/project.html"> 
+<span class="menu-text">Final Project</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../datasets.html"> 
+<span class="menu-text">Open Datasets</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../guides/terminology.html"> 
+<span class="menu-text">Glossary</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-guides--resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Guides &amp; Resources</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-guides--resources">    
+        <li>
+    <a class="dropdown-item" href="../../../guides/git-guide.html">
+ <span class="dropdown-text">Git &amp; Github</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/classroom-guide.html">
+ <span class="dropdown-text">Github Classroom</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/python-resources.html">
+ <span class="dropdown-text">Python Resources</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/notation.html">
+ <span class="dropdown-text">Mathematical Notation Reference</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/formulas.html">
+ <span class="dropdown-text">Common Formulas Reference</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://forms.gle/eXfTXVqYxCCFbv9c7"> 
+<span class="menu-text">Anonymous Feedback</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://psyc201b.github.io/PSYC-201B/"> 
+<span class="menu-text">Previous course versions</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/psyc-201/w26-201b" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../weeks/09/index.html">Week 9</a></li><li class="breadcrumb-item"><a href="../../../weeks/09/lab/01-marginal-effects.html">Marginal Effects &amp; the Mixing Board</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+  <div id="quarto-announcement" data-announcement-id="463ac3992fb02f6015f02a46d3fd5318" class="alert alert-success hidden"><i class="bi bi-megaphone-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>Site Updates:</strong> Week 10 Slides</p>
+</div></div>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/lab/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">“Pre-flight” Lab Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/lab/python-fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python Fundamentals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/lab/polars-crash-course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Polars (dataframes) Crash Course</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/lab/seaborn-crash-course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Seaborn (plotting) Crash Course</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/lab/eda-workflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EDA Workflows</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/hw/hw1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HW 1: Data Exploration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/03/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/lab/01-sampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Simulation &amp; Bootstrapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/lab/02-explanation-prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Permutation &amp; Cross-Validation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/hw/hw2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HW 2: Resampling Inference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 5</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/05/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 6</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/06/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/06/lab/01-glm-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regression Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/06/lab/02-categorical-coding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Categorical Predictors</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 8</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/08/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/08/lab/01-parameter-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Parameter Inference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 9</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/lab/01-marginal-effects.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Marginal Effects &amp; the Mixing Board</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/lab/02-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Logistic Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/lab/challenge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HW/Challenge 3: Modeling Workflow</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 10</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/10/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/10/lab/01-mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mixed Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/10/lab/02-odds-and-ends.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Odds &amp; Ends</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#marginal-what" id="toc-marginal-what" class="nav-link active" data-scroll-target="#marginal-what">Marginal What?</a></li>
+  <li><a href="#the-mixing-board" id="toc-the-mixing-board" class="nav-link" data-scroll-target="#the-mixing-board">The Mixing Board</a></li>
+  <li><a href="#warm-up-credit-dataset" id="toc-warm-up-credit-dataset" class="nav-link" data-scroll-target="#warm-up-credit-dataset">Warm-Up: Credit Dataset</a>
+  <ul>
+  <li><a href="#continuous-predictor-the-slope" id="toc-continuous-predictor-the-slope" class="nav-link" data-scroll-target="#continuous-predictor-the-slope">Continuous Predictor: The Slope</a></li>
+  <li><a href="#categorical-predictor-estimated-marginal-means" id="toc-categorical-predictor-estimated-marginal-means" class="nav-link" data-scroll-target="#categorical-predictor-estimated-marginal-means">Categorical Predictor: Estimated Marginal Means</a></li>
+  <li><a href="#multiple-predictors-interactions" id="toc-multiple-predictors-interactions" class="nav-link" data-scroll-target="#multiple-predictors-interactions">Multiple Predictors &amp; Interactions</a></li>
+  </ul></li>
+  <li><a href="#penguins---a-complex-model" id="toc-penguins---a-complex-model" class="nav-link" data-scroll-target="#penguins---a-complex-model">Penguins - A Complex Model</a>
+  <ul>
+  <li><a href="#data-loading-a-quick-lesson-on-missing-values" id="toc-data-loading-a-quick-lesson-on-missing-values" class="nav-link" data-scroll-target="#data-loading-a-quick-lesson-on-missing-values">Data Loading (&amp; a quick lesson on missing values)</a></li>
+  <li><a href="#fitting-the-3-way-interaction" id="toc-fitting-the-3-way-interaction" class="nav-link" data-scroll-target="#fitting-the-3-way-interaction">Fitting the 3-Way Interaction</a></li>
+  <li><a href="#estimated-marginal-means" id="toc-estimated-marginal-means" class="nav-link" data-scroll-target="#estimated-marginal-means">Estimated Marginal Means</a></li>
+  <li><a href="#marginal-slopes" id="toc-marginal-slopes" class="nav-link" data-scroll-target="#marginal-slopes">Marginal Slopes</a></li>
+  <li><a href="#slope-contrasts-does-the-relationship-differ" id="toc-slope-contrasts-does-the-relationship-differ" class="nav-link" data-scroll-target="#slope-contrasts-does-the-relationship-differ">Slope Contrasts: “Does the relationship differ?”</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#challenge-exploring-the-credit-dataset" id="toc-challenge-exploring-the-credit-dataset" class="nav-link" data-scroll-target="#challenge-exploring-the-credit-dataset">Challenge: Exploring the Credit Dataset</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../weeks/09/index.html">Week 9</a></li><li class="breadcrumb-item"><a href="../../../weeks/09/lab/01-marginal-effects.html">Marginal Effects &amp; the Mixing Board</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Marginal Effects &amp; the Mixing Board</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eshin Jolly </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 2, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In the previous notebooks we built a toolkit for working with regression models — fitting, diagnosing, and running inference on parameter estimates. We asked: <em>“How certain are we in <span class="math inline">\(\hat{\beta}\)</span>?”</em></p>
+<p>We learned that by default, the parameters reflect how the GLM can <strong>see</strong> and this is controlled by the <strong>design matrix</strong>. Remember for categorical variables (switches) we have a choice of a variety of different encoding schemes to choose from (dummy, sum, poly). This means that if you want the model to “see” that data differently you need to change the design matrix (i.e.&nbsp;use a different coding scheme, center variables, etc).</p>
+<p>In this notebook we shift focus from the model’s <strong>internal wiring</strong> (parameters) to its <strong>predictions</strong>. We’ll learn to:</p>
+<ul>
+<li><strong>Ask models questions directly</strong> using <code>.explore()</code> — no more puzzling over what an estimate means</li>
+<li><strong>Compute marginal effects</strong> — predicted values at specific levels of a predictor</li>
+<li><strong>Make comparisons</strong> — pairwise and interaction contrasts</li>
+</ul>
+<section id="marginal-what" class="level2">
+<h2 class="anchored" data-anchor-id="marginal-what">Marginal What?</h2>
+<p>Consider a typical statistical setting where you ask a research question and selects a model to answer it. Perhaps the model is designed to capture a salient feature of the data-generating process, achieve a satisfactory level of goodness-of-fit, or control for confounders that could introduce bias in a causal estimate. You fits your model using an estimator, and obtain parameter estimates along with standard errors (uncertainty).</p>
+<p>Even if a fitted model is relatively simple, the parameter estimates it generates may not map directly onto an <em>estimand</em> that directly informs you <strong>research question.</strong> The raw parameters may be very difficult to interpret substantively. This can become especially true when we meet Generalized Linear Models soon, e.g.&nbsp;logistic regression for a binary outcome. Typically we get estimates expressed as log-odds-ratios. Despite the simple nature of this model, its parameters are still expressed as complicated functions of probabilities and <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC1447969/">interactions don’t mean what we think they do</a>!.</p>
+<p>If interactions between simple probabilities are challenging to grasp, how can we expect to interpret the estimates produced by fancy regression models with splines, non-linearites, etc? How can we help our audience understand the results produced by mixed-effects Bayesian models, or by complex machine learning algorithms?</p>
+<p>This is the main goal of <strong>marginal effects analysis</strong>. The big idea is that in most cases, analysts should <em>not</em> focus on the raw parameters of their models. Instead we should <strong>ask the model what it predicts</strong> for different values of our variables based on what its learned from the data. Instead of decoding what <span class="math inline">\(\hat{\beta}_2 = 0.188\)</span> means, we ask: <em>“What does the model predict when radio = 20 vs radio = 40?”</em></p>
+</section>
+<section id="the-mixing-board" class="level2">
+<h2 class="anchored" data-anchor-id="the-mixing-board">The Mixing Board</h2>
+<p>Remember the analogy we learned in class about how the GLM <em>sees</em> variables:</p>
+<ul>
+<li>Continuous: <em>sliders</em></li>
+<li>Categorical: <em>switches</em></li>
+</ul>
+<p>Let’s make a complex mixer-board-esque regression model with multiple continuous (slider) and categorical (switch) explanatory variables:</p>
+<p>A <strong>marginal effect</strong> is what happens to the output when you move <em>one</em> slider or flip <em>one</em> switch, holding everything else in place.</p>
+<p>In <code>bossanova</code> each model has a <code>.explore()</code> method that provides an interface that lets you set the knobs and ask: <em>“What does the model predict at these settings?”</em></p>
+<p>It returns <strong>marginal estimated means</strong> for categorical variables and <strong>marginal estimated slopes</strong> for continuous variables — always with proper standard errors and confidence intervals.</p>
+<p>The key advantage over the default <code>.params</code>:</p>
+<p>marginal effects are <strong>invariant to coding schemes</strong>. Since we’re always working with model <em>predictions</em>, they don’t depend upon parameterization!</p>
+</section>
+<section id="warm-up-credit-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="warm-up-credit-dataset">Warm-Up: Credit Dataset</h2>
+<p>Let’s start with the credit dataset and build up from simple to complex, so the <code>.explore()</code> syntax becomes second nature.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Balance</td>
+<td>Average credit card balance ($)</td>
+</tr>
+<tr class="even">
+<td>Income</td>
+<td>Annual income ($1000s)</td>
+</tr>
+<tr class="odd">
+<td>Ethnicity</td>
+<td>African American, Asian, Caucasian</td>
+</tr>
+<tr class="even">
+<td>Student</td>
+<td>Yes / No</td>
+</tr>
+</tbody>
+</table>
+<div id="471552e2" class="cell" data-execution_count="1">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> polars <span class="im">as</span> pl</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> polars <span class="im">import</span> col</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bossanova <span class="im">import</span> model, load_dataset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="bdcbb085" class="cell" data-execution_count="2">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>credit <span class="op">=</span> load_dataset(<span class="st">"credit"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="continuous-predictor-the-slope" class="level3">
+<h3 class="anchored" data-anchor-id="continuous-predictor-the-slope">Continuous Predictor: The Slope</h3>
+<p>Let’s fit a simple model and use <code>.explore()</code> to ask it questions.</p>
+<div id="63148578" class="cell" data-execution_count="3">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>m_income <span class="op">=</span> model(<span class="st">"Balance ~ Income"</span>, credit).fit()</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>m_income.params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (2, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>246.5</td>
+</tr>
+<tr class="even">
+<td>"Income"</td>
+<td>6.048</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p><code>.params</code> tells us the slope is ~6.05 — for each additional $1000 in income, balance increases by about $6. Let’s verify this with <code>.explore()</code></p>
+<div id="f75bc80f" class="cell" data-execution_count="4">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>m_income.explore(<span class="st">"Income"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Income</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"marginal_effect"</td>
+<td>6.048</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>That 6.048 is the same as our <span class="math inline">\(\hat{\beta}_1\)</span> from <code>.params</code> — for a simple model with one continuous predictor, the marginal slope <em>is</em> the parameter estimate. But as we’ll see, this equivalence breaks down with interactions.</p>
+<p>The <strong>super-power</strong> of marginal effects estimation is that it allows you to ask the model all kinds of questions. For example, what if we wanted to zoom into <em>predicted balance</em> at specific income levels?</p>
+<p>We can use the <code>@[]</code> syntax to <strong>zoom</strong> into specific values or levels of any of our predictors:</p>
+<div id="83cc2cb1" class="cell" data-execution_count="5">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>m_income.explore(<span class="st">"Income@[20, 50, 80]"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Income</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>i64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>20</td>
+<td>367.5</td>
+</tr>
+<tr class="even">
+<td>50</td>
+<td>548.9</td>
+</tr>
+<tr class="odd">
+<td>80</td>
+<td>730.4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>We asked: <em>“What does the model predict at Income = 20, 50, and 80?”</em> The <code>@</code> syntax pins the predictor at specific values.</p>
+<p>For a continuous predictor, <code>.explore()</code> without <code>@</code> returns the <strong>marginal slope</strong> — how much the prediction changes per unit increase.</p>
+</section>
+<section id="categorical-predictor-estimated-marginal-means" class="level3">
+<h3 class="anchored" data-anchor-id="categorical-predictor-estimated-marginal-means">Categorical Predictor: Estimated Marginal Means</h3>
+<p>Now let’s fit a model with a categorical predictor:</p>
+<div id="94f442dd" class="cell" data-execution_count="6">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>m_eth <span class="op">=</span> model(<span class="st">"Balance ~ Ethnicity"</span>, credit).fit()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>m_eth.params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>531.0</td>
+</tr>
+<tr class="even">
+<td>"Ethnicity[Asian]"</td>
+<td>-18.69</td>
+</tr>
+<tr class="odd">
+<td>"Ethnicity[Caucasian]"</td>
+<td>-12.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>With treatment coding (the default), <code>.params</code> gives us: an Intercept (the mean for African American, the reference level), and differences from that reference. To get the actual predicted balance for Asian, we’d have to compute <span class="math inline">\(531.0 + (-18.69) = 512.3\)</span>.</p>
+<p>Or… we just ask:</p>
+<div id="b69b45e7" class="cell" data-execution_count="7">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>m_eth.explore(<span class="st">"Ethnicity"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Ethnicity</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"African American"</td>
+<td>531.0</td>
+</tr>
+<tr class="even">
+<td>"Asian"</td>
+<td>512.3</td>
+</tr>
+<tr class="odd">
+<td>"Caucasian"</td>
+<td>518.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>These are the <strong>marginal estimated means</strong> — the model’s predicted Balance for each Ethnicity group. No reference level, no mental arithmetic. Just the predictions.</p>
+<p>What about group <em>differences</em>? Treatment coding only gave us differences from the reference. To get <em>all</em> pairwise comparisons:</p>
+<div id="5e5e52ca" class="cell" data-execution_count="8">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can use .effects just like .params to get a nicer dataframe</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>m_eth.explore(<span class="st">"pairwise(Ethnicity)"</span>).effects</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">contrast</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"EthnicityAsian - EthnicityAfri…</td>
+<td>-18.69</td>
+</tr>
+<tr class="even">
+<td>"EthnicityCaucasian - Ethnicity…</td>
+<td>-12.5</td>
+</tr>
+<tr class="odd">
+<td>"EthnicityCaucasian - Ethnicity…</td>
+<td>6.184</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Every pairwise comparison — with SEs, CIs, and p-values — regardless of how the model was coded internally. None of these differences are significant here (all <span class="math inline">\(p &gt; .05\)</span>), consistent with Ethnicity not being a strong predictor of Balance.</p>
+</section>
+<section id="multiple-predictors-interactions" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-predictors-interactions">Multiple Predictors &amp; Interactions</h3>
+<p>Now let’s add an interaction. With <code>Balance ~ Income * Student</code>, the relationship between Income and Balance can differ for students vs non-students:</p>
+<div id="aeffaa2f" class="cell" data-execution_count="9">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>m_int <span class="op">=</span> model(<span class="st">"Balance ~ Income * Student"</span>, credit).fit()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>m_int.params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (4, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>200.6</td>
+</tr>
+<tr class="even">
+<td>"Income"</td>
+<td>6.218</td>
+</tr>
+<tr class="odd">
+<td>"Student[Yes]"</td>
+<td>476.7</td>
+</tr>
+<tr class="even">
+<td>"Income:Student[Yes]"</td>
+<td>-1.999</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>4 parameters — and interpreting them requires remembering what “the effect of Income when Student = No” means vs “the additional effect when Student = Yes.” Let’s use the mixing board instead.</p>
+<p><strong>EMMs</strong> — <em>“What’s the predicted Balance for students vs non-students?”</em></p>
+<p>We can use <code>pairwise()</code> like before <em>or</em> we can use Python style indexing to select levels within a variable to compare:</p>
+<div id="94695afc" class="cell" data-execution_count="10">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>m_int.explore(<span class="st">"Student[Yes - No]"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">contrast</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"StudentYes - StudentNo"</td>
+<td>386.3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Notice how this differs from the parameter estimate above!</p>
+<p>That’s because we didn’t <em>center</em> Income, so the estimate assumes Income = 0 But if we center it, we’ll see that the estimate now matches the <strong>marginal effect</strong></p>
+<div id="efc42c9c" class="cell" data-execution_count="11">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>model(<span class="st">"Balance ~ center(Income) * Student"</span>, credit).fit().infer()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (4, 8)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+<th data-quarto-table-cell-role="th">se</th>
+<th data-quarto-table-cell-role="th">ci_lower</th>
+<th data-quarto-table-cell-role="th">ci_upper</th>
+<th data-quarto-table-cell-role="th">statistic</th>
+<th data-quarto-table-cell-role="th">df</th>
+<th data-quarto-table-cell-role="th">p_value</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>481.8</td>
+<td>20.64</td>
+<td>441.2</td>
+<td>522.4</td>
+<td>23.34</td>
+<td>396.0</td>
+<td>2.2200e-16</td>
+</tr>
+<tr class="even">
+<td>"center(Income)"</td>
+<td>6.218</td>
+<td>0.5921</td>
+<td>5.054</td>
+<td>7.382</td>
+<td>10.5</td>
+<td>396.0</td>
+<td>2.2200e-16</td>
+</tr>
+<tr class="odd">
+<td>"Student[Yes]"</td>
+<td>386.3</td>
+<td>65.36</td>
+<td>257.8</td>
+<td>514.8</td>
+<td>5.91</td>
+<td>396.0</td>
+<td>7.3780e-9</td>
+</tr>
+<tr class="even">
+<td>"center(Income):Student[Yes]"</td>
+<td>-1.999</td>
+<td>1.731</td>
+<td>-5.403</td>
+<td>1.404</td>
+<td>-1.155</td>
+<td>396.0</td>
+<td>0.2489</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Students carry about $386 more in balance — averaged across all Income levels.</p>
+<p>Another <strong>super-power</strong>of marginal effects is helping you <strong>unpack complex interactions</strong>.</p>
+<p>For example, we can see that the interaction between Income (centered) and Student is -1.99 above. But what does this mean and in which direction?</p>
+<p>If you remember the default treatment/dummy-coding, then you’ll remember that “No” is the default reference group for Student. So this is the Income slope for Students - the Income slope for Non-Students.</p>
+<p>But if we used a different encoding scheme this would change:</p>
+<div id="1f59a60d" class="cell" data-execution_count="12">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sum/deviation coding</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>model(<span class="st">"Balance ~ center(Income) * sum(Student)"</span>, credit).fit().infer()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (4, 8)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+<th data-quarto-table-cell-role="th">se</th>
+<th data-quarto-table-cell-role="th">ci_lower</th>
+<th data-quarto-table-cell-role="th">ci_upper</th>
+<th data-quarto-table-cell-role="th">statistic</th>
+<th data-quarto-table-cell-role="th">df</th>
+<th data-quarto-table-cell-role="th">p_value</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>674.9</td>
+<td>32.68</td>
+<td>610.7</td>
+<td>739.2</td>
+<td>20.65</td>
+<td>396.0</td>
+<td>2.2200e-16</td>
+</tr>
+<tr class="even">
+<td>"center(Income)"</td>
+<td>5.219</td>
+<td>0.8656</td>
+<td>3.517</td>
+<td>6.92</td>
+<td>6.029</td>
+<td>396.0</td>
+<td>3.7890e-9</td>
+</tr>
+<tr class="odd">
+<td>"Student[No]"</td>
+<td>-193.1</td>
+<td>32.68</td>
+<td>-257.4</td>
+<td>-128.9</td>
+<td>-5.91</td>
+<td>396.0</td>
+<td>7.3780e-9</td>
+</tr>
+<tr class="even">
+<td>"center(Income):Student[No]"</td>
+<td>0.9996</td>
+<td>0.8656</td>
+<td>-0.7022</td>
+<td>2.701</td>
+<td>1.155</td>
+<td>396.0</td>
+<td>0.2489</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Notice that the <em>estimate</em> for the interaction change but the inference test result did not (same t-statistic and p-value).</p>
+<p>You can imagine with more complex models with additional interactions (e.g.&nbsp;3-way, 4-way) things will get really hard to interpret really fast!</p>
+<p>But we can simplify things by relying on <em>marginal effects</em> to do the right thing. <code>.explore()</code> supports a formula syntax similar to the formula syntax you use when creating models so you can slice-and-dice your data to ask the model any number of questions:</p>
+<p><strong>Slopes by group</strong> — <em>“How does the Income-Balance relationship differ?”</em></p>
+<div id="b60ef20a" class="cell" data-execution_count="13">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>m_int.explore(<span class="st">"Income ~ Student"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (2, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Student</th>
+<th data-quarto-table-cell-role="th">Income</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"No"</td>
+<td>"marginal_effect"</td>
+<td>6.218</td>
+</tr>
+<tr class="even">
+<td>"Yes"</td>
+<td>"marginal_effect"</td>
+<td>4.219</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>The Income slope is ~$6.2/thousand for non-students vs ~$4.2/thousand for students. The interaction means income has a <em>weaker</em> effect on balance for students. This is why the original interaction estimate with the default dummy coding was -1.99! It reflects the difference in these two numbers!</p>
+<p>You can combine this with the <code>@[]</code> syntax to <strong>focus</strong> on specific values.</p>
+<p>The <code>~</code> separates the focal variable (what you want EMMs/slopes for) from the conditioning variables (what you want to hold fixed):</p>
+<div id="be7e4a4e" class="cell" data-execution_count="14">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare students and non-students at specific income levels</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>m_int.explore(<span class="st">"Student[Yes - No] ~ Income@[20, 50, 80]"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Income</th>
+<th data-quarto-table-cell-role="th">contrast</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>f64</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>20.0</td>
+<td>"StudentYes - StudentNo"</td>
+<td>436.7</td>
+</tr>
+<tr class="even">
+<td>50.0</td>
+<td>"StudentYes - StudentNo"</td>
+<td>376.7</td>
+</tr>
+<tr class="odd">
+<td>80.0</td>
+<td>"StudentYes - StudentNo"</td>
+<td>316.7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="penguins---a-complex-model" class="level2">
+<h2 class="anchored" data-anchor-id="penguins---a-complex-model">Penguins - A Complex Model</h2>
+<p>The credit examples had at most one categorical and one continuous predictor. Now let’s build a model with <strong>multiple categorical and continuous predictors interacting</strong>, where <code>.explore()</code> really becomes essential.</p>
+<p>We’ll model penguin body mass as a function of sex, species, and flipper length — with a full three-way interaction:</p>
+<p><span class="math display">\[
+\text{body\_mass\_g} \sim \text{sex} \times \text{species} \times \text{flipper\_length\_mm}
+\]</span></p>
+<p>This model allows the relationship between flipper length and body mass to differ across <em>every combination</em> of sex and species.</p>
+<section id="data-loading-a-quick-lesson-on-missing-values" class="level3">
+<h3 class="anchored" data-anchor-id="data-loading-a-quick-lesson-on-missing-values">Data Loading (&amp; a quick lesson on missing values)</h3>
+<p>Before modeling, let’s check our data quality. A quick habit to build: <strong>always inspect your data for missing or unexpected values before fitting a model</strong>.</p>
+<div id="b8f753d7" class="cell" data-execution_count="15">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>penguins_raw <span class="op">=</span> load_dataset(<span class="st">"penguins"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for nulls</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>penguins_raw.null_count()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 8)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th">bill_length_mm</th>
+<th data-quarto-table-cell-role="th">bill_depth_mm</th>
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">body_mass_g</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">year</th>
+</tr>
+<tr class="even">
+<td>u32</td>
+<td>u32</td>
+<td>u32</td>
+<td>u32</td>
+<td>u32</td>
+<td>u32</td>
+<td>u32</td>
+<td>u32</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="2232246d" class="cell" data-execution_count="16">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check unique values in the sex column</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>penguins_raw.select(<span class="st">"sex"</span>).unique()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 1)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">sex</th>
+</tr>
+<tr class="even">
+<td>str</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"female"</td>
+</tr>
+<tr class="even">
+<td>"NA"</td>
+</tr>
+<tr class="odd">
+<td>"male"</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="b34999e3" class="cell" data-execution_count="17">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check unique values in the sex column</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>penguins_raw.select(<span class="st">"species"</span>).unique()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 1)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">species</th>
+</tr>
+<tr class="even">
+<td>str</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Gentoo"</td>
+</tr>
+<tr class="even">
+<td>"Adelie"</td>
+</tr>
+<tr class="odd">
+<td>"Chinstrap"</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Notice something sneaky: <code>sex</code> has <strong>three</strong> unique values — <code>"female"</code>, <code>"male"</code>, and <code>"NA"</code>. That <code>"NA"</code> is a <strong>string</strong>, not a true missing value! Polars’s <code>.null_count()</code> shows 0 nulls for <code>sex</code> because the string <code>"NA"</code> isn’t null — it’s just a text label.</p>
+<p>This is a common gotcha in real datasets. If we tried to fit a model without catching this, <code>sex</code> would become a <em>three</em>-level factor, creating nonsense parameters.</p>
+<p>The fix: explicitly filter out the string <code>"NA"</code>, <em>then</em> drop any remaining null rows from other columns:</p>
+<div id="a8c7aa43" class="cell" data-execution_count="18">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> penguins_raw.<span class="bu">filter</span>(col(<span class="st">"sex"</span>) <span class="op">!=</span> <span class="st">"NA"</span>).drop_nulls()</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>penguins.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>(333, 8)</code></pre>
+</div>
+</div>
+<p>333 clean rows with 2 sex levels. Now we can fit our model.</p>
+</section>
+<section id="fitting-the-3-way-interaction" class="level3">
+<h3 class="anchored" data-anchor-id="fitting-the-3-way-interaction">Fitting the 3-Way Interaction</h3>
+<p>Below we’ve setup the full model for you (with default coding scheme) and outputted the parameter estimates.</p>
+<p><strong>12 parameters.</strong> Good luck interpreting <code>sex[male]:species[Gentoo]:flipper_length_mm = -23.27</code> from the parameter table alone.</p>
+<p>Let’s use <code>.explore()</code> to try unpack the estimates. We’ll start by using <code>.jointtest()</code> and then use <code>.explore()</code> to zoom in.</p>
+<div id="44589f5a" class="cell" data-execution_count="19">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>m_penguin <span class="op">=</span> model(<span class="st">"body_mass_g ~ sex * species * flipper_length_mm"</span>,penguins).fit()</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>m_penguin.params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (12, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>991.5</td>
+</tr>
+<tr class="even">
+<td>"sex[male]"</td>
+<td>-592.6</td>
+</tr>
+<tr class="odd">
+<td>"species[Chinstrap]"</td>
+<td>233.4</td>
+</tr>
+<tr class="even">
+<td>"species[Gentoo]"</td>
+<td>-3804.0</td>
+</tr>
+<tr class="odd">
+<td>"sex[male]:species[Chinstrap]"</td>
+<td>-4744.0</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>"sex[male]:flipper_length_mm"</td>
+<td>6.283</td>
+</tr>
+<tr class="even">
+<td>"species[Chinstrap]:flipper_len…</td>
+<td>-0.6514</td>
+</tr>
+<tr class="odd">
+<td>"species[Gentoo]:flipper_length…</td>
+<td>22.57</td>
+</tr>
+<tr class="even">
+<td>"sex[male]:species[Chinstrap]:f…</td>
+<td>21.98</td>
+</tr>
+<tr class="odd">
+<td>"sex[male]:species[Gentoo]:flip…</td>
+<td>-23.27</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="1debb099" class="cell" data-execution_count="20">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ANOVA</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>m_penguin.jointtest()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (7, 5)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">df1</th>
+<th data-quarto-table-cell-role="th">df2</th>
+<th data-quarto-table-cell-role="th">f_ratio</th>
+<th data-quarto-table-cell-role="th">p_value</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>i64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"sex"</td>
+<td>1</td>
+<td>321.0</td>
+<td>0.200843</td>
+<td>0.654344</td>
+</tr>
+<tr class="even">
+<td>"species"</td>
+<td>2</td>
+<td>321.0</td>
+<td>1.325464</td>
+<td>0.26713</td>
+</tr>
+<tr class="odd">
+<td>"flipper_length_mm"</td>
+<td>1</td>
+<td>321.0</td>
+<td>55.402216</td>
+<td>9.0955e-13</td>
+</tr>
+<tr class="even">
+<td>"sex:species"</td>
+<td>2</td>
+<td>321.0</td>
+<td>3.912632</td>
+<td>0.020948</td>
+</tr>
+<tr class="odd">
+<td>"sex:flipper_length_mm"</td>
+<td>1</td>
+<td>321.0</td>
+<td>0.905627</td>
+<td>0.341993</td>
+</tr>
+<tr class="even">
+<td>"species:flipper_length_mm"</td>
+<td>2</td>
+<td>321.0</td>
+<td>1.726036</td>
+<td>0.179636</td>
+</tr>
+<tr class="odd">
+<td>"sex:species:flipper_length_mm"</td>
+<td>2</td>
+<td>321.0</td>
+<td>3.679455</td>
+<td>0.026307</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Let’s try to understand this 3-way interaction (last-row above)</p>
+</section>
+<section id="estimated-marginal-means" class="level3">
+<h3 class="anchored" data-anchor-id="estimated-marginal-means">Estimated Marginal Means</h3>
+<p><em>“What’s the model’s predicted body mass for each species?”</em></p>
+<div id="a0c22285" class="cell" data-execution_count="21">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>m_penguin.explore(<span class="st">"species"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Adelie"</td>
+<td>3885.0</td>
+</tr>
+<tr class="even">
+<td>"Chinstrap"</td>
+<td>3823.0</td>
+</tr>
+<tr class="odd">
+<td>"Gentoo"</td>
+<td>4703.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Gentoo penguins are the heaviest (~4703g), with Adelie (~3885g) and Chinstrap (~3823g) close together. These EMMs are averaged across both sexes and all flipper lengths.</p>
+<p><em>“What about by sex?”</em></p>
+<div id="43560764" class="cell" data-execution_count="22">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>m_penguin.explore(<span class="st">"pairwise(sex)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">contrast</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"sexmale - sexfemale"</td>
+<td>665.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Males are about 666g heavier than females on average.</p>
+<p>To get the full picture, we can <strong>cross</strong> species with sex:</p>
+<div id="50a63b46" class="cell" data-execution_count="23">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>m_penguin.explore(<span class="st">"species ~ sex[male - female]"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">rhs_contrast</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Adelie"</td>
+<td>"sexmale - sexfemale"</td>
+<td>670.0</td>
+</tr>
+<tr class="even">
+<td>"Chinstrap"</td>
+<td>"sexmale - sexfemale"</td>
+<td>343.4</td>
+</tr>
+<tr class="odd">
+<td>"Gentoo"</td>
+<td>"sexmale - sexfemale"</td>
+<td>843.4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Now we’re starting to see the interaction: the sex difference is much larger for Gentoo (~844g) than for Chinstrap (~343g) or Adelie (~670g).</p>
+</section>
+<section id="marginal-slopes" class="level3">
+<h3 class="anchored" data-anchor-id="marginal-slopes">Marginal Slopes</h3>
+<p><em>“How does body mass change with flipper length?”</em></p>
+<div id="764e3afd" class="cell" data-execution_count="24">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>m_penguin.explore(<span class="st">"flipper_length_mm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"marginal_effect"</td>
+<td>22.89</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Overall, each additional mm of flipper length is associated with ~22.9g more body mass. But this is the <em>average</em> slope — our 3-way interaction means it varies by group:</p>
+<div id="001f5930" class="cell" data-execution_count="25">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>m_penguin.explore(<span class="st">"flipper_length_mm ~ species"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Adelie"</td>
+<td>"marginal_effect"</td>
+<td>15.8</td>
+</tr>
+<tr class="even">
+<td>"Chinstrap"</td>
+<td>"marginal_effect"</td>
+<td>26.14</td>
+</tr>
+<tr class="odd">
+<td>"Gentoo"</td>
+<td>"marginal_effect"</td>
+<td>26.73</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>The flipper-mass slope is weakest for Adelie (~15.8 g/mm) and strongest for Gentoo (~26.7 g/mm) and Chinstrap (~26.1 g/mm). We can also break it out by sex:</p>
+<div id="cf89d43d" class="cell" data-execution_count="26">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>m_penguin.explore(<span class="st">"flipper_length_mm ~ sex"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (2, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"female"</td>
+<td>"marginal_effect"</td>
+<td>19.96</td>
+</tr>
+<tr class="even">
+<td>"male"</td>
+<td>"marginal_effect"</td>
+<td>25.82</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="febe6509" class="cell" data-execution_count="27">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>m_penguin.explore(<span class="st">"flipper_length_mm ~ species + sex"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (6, 4)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Adelie"</td>
+<td>"female"</td>
+<td>"marginal_effect"</td>
+<td>12.66</td>
+</tr>
+<tr class="even">
+<td>"Adelie"</td>
+<td>"male"</td>
+<td>"marginal_effect"</td>
+<td>18.94</td>
+</tr>
+<tr class="odd">
+<td>"Chinstrap"</td>
+<td>"female"</td>
+<td>"marginal_effect"</td>
+<td>12.01</td>
+</tr>
+<tr class="even">
+<td>"Chinstrap"</td>
+<td>"male"</td>
+<td>"marginal_effect"</td>
+<td>40.27</td>
+</tr>
+<tr class="odd">
+<td>"Gentoo"</td>
+<td>"female"</td>
+<td>"marginal_effect"</td>
+<td>35.23</td>
+</tr>
+<tr class="even">
+<td>"Gentoo"</td>
+<td>"male"</td>
+<td>"marginal_effect"</td>
+<td>18.24</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p><strong>Interaction Contrasts: “Difference of Differences”</strong></p>
+<p>The direction reversal raises a natural question: <em>“Is the Chinstrap-Adelie difference between males and females?”</em></p>
+<p>That’s an <strong>interaction contrast</strong> — a difference of differences. We use brackets on <em>both</em> sides:</p>
+<div id="5d264308" class="cell" data-execution_count="28">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>m_penguin.explore(<span class="st">"species[Chinstrap - Adelie] ~ sex[male - female]"</span>).infer()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 9)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">contrast</th>
+<th data-quarto-table-cell-role="th">rhs_contrast</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+<th data-quarto-table-cell-role="th">se</th>
+<th data-quarto-table-cell-role="th">ci_lower</th>
+<th data-quarto-table-cell-role="th">ci_upper</th>
+<th data-quarto-table-cell-role="th">statistic</th>
+<th data-quarto-table-cell-role="th">df</th>
+<th data-quarto-table-cell-role="th">p_value</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"speciesChinstrap - speciesAdel…</td>
+<td>"sexmale - sexfemale"</td>
+<td>-326.6</td>
+<td>146.7</td>
+<td>-615.2</td>
+<td>-37.9</td>
+<td>-2.226</td>
+<td>321.0</td>
+<td>0.02673</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>The Chinstrap-Adelie gap is ~327g more negative for males than females (<span class="math inline">\(p = .0267\)</span>). This is the sex × species interaction, focused on exactly the comparison we care about.</p>
+</section>
+<section id="slope-contrasts-does-the-relationship-differ" class="level3">
+<h3 class="anchored" data-anchor-id="slope-contrasts-does-the-relationship-differ">Slope Contrasts: “Does the relationship differ?”</h3>
+<p>We can also compare how the flipper-mass slope differs between groups:</p>
+<div id="ef818a3e" class="cell" data-execution_count="29">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Does the flipper slope differ between Gentoo and Adelie?</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>m_penguin.explore(<span class="st">"flipper_length_mm ~ species[Gentoo - Adelie]"</span>).infer()</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>m_penguin.effects</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 9)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">rhs_contrast</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+<th data-quarto-table-cell-role="th">se</th>
+<th data-quarto-table-cell-role="th">ci_lower</th>
+<th data-quarto-table-cell-role="th">ci_upper</th>
+<th data-quarto-table-cell-role="th">statistic</th>
+<th data-quarto-table-cell-role="th">df</th>
+<th data-quarto-table-cell-role="th">p_value</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"marginal_effect"</td>
+<td>"speciesGentoo - speciesAdelie"</td>
+<td>10.93</td>
+<td>7.026</td>
+<td>-2.891</td>
+<td>24.76</td>
+<td>1.556</td>
+<td>321.0</td>
+<td>0.1207</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 9)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">rhs_contrast</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+<th data-quarto-table-cell-role="th">se</th>
+<th data-quarto-table-cell-role="th">ci_lower</th>
+<th data-quarto-table-cell-role="th">ci_upper</th>
+<th data-quarto-table-cell-role="th">statistic</th>
+<th data-quarto-table-cell-role="th">df</th>
+<th data-quarto-table-cell-role="th">p_value</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"marginal_effect"</td>
+<td>"speciesGentoo - speciesAdelie"</td>
+<td>10.93</td>
+<td>7.026</td>
+<td>-2.891</td>
+<td>24.76</td>
+<td>1.556</td>
+<td>321.0</td>
+<td>0.1207</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>The flipper-mass slope is ~10.9 g/mm steeper for Gentoo than Adelie — each additional mm of flipper length “buys” more body mass in Gentoo penguins.</p>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>We now have three complementary tools for interrogating a fitted model:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 17%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Question</th>
+<th>Tool</th>
+<th>What it tells you</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>“Is this predictor worth including?”</em></td>
+<td><code>.jointtest()</code> or <code>compare()</code></td>
+<td>Yes/no — invariant to coding</td>
+</tr>
+<tr class="even">
+<td><em>“What are the model’s internal weights?”</em></td>
+<td><code>.params</code></td>
+<td>Coefficients — depend on coding</td>
+</tr>
+<tr class="odd">
+<td>*“What does the model predict for ___?“*</td>
+<td><code>.explore()</code></td>
+<td>Predictions — invariant to coding</td>
+</tr>
+<tr class="even">
+<td><em>“How uncertain am I??”</em></td>
+<td><code>.infer()</code></td>
+<td>Inference - after <code>.fit()</code> or <code>.explore()</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="challenge-exploring-the-credit-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="challenge-exploring-the-credit-dataset">Challenge: Exploring the Credit Dataset</h2>
+<p>Now it’s your turn. The credit dataset has many predictors — use the mixing board to investigate:</p>
+<ol type="1">
+<li>Fit a model: <code>Balance ~ Income * Student + Ethnicity * Gender</code></li>
+<li>Use <code>.jointtest()</code> — which terms matter?</li>
+<li>Compute EMMs for <code>Student</code> and <code>Ethnicity</code> — what are the predicted Balances?</li>
+<li>Compare Income slopes for students vs non-students — does Income affect Balance differently?</li>
+<li>Use <code>pairwise()</code> or bracket contrasts to compare Ethnicity groups</li>
+<li>Condition on specific Income values with <code>@</code> — how do predictions change?</li>
+<li>Write up anything you find as if you were writing a Results section</li>
+</ol>
+<div id="773dc5c7" class="cell" data-execution_count="30">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="b9037322" class="cell" data-execution_count="31">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="85950dac" class="cell" data-execution_count="32">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="f8af515a" class="cell" data-execution_count="33">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="334396c8" class="cell" data-execution_count="34">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p><em>Your summary here…</em></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -76,6 +76,8 @@ website:
               href: weeks/02/lab/seaborn-crash-course.qmd
             - text: "EDA Workflows"
               href: weeks/02/lab/eda-workflows.qmd
+            - text: "HW 1: Data Exploration"
+              href: weeks/02/hw/hw1.qmd
         - section: "Week 3"
           contents:
             - text: "Overview"
@@ -88,6 +90,8 @@ website:
               href: weeks/04/lab/01-sampling.qmd
             - text: "Permutation & Cross-Validation"
               href: weeks/04/lab/02-explanation-prediction.qmd
+            - text: "HW 2: Resampling Inference"
+              href: weeks/04/hw/hw2.qmd
         - section: "Week 5"
           contents:
             - text: "Overview"
@@ -104,14 +108,26 @@ website:
           contents:
             - text: "Overview"
               href: weeks/08/index.qmd
+            - text: "Parameter Inference"
+              href: weeks/08/lab/01-parameter-inference.qmd
         - section: "Week 9"
           contents:
             - text: "Overview"
               href: weeks/09/index.qmd
+            - text: "Marginal Effects & the Mixing Board"
+              href: weeks/09/lab/01-marginal-effects.qmd
+            - text: "Logistic Regression"
+              href: weeks/09/lab/02-logistic-regression.qmd
+            - text: "HW/Challenge 3: Modeling Workflow"
+              href: weeks/09/lab/challenge.qmd
         - section: "Week 10"
           contents:
             - text: "Overview"
               href: weeks/10/index.qmd
+            - text: "Mixed Models"
+              href: weeks/10/lab/01-mixed-models.qmd
+            - text: "Odds & Ends"
+              href: weeks/10/lab/02-odds-and-ends.qmd
 
 bibliography: references.bib
 

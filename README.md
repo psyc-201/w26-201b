@@ -7,6 +7,7 @@ Python and all its dependencies are managed by `uv` in an isolated environment. 
 ## Quick guide
 
 - Always `uv run quarto render` **before** `git commit` and `git push` to build the site to the `docs/` folder
+- Run `npx serve docs/` to see the built-site locally
 - The website is automatically updated from this folder each push!
 
 ## Initial setup
@@ -41,33 +42,4 @@ When you open the project, VSCode will prompt to install recommended extensions.
 `uv add mypackage`: installs `mypackage` and adds it to `pyproject.toml`  
 
 `uv remove mypackage`: removes `mypackage` and the corresponding entry in `pyproject.toml`  
-
-## Collaborating with Claude Code
-
-This project uses [Claude Code](https://docs.anthropic.com/en/docs/claude-code) for AI-assisted development. Project context is in `CLAUDE.md`.
-
-### Getting Started
-
-```bash
-# Install Claude Code (requires Node.js 18+)
-npm install -g @anthropic-ai/claude-code
-
-# Install beads for issue tracking
-brew tap ejfox/tap && brew install beads
-
-# Run from project root
-claude
-```
-
-### Issue Tracking with Beads
-
-We use `bd` (beads) for persistent issue tracking across sessions:
-
-```bash
-bd ready              # What's available to work on?
-bd list --status=open # All open issues
-bd show <id>          # Issue details
-bd update <id> --status=in_progress  # Claim work
-bd close <id>         # Mark complete
-```
 

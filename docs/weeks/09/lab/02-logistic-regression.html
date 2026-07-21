@@ -1,0 +1,2622 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eshin Jolly">
+<meta name="dcterms.date" content="2026-03-04">
+
+<title>Logistic Regression &amp; Marginal Effects – PSYC 201B</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-0441d281c0042f78ca5e6da214781463.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/custom.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../logo25.png" alt="" class="navbar-logo light-content">
+    <img src="../../../logo25.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">PSYC 201B</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../weeks/final/project.html"> 
+<span class="menu-text">Final Project</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../datasets.html"> 
+<span class="menu-text">Open Datasets</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../guides/terminology.html"> 
+<span class="menu-text">Glossary</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-guides--resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Guides &amp; Resources</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-guides--resources">    
+        <li>
+    <a class="dropdown-item" href="../../../guides/git-guide.html">
+ <span class="dropdown-text">Git &amp; Github</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/classroom-guide.html">
+ <span class="dropdown-text">Github Classroom</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/python-resources.html">
+ <span class="dropdown-text">Python Resources</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/notation.html">
+ <span class="dropdown-text">Mathematical Notation Reference</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/formulas.html">
+ <span class="dropdown-text">Common Formulas Reference</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://forms.gle/eXfTXVqYxCCFbv9c7"> 
+<span class="menu-text">Anonymous Feedback</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://psyc201b.github.io/PSYC-201B/"> 
+<span class="menu-text">Previous course versions</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/psyc-201/w26-201b" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../weeks/09/index.html">Week 9</a></li><li class="breadcrumb-item"><a href="../../../weeks/09/lab/02-logistic-regression.html">Logistic Regression</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+  <div id="quarto-announcement" data-announcement-id="463ac3992fb02f6015f02a46d3fd5318" class="alert alert-success hidden"><i class="bi bi-megaphone-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>Site Updates:</strong> Week 10 Slides</p>
+</div></div>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/lab/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">“Pre-flight” Lab Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/lab/python-fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python Fundamentals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/lab/polars-crash-course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Polars (dataframes) Crash Course</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/lab/seaborn-crash-course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Seaborn (plotting) Crash Course</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/lab/eda-workflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EDA Workflows</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/hw/hw1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HW 1: Data Exploration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/03/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/lab/01-sampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Simulation &amp; Bootstrapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/lab/02-explanation-prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Permutation &amp; Cross-Validation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/hw/hw2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HW 2: Resampling Inference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 5</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/05/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 6</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/06/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/06/lab/01-glm-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regression Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/06/lab/02-categorical-coding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Categorical Predictors</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 8</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/08/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/08/lab/01-parameter-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Parameter Inference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 9</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/lab/01-marginal-effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Marginal Effects &amp; the Mixing Board</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/lab/02-logistic-regression.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Logistic Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/lab/challenge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HW/Challenge 3: Modeling Workflow</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 10</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/10/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/10/lab/01-mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mixed Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/10/lab/02-odds-and-ends.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Odds &amp; Ends</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#a-new-dataset-titanic-disaster" id="toc-a-new-dataset-titanic-disaster" class="nav-link active" data-scroll-target="#a-new-dataset-titanic-disaster">A New Dataset: Titanic Disaster</a></li>
+  <li><a href="#glm-for-binary-data" id="toc-glm-for-binary-data" class="nav-link" data-scroll-target="#glm-for-binary-data">GLM for Binary Data</a></li>
+  <li><a href="#generalized-linear-model-glm" id="toc-generalized-linear-model-glm" class="nav-link" data-scroll-target="#generalized-linear-model-glm">General(ized) Linear Model (GLM)</a>
+  <ul>
+  <li><a href="#common-tests-are-flavors-of-glm" id="toc-common-tests-are-flavors-of-glm" class="nav-link" data-scroll-target="#common-tests-are-flavors-of-glm">Common tests <em>are</em> flavors of GLM</a></li>
+  </ul></li>
+  <li><a href="#estimating-models" id="toc-estimating-models" class="nav-link" data-scroll-target="#estimating-models">Estimating Models</a>
+  <ul>
+  <li><a href="#interpreting-log-odds-coefficients" id="toc-interpreting-log-odds-coefficients" class="nav-link" data-scroll-target="#interpreting-log-odds-coefficients">Interpreting log-odds coefficients</a></li>
+  </ul></li>
+  <li><a href="#marginal-effects-to-the-rescue" id="toc-marginal-effects-to-the-rescue" class="nav-link" data-scroll-target="#marginal-effects-to-the-rescue">Marginal Effects to the Rescue</a>
+  <ul>
+  <li><a href="#unpacking-the-interaction" id="toc-unpacking-the-interaction" class="nav-link" data-scroll-target="#unpacking-the-interaction">Unpacking the interaction</a></li>
+  </ul></li>
+  <li><a href="#ame-vs-mem-when-they-diverge" id="toc-ame-vs-mem-when-they-diverge" class="nav-link" data-scroll-target="#ame-vs-mem-when-they-diverge">AME vs MEM — When They Diverge</a>
+  <ul>
+  <li><a href="#mem-marginal-effect-at-the-mean" id="toc-mem-marginal-effect-at-the-mean" class="nav-link" data-scroll-target="#mem-marginal-effect-at-the-mean">MEM: Marginal Effect at the Mean</a></li>
+  <li><a href="#ame-average-marginal-effect" id="toc-ame-average-marginal-effect" class="nav-link" data-scroll-target="#ame-average-marginal-effect">AME: Average Marginal Effect</a></li>
+  <li><a href="#when-does-this-matter" id="toc-when-does-this-matter" class="nav-link" data-scroll-target="#when-does-this-matter">When does this matter?</a></li>
+  </ul></li>
+  <li><a href="#the-datacolada-insight" id="toc-the-datacolada-insight" class="nav-link" data-scroll-target="#the-datacolada-insight">The DataColada Insight</a></li>
+  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn">Your Turn</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../weeks/09/index.html">Week 9</a></li><li class="breadcrumb-item"><a href="../../../weeks/09/lab/02-logistic-regression.html">Logistic Regression</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Logistic Regression &amp; Marginal Effects</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eshin Jolly </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 4, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In the previous notebooks we built a full toolkit for working with the GLM:</p>
+<ul>
+<li><strong>Parameter Inference</strong> (week 8): SE, <em>t</em>-stats, confidence intervals — <em>“How certain are we in <span class="math inline">\(\hat{\beta}\)</span>?”</em></li>
+<li><strong>Marginal Effects</strong> (previous notebook): <code>.explore()</code> and the mixing board — <em>“What does the model predict when we wiggle a slider or flip a switch?”</em></li>
+</ul>
+<p>Throughout, our outcome variable has always been <strong>continuous</strong> (Balance, body mass, sales). The models we fit were all standard <strong>OLS regression</strong> — the default <code>family="gaussian"</code> in bossanova.</p>
+<p>But the “G” in <strong>G</strong>LM stands for <em>Generalized</em>. Today we take the next step: what happens when our outcome is <strong>binary</strong> — yes/no, 0/1, true/false?</p>
+<p>By the end of this notebook you’ll know how to:</p>
+<ul>
+<li>Recognize why OLS fails for binary outcomes</li>
+<li>Fit a <strong>logistic regression</strong> using <code>family="binomial"</code></li>
+<li>Interpret coefficients on the <strong>log-odds</strong> scale (and convert to odds ratios)</li>
+<li>Use <code>.explore()</code> to get predictions on the <strong>probability</strong> scale</li>
+<li>Distinguish two types of marginal effect: <strong>AME</strong> (Average Marginal Effect) vs <strong>MEM</strong> (Marginal Effect at the Mean)</li>
+<li>Understand when and why AME <span class="math inline">\(\neq\)</span> MEM — and what that means for your conclusions</li>
+</ul>
+<div id="9e19b7a6" class="cell" data-execution_count="1">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> polars <span class="im">as</span> pl</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> polars <span class="im">import</span> col</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bossanova <span class="im">import</span> model, compare, load_dataset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="a-new-dataset-titanic-disaster" class="level2">
+<h2 class="anchored" data-anchor-id="a-new-dataset-titanic-disaster">A New Dataset: Titanic Disaster</h2>
+<p>We’ve spent a lot of time predicting a <strong>continuous</strong> outcome (Balance in the previous notebooks). Now let’s see how we can use the GLM to model a <strong>categorical</strong> (binary) outcome</p>
+<blockquote class="blockquote">
+<p><strong>Can we predict whether someone Survived the titanic crash from their Age and Sex?</strong></p>
+</blockquote>
+<p><code>survived</code> is a <strong>binary</strong> variable — it’s either 1 (Yes) or 0 (No). This is a fundamentally different kind of outcome than what we’ve modeled before.</p>
+<p>Let’s start by visualizing the data:</p>
+<div id="b1e7a563" class="cell" data-execution_count="2">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="op">=</span> load_dataset(<span class="st">"titanic"</span>).drop_nulls().drop_nans()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>titanic</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (182, 15)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">survived</th>
+<th data-quarto-table-cell-role="th">pclass</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">age</th>
+<th data-quarto-table-cell-role="th">sibsp</th>
+<th data-quarto-table-cell-role="th">parch</th>
+<th data-quarto-table-cell-role="th">fare</th>
+<th data-quarto-table-cell-role="th">embarked</th>
+<th data-quarto-table-cell-role="th">class</th>
+<th data-quarto-table-cell-role="th">who</th>
+<th data-quarto-table-cell-role="th">adult_male</th>
+<th data-quarto-table-cell-role="th">deck</th>
+<th data-quarto-table-cell-role="th">embark_town</th>
+<th data-quarto-table-cell-role="th">alive</th>
+<th data-quarto-table-cell-role="th">alone</th>
+</tr>
+<tr class="even">
+<td>i64</td>
+<td>i64</td>
+<td>str</td>
+<td>f64</td>
+<td>i64</td>
+<td>i64</td>
+<td>f64</td>
+<td>str</td>
+<td>str</td>
+<td>str</td>
+<td>bool</td>
+<td>str</td>
+<td>str</td>
+<td>str</td>
+<td>bool</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>"female"</td>
+<td>38.0</td>
+<td>1</td>
+<td>0</td>
+<td>71.2833</td>
+<td>"C"</td>
+<td>"First"</td>
+<td>"woman"</td>
+<td>false</td>
+<td>"C"</td>
+<td>"Cherbourg"</td>
+<td>"yes"</td>
+<td>false</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>"female"</td>
+<td>35.0</td>
+<td>1</td>
+<td>0</td>
+<td>53.1</td>
+<td>"S"</td>
+<td>"First"</td>
+<td>"woman"</td>
+<td>false</td>
+<td>"C"</td>
+<td>"Southampton"</td>
+<td>"yes"</td>
+<td>false</td>
+</tr>
+<tr class="odd">
+<td>0</td>
+<td>1</td>
+<td>"male"</td>
+<td>54.0</td>
+<td>0</td>
+<td>0</td>
+<td>51.8625</td>
+<td>"S"</td>
+<td>"First"</td>
+<td>"man"</td>
+<td>true</td>
+<td>"E"</td>
+<td>"Southampton"</td>
+<td>"no"</td>
+<td>true</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>3</td>
+<td>"female"</td>
+<td>4.0</td>
+<td>1</td>
+<td>1</td>
+<td>16.7</td>
+<td>"S"</td>
+<td>"Third"</td>
+<td>"child"</td>
+<td>false</td>
+<td>"G"</td>
+<td>"Southampton"</td>
+<td>"yes"</td>
+<td>false</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>"female"</td>
+<td>58.0</td>
+<td>0</td>
+<td>0</td>
+<td>26.55</td>
+<td>"S"</td>
+<td>"First"</td>
+<td>"woman"</td>
+<td>false</td>
+<td>"C"</td>
+<td>"Southampton"</td>
+<td>"yes"</td>
+<td>true</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>"female"</td>
+<td>47.0</td>
+<td>1</td>
+<td>1</td>
+<td>52.5542</td>
+<td>"S"</td>
+<td>"First"</td>
+<td>"woman"</td>
+<td>false</td>
+<td>"D"</td>
+<td>"Southampton"</td>
+<td>"yes"</td>
+<td>false</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+<td>"male"</td>
+<td>33.0</td>
+<td>0</td>
+<td>0</td>
+<td>5.0</td>
+<td>"S"</td>
+<td>"First"</td>
+<td>"man"</td>
+<td>true</td>
+<td>"B"</td>
+<td>"Southampton"</td>
+<td>"no"</td>
+<td>true</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>"female"</td>
+<td>56.0</td>
+<td>0</td>
+<td>1</td>
+<td>83.1583</td>
+<td>"C"</td>
+<td>"First"</td>
+<td>"woman"</td>
+<td>false</td>
+<td>"C"</td>
+<td>"Cherbourg"</td>
+<td>"yes"</td>
+<td>false</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>"female"</td>
+<td>19.0</td>
+<td>0</td>
+<td>0</td>
+<td>30.0</td>
+<td>"S"</td>
+<td>"First"</td>
+<td>"woman"</td>
+<td>false</td>
+<td>"B"</td>
+<td>"Southampton"</td>
+<td>"yes"</td>
+<td>true</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>"male"</td>
+<td>26.0</td>
+<td>0</td>
+<td>0</td>
+<td>30.0</td>
+<td>"C"</td>
+<td>"First"</td>
+<td>"man"</td>
+<td>true</td>
+<td>"C"</td>
+<td>"Cherbourg"</td>
+<td>"yes"</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>We’ll use <code>seaborn</code> to plot the outcome on the y-axis against passenger age on the x-axis:</p>
+<div id="723d4aac" class="cell" data-execution_count="3">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sns.lmplot(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>titanic.to_pandas(),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"age"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"survived"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    aspect<span class="op">=</span><span class="fl">1.3</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    ci<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    fit_reg<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>).<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"Survived?</span><span class="ch">\n</span><span class="st">(No=0 Yes=1)"</span>, xlabel<span class="op">=</span><span class="st">"Passenger Age"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-logistic-regression_files/figure-html/cell-4-output-1.png" width="629" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Let’s break this out by <code>sex</code> as well:</p>
+<div id="d7d7f2e7" class="cell" data-execution_count="4">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sns.lmplot(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>titanic.to_pandas(),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"age"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"survived"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"sex"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    col<span class="op">=</span><span class="st">"sex"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    aspect<span class="op">=</span><span class="fl">1.3</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    ci<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    fit_reg<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>).<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"Survived?</span><span class="ch">\n</span><span class="st">(No=0 Yes=1)"</span>, xlabel<span class="op">=</span><span class="st">"Passenger Age"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-logistic-regression_files/figure-html/cell-5-output-1.png" width="1253" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="glm-for-binary-data" class="level2">
+<h2 class="anchored" data-anchor-id="glm-for-binary-data">GLM for Binary Data</h2>
+<p>Let’s see what happens if we naively fit a standard OLS regression predicting this 0/1 outcome. Before we use <code>bossanova</code> we can visualize this with <code>seaborn</code> by setting <code>fit_reg=True</code> and <code>ci="95"</code></p>
+<div id="bf76e818" class="cell" data-execution_count="5">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sns.lmplot(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>titanic.to_pandas(),</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"age"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"survived"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"sex"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    col<span class="op">=</span><span class="st">"sex"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    aspect<span class="op">=</span><span class="fl">1.3</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    fit_reg<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    truncate<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>).<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"Survived?</span><span class="ch">\n</span><span class="st">(No=0 Yes=1)"</span>, xlabel<span class="op">=</span><span class="st">"Passenger Age"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-logistic-regression_files/figure-html/cell-6-output-1.png" width="1253" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The first issue is that a standard OLS model makes predictions <strong>beyond the scale of the data</strong>! Survival is either 0 or 1, but the regression line goes beyond 1 and below 0</p>
+<p><img src="./figs/logistic-linear.png" width="50%" alt="Figure 1"></p>
+<p>To handle this we want to <strong>constrain</strong> the output of the model between 0-1, without overcomplicating all the other nice properties of the GLM. To do this we can use a <strong>link function</strong>:</p>
+<p>This squashes any real number into the (0, 1) range. For binary outcomes, we use the <strong>logistic</strong> (also called <strong>sigmoid</strong>) function:</p>
+<p><span class="math display">\[
+P(y = 1) = \frac{1}{1 + e^{-(X\hat{\beta})}}
+\]</span></p>
+<p>This S-shaped curve is flat near 0 and 1 (the “floor” and “ceiling”) and steep in the middle. Let’s visualize it:</p>
+<p><img src="./figs/logistic-function.png" width="60%" alt="Figure 1"></p>
+<p>The <strong>link function</strong> takes the linear model we’re used to working with and <strong>non-linearly transforms it</strong> before outputting <span class="math inline">\(\hat{y}\)</span> predictions:</p>
+<p><img src="./figs/logistic-regression.png" width="60%" alt="Figure 1"></p>
+<p>If we use this link function then we can ensure our model predictions can be interpreted as <strong>probabilities</strong> between 0-1:</p>
+<p><img src="./figs/logistic-curve.png" width="50%" alt="Figure 1"></p>
+<p>Notice two critical features of this curve:</p>
+<ol type="1">
+<li><strong>Bounded</strong>: No matter what <span class="math inline">\(X\hat{\beta}\)</span> is, the output is always between 0 and 1</li>
+<li><strong>Nonlinear</strong>: The slope is <em>steepest in the middle</em> and <em>flattest at the extremes</em></li>
+</ol>
+<p>That second point is going to matter a lot when we get to marginal effects. But first, let’s fit the model.</p>
+<p>Let’s see this when applied to the titanic data visually. In seaborn we can just use the <code>logistic=True</code> argument to the same plotting function as before:</p>
+<div id="ce3c0b11" class="cell" data-execution_count="6">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sns.lmplot(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>titanic.to_pandas(),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"age"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"survived"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"sex"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    col<span class="op">=</span><span class="st">"sex"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    aspect<span class="op">=</span><span class="fl">1.3</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    fit_reg<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    truncate<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    logistic<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>).<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"Survived?</span><span class="ch">\n</span><span class="st">(No=0 Yes=1)"</span>, xlabel<span class="op">=</span><span class="st">"Passenger Age"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-logistic-regression_files/figure-html/cell-7-output-1.png" width="1253" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Notice how the regression line is now <em>curved</em>, and specifically it’s the <strong>logistic function</strong> that we’re curving.</p>
+</section>
+<section id="generalized-linear-model-glm" class="level2">
+<h2 class="anchored" data-anchor-id="generalized-linear-model-glm">General(ized) Linear Model (GLM)</h2>
+<p>This general approach of using <em>link functions</em> to transform the model predictions is what we call the <a href="https://en.wikipedia.org/wiki/Generalized_linear_model"><strong>Generalized Linear Model</strong></a> not to be confused with the <a href="https://en.wikipedia.org/wiki/General_linear_model">General Linear Model (GLM)</a>:</p>
+<p>GLM (General Linear Model): general approach of <span class="math inline">\(y= X \beta\)</span></p>
+<p>Generalized Linear Model: extension of the GLM where we model:</p>
+<p><span class="math inline">\(E(Y|X) = f^{-1}(X\beta)\)</span></p>
+<p>Where <span class="math inline">\(E(Y|X)\)</span> is the <em>expected value</em> of <span class="math inline">\(y\)</span>, e.g.&nbsp;it’s <em>mean</em> And <span class="math inline">\(f()\)</span> is our <strong>link function</strong>, e.g.&nbsp;<em>logistic</em></p>
+<section id="common-tests-are-flavors-of-glm" class="level3">
+<h3 class="anchored" data-anchor-id="common-tests-are-flavors-of-glm">Common tests <em>are</em> flavors of GLM</h3>
+<p><strong>This is the “magic”</strong> that allows us to estimate a large number of models using the same general framework and everything we’ve learned so far! As long as we can specify a <em>link function</em> we’re able to model outcomes that are not continuous or make other <strong>non-normal</strong> distributional assumptions.</p>
+<p>We’ll add this as a link to the website, but you can now appreciate how: <a href="https://sciminds.ucsd.edu/bossanova/linear-models/"><strong>common statistical tests are just linear models</strong></a></p>
+<p>The rest of this notebook explores <em>logistic</em> regression, but the other common link function worth knowing about is the: <em>log-link</em> function which we use in <strong>poisson regression:</strong></p>
+<p><span class="math inline">\(Y_i \sim \text{Poisson}(\mu_i), \quad \ln(\mu_i) = \mathbf{X}_i \boldsymbol{\beta}\)</span></p>
+<p><span class="math inline">\(\ln(\mu_i) = \beta_0 + \beta_1 x_{1i} + \cdots + \beta_k x_{ki}\)</span></p>
+<p><span class="math inline">\(\mu_i = e^{\beta_0 + \beta_1 x_{1i} + \cdots + \beta_k x_{ki}}\)</span></p>
+<p>You might know it more commonly as <a href="https://sciminds.ucsd.edu/bossanova/linear-models/count-data/">chi-square goodness-of-fit</a> or <a href="https://sciminds.ucsd.edu/bossanova/linear-models/count-data/">chi-square test-of-independence</a>. While the exact details are beyond the scope of what we’re able to cover, try to understand the <em>general ideas</em> and refer to the linked guides if you need these approaches for your final project or future research!</p>
+</section>
+</section>
+<section id="estimating-models" class="level2">
+<h2 class="anchored" data-anchor-id="estimating-models">Estimating Models</h2>
+<p>Now let’s using <code>bossanova</code> to estimate and compare a regular OLS regression model and a <em>logistic</em> regression model. Everything is exactly the same, but we’ll add the <code>family='binomial'</code> for the logistic model:</p>
+<div id="63a7bd7b" class="cell" data-execution_count="7">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Regular OLS regression predicting survival</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>m_ols <span class="op">=</span> model(<span class="st">"survived ~ age*sex"</span>, titanic).fit()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>m_ols.params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (4, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>0.8743</td>
+</tr>
+<tr class="even">
+<td>"age"</td>
+<td>0.00176</td>
+</tr>
+<tr class="odd">
+<td>"sex[male]"</td>
+<td>-0.0794</td>
+</tr>
+<tr class="even">
+<td>"age:sex[male]"</td>
+<td>-0.01111</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<section id="interpreting-log-odds-coefficients" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-log-odds-coefficients">Interpreting log-odds coefficients</h3>
+<p>These coefficients are on the <strong>log-odds</strong> scale — <em>not</em> the probability scale. This is the natural scale of logistic regression:</p>
+<p><span class="math display">\[
+\log\left(\frac{P(\text{Survived} = 1)}{1 - P(\text{Survived} = 1)}\right) = \beta_0 + \beta_1 \cdot Age + \beta_2 \cdot Sex + \beta_3 \cdot Age \times Sex
+\]</span></p>
+<div id="22414424" class="cell" data-execution_count="8">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logistic regression predicting survival</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>m_log <span class="op">=</span> model(<span class="st">"survived ~ age*sex"</span>, titanic, family<span class="op">=</span><span class="st">"binomial"</span>).fit()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>m_log.params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (4, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>1.744</td>
+</tr>
+<tr class="even">
+<td>"age"</td>
+<td>0.02879</td>
+</tr>
+<tr class="odd">
+<td>"sex[male]"</td>
+<td>-0.4211</td>
+</tr>
+<tr class="even">
+<td>"age:sex[male]"</td>
+<td>-0.07057</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Odds ratios are <em>slightly</em> more interpretable: a value of 1.0 means “no effect,” above 1 means “increases the odds,” below 1 means “decreases the odds.”</p>
+<p>But honestly? Neither log-odds nor odds ratios map easily onto the question we actually care about: <strong>“By how many percentage points does the probability of being a student change?”</strong></p>
+<p>This is where marginal effects come back.</p>
+<div id="2651b40c" class="cell" data-execution_count="9">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>m_log.to_odds_ratio()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (4, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>5.720178</td>
+</tr>
+<tr class="even">
+<td>"age"</td>
+<td>1.029208</td>
+</tr>
+<tr class="odd">
+<td>"sex[male]"</td>
+<td>0.656324</td>
+</tr>
+<tr class="even">
+<td>"age:sex[male]"</td>
+<td>0.931863</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>What do log-odds mean? Let’s build the chain:</p>
+<p>Our model predicts survival from <code>age * sex</code> (with female as the reference group). Each coefficient is a <strong>log-odds</strong> value. We can convert to <strong>odds</strong> by exponentiating, and to <strong>probabilities</strong> by plugging in specific values.</p>
+<p><strong>Log-odds (raw coefficients)</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 18%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th><span class="math inline">\(b\)</span></th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Intercept</td>
+<td>1.744</td>
+<td>Log-odds of survival for a <strong>female at age 0</strong></td>
+</tr>
+<tr class="even">
+<td>age</td>
+<td>0.029</td>
+<td>For <strong>females</strong>, each +1 year of age adds 0.029 to log-odds (nearly flat)</td>
+</tr>
+<tr class="odd">
+<td>sex[male]</td>
+<td>−0.421</td>
+<td>At age 0, being male shifts log-odds down by 0.421 vs female</td>
+</tr>
+<tr class="even">
+<td>age:sex[male]</td>
+<td>−0.071</td>
+<td>The age slope is <strong>0.071 more negative</strong> for males than females</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Odds (exponentiate: <span class="math inline">\(e^b\)</span>)</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 24%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th><span class="math inline">\(e^b\)</span></th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Intercept</td>
+<td>5.72</td>
+<td>A female at age 0 has ~5.7:1 odds of survival</td>
+</tr>
+<tr class="even">
+<td>age</td>
+<td>1.03</td>
+<td>For females, each year multiplies odds by 1.03 (<span class="math inline">\(\approx\)</span> no change)</td>
+</tr>
+<tr class="odd">
+<td>sex[male]</td>
+<td>0.66</td>
+<td>At age 0, males have 66% the odds of females</td>
+</tr>
+<tr class="even">
+<td>age:sex[male]</td>
+<td>0.93</td>
+<td>Each year of age shrinks males’ odds ratio by an additional factor of 0.93</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Probability (concrete examples)</strong></p>
+<p>Since the logistic function is nonlinear, individual coefficients don’t map cleanly to probabilities. But we can plug in specific values using:</p>
+<p><span class="math display">\[P(\text{survival}) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 \text{age} + \beta_2 \text{male} + \beta_3 \text{age} \cdot \text{male})}}\]</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 32%">
+<col style="width: 41%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Person</th>
+<th>Log-odds</th>
+<th>Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Female, age 30</td>
+<td><span class="math inline">\(1.744 + 0.029(30) = 2.61\)</span></td>
+<td><strong>93%</strong></td>
+</tr>
+<tr class="even">
+<td>Male, age 30</td>
+<td><span class="math inline">\(1.744 + 0.029(30) - 0.421 - 0.071(30) = 0.07\)</span></td>
+<td><strong>52%</strong></td>
+</tr>
+<tr class="odd">
+<td>Female, age 60</td>
+<td><span class="math inline">\(1.744 + 0.029(60) = 3.47\)</span></td>
+<td><strong>97%</strong></td>
+</tr>
+<tr class="even">
+<td>Male, age 60</td>
+<td><span class="math inline">\(1.744 + 0.029(60) - 0.421 - 0.071(60) = -1.20\)</span></td>
+<td><strong>23%</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>The key story:</strong> Age barely matters for females (slope <span class="math inline">\(\approx 0.03\)</span>), but <strong>hurts males substantially</strong> (slope <span class="math inline">\(\approx 0.03 - 0.07 = -0.04\)</span>).</p>
+<p>That interaction means older men had much worse survival odds — consistent with “women and children first.</p>
+</section>
+</section>
+<section id="marginal-effects-to-the-rescue" class="level2">
+<h2 class="anchored" data-anchor-id="marginal-effects-to-the-rescue">Marginal Effects to the Rescue</h2>
+<p>Remember from the previous notebook: marginal effects let us <strong>ask the model what it predicts</strong> instead of puzzling over raw parameters. This was useful for OLS — it’s <em>essential</em> for logistic regression.</p>
+<p>Let’s use <code>.explore()</code> to get predictions on the <strong>probability</strong> scale. By default we get predictions on the log-odds scale:</p>
+<div id="72f32548" class="cell" data-execution_count="10">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Default: log-odds scale (hard to interpret)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>m_log.explore(<span class="st">"sex@[female] ~ age@[30]"</span>, effect_scale<span class="op">=</span><span class="st">"link"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">age</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>f64</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>30.0</td>
+<td>"female"</td>
+<td>2.608</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>But if we pass <code>effect_scale="response"</code> we can transform from log-odds to probabilities:</p>
+<div id="c9413a1b" class="cell" data-execution_count="11">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probability scale (what we actually want!)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>m_log.explore(<span class="st">"sex@[female] ~ age@[30]"</span>, effect_scale<span class="op">=</span><span class="st">"response"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">age</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>f64</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>30.0</td>
+<td>"female"</td>
+<td>0.9314</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Notice this matches our hand calculation above! 30 year old femaled had about 93% survival probability!</p>
+<p>First the <em>change</em> in probability for age:</p>
+<div id="c629bfca" class="cell" data-execution_count="12">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change in probability scale (what we actually want!)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>m_log.explore(<span class="st">"age"</span>, effect_scale<span class="op">=</span><span class="st">"response"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">age</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"marginal_effect"</td>
+<td>-0.003921</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>We can plot this marginal estimate using <code>.plot_explore()</code></p>
+<div id="1b7db5c0" class="cell" data-execution_count="13">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>m_log.plot_explore(<span class="st">"age"</span>, effect_scale<span class="op">=</span><span class="st">"response"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-logistic-regression_files/figure-html/cell-14-output-1.png" width="359" height="298" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>But it’s often more helpful to see the full set of <em>predictions</em> from the model using <code>.plot_predict()</code></p>
+<div id="4438654f" class="cell" data-execution_count="14">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>m_log.plot_predict(<span class="st">'age'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-logistic-regression_files/figure-html/cell-15-output-1.png" width="451" height="396" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can interpret this as a <em>average change in survival probability</em> as age increases by 1 year, much easier – No log-odds, no exponentiation — just probabilities.</p>
+<p>Let’s do the same for sex:</p>
+<div id="afb2be4e" class="cell" data-execution_count="15">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>m_log.explore(<span class="st">"sex"</span>, effect_scale<span class="op">=</span><span class="st">"response"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (2, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"female"</td>
+<td>0.936</td>
+</tr>
+<tr class="even">
+<td>"male"</td>
+<td>0.4626</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Since we’re dealing with <em>switches</em> these simply the average survival probabilities for each sex!</p>
+<section id="unpacking-the-interaction" class="level3">
+<h3 class="anchored" data-anchor-id="unpacking-the-interaction">Unpacking the interaction</h3>
+<p>We have an <code>age * sex</code> interaction. The mixing board lets us see how the effect of one predictor varies across levels of the other:</p>
+<div id="6a3730ee" class="cell" data-execution_count="16">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>m_log.explore(<span class="st">"sex ~ age@[5, 10, 20, 40, 80]"</span>, effect_scale<span class="op">=</span><span class="st">"response"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (10, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">age</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>f64</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>5.0</td>
+<td>"female"</td>
+<td>0.8686</td>
+</tr>
+<tr class="even">
+<td>5.0</td>
+<td>"male"</td>
+<td>0.3013</td>
+</tr>
+<tr class="odd">
+<td>10.0</td>
+<td>"female"</td>
+<td>0.8841</td>
+</tr>
+<tr class="even">
+<td>10.0</td>
+<td>"male"</td>
+<td>0.3266</td>
+</tr>
+<tr class="odd">
+<td>20.0</td>
+<td>"female"</td>
+<td>0.9105</td>
+</tr>
+<tr class="even">
+<td>20.0</td>
+<td>"male"</td>
+<td>0.3797</td>
+</tr>
+<tr class="odd">
+<td>40.0</td>
+<td>"female"</td>
+<td>0.9476</td>
+</tr>
+<tr class="even">
+<td>40.0</td>
+<td>"male"</td>
+<td>0.4926</td>
+</tr>
+<tr class="odd">
+<td>80.0</td>
+<td>"female"</td>
+<td>0.9828</td>
+</tr>
+<tr class="even">
+<td>80.0</td>
+<td>"male"</td>
+<td>0.71</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p><code>bossanova</code> with automatically handle computing <strong>Average Marginal Effects</strong> (AME) when working with generalized linear models, which gives us the interpretation we want: how <em>average predicted probabilities</em> change based on our mixing-board settings</p>
+<p>Notice how if we explore the OLS regression model instead, we get a “predicted probability” &gt; 1 for 80 year-old female passengers:</p>
+<div id="f9bf73bc" class="cell" data-execution_count="17">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How does the Income effect vary at different Rating levels?</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>m_ols.explore(<span class="st">"sex ~ age@[5, 10, 20, 40, 80]"</span>, effect_scale<span class="op">=</span><span class="st">"response"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (10, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">age</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>f64</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>5.0</td>
+<td>"female"</td>
+<td>0.8831</td>
+</tr>
+<tr class="even">
+<td>5.0</td>
+<td>"male"</td>
+<td>0.7482</td>
+</tr>
+<tr class="odd">
+<td>10.0</td>
+<td>"female"</td>
+<td>0.8919</td>
+</tr>
+<tr class="even">
+<td>10.0</td>
+<td>"male"</td>
+<td>0.7014</td>
+</tr>
+<tr class="odd">
+<td>20.0</td>
+<td>"female"</td>
+<td>0.9095</td>
+</tr>
+<tr class="even">
+<td>20.0</td>
+<td>"male"</td>
+<td>0.608</td>
+</tr>
+<tr class="odd">
+<td>40.0</td>
+<td>"female"</td>
+<td>0.9447</td>
+</tr>
+<tr class="even">
+<td>40.0</td>
+<td>"male"</td>
+<td>0.421</td>
+</tr>
+<tr class="odd">
+<td>80.0</td>
+<td>"female"</td>
+<td>1.015</td>
+</tr>
+<tr class="even">
+<td>80.0</td>
+<td>"male"</td>
+<td>0.0472</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Let’s look at the interaction visually</p>
+<div id="a4657af9" class="cell" data-execution_count="18">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>m_log.plot_explore(<span class="st">"age ~ sex"</span>, effect_scale<span class="op">=</span><span class="st">"response"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-logistic-regression_files/figure-html/cell-19-output-1.png" width="451" height="396" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Once again the actual predictions can be more helpful!</p>
+<div id="ce1b5d26" class="cell" data-execution_count="19">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>m_log.plot_predict(<span class="st">"age ~ sex"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-logistic-regression_files/figure-html/cell-20-output-1.png" width="553" height="396" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="ame-vs-mem-when-they-diverge" class="level2">
+<h2 class="anchored" data-anchor-id="ame-vs-mem-when-they-diverge">AME vs MEM — When They Diverge</h2>
+<p>In the lecture slides we introduced two ways to summarize a marginal effect:</p>
+<section id="mem-marginal-effect-at-the-mean" class="level3">
+<h3 class="anchored" data-anchor-id="mem-marginal-effect-at-the-mean">MEM: Marginal Effect at the Mean</h3>
+<p><span class="math display">\[
+MEM = \frac{\partial \hat{y}}{\partial x} \text{ evaluated at } \bar{x}_1, \bar{x}_2, \ldots
+\]</span></p>
+<p>Set all sliders to their <strong>mean position</strong>, then nudge one slider and see what happens. It’s the effect for a single “hypothetical average person.”</p>
+<p><strong>Mixing board intuition</strong>: Set every slider to its average position, nudge one slider, and record the change.</p>
+</section>
+<section id="ame-average-marginal-effect" class="level3">
+<h3 class="anchored" data-anchor-id="ame-average-marginal-effect">AME: Average Marginal Effect</h3>
+<p><span class="math display">\[
+AME = \frac{1}{N} \sum_{i=1}^{N} \frac{\partial \hat{y}}{\partial x_i}
+\]</span></p>
+<p>Compute the effect for <strong>each person individually</strong> (keeping their own covariate values), then <strong>average</strong> across people.</p>
+<p><strong>Mixing board intuition</strong>: Imagine a separate copy of the mixing board for each person in your dataset, each with their own slider settings. Nudge the same slider on every copy, record the change for each, then average.</p>
+</section>
+<section id="when-does-this-matter" class="level3">
+<h3 class="anchored" data-anchor-id="when-does-this-matter">When does this matter?</h3>
+<p>In <strong>OLS</strong> (linear regression), AME = MEM. Always. Because the sigmoid curve <em>is</em> a straight line — the slope is the same everywhere, so it doesn’t matter whether you evaluate it at the mean or average across individuals.</p>
+<p>In <strong>logistic regression</strong>, AME <span class="math inline">\(\neq\)</span> MEM. Because the sigmoid curve has a changing slope — steep in the middle, flat at the edges. The MEM evaluates the slope at one point (the mean). The AME averages slopes across all the different points where real people sit on the curve.</p>
+<p>Let’s see this concretely.</p>
+<div id="ce63eefa" class="cell" data-execution_count="20">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>_fig, (_ax1, _ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">4.5</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>_x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">300</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>_sigmoid <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> np.exp(<span class="op">-</span>_x))</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>_slope <span class="op">=</span> _sigmoid <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> _sigmoid)  <span class="co"># derivative of sigmoid</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Left panel: sigmoid with tangent lines at different points</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>_ax1.plot(_x, _sigmoid, linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">"steelblue"</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _pt, _col, _lbl <span class="kw">in</span> [(<span class="op">-</span><span class="dv">3</span>, <span class="st">"#e74c3c"</span>, <span class="st">"Flat (floor)"</span>), (<span class="dv">0</span>, <span class="st">"#2ecc71"</span>, <span class="st">"Steep (middle)"</span>), (<span class="dv">3</span>, <span class="st">"#9b59b6"</span>, <span class="st">"Flat (ceiling)"</span>)]:</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    _y_pt <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> np.exp(<span class="op">-</span>_pt))</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    _slope_pt <span class="op">=</span> _y_pt <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> _y_pt)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    _tangent_x <span class="op">=</span> np.linspace(_pt <span class="op">-</span> <span class="fl">1.5</span>, _pt <span class="op">+</span> <span class="fl">1.5</span>, <span class="dv">50</span>)</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    _tangent_y <span class="op">=</span> _y_pt <span class="op">+</span> _slope_pt <span class="op">*</span> (_tangent_x <span class="op">-</span> _pt)</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    _ax1.plot(_tangent_x, _tangent_y, color<span class="op">=</span>_col, linewidth<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    _ax1.scatter([_pt], [_y_pt], color<span class="op">=</span>_col, s<span class="op">=</span><span class="dv">80</span>, zorder<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    _ax1.annotate(_lbl, (_pt, _y_pt), textcoords<span class="op">=</span><span class="st">"offset points"</span>, xytext<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>), fontsize<span class="op">=</span><span class="dv">9</span>, color<span class="op">=</span>_col)</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>_ax1.set_xlabel(<span class="vs">r"Linear predictor </span><span class="kw">(</span><span class="dv">$</span><span class="vs">X</span><span class="er">\</span><span class="vs">hat{</span><span class="dv">\b</span><span class="vs">eta}</span><span class="dv">$</span><span class="kw">)</span><span class="vs">"</span>)</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>_ax1.set_ylabel(<span class="st">"Probability"</span>)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>_ax1.set_title(<span class="st">"Slope depends on location"</span>)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>_ax1.set_ylim(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Right panel: the slope itself</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>_ax2.plot(_x, _slope, linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">"darkorange"</span>)</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>_ax2.set_xlabel(<span class="vs">r"Linear predictor </span><span class="kw">(</span><span class="dv">$</span><span class="vs">X</span><span class="er">\</span><span class="vs">hat{</span><span class="dv">\b</span><span class="vs">eta}</span><span class="dv">$</span><span class="kw">)</span><span class="vs">"</span>)</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>_ax2.set_ylabel(<span class="st">"Marginal effect (slope)"</span>)</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>_ax2.set_title(<span class="st">"Marginal effect varies across the curve"</span>)</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>_ax2.axvline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"gray"</span>, linestyle<span class="op">=</span><span class="st">":"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>sns.despine()</span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>_fig</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>Text(10, 10, 'Flat (floor)')</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>Text(10, 10, 'Steep (middle)')</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>Text(10, 10, 'Flat (ceiling)')</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>Text(0.5, 0, 'Linear predictor ($X\\hat{\\beta}$)')</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>Text(0, 0.5, 'Probability')</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>Text(0.5, 1.0, 'Slope depends on location')</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>Text(0.5, 0, 'Linear predictor ($X\\hat{\\beta}$)')</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>Text(0, 0.5, 'Marginal effect (slope)')</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>Text(0.5, 1.0, 'Marginal effect varies across the curve')</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<div>
+<figure class="figure">
+<p><img src="02-logistic-regression_files/figure-html/cell-21-output-10.png" width="1142" height="420" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-logistic-regression_files/figure-html/cell-21-output-11.png" width="1142" height="420" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The left panel shows the sigmoid with tangent lines at three points — the slope is steepest at the center and nearly flat at the extremes.</p>
+<p>The right panel shows the marginal effect (slope) itself as a function of the linear predictor — it’s a bell curve peaking at 0.25 when <span class="math inline">\(X\hat{\beta} = 0\)</span> (probability = 0.5).</p>
+<p>So:</p>
+<ul>
+<li><strong>MEM</strong> picks the slope at whatever the mean linear predictor is — a single point on the orange curve</li>
+<li><strong>AME</strong> averages the slope across all the different points where your data actually sits</li>
+</ul>
+<p>If your data is mostly in the middle of the curve, AME ≈ MEM. If your data is spread across the extremes, they’ll diverge.</p>
+<p>By default, <code>.explore()</code> on a logistic model uses <code>how="auto"</code>, which selects <strong>AME</strong> (averaging over the actual data). We can explicitly request each:</p>
+<div id="15990dab" class="cell" data-execution_count="21">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># AME: Average Marginal Effect (default for GLMs)</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>m_log.explore(<span class="st">"sex"</span>, effect_scale<span class="op">=</span><span class="st">"response"</span>, how<span class="op">=</span><span class="st">"ame"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (2, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"female"</td>
+<td>0.936</td>
+</tr>
+<tr class="even">
+<td>"male"</td>
+<td>0.4626</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="6d71503f" class="cell" data-execution_count="22">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MEM: Marginal Effect at the Mean (evaluate at mean covariate values)</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>m_log.explore(<span class="st">"sex"</span>, effect_scale<span class="op">=</span><span class="st">"response"</span>, how<span class="op">=</span><span class="st">"mem"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (2, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"female"</td>
+<td>0.941</td>
+</tr>
+<tr class="even">
+<td>"male"</td>
+<td>0.4588</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Compare the two estimates above. They’re <strong>not the same!</strong> In the OLS model they’re identical!</p>
+<div id="61dc8207" class="cell" data-execution_count="23">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>m_ols.explore(<span class="st">"sex"</span>, how<span class="op">=</span><span class="st">"ame"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (2, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"female"</td>
+<td>0.937</td>
+</tr>
+<tr class="even">
+<td>"male"</td>
+<td>0.462</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="bb232b9d" class="cell" data-execution_count="24">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>m_ols.explore(<span class="st">"sex"</span>, how<span class="op">=</span><span class="st">"mem"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (2, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"female"</td>
+<td>0.937</td>
+</tr>
+<tr class="even">
+<td>"male"</td>
+<td>0.462</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>The discrepancy arises because:</p>
+<ul>
+<li>The <strong>MEM</strong> evaluates the slope for a hypothetical person at the <em>mean</em> of all predictors — one point on the sigmoid</li>
+<li>The <strong>AME</strong> evaluates the slope for <em>each real person</em> at their own covariate values, then averages — a weighted average across many points on the sigmoid</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Which one should you report?</strong> It depends on your question:</p>
+<ul>
+<li><strong>AME</strong> answers: <em>“On average across the people in my sample, how much does a 1-unit increase in Income change the probability of being a student?”</em></li>
+<li><strong>MEM</strong> answers: <em>“For a person at the mean of all covariates, how much does a 1-unit increase in Income change the probability?”</em></li>
+</ul>
+<p>The AME is generally preferred because it reflects what happens to <em>real people</em>, not a hypothetical average person who may not exist in your data.</p>
+</blockquote>
+</section>
+</section>
+<section id="the-datacolada-insight" class="level2">
+<h2 class="anchored" data-anchor-id="the-datacolada-insight">The DataColada Insight</h2>
+<p>Now that we understand AME vs MEM, let’s go deeper into a subtlety that trips up even experienced researchers.</p>
+<p>The blog <a href="https://datacolada.org/57">DataColada #57</a> (“Interactions in Logit Regressions: Why Positive May Mean Negative”) makes a striking point:</p>
+<blockquote class="blockquote">
+<p>In logistic regression, a <strong>positive</strong> interaction coefficient can correspond to a <strong>negative</strong> marginal effect on the probability scale.</p>
+</blockquote>
+<p>How is this possible? Because of two different kinds of “interaction”:</p>
+<ul>
+<li><strong>Conceptual interaction</strong>: the actual relationship between your variables — what you’re trying to study</li>
+<li><strong>Mechanical interaction</strong>: an artifact of the sigmoid’s ceiling and floor — when probability is already near 0 or 1, <em>any</em> predictor’s effect gets compressed regardless of the true relationship</li>
+</ul>
+<p>The log-odds coefficient captures only the <em>conceptual</em> component. When you compute marginal effects (derivatives of the predicted probability), you’re mixing in the <em>mechanical</em> component as well.</p>
+<p>Let’s look at the interaction between Income and Rating. First, what does the coefficient say?</p>
+<div id="c681e032" class="cell" data-execution_count="25">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The raw interaction coefficient (log-odds scale)</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>m_log.params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (4, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>1.744</td>
+</tr>
+<tr class="even">
+<td>"age"</td>
+<td>0.02879</td>
+</tr>
+<tr class="odd">
+<td>"sex[male]"</td>
+<td>-0.4211</td>
+</tr>
+<tr class="even">
+<td>"age:sex[male]"</td>
+<td>-0.07057</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Now let’s look at how the marginal effect of age <em>differs</em> between sexes over arange of ages:</p>
+<div id="8d5d863a" class="cell" data-execution_count="26">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>m_log.explore(<span class="st">"sex[male-female] ~ age@[0, 10, 20, 30, 40, 50,60,70,80]"</span>, effect_scale<span class="op">=</span><span class="st">"response"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (9, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">age</th>
+<th data-quarto-table-cell-role="th">contrast</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>f64</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0.0</td>
+<td>"sexmale - sexfemale"</td>
+<td>-0.06152</td>
+</tr>
+<tr class="even">
+<td>10.0</td>
+<td>"sexmale - sexfemale"</td>
+<td>-0.1721</td>
+</tr>
+<tr class="odd">
+<td>20.0</td>
+<td>"sexmale - sexfemale"</td>
+<td>-0.291</td>
+</tr>
+<tr class="even">
+<td>30.0</td>
+<td>"sexmale - sexfemale"</td>
+<td>-0.4139</td>
+</tr>
+<tr class="odd">
+<td>40.0</td>
+<td>"sexmale - sexfemale"</td>
+<td>-0.5338</td>
+</tr>
+<tr class="even">
+<td>50.0</td>
+<td>"sexmale - sexfemale"</td>
+<td>-0.6428</td>
+</tr>
+<tr class="odd">
+<td>60.0</td>
+<td>"sexmale - sexfemale"</td>
+<td>-0.7355</td>
+</tr>
+<tr class="even">
+<td>70.0</td>
+<td>"sexmale - sexfemale"</td>
+<td>-0.8095</td>
+</tr>
+<tr class="odd">
+<td>80.0</td>
+<td>"sexmale - sexfemale"</td>
+<td>-0.8656</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>In this example the difference in survival probabilities is always higher for females, but notice how it changes depending on what income level we look at. The coefficient in log-odds space tells one story; the marginal effect on the probability scale may tell a different one — especially at the extremes where the sigmoid is flat.</p>
+<p>This is exactly the DataColada insight: <strong>the nonlinearity of the link function creates “mechanical” interactions that can mask or even reverse the conceptual relationship.</strong></p>
+<p>DataColada (following the statistician William Greene) recommends: <strong>don’t summarize an interaction with a single AME or MEM.</strong> Instead, <strong>explore marginal effects across the full range of predictor values</strong> to see the whole picture.</p>
+</section>
+<section id="your-turn" class="level2">
+<h2 class="anchored" data-anchor-id="your-turn">Your Turn</h2>
+<p>In the cell below we’ve created a new column that indicates student status as 0/1 called <code>student_bin</code></p>
+<p>Use it as an outcome variable to see what relationships you can find between other variables in the dataset</p>
+<div id="0f78b970" class="cell" data-execution_count="27">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>credit <span class="op">=</span> load_dataset(<span class="st">"credit"</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>credit_bin <span class="op">=</span> credit.with_columns(</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    student_bin <span class="op">=</span> pl.when(col(<span class="st">"Student"</span>)<span class="op">==</span><span class="st">"Yes"</span>).then(pl.lit(<span class="dv">1</span>)).otherwise(pl.lit(<span class="dv">0</span>))</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>).select(<span class="st">"student_bin"</span>, <span class="st">"Income"</span>, <span class="st">"Rating"</span>, <span class="st">"Limit"</span>, <span class="st">"Balance"</span>, <span class="st">"Age"</span>, <span class="st">"Education"</span>, <span class="st">"Ethnicity"</span>)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>credit_bin.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 8)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">student_bin</th>
+<th data-quarto-table-cell-role="th">Income</th>
+<th data-quarto-table-cell-role="th">Rating</th>
+<th data-quarto-table-cell-role="th">Limit</th>
+<th data-quarto-table-cell-role="th">Balance</th>
+<th data-quarto-table-cell-role="th">Age</th>
+<th data-quarto-table-cell-role="th">Education</th>
+<th data-quarto-table-cell-role="th">Ethnicity</th>
+</tr>
+<tr class="even">
+<td>i32</td>
+<td>f64</td>
+<td>i64</td>
+<td>i64</td>
+<td>i64</td>
+<td>i64</td>
+<td>i64</td>
+<td>str</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>14.891</td>
+<td>283</td>
+<td>3606</td>
+<td>333</td>
+<td>34</td>
+<td>11</td>
+<td>"Caucasian"</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>106.025</td>
+<td>483</td>
+<td>6645</td>
+<td>903</td>
+<td>82</td>
+<td>15</td>
+<td>"Asian"</td>
+</tr>
+<tr class="odd">
+<td>0</td>
+<td>104.593</td>
+<td>514</td>
+<td>7075</td>
+<td>580</td>
+<td>71</td>
+<td>11</td>
+<td>"Asian"</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>148.924</td>
+<td>681</td>
+<td>9504</td>
+<td>964</td>
+<td>36</td>
+<td>11</td>
+<td>"Asian"</td>
+</tr>
+<tr class="odd">
+<td>0</td>
+<td>55.882</td>
+<td>357</td>
+<td>4897</td>
+<td>331</td>
+<td>68</td>
+<td>16</td>
+<td>"Caucasian"</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="ed4500ad" class="cell" data-execution_count="28">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="29357dda" class="cell" data-execution_count="29">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="d67bf59e" class="cell" data-execution_count="30">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="e5249fdc" class="cell" data-execution_count="31">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

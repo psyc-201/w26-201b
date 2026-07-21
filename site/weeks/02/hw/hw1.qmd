@@ -1,0 +1,369 @@
+---
+sidebar: weeks
+title: "HW 1: Data Exploration with Python and Polars"
+code-fold: show
+author:
+  - name: Jane Yang
+  - name: Eshin Jolly
+date: "01/20/26"
+abstract: >
+  **Deadline: 2pm Tuesday Jan 13th, 2026** | This homework is designed to help you practice the `polars` (DataFrame) and `seaborn` (data-visualization) skills you learned in the first two weeks of the course. You should reference those lab notebooks to help you out (also available on course website). You're allowed to work on this HW by yourself OR with other students. If you do work together please add your partner(s) names to the `author` field above.
+---
+
+:::{.callout-tip title="Grading" collapse="false"}
+Your Instructors will grade the **last `git push`** you submit by the deadline.  
+However, after we review the HW together during lab, you can push additional changes to improve your grade.  
+To receive **full** credit you must be both **accurate** and **explain** your process.  
+
+What's most important to us is your ability to demonstrate:  
+
+- You attempted the assignment in good-faith
+- You made effort to clearly document and explain your thought process, reasoning, code, and where/why you got stuck if you did
+- What attempts you made to fix issues you ran into, how you approached debugging, and what you learned from the process
+- Why you made a particular choice in your code/analysis, and/or what assumptions you made for a particular statistical inference
+:::
+
+:::{.callout-note title="Additional Resources" collapse="false"}
+In additon to previous lab materials you make also find it helpful to keep the online API (help) documentation open for:  
+
+- [`polars`](https://docs.pola.rs/api/python/stable/reference/index.html)
+- [`seaborn`](https://seaborn.pydata.org/api.html#function-interface)
+- [`matplotlib` cheatsheets](https://matplotlib.org/cheatsheets/)
+
+**Remember to ping your instructors on Github/Slack if you get stuck!**
+:::
+
+## Background
+
+For this assignment, you'll be working with data from a hypothetical psychology experiment investigating how different factors influence looking times in a cat name recognition task (inspired by [this paper](https://www.nature.com/articles/s41598-022-10261-5)).
+
+**The Experiment:**
+
+Cats were presented with their own name (congruent condition) or another cat's name (incongruent condition) while researchers measured how long they looked at the stimulus. The experiment manipulated several factors:
+
+- **Condition**: Whether the cat heard their own name (congruent) or another cat's name (incongruent)
+- **Setting**: Whether the experiment took place in a cafe or house environment
+- **Age**: The age of the cat (in years)
+
+Each cat completed multiple trials across different combinations of these factors. The researchers measured:
+
+- **Looking Time**: How long the cat looked at the stimulus (in seconds)
+
+**Research Questions:**
+
+1. Do cats look longer at congruent (own name) or incongruent (other name) conditions?
+2. Does the setting (cafe vs. house) affect looking time?
+3. Does age affect looking time?
+4. Are there interactions between these factors?
+
+---
+
+## Setup
+
+First, let's import the libraries we'll need for this assignment. We'll use:
+
+- **Polars** (`pl`) for working with DataFrames
+- **Seaborn** (`sns`) and **Matplotlib** (`plt`) for creating visualizations
+
+```{python}
+# Import libraries
+import polars as pl # dataframes
+from polars import col # column short-hand
+import seaborn as sns # data-viz
+import matplotlib.pyplot as plt # viz tweaking
+
+# Set plotting style
+sns.set_style('whitegrid')
+plt.style.use('ggplot')
+```
+
+---
+
+## Part 1: Loading and Exploring the Data
+
+### Task 1.1: Load the Data
+
+The data for this assignment is stored in a CSV file called `cat_name_recognition.csv` located in the `data/` directory. Use Polars to load this file into a DataFrame called `df`.
+
+```{python}
+# Your code here
+# Load the CSV file using pl.read_csv()
+# Example: df = pl.read_csv('data/cat_name_recognition.csv')
+```
+
+### Task 1.2: Initial Data Inspection
+
+Once you've loaded the data, let's get familiar with it. Answer the following questions by writing code in the cell below:
+
+1. How many rows and columns does the dataset have?
+2. What are the names of all the columns?
+3. What are the data types of each column?
+4. Display the first 10 rows of the data
+
+```{python}
+# Your code here
+# Use .shape, .columns, .dtypes, and .head() to explore the data
+```
+
+### Task 1.3: Understanding the Variables
+
+Write a brief description (2-3 sentences) of what you observe about the structure of the data. What variables are present? What do they seem to represent?
+
+**Your response here:**
+
+## Part 2: Basic Data Manipulation
+
+### Task 2.1: Filtering Data
+
+Create a new DataFrame called `congruent_trials` that contains only trials where cats heard their own name (i.e., where `condition == 'congruent'`).
+
+```{python}
+# Your code here
+# Use .filter() to select rows where condition equals 'congruent'
+```
+
+### Task 2.2: Selecting Columns
+
+Create a new DataFrame called `looking_data` that contains only the `cat_id`, `condition`, `setting`, `age`, and `looking_time` columns.
+
+```{python}
+# Your code here
+# Use .select() to choose specific columns
+```
+
+### Task 2.3: Creating New Columns
+
+Add a new column to the original DataFrame called `looking_time_ms` that converts looking time from seconds to milliseconds (multiply by 1000).
+
+```{python}
+# Your code here
+# Use .with_columns() to add a new column
+# Remember: looking_time_ms = looking_time * 1000
+```
+
+### Task 2.4: Conditional Columns
+
+Create a new column called `lt_category` that categorizes looking times as:
+
+- "short" if looking time < 2.0 seconds
+- "medium" if looking time is between 2.0 and 3.0 seconds
+- "long" if looking time > 3.0 seconds
+
+:::{.callout-note title="Hint"}
+*You'll need to use [`pl.when()`](https://docs.pola.rs/api/python/dev/reference/expressions/api/polars.when.html) and [`pl.lit()`](https://docs.pola.rs/api/python/dev/reference/expressions/api/polars.lit.html) for this.*
+:::
+
+```{python}
+# Your code here
+# Import when and lit if needed: from polars import when, lit
+# Use .with_columns() with conditional logic
+```
+
+## Part 3: Summary Statistics
+
+### Task 3.1: Overall Statistics
+
+Calculate the mean, median, and standard deviation of looking times across all trials. Display these in a single DataFrame.
+
+```{python}
+# Your code here
+# Use .select() with col('looking_time').mean(), .median(), .std()
+```
+
+### Task 3.2: Statistics by Condition
+
+Calculate the mean looking time separately for congruent and incongruent conditions. Which condition has longer looking times?
+
+```{python}
+# Your code here
+# Use .group_by('condition') followed by .agg() to calculate mean looking time
+```
+
+### Task 3.3: Statistics by Multiple Factors
+
+First, create a categorical age variable by categorizing age into "young" (age < 5 years) and "old" (age >= 5 years). Then calculate the mean looking time for each combination of condition, setting, and age category. Your result should have 8 rows (2 conditions × 2 settings × 2 age categories = 8 combinations).
+
+```{python}
+# Your code here
+# Step 1: Create age_category column using conditional logic
+# Step 2: Use .group_by() with multiple columns: ['condition', 'setting', 'age_category']
+```
+
+### Task 3.4: Cat-Level Statistics
+
+For each cat, calculate:
+
+- Their mean looking time
+- The number of trials they completed
+- Their mean age (should be the same for all trials, but calculate it anyway)
+
+Display this in a DataFrame with one row per cat.
+
+```{python}
+# Your code here
+# Use .group_by('cat_id') and .agg() with multiple expressions
+```
+
+## Part 4: Data Visualization
+
+### Task 4.1: Histogram of Looking Times
+
+Create a histogram showing the distribution of looking times across all trials. Use **seaborn's `sns.histplot()`** function for this task. Add appropriate labels to the x-axis, y-axis, and title.
+
+:::{.callout-note title="Hint"}
+*You'll need to convert the Polars DataFrame to pandas format using `.to_pandas()` for seaborn to work with it.*
+:::
+
+```{python}
+# Your code here
+# Use sns.histplot() to create the histogram
+# Don't forget plt.xlabel(), plt.ylabel(), plt.title()
+# Example: sns.histplot(data=df_pandas, x='looking_time', bins=30)
+```
+
+### Task 4.2: Boxplot by Condition
+
+Create a boxplot comparing looking times for congruent vs. incongruent conditions using **seaborn's `sns.boxplot()`**. Which condition has longer looking times on average?
+
+```{python}
+# Your code here
+# Use sns.boxplot() to create the boxplot
+# Remember to convert to pandas if needed: df.to_pandas()
+# Example: sns.boxplot(data=df_pandas, x='condition', y='looking_time')
+```
+
+### Task 4.3: Boxplot by Setting and Age Category
+
+First, create the age category variable (young/old) as in Task 3.3. Then create a more complex visualization showing looking times across all combinations of setting and age category. Use a grouped boxplot or faceted plot.
+
+:::{.callout-note title="Hint"}
+You might want to use `sns.boxplot()` with the `hue` parameter, or create separate subplots.*
+:::
+
+```{python}
+# Your code here
+# Step 1: Create age_category column if you haven't already
+# Step 2: Try using sns.boxplot() with x, y, and hue parameters
+# Or create subplots using plt.subplots()
+```
+
+### Task 4.4: Scatter Plot
+
+Create a scatter plot showing the relationship between looking time and age using **seaborn's `sns.scatterplot()`**. Consider adding a trend line using `sns.regplot()`. Do older cats tend to look longer or shorter than younger cats?
+
+```{python}
+# Your code here
+# Use sns.scatterplot() to create the scatter plot
+# Consider adding a trend line: sns.regplot()
+# Example: sns.scatterplot(data=df_pandas, x='age', y='looking_time')
+```
+
+## Part 5: Advanced Data Manipulation
+
+### Task 5.1: Filtering with Multiple Conditions
+
+Create a DataFrame called `long_congruent` that contains only trials where:
+
+- Looking time is greater than 3.0 seconds, AND
+- The condition was congruent
+
+```{python}
+# Your code here
+# Use .filter() with multiple conditions using & (and) or | (or)
+```
+
+### Task 5.2: Calculating Percentiles
+
+Calculate the 25th, 50th (median), and 75th percentiles of looking time. These are useful summary statistics that describe the distribution of the data.
+
+:::{.callout-note title="Hint"}
+*Polars has a [`.quantile()`](https://docs.pola.rs/api/python/dev/reference/expressions/api/polars.quantile.html) method you can use.*
+:::
+
+```{python}
+# Your code here
+# Use col('looking_time').quantile() with different quantile values
+```
+
+### Task 5.3: Counting Unique Values
+
+For each cat, count how many unique combinations of condition, setting, and trial they experienced. This tells us if all cats saw all conditions.
+
+```{python}
+# Your code here
+# Use .group_by() and .agg() with .n_unique() on multiple columns
+# Or use .group_by() with multiple columns and count rows
+```
+
+### Task 5.4: Reshaping Data
+
+Create a "wide" format DataFrame where each row represents one cat, and columns represent mean looking times for each condition (congruent and incongruent).
+
+:::{.callout-note title="Hint"}
+*You'll need to:*
+
+1. *First calculate mean looking time by cat and condition*
+2. *Then use `.pivot()` to reshape from long to wide format*
+:::
+
+```{python}
+# Your code here
+# Step 1: Group by cat and condition, calculate mean looking time
+# Step 2: Use .pivot() to reshape
+```
+
+## Part 6: Interpretation and Reflection
+
+### Task 6.1: Summary of Findings
+
+Based on your analyses above, write a brief summary (3-4 sentences) of your main findings:
+
+1. Which condition (congruent or incongruent) had longer looking times?
+2. Did setting (cafe vs. house) affect looking time? If so, how?
+3. Did age affect looking time? If so, how?
+4. Were there any notable interactions between factors?
+
+**Your response here:**
+
+## Optional: Challenge Questions
+
+If you finish early and want an extra challenge, try these:
+
+### Challenge 1: Outlier Detection
+
+Identify trials where looking times are more than 3 standard deviations away from the mean. How many such trials are there? Should these be excluded from analysis?
+
+```{python}
+# Your code here
+```
+
+### Challenge 2: Looking Time by Cat
+
+Create a visualization showing each cat's mean looking time, ordered from shortest to longest. Use **seaborn's `sns.barplot()`** or `sns.pointplot()` for this task. This helps identify if there are systematic differences between cats.
+
+```{python}
+# Your code here
+# Use sns.barplot() or sns.pointplot() to create the visualization
+```
+
+### Challenge 3: Looking Time by Number of Cohabitants
+
+Calculate mean looking time for different numbers of cohabitants. Create a visualization using **seaborn's `sns.barplot()`** or `sns.boxplot()` showing how looking time varies with the number of cohabitants. You might want to categorize n_cohabitants into bins (e.g., low, medium, high) for easier visualization.
+
+```{python}
+# Your code here
+# Use sns.barplot() or sns.boxplot() to create the visualization
+```
+
+---
+
+## Submission Checklist
+
+Before submitting, make sure you have:
+
+- [ ] Completed all required tasks (Parts 1-6) including written responses
+- [ ] Reviewed the Grading guidelines at the top
+- [ ] Checked that all code cells run without errors
+- [ ] Committed and pushed your changes to git
+
+**Good luck!**

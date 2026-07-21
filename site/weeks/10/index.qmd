@@ -19,7 +19,20 @@ title: "Week 10"
 
 
 ::: {.callout-tip title="Slides Wed March 11" collapse=true}
- ![](slides/03-11.pdf){width=100% height=600} 
+ ![](slides/03-11.pdf){width=100% height=600}
+:::
+
+## Materials
+
+:::{.callout-caution icon=false title="📚 Lab"}
+[Github Classroom Assignment](https://classroom.github.com/a/hI4DwE-w)
+
+*Same Classroom assignment as [week 8](/weeks/08/index.qmd) — it contained all the lab notebooks for weeks 8–10.*
+
+Lab notebooks:
+
+- [Mixed Models — Extending the GLM](lab/01-mixed-models.qmd)
+- [Odds and Ends (optional extras)](lab/02-odds-and-ends.qmd)
 :::
 
 ## Resources

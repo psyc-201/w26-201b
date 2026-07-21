@@ -31,6 +31,10 @@ title: "Week 4"
 [Github Classroom Assignment](https://classroom.github.com/a/4fpqkA1P)
 :::
 
+:::{.callout-caution icon=false title="📝 HW 2 - Resampling based Inference"}
+[HW 2 notebook](hw/hw2.qmd)
+:::
+
 ## Mentioned References
 
 - Statistics for Hackers

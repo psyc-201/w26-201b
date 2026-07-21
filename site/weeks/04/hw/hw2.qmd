@@ -1,0 +1,343 @@
+---
+sidebar: weeks
+title: "HW 2: Resampling based Inference"
+author: "Eshin Jolly"
+date: "Jan 28, 2026"
+code-line-numbers: false
+code-fold: show
+code-overflow: wrap
+execute:
+  warning: false
+resources:
+  - data
+---
+
+**Authors:** Jane Yang, Eshin Jolly
+
+**Date:** 01/28/26
+
+**Deadline: Midnight Monday Feb 1st, 2026**
+This homework builds on your HW1 exploration of the cat name recognition dataset. You'll apply the three resampling methods you learned in lab — bootstrap, simulation, and cross-validation — to make statistical inferences about the data. Reference the Week 4 lab notebooks to help you out (also available on the course website).
+
+
+:::{.callout-tip title="Grading"}
+Your Instructors will grade the **last `git push`** you submit by the deadline.
+However, after we review the HW together during lab, you can push additional changes to improve your grade.
+
+We'll be looking for:
+
+1. **Computation** — correct, runnable code
+2. **Analysis** — appropriate statistical approach for the data structure
+3. **Synthesis** — interpretation of results in the context of the cat experiment
+4. **Visual presentation** — clear, labeled, informative plots
+5. **Written communication** — concise explanations that demonstrate understanding
+:::
+
+:::{.callout-note title="Additional Resources"}
+
+- Week 4 Lab notebooks (01-sampling.py and 02-explanation-prediction.py)
+- [`scikit-learn` cross-validation documentation](https://scikit-learn.org/stable/modules/cross_validation.html)
+
+**Remember to ping your instructors on Github/Slack if you get stuck!**
+:::
+
+## Background
+
+In HW1 you explored the cat name recognition dataset using polars and seaborn. You computed summary statistics, created visualizations, and observed patterns in looking times across conditions, settings, and ages.
+
+Now we'll use **resampling methods** to move beyond description to *inference*: quantifying uncertainty, checking assumptions, and evaluating predictions.
+
+**Quick data recap:**
+
+- 48 cats, 4 trials each (192 rows total, some missing values)
+- **Condition** (within-subjects): congruent (own name) vs incongruent (other name)
+- **Setting** (between-subjects): cafe vs house
+- **Age**: continuous (years)
+- **Outcome**: looking_time (seconds)
+
+Each section below focuses on **one resampling technique** applied to **one question**. For each, you'll write code, create a visualization, and write an interpretation.
+
+---
+
+## Setup
+
+Let's the libraries you'll need. We've listed the key ones below.
+
+```{python}
+import polars as pl
+from polars import col
+import seaborn as sns
+from sklearn.model_selection import KFold, LeaveOneOut
+
+# Plotting style
+sns.set_style("whitegrid")
+
+# Reproducibility for cross-validation
+RNG_SEED = 42
+```
+
+## Load and Prepare Data (1pt)
+
+Load the dataset and drop any rows with missing looking times. Then create a **cat-level summary** DataFrame that you'll reuse throughout the assignment.
+
+Your `cat_summary` should have one row per cat with the following columns:
+
+- `cat_id`, `age`, `setting`
+- `mean_lt`: mean looking time across all of that cat's trials
+- `congruent`: mean looking time for congruent trials
+- `incongruent`: mean looking time for incongruent trials
+- `diff_score`: `congruent` minus `incongruent`
+
+:::{.callout-note title="Hint"}
+Use `pl.read_csv()` to load the data, then `.drop_nulls(subset=["looking_time"])` to remove missing values. For the cat-level summary, you can:
+
+1. Create a cat-level means table with `.group_by("cat_id").agg(...)`
+2. Create a pivoted table of condition means with `.group_by("cat_id", "condition").agg(...)` followed by `.pivot()`
+3. `.join()` the two tables on `cat_id`
+4. `.with_columns()` to compute `diff_score`
+:::
+
+```{python}
+# Your code here (feel free to create additional code cells as needed for this any any other questions!)
+```
+
+---
+
+## Part 1: Bootstrap — How uncertain is the age–looking time correlation?
+
+**5 points total**
+
+---
+
+In HW1 you may have noticed a trend when plotting age against looking time. But how **confident** should we be in the strength of that relationship?
+
+Use **bootstrapping** to quantify the uncertainty of the Pearson correlation between age and mean looking time at the cat level.
+
+### Task 1.1: Compute the observed correlation (1pt)
+
+Calculate the Pearson correlation between `age` and `mean_lt` from your cat-level summary using [`pl.corr`](https://docs.pola.rs/api/python/dev/reference/expressions/api/polars.corr.html)
+
+```{python}
+# Your code here
+```
+
+### Task 1.2: Bootstrap the correlation (2pts)
+
+Use the **manual bootstrap** pattern from lab to compute a **95% confidence interval** for the Pearson correlation between age and mean looking time. Use 5,000 resamples.
+
+:::{.callout-note title="Hint"}
+Use the manual bootstrap pattern from lab:
+
+1. Loop `nboot` times (e.g., 5000)
+2. In each iteration, resample `cat_summary` with replacement using `.sample(n=n_cats, with_replacement=True)`
+3. Compute the correlation on the resampled data using `pl.corr("age", "mean_lt")`
+4. Store each correlation in a list, then convert to a DataFrame
+
+For the 95% CI, use the **percentile method**: the 2.5th and 97.5th percentiles of the bootstrap distribution.
+:::
+
+```{python}
+# Your code here
+```
+
+### Task 1.3: Visualize the bootstrap distribution (1pt)
+
+Create a histogram of the bootstrapped correlation coefficients. Add:
+
+- A vertical reference line for the estimated (observed) correlation
+- The 95% CI bounds (shaded)
+
+Label your axes and add a title.
+
+```{python}
+# Your code here
+```
+
+### Task 1.4: Interpret your results (2pts)
+
+Write 3–4 sentences interpreting the bootstrap results in context:
+
+1. What is the observed correlation and what does it mean for the experiment?
+2. What does the 95% CI tell you about the uncertainty of this estimate?
+3. Does the CI include zero? What does that imply about the relationship between age and looking time?
+
+*Your response here...*
+
+---
+
+## Part 2: Simulation — Is the normality assumption reasonable?
+
+**5 points total**
+
+---
+
+Many classical statistical tests assume that the data (or a summary statistic like the mean) follows a **normal distribution**. But is that assumption justified for our cat looking time data?
+
+Use **Monte Carlo simulation** to compare what we'd expect under a normal assumption to what we would expect under a t-distribution assumption.
+
+### Task 2.1: Use Monte-Carlo simulation under gaussian (normal) and t-distribution assumptions to build sampling distributions of the mean looking time (2pts)
+
+Simulate 5,000 hypothetical experiments under the assumption that cat-level mean looking times are either **normally distributed** or **t-distributed** using the observed mean and standard deviation from the dataset
+
+For each simulated experiment:
+
+1. Draw 48 values separately from a normal distribution and t-distribution with the observed mean and SD
+2. Separately compute the mean of those 48 values
+3. Separately store them
+
+This gives you 2 **simulated sampling distribution** of the mean under normal and t-distribution assumptions.
+Compute the **standard deviation** of each distribution and compare it the the **observed standard error**
+
+:::{.callout-note title="Hint"}
+First use polars to compute the observed mean and standard deviation from `cat_summary`. Use the lab pattern for generating random samples with the `normal()` function. The cell below sets up the imported functions for you. For the t-distribution we've setup the function for you and you you can use it in the same way as `normal()` except for 1 difference:
+
+The first argument is a *degrees-of-freedom* value, which for simplicity you can set to 46 (48 cats - 2)
+
+```python
+# Simulate from a normal
+simulated_sample_normal = normal(loc=obs_mean, scale=obs_sd, size=n_cats)
+
+# Simulate from a t-dist (notice df=46, otherwise the same!)
+simulated_sample_tdist = tdist(df=46, loc=obs_mean, scale=obs_sd, size=n_cats)
+```
+:::
+
+```{python}
+# We're importing some stuff to help
+import numpy as np
+from scipy.stats import t as tclass
+from numpy.random import normal
+tdist = tclass.rvs
+
+# After running this cell
+# you can use normal()
+# and you can use tdist() 
+# below!
+```
+
+```{python}
+# Your code here
+```
+
+### Task 2.2: Compare the distributions visually (1pt)
+
+Create a single figure with overlapping histograms (or KDE plots) of:
+
+1. The **normal distribution** simulated sampling distribution
+2. The **t-distribution** simulated sampling distribution
+
+Use different colors and add a legend
+
+```{python}
+# Your code here
+```
+
+### Task 2.3: Interpret your results (2pts)
+
+Write 3–4 sentences comparing the two sampling distributions:
+
+1. How similar or different are they in shape, center, and *spread*?
+2. How do their standard deviations compare to the observed standard error?
+3. What does this tell you about whether assuming normality is or isn't reasonable this estimator (mean)?
+
+*your response here...*
+
+---
+
+## Part 3: Cross-Validation — Does knowing condition improve prediction?
+
+Finally, let's think about **prediction**. We have two candidate strategies for predicting a cat's looking time on a given trial:
+
+- **Model A (overall mean):** Predict every trial using the grand mean across all cats and trials.
+- **Model B (condition means):** Predict each trial using the mean for that trial's condition (congruent or incongruent).
+
+Use **K-fold cross-validation** to compare these strategies. The key constraint: hold out entire **cats** (not individual trials) to avoid data leakage, since trials from the same cat are not independent.
+
+### Task 3.1: Set up K-fold CV by cat (2pts)
+
+Use scikit-learn's `KFold` to create **5 folds** over the unique cat IDs (not over rows). For each fold:
+
+1. Split cat IDs into train and test sets
+2. Filter `df` to get training and test trials
+3. **Model A:** Compute the grand mean from training data; predict all test trials with this value; compute RMSE on test data
+4. **Model B:** Compute condition-specific means from training data; predict each test trial using the mean for its condition; compute RMSE on test data
+5. Store the RMSE values for each fold
+
+:::{.callout-note title="Hint"}
+```python
+cat_ids = cat_summary["cat_id"].to_list()
+kf = KFold(n_splits=5, shuffle=True, random_state=RNG_SEED)
+
+for train_idx, test_idx in kf.split(cat_ids):
+    train_cats = [cat_ids[i] for i in train_idx]
+    test_cats = [cat_ids[i] for i in test_idx]
+    # Filter df for train/test cats using .filter(col("cat_id").is_in(...))
+```
+
+RMSE formula using polars (from lab):
+```python
+rmse = test_df.select(
+    col('looking_time').sub(prediction).pow(2).mean()
+).select(col('looking_time').sqrt()).item()
+```
+
+For Model B predictions, try using [`.replace_strict()`](https://docs.pola.rs/api/python/dev/reference/expressions/api/polars.Expr.replace_strict.html) to map condition labels to their training-set means.
+:::
+
+```{python}
+# Your code here
+```
+
+### Task 3.2: Visualize the CV results (1pt)
+
+Create a visualization comparing RMSE across folds for the two models. This could be a grouped bar chart, paired dot plot, or box plot — choose whatever makes the comparison clearest. Also report the mean RMSE for each model.
+
+```{python}
+# Your code here
+```
+
+### Task 3.3: Interpret your results (2pts)
+
+Write 3–4 sentences interpreting the cross-validation results:
+
+1. Which model had lower RMSE? By how much?
+2. Does knowing the condition meaningfully improve prediction of looking time?
+3. What does this tell you about whether condition is a useful predictor?
+4. How does this relate to your bootstrap findings about the age–looking time correlation?
+
+*your response here...*
+
+---
+
+## Conclusion: Synthesis
+
+**3 pts total**
+
+---
+
+Write a short paragraph (4–6 sentences) reflecting on how the three techniques you used address **different types of questions**:
+
+- **Bootstrap** answers: *"How uncertain is my estimate?"*
+- **Simulation** answers: *"Are my assumptions reasonable?"*
+- **Cross-validation** answers: *"Does my model generalize to new data?"*
+
+In your reflection, discuss which technique was most informative for understanding the cat name recognition experiment, and why.
+
+*your response here...*
+
+---
+
+## Submission Checklist
+
+Before submitting, make sure you have:
+
+- [ ] Completed all required tasks including written responses
+- [ ] All code cells run without errors
+- [ ] All plots have labeled axes and informative titles
+- [ ] Written interpretations are specific to the data (not generic)
+- [ ] Reviewed the Grading guidelines at the top
+- [ ] Committed and pushed your changes to git
+
+**Good luck!**
+
+

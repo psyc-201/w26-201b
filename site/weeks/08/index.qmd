@@ -8,7 +8,6 @@ title: "Week 8"
 ### Learning Goals
 
 - [ ] Understand the Design Matrix
-- [ ] Understand Marginal Effects Estimation
 - [ ] Understand Parameter Inference
  
 ## Slides
@@ -27,6 +26,12 @@ title: "Week 8"
 
 :::{.callout-caution icon=false title="📚 Lab"}
 [Github Classroom Assignment](https://classroom.github.com/a/hI4DwE-w)
+
+*This single Classroom assignment contained all the lab notebooks for weeks 8–10; on this site they're organized by the week each was covered.*
+
+Lab notebooks:
+
+- [Parameter Inference](lab/01-parameter-inference.qmd)
 :::
 
 ## Readings

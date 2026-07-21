@@ -8,19 +8,34 @@ title: "Week 9"
 ### Learning Goals
 
 - [ ] Understand Marginal Effects Estimation
+- [ ] Understand Logistic Regression
 
 :::{.callout-note title="Marginal Effects Mixing Board"}
 You can play with an interactive *mixing board* using the Palmer penguins dataset at: [https://model-mixing-board.surge.sh](https://model-mixing-board.surge.sh). See it it helps build your intuitions!
 :::
 
 
- 
+
 ## Slides
 
 ::: {.callout-tip title="Slides Mon March 02" collapse=true}
- ![](slides/03-02.pdf){width=100% height=600} 
+ ![](slides/03-02.pdf){width=100% height=600}
 :::
 
+
+## Materials
+
+:::{.callout-caution icon=false title="📚 Lab"}
+[Github Classroom Assignment](https://classroom.github.com/a/hI4DwE-w)
+
+*Same Classroom assignment as [week 8](/weeks/08/index.qmd) — it contained all the lab notebooks for weeks 8–10.*
+
+Lab notebooks:
+
+- [Marginal Effects & the Mixing Board](lab/01-marginal-effects.qmd)
+- [Logistic Regression & Marginal Effects](lab/02-logistic-regression.qmd)
+- [HW/Challenge 3: Full Modeling Workflow](lab/challenge.qmd)
+:::
 
 ## Readings
 

@@ -1,0 +1,2876 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eshin Jolly">
+<meta name="dcterms.date" content="2026-03-10">
+
+<title>Mixed Models — Extending the GLM – PSYC 201B</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-0441d281c0042f78ca5e6da214781463.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/custom.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../logo25.png" alt="" class="navbar-logo light-content">
+    <img src="../../../logo25.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">PSYC 201B</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../weeks/final/project.html"> 
+<span class="menu-text">Final Project</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../datasets.html"> 
+<span class="menu-text">Open Datasets</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../guides/terminology.html"> 
+<span class="menu-text">Glossary</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-guides--resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Guides &amp; Resources</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-guides--resources">    
+        <li>
+    <a class="dropdown-item" href="../../../guides/git-guide.html">
+ <span class="dropdown-text">Git &amp; Github</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/classroom-guide.html">
+ <span class="dropdown-text">Github Classroom</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/python-resources.html">
+ <span class="dropdown-text">Python Resources</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/notation.html">
+ <span class="dropdown-text">Mathematical Notation Reference</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/formulas.html">
+ <span class="dropdown-text">Common Formulas Reference</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://forms.gle/eXfTXVqYxCCFbv9c7"> 
+<span class="menu-text">Anonymous Feedback</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://psyc201b.github.io/PSYC-201B/"> 
+<span class="menu-text">Previous course versions</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/psyc-201/w26-201b" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../weeks/10/index.html">Week 10</a></li><li class="breadcrumb-item"><a href="../../../weeks/10/lab/01-mixed-models.html">Mixed Models</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+  <div id="quarto-announcement" data-announcement-id="463ac3992fb02f6015f02a46d3fd5318" class="alert alert-success hidden"><i class="bi bi-megaphone-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>Site Updates:</strong> Week 10 Slides</p>
+</div></div>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/lab/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">“Pre-flight” Lab Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/lab/python-fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python Fundamentals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/lab/polars-crash-course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Polars (dataframes) Crash Course</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/lab/seaborn-crash-course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Seaborn (plotting) Crash Course</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/lab/eda-workflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EDA Workflows</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/hw/hw1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HW 1: Data Exploration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/03/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/lab/01-sampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Simulation &amp; Bootstrapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/lab/02-explanation-prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Permutation &amp; Cross-Validation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/hw/hw2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HW 2: Resampling Inference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 5</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/05/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 6</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/06/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/06/lab/01-glm-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regression Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/06/lab/02-categorical-coding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Categorical Predictors</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 8</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/08/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/08/lab/01-parameter-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Parameter Inference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 9</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/lab/01-marginal-effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Marginal Effects &amp; the Mixing Board</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/lab/02-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Logistic Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/lab/challenge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HW/Challenge 3: Modeling Workflow</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 10</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/10/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/10/lab/01-mixed-models.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Mixed Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/10/lab/02-odds-and-ends.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Odds &amp; Ends</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#simpsons-paradox-why-independence-matters" id="toc-simpsons-paradox-why-independence-matters" class="nav-link active" data-scroll-target="#simpsons-paradox-why-independence-matters">Simpson’s Paradox: Why Independence Matters</a></li>
+  <li><a href="#three-approaches-to-clustered-data" id="toc-three-approaches-to-clustered-data" class="nav-link" data-scroll-target="#three-approaches-to-clustered-data">Three Approaches to Clustered Data</a>
+  <ul>
+  <li><a href="#approach-1-complete-pooling" id="toc-approach-1-complete-pooling" class="nav-link" data-scroll-target="#approach-1-complete-pooling">Approach 1: Complete Pooling</a></li>
+  <li><a href="#approach-2-no-pooling" id="toc-approach-2-no-pooling" class="nav-link" data-scroll-target="#approach-2-no-pooling">Approach 2: No Pooling</a></li>
+  <li><a href="#approach-3-partial-pooling-mixed-models" id="toc-approach-3-partial-pooling-mixed-models" class="nav-link" data-scroll-target="#approach-3-partial-pooling-mixed-models">Approach 3: Partial Pooling (Mixed Models)</a>
+  <ul class="collapse">
+  <li><a href="#random-intercepts" id="toc-random-intercepts" class="nav-link" data-scroll-target="#random-intercepts">Random Intercepts</a></li>
+  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn">Your Turn</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#how-to-choose-varying-effects-keep-it-maximal" id="toc-how-to-choose-varying-effects-keep-it-maximal" class="nav-link" data-scroll-target="#how-to-choose-varying-effects-keep-it-maximal">How to Choose Varying Effects: Keep it Maximal</a>
+  <ul>
+  <li><a href="#start-with-the-maximal-structure" id="toc-start-with-the-maximal-structure" class="nav-link" data-scroll-target="#start-with-the-maximal-structure">1. Start with the maximal structure</a></li>
+  <li><a href="#diagnose-why-convergence-fails" id="toc-diagnose-why-convergence-fails" class="nav-link" data-scroll-target="#diagnose-why-convergence-fails">2. Diagnose <em>why</em> convergence fails</a></li>
+  <li><a href="#simplify-starting-with-higher-order-terms" id="toc-simplify-starting-with-higher-order-terms" class="nav-link" data-scroll-target="#simplify-starting-with-higher-order-terms">3. Simplify starting with higher-order terms</a></li>
+  <li><a href="#use-model-comparison-compare" id="toc-use-model-comparison-compare" class="nav-link" data-scroll-target="#use-model-comparison-compare">4. Use model comparison (<code>compare()</code>)</a></li>
+  <li><a href="#now-use-jointtest-and-explore-to-understand-fixed-effects" id="toc-now-use-jointtest-and-explore-to-understand-fixed-effects" class="nav-link" data-scroll-target="#now-use-jointtest-and-explore-to-understand-fixed-effects">5. Now use <code>jointtest()</code> and <code>explore()</code> to understand fixed effects</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul></li>
+  <li><a href="#your-turn-growth-curves" id="toc-your-turn-growth-curves" class="nav-link" data-scroll-target="#your-turn-growth-curves">Your Turn: Growth Curves</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../weeks/10/index.html">Week 10</a></li><li class="breadcrumb-item"><a href="../../../weeks/10/lab/01-mixed-models.html">Mixed Models</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Mixed Models — Extending the GLM</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eshin Jolly </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 10, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="d971583e" class="cell" data-execution_count="1">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import what we need</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> polars <span class="im">as</span> pl</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> polars <span class="im">import</span> col</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bossanova <span class="im">import</span> model, compare, load_dataset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Over the past few notebooks we’ve built a solid GLM toolkit:</p>
+<ul>
+<li>Parameter inference using asymptotic (formula), bootstrap, and permutation approaches with <code>.infer(how='asym|boot|perm')</code></li>
+<li>The marginal effects with the mixing board using <code>.explore()</code></li>
+<li>Generalized Linear Models like Logistic regression for binary outcomes using <code>family='binomial'</code></li>
+</ul>
+<p>Thus far, every model we’ve fit so far has assumed that <strong>each observation is independent</strong> — knowing one data point tells you nothing about another and therefore errors are <strong>independent &amp; identitically distributed (iid)</strong> .</p>
+<p>But that assumption breaks down all the time in real data:</p>
+<ul>
+<li>The same <em>person</em> measured on multiple days (repeated measures)</li>
+<li><em>trials</em> nested within <em>participants</em> in an experiment</li>
+<li><em>students</em> nested within <strong>classrooms</strong></li>
+</ul>
+<p>When observations share a <strong>cluster</strong> they tend to be more similar to each other than to observations from other clusters. Ignoring this leads to <strong>overconfident estimates</strong> — your standard errors are too small and your p-values too optimistic.</p>
+<p>The fix? <strong>Mixed models:</strong> they’re just another extension of the GLM you already know. Same <code>model()</code> function, same <code>.explore()</code> mixing board, same <code>compare()</code> for model comparison. We just add a new ingredient to the <strong>formula.</strong></p>
+<section id="simpsons-paradox-why-independence-matters" class="level2">
+<h2 class="anchored" data-anchor-id="simpsons-paradox-why-independence-matters">Simpson’s Paradox: Why Independence Matters</h2>
+<p>Before we get to the mechanics, let’s see <em>why</em> ignoring data structure can go badly wrong.</p>
+<p>Here’s a simple dataset with 10 observations. There’s a variable <code>x1235</code> and an outcome <code>y</code>. There’s also a column <code>group</code> which reflects which group <strong>repeated observations</strong> came from.</p>
+<p>First, let’s fit a simple regression ignoring <code>group</code>:</p>
+<div id="c292153b" class="cell" data-execution_count="2">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>simpson <span class="op">=</span> pl.read_csv(<span class="st">"data/simpson.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>simpson.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 8)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">x1235</th>
+<th data-quarto-table-cell-role="th">y1</th>
+<th data-quarto-table-cell-role="th">y2</th>
+<th data-quarto-table-cell-role="th">y3</th>
+<th data-quarto-table-cell-role="th">y5</th>
+<th data-quarto-table-cell-role="th">x4</th>
+<th data-quarto-table-cell-role="th">y4</th>
+<th data-quarto-table-cell-role="th">group</th>
+</tr>
+<tr class="even">
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>str</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>10.0</td>
+<td>8.04</td>
+<td>9.14</td>
+<td>7.46</td>
+<td>9.82</td>
+<td>8.0</td>
+<td>6.58</td>
+<td>"A"</td>
+</tr>
+<tr class="even">
+<td>8.0</td>
+<td>6.95</td>
+<td>8.14</td>
+<td>6.77</td>
+<td>5.56</td>
+<td>8.0</td>
+<td>5.76</td>
+<td>"B"</td>
+</tr>
+<tr class="odd">
+<td>13.0</td>
+<td>7.58</td>
+<td>8.74</td>
+<td>12.74</td>
+<td>9.51</td>
+<td>8.0</td>
+<td>7.71</td>
+<td>"A"</td>
+</tr>
+<tr class="even">
+<td>9.0</td>
+<td>8.81</td>
+<td>8.77</td>
+<td>7.11</td>
+<td>5.45</td>
+<td>8.0</td>
+<td>8.84</td>
+<td>"B"</td>
+</tr>
+<tr class="odd">
+<td>11.0</td>
+<td>8.33</td>
+<td>9.26</td>
+<td>7.81</td>
+<td>9.72</td>
+<td>8.0</td>
+<td>8.47</td>
+<td>"A"</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>We can do this visually first using <code>seaborn</code></p>
+<div id="ff50469f" class="cell" data-execution_count="3">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    sns.lmplot(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>simpson,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">'x1235'</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">'y5'</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        truncate<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        ci<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">set</span>(ylim<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">12</span>), xlim<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">20</span>), xlabel<span class="op">=</span><span class="st">'X'</span>, ylabel<span class="op">=</span><span class="st">'Y'</span>, title<span class="op">=</span><span class="st">'Complete Pooling'</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-mixed-models_files/figure-html/cell-4-output-1.png" width="485" height="490" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Notice how the regression slope is <em>positive</em> but the trend within each cluster is clearly <em>negative</em></p>
+<p>Lets estimate a model to confirm:</p>
+<p><em>Tip: you can always chain the <code>.summary()</code> method to <code>.fit()</code>, <code>.infer()</code>, and <code>.explore()</code> to print an R style summary if you prefer that to polars dataframes accessible via <code>.params</code> and <code>.effects</code></em></p>
+<div id="badb5e3d" class="cell" data-execution_count="4">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>model(<span class="st">'y5 ~ x1235'</span>, data<span class="op">=</span>simpson).fit().summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>Linear Model: y5 ~ x1235
+
+Residuals:
+    Min      1Q  Median      3Q     Max
+ -2.050  -0.710   0.011   0.820   1.820
+
+Coefficients:
+             Estimate
+  Intercept     3.002
+      x1235     0.500
+
+Residual std error: 1.236 on 9 df
+Multiple R-squared: 0.666, Adjusted R-squared: 0.629
+AIC: 37.7, BIC: 38.5</code></pre>
+</div>
+</div>
+<p>Look at <code>Coefficients:</code> in the output above. Notice how the estimate for <code>x1235</code> is <strong>positive</strong>?</p>
+<p>Now we if we stratify data by the <code>group</code> column and re-plot/model we can see this trend reverse:</p>
+<div id="c1935541" class="cell" data-execution_count="5">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    sns.lmplot(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>simpson,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">'x1235'</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">'y5'</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        hue<span class="op">=</span><span class="st">'group'</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        truncate<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">set</span>(ylim<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">12</span>), xlim<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">20</span>), xlabel<span class="op">=</span><span class="st">'X'</span>, ylabel<span class="op">=</span><span class="st">'Y'</span>, title<span class="op">=</span><span class="st">'Partial Pooling'</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-mixed-models_files/figure-html/cell-6-output-1.png" width="528" height="490" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="9956dba5" class="cell" data-execution_count="6">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a model with intercept per group</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="op">=</span> model(<span class="st">'y5 ~ x1235 + (1 | group)'</span>, data<span class="op">=</span>simpson).fit()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>m2.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>Linear Mixed Model fit by REML: y5 ~ x1235 + (1 | group)
+Number of obs: 11, groups:  group, 2
+
+REML criterion at convergence: -36.436
+
+Scaled residuals:
+    Min      1Q  Median      3Q     Max
+ -1.540  -0.570  -0.176   0.835   1.188
+
+Varying effects:
+ Groups    Name       Variance  Std.Dev.    Corr
+ group     Intercept    10.040     3.169        
+ Residual                0.000     0.011        
+ ICC: 1.000
+
+Fixed effects:
+             Estimate
+  Intercept     8.719
+      x1235    -0.113
+
+AIC: -30.4, BIC: -29.2</code></pre>
+</div>
+</div>
+<p>Look at the <code>Fixed effects</code> towards to bottom (same as <code>.params</code>):</p>
+<p>By <code>x1235</code> now has a <strong>negative</strong> estimate — the opposite of what the pooled regression told us!</p>
+<p>This is <strong>Simpson’s Paradox</strong>: the overall trend reverses when you account for groups.</p>
+<p>The problem is that participants differ in their <em>baseline</em> levels of both <code>x</code> and <code>y</code>. When we pool everyone together, those between-person differences create a spurious positive trend. This is exactly what happens when you violate the independence assumption — you confuse <em>between-cluster</em> variation with <em>within-cluster</em> effects.</p>
+</section>
+<section id="three-approaches-to-clustered-data" class="level2">
+<h2 class="anchored" data-anchor-id="three-approaches-to-clustered-data">Three Approaches to Clustered Data</h2>
+<p>Let’s work through a classic dataset to see how different approaches handle clustering. The <strong>sleep deprivation study</strong> (Belenky et al., 2003) measured reaction times for 18 participants over 10 days of sleep deprivation:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Subject</td>
+<td>Participant ID</td>
+</tr>
+<tr class="even">
+<td>Days</td>
+<td>Days of sleep deprivation (0–9)</td>
+</tr>
+<tr class="odd">
+<td>Reaction</td>
+<td>Average reaction time (ms)</td>
+</tr>
+</tbody>
+</table>
+<p>The question: <strong>How does sleep deprivation affect reaction time?</strong></p>
+<div id="c4e3235b" class="cell" data-execution_count="7">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sleep <span class="op">=</span> load_dataset(<span class="st">"sleep"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sleep.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Subject</th>
+<th data-quarto-table-cell-role="th">Days</th>
+<th data-quarto-table-cell-role="th">Reaction</th>
+</tr>
+<tr class="even">
+<td>i64</td>
+<td>i64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>308</td>
+<td>0</td>
+<td>249.56</td>
+</tr>
+<tr class="even">
+<td>308</td>
+<td>1</td>
+<td>258.7047</td>
+</tr>
+<tr class="odd">
+<td>308</td>
+<td>2</td>
+<td>250.8006</td>
+</tr>
+<tr class="even">
+<td>308</td>
+<td>3</td>
+<td>321.4398</td>
+</tr>
+<tr class="odd">
+<td>308</td>
+<td>4</td>
+<td>356.8519</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="04c9aadc" class="cell" data-execution_count="8">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sns.relplot(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>sleep.to_pandas(),</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"Days"</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"Reaction"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"Subject"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"line"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">4</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    aspect<span class="op">=</span><span class="fl">1.5</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    palette<span class="op">=</span><span class="st">"tab20"</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-mixed-models_files/figure-html/cell-9-output-1.png" width="566" height="374" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Notice two things:</p>
+<ol type="1">
+<li><strong>Overall trend</strong>: reaction time increases with days of deprivation</li>
+<li><strong>Individual differences</strong>: some people start fast and stay fast, others start slow and get much slower</li>
+</ol>
+<p>Let’s review the three approaches for dealing with dependent data we discussed in lecture:</p>
+<section id="approach-1-complete-pooling" class="level3">
+<h3 class="anchored" data-anchor-id="approach-1-complete-pooling">Approach 1: Complete Pooling</h3>
+<p>Ignore the grouping entirely — fit one regression line through all 180 observations:</p>
+<p><span class="math display">\[
+Reaction_i = \beta_0 + \beta_1 \cdot Days_i + \epsilon_i
+\]</span></p>
+<p>This is what we’ve been doing in every model so far. It assumes all observations are independent.</p>
+<div id="b6f4aacb" class="cell" data-execution_count="9">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>m_complete <span class="op">=</span> model(<span class="st">"Reaction ~ Days"</span>, sleep).fit()</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>m_complete.params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (2, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>251.4</td>
+</tr>
+<tr class="even">
+<td>"Days"</td>
+<td>10.47</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>The model says reaction time increases by ~10.5 ms per day. But this estimate pretends all 180 data points are independent — it doesn’t know that groups of 10 come from the same person. The standard errors will be <strong>too small</strong>.</p>
+</section>
+<section id="approach-2-no-pooling" class="level3">
+<h3 class="anchored" data-anchor-id="approach-2-no-pooling">Approach 2: No Pooling</h3>
+<p>Fit a <em>separate</em> regression for each participant — 18 independent models:</p>
+<div id="ba626228" class="cell" data-execution_count="10">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a separate model per subject</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>no_pool_results <span class="op">=</span> []</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over unique subjects</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> subj <span class="kw">in</span> sleep.select(<span class="st">"Subject"</span>).unique().sort(<span class="st">"Subject"</span>).to_series():</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get just their data points</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    subj_data <span class="op">=</span> sleep.<span class="bu">filter</span>(pl.col(<span class="st">"Subject"</span>) <span class="op">==</span> subj)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fit a model</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> model(<span class="st">"Reaction ~ Days"</span>, subj_data).fit()</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Save estimates</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    no_pool_results.append({</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Subject"</span>: subj,</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Intercept"</span>: m.params[<span class="st">"estimate"</span>][<span class="dv">0</span>],</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Slope"</span>: m.params[<span class="st">"estimate"</span>][<span class="dv">1</span>],</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>no_pool <span class="op">=</span> pl.DataFrame(no_pool_results)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>no_pool</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (18, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Subject</th>
+<th data-quarto-table-cell-role="th">Intercept</th>
+<th data-quarto-table-cell-role="th">Slope</th>
+</tr>
+<tr class="even">
+<td>i64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>308</td>
+<td>244.2</td>
+<td>21.76</td>
+</tr>
+<tr class="even">
+<td>309</td>
+<td>205.1</td>
+<td>2.262</td>
+</tr>
+<tr class="odd">
+<td>310</td>
+<td>203.5</td>
+<td>6.115</td>
+</tr>
+<tr class="even">
+<td>330</td>
+<td>289.7</td>
+<td>3.008</td>
+</tr>
+<tr class="odd">
+<td>331</td>
+<td>285.7</td>
+<td>5.266</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>352</td>
+<td>276.4</td>
+<td>13.57</td>
+</tr>
+<tr class="even">
+<td>369</td>
+<td>255.0</td>
+<td>11.35</td>
+</tr>
+<tr class="odd">
+<td>370</td>
+<td>210.4</td>
+<td>18.06</td>
+</tr>
+<tr class="even">
+<td>371</td>
+<td>253.6</td>
+<td>9.188</td>
+</tr>
+<tr class="odd">
+<td>372</td>
+<td>267.0</td>
+<td>11.3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Now each person gets their own intercept and slope. But this approach has problems too:</p>
+<ul>
+<li>Subjects with noisy data get <strong>extreme estimates</strong> (no borrowing of information across people)</li>
+<li>We can’t make <strong>population-level</strong> statements — we just have 18 separate stories</li>
+<li>If someone has very few observations, their estimates are unreliable</li>
+</ul>
+</section>
+<section id="approach-3-partial-pooling-mixed-models" class="level3">
+<h3 class="anchored" data-anchor-id="approach-3-partial-pooling-mixed-models">Approach 3: Partial Pooling (Mixed Models)</h3>
+<p>The sweet spot. A mixed model estimates <strong>one population-level trend</strong> while allowing each participant to deviate from it:</p>
+<p><span class="math display">\[
+Reaction_{ij} = (\beta_0 + u_{0j}) + (\beta_1 + u_{1j}) \cdot Days_{ij} + \epsilon_{ij}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\beta_0, \beta_1\)</span> are the <strong>fixed effects</strong> — the population average intercept and slope</li>
+<li><span class="math inline">\(u_{0j}, u_{1j}\)</span> are the <strong>varying effects</strong> — how much subject <span class="math inline">\(j\)</span> deviates from the population</li>
+<li>The varying effects are assumed to come from a normal distribution: <span class="math inline">\(u_j \sim N(0, \tau^2)\)</span></li>
+</ul>
+<p>This is called <strong>partial pooling</strong> because each person’s estimate is pulled (“shrunk”) toward the population average. People with noisy data get pulled more; people with clear patterns keep their individuality.</p>
+<section id="random-intercepts" class="level4">
+<h4 class="anchored" data-anchor-id="random-intercepts">Random Intercepts</h4>
+<p>In <code>bossanova</code> and <code>lme4</code> in R, <strong>varying effects term</strong> use the followin formula syntax:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Formula part</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>(1 \| Subject)</code></td>
+<td>Random <strong>intercept only</strong> per <code>Subject</code></td>
+</tr>
+<tr class="even">
+<td><code>(0 + Days \| Subject)</code></td>
+<td>Random <strong>slope only</strong> per <code>Subject</code></td>
+</tr>
+<tr class="odd">
+<td><code>(1 \| Subject) + (0 + Days \| Subject)</code></td>
+<td>Random <strong>intercept + slope</strong> per <code>Subject</code></td>
+</tr>
+<tr class="even">
+<td><code>(Days \| Subject)</code></td>
+<td>Random <strong>intercept + slope + correlation</strong> per <code>Subject</code></td>
+</tr>
+</tbody>
+</table>
+<p>Let’s start with random intercepts — each person can have a different baseline reaction time, but the <em>effect</em> of sleep deprivation is the same for everyone:</p>
+<div id="3087e951" class="cell" data-execution_count="11">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>m_ri <span class="op">=</span> model(<span class="st">"Reaction ~ Days + (1 | Subject)"</span>, sleep)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>m_ri.fit()</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>m_ri.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (2, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>251.4</td>
+</tr>
+<tr class="even">
+<td>"Days"</td>
+<td>10.47</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>Linear Mixed Model fit by REML: Reaction ~ Days + (1 | Subject)
+Number of obs: 180, groups:  Subject, 18
+
+REML criterion at convergence: 1786.465
+
+Scaled residuals:
+    Min      1Q  Median      3Q     Max
+ -3.226  -0.553   0.011   0.519   4.251
+
+Varying effects:
+ Groups    Name       Variance  Std.Dev.    Corr
+ Subject   Intercept  1378.179    37.124        
+ Residual              960.457    30.991        
+ ICC: 0.589
+
+Fixed effects:
+             Estimate
+  Intercept   251.405
+       Days    10.467
+
+AIC: 1792.5, BIC: 1802.0</code></pre>
+</div>
+</div>
+<p>Let’s unpack the new parts of the output:</p>
+<p><strong>Fixed effects</strong> (<code>.params</code>) — same as before. The population-average intercept and slope:</p>
+<div id="b6c9e770" class="cell" data-execution_count="12">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>m_ri.params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (2, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>251.4</td>
+</tr>
+<tr class="even">
+<td>"Days"</td>
+<td>10.47</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p><strong>Variance components</strong> (<code>.varying_spread</code>) — how much variability is there <em>between</em> subjects?</p>
+<div id="560a2373" class="cell" data-execution_count="13">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>m_ri.varying_spread</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">metric</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Subject | Intercept"</td>
+<td>"variance"</td>
+<td>1378.0</td>
+</tr>
+<tr class="even">
+<td>"Subject | Intercept"</td>
+<td>"std_dev"</td>
+<td>37.12</td>
+</tr>
+<tr class="odd">
+<td>"ICC"</td>
+<td>"icc"</td>
+<td>0.5893</td>
+</tr>
+<tr class="even">
+<td>"Residual"</td>
+<td>"variance"</td>
+<td>960.5</td>
+</tr>
+<tr class="odd">
+<td>"Residual"</td>
+<td>"std_dev"</td>
+<td>30.99</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<ul>
+<li><code>Subject | Intercept</code> - variability around Subjects’ mean Reaction Time</li>
+<li><code>ICC</code> — <strong>intraclass correlation</strong>: the proportion of total variance that’s between subjects. Here ~0.59, meaning almost 60% of the variability in reaction time is due to <em>who the person is</em>, not how many days they’ve been deprived. That’s a lot of clustering!</li>
+<li><code>Residual</code> - error variance not accounted for by terms in the model</li>
+</ul>
+<p><strong>Subject-specific estimates</strong> (<code>.varying_params</code>) — also called the “best linear unbiased predictors” (BLUPs)</p>
+<p>These are each subject’s intercept, <em>after</em> shrinkage toward the population mean. Notice how only the <code>Intercept</code> is different across participants beause we didn’t estimate a random slope. This is similar to the <code>fixef(model)</code> function in R:</p>
+<div id="b9d36b68" class="cell" data-execution_count="14">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>m_ri.varying_params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (18, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">group</th>
+<th data-quarto-table-cell-role="th">level</th>
+<th data-quarto-table-cell-role="th">Intercept</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Subject"</td>
+<td>"308"</td>
+<td>292.2</td>
+</tr>
+<tr class="even">
+<td>"Subject"</td>
+<td>"309"</td>
+<td>173.6</td>
+</tr>
+<tr class="odd">
+<td>"Subject"</td>
+<td>"310"</td>
+<td>188.3</td>
+</tr>
+<tr class="even">
+<td>"Subject"</td>
+<td>"330"</td>
+<td>255.8</td>
+</tr>
+<tr class="odd">
+<td>"Subject"</td>
+<td>"331"</td>
+<td>261.6</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>"Subject"</td>
+<td>"352"</td>
+<td>287.8</td>
+</tr>
+<tr class="even">
+<td>"Subject"</td>
+<td>"369"</td>
+<td>258.4</td>
+</tr>
+<tr class="odd">
+<td>"Subject"</td>
+<td>"370"</td>
+<td>245.0</td>
+</tr>
+<tr class="even">
+<td>"Subject"</td>
+<td>"371"</td>
+<td>248.1</td>
+</tr>
+<tr class="odd">
+<td>"Subject"</td>
+<td>"372"</td>
+<td>269.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>The <code>.varying_offsets</code> shows how much each person <em>deviates</em> from the population average (the varying effect itself). This the same as the <code>ranef(model)</code> function in R:</p>
+<div id="cde1896e" class="cell" data-execution_count="15">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>m_ri.varying_offsets</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (18, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">group</th>
+<th data-quarto-table-cell-role="th">level</th>
+<th data-quarto-table-cell-role="th">Intercept</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Subject"</td>
+<td>"308"</td>
+<td>40.78</td>
+</tr>
+<tr class="even">
+<td>"Subject"</td>
+<td>"309"</td>
+<td>-77.85</td>
+</tr>
+<tr class="odd">
+<td>"Subject"</td>
+<td>"310"</td>
+<td>-63.11</td>
+</tr>
+<tr class="even">
+<td>"Subject"</td>
+<td>"330"</td>
+<td>4.406</td>
+</tr>
+<tr class="odd">
+<td>"Subject"</td>
+<td>"331"</td>
+<td>10.22</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>"Subject"</td>
+<td>"352"</td>
+<td>36.38</td>
+</tr>
+<tr class="even">
+<td>"Subject"</td>
+<td>"369"</td>
+<td>7.036</td>
+</tr>
+<tr class="odd">
+<td>"Subject"</td>
+<td>"370"</td>
+<td>-6.363</td>
+</tr>
+<tr class="even">
+<td>"Subject"</td>
+<td>"371"</td>
+<td>-3.294</td>
+</tr>
+<tr class="odd">
+<td>"Subject"</td>
+<td>"372"</td>
+<td>18.12</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="your-turn" class="level4">
+<h4 class="anchored" data-anchor-id="your-turn">Your Turn</h4>
+<p>Try estimating a model with intercepts, slopes, and their correlation using the formula refrence above. What do you see now in the model’s <code>.varying_params</code>?</p>
+<div id="2a443906" class="cell" data-execution_count="16">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="b6434b03" class="cell" data-execution_count="17">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+</section>
+<section id="how-to-choose-varying-effects-keep-it-maximal" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-choose-varying-effects-keep-it-maximal">How to Choose Varying Effects: Keep it Maximal</h2>
+<p>We’ve seen how to fit mixed models — but how do you decide <em>which</em> varying effects to include? The recommended approach (Barr et al., 2013) is:</p>
+<blockquote class="blockquote">
+<p><strong>Start maximal, then simplify.</strong></p>
+</blockquote>
+<p>Begin with the most complex random effects structure your design can support. If it doesn’t converge (or produces warnings), simplify step by step — using convergence diagnostics and model comparison to guide you.</p>
+<p>Let’s walk through this process with a new dataset.</p>
+<p>The <strong>cake</strong> dataset records the breakage angle of 3 cake recipes (A, B, C), each baked at 6 temperatures (175°–225°), with 15 replicates:</p>
+<div id="d06a9fef" class="cell" data-execution_count="18">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>cake <span class="op">=</span> load_dataset(<span class="st">"cake"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    sns.catplot(</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>cake.to_pandas(),</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">'angle'</span>,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">'recipe'</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        hue<span class="op">=</span><span class="st">'temperature'</span>,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>        kind<span class="op">=</span><span class="st">'box'</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-mixed-models_files/figure-html/cell-19-output-1.png" width="562" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="start-with-the-maximal-structure" class="level3">
+<h3 class="anchored" data-anchor-id="start-with-the-maximal-structure">1. Start with the maximal structure</h3>
+<p>Each replicate saw all 3 recipes at all 6 temperatures — so both <code>recipe</code> and <code>temperature</code> are <strong>within-replicate</strong> factors. The maximal model lets each replicate have its own intercept, recipe effects, temperature slope, <em>and</em> recipe × temperature interactions:</p>
+<div id="f8612255" class="cell" data-execution_count="19">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>m_cake_max <span class="op">=</span> model(<span class="st">"angle ~ recipe * temperature + (recipe * temperature | replicate)"</span>, cake).fit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="diagnose-why-convergence-fails" class="level3">
+<h3 class="anchored" data-anchor-id="diagnose-why-convergence-fails">2. Diagnose <em>why</em> convergence fails</h3>
+<p>The model fit, but those warnings tell us something important. <strong>Singular fit</strong> means some variance components were estimated at (essentially) zero — the model is trying to estimate more random variation than the data can support.</p>
+<p>Let’s look at the variance components to see which ones collapsed:</p>
+<div id="2321de31" class="cell" data-execution_count="20">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>m_cake_max.varying_spread</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (30, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">metric</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"replicate | Intercept"</td>
+<td>"variance"</td>
+<td>194.9</td>
+</tr>
+<tr class="even">
+<td>"replicate | Intercept"</td>
+<td>"std_dev"</td>
+<td>13.96</td>
+</tr>
+<tr class="odd">
+<td>"replicate | recipe[B]"</td>
+<td>"variance"</td>
+<td>341.6</td>
+</tr>
+<tr class="even">
+<td>"replicate | recipe[B]"</td>
+<td>"std_dev"</td>
+<td>18.48</td>
+</tr>
+<tr class="odd">
+<td>"replicate | recipe[C]"</td>
+<td>"variance"</td>
+<td>252.2</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>"temperature:recipe[C]:temperat…</td>
+<td>"corr"</td>
+<td>-0.7386</td>
+</tr>
+<tr class="even">
+<td>"recipe[B]:temperature:recipe[C…</td>
+<td>"corr"</td>
+<td>0.5957</td>
+</tr>
+<tr class="odd">
+<td>"ICC"</td>
+<td>"icc"</td>
+<td>0.6923</td>
+</tr>
+<tr class="even">
+<td>"Residual"</td>
+<td>"variance"</td>
+<td>19.37</td>
+</tr>
+<tr class="odd">
+<td>"Residual"</td>
+<td>"std_dev"</td>
+<td>4.401</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="simplify-starting-with-higher-order-terms" class="level3">
+<h3 class="anchored" data-anchor-id="simplify-starting-with-higher-order-terms">3. Simplify starting with higher-order terms</h3>
+<p>The interaction slopes have near-zero variance — replicates don’t differ in their recipe × temperature interactions. Follow the hierarchy: drop <strong>interactions</strong> first, then <strong>slopes</strong>, then <strong>correlations</strong>:</p>
+<div id="1ce0459d" class="cell" data-execution_count="21">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop interaction from RE</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>m_cake_add <span class="op">=</span> model(<span class="st">"angle ~ recipe * temperature + (recipe + temperature | replicate)"</span>, cake).fit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="77c932ee" class="cell" data-execution_count="22">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>m_cake_add.varying_spread</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (17, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">metric</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"replicate | Intercept"</td>
+<td>"variance"</td>
+<td>40.72</td>
+</tr>
+<tr class="even">
+<td>"replicate | Intercept"</td>
+<td>"std_dev"</td>
+<td>6.381</td>
+</tr>
+<tr class="odd">
+<td>"replicate | recipe[B]"</td>
+<td>"variance"</td>
+<td>7.504</td>
+</tr>
+<tr class="even">
+<td>"replicate | recipe[B]"</td>
+<td>"std_dev"</td>
+<td>2.739</td>
+</tr>
+<tr class="odd">
+<td>"replicate | recipe[C]"</td>
+<td>"variance"</td>
+<td>14.59</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>"recipe[B]:temperature"</td>
+<td>"corr"</td>
+<td>0.2054</td>
+</tr>
+<tr class="even">
+<td>"recipe[C]:temperature"</td>
+<td>"corr"</td>
+<td>-0.07784</td>
+</tr>
+<tr class="odd">
+<td>"ICC"</td>
+<td>"icc"</td>
+<td>0.6793</td>
+</tr>
+<tr class="even">
+<td>"Residual"</td>
+<td>"variance"</td>
+<td>20.14</td>
+</tr>
+<tr class="odd">
+<td>"Residual"</td>
+<td>"std_dev"</td>
+<td>4.488</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="365c3beb" class="cell" data-execution_count="23">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop temperature slope (near-zero in additive model too)</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>m_cake_recipe <span class="op">=</span> model(<span class="st">"angle ~ recipe * temperature + (recipe | replicate)"</span>, cake).fit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="c924fe13" class="cell" data-execution_count="24">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>m_cake_recipe.varying_spread</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (12, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">metric</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"replicate | Intercept"</td>
+<td>"variance"</td>
+<td>26.89</td>
+</tr>
+<tr class="even">
+<td>"replicate | Intercept"</td>
+<td>"std_dev"</td>
+<td>5.185</td>
+</tr>
+<tr class="odd">
+<td>"replicate | recipe[B]"</td>
+<td>"variance"</td>
+<td>7.103</td>
+</tr>
+<tr class="even">
+<td>"replicate | recipe[B]"</td>
+<td>"std_dev"</td>
+<td>2.665</td>
+</tr>
+<tr class="odd">
+<td>"replicate | recipe[C]"</td>
+<td>"variance"</td>
+<td>14.33</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>"Intercept:recipe[C]"</td>
+<td>"corr"</td>
+<td>0.2989</td>
+</tr>
+<tr class="even">
+<td>"recipe[B]:recipe[C]"</td>
+<td>"corr"</td>
+<td>0.9905</td>
+</tr>
+<tr class="odd">
+<td>"ICC"</td>
+<td>"icc"</td>
+<td>0.6684</td>
+</tr>
+<tr class="even">
+<td>"Residual"</td>
+<td>"variance"</td>
+<td>20.78</td>
+</tr>
+<tr class="odd">
+<td>"Residual"</td>
+<td>"std_dev"</td>
+<td>4.558</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="874c4ecd" class="cell" data-execution_count="25">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop correlation between slope and interept for recipe</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>m_cake_recipe_nocorr <span class="op">=</span> model(<span class="st">"angle ~ recipe * temperature + (1 | replicate) + (0 + recipe | replicate)"</span>, cake).fit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="4d954a96" class="cell" data-execution_count="26">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>m_cake_recipe_nocorr.varying_spread</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (9, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">metric</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"replicate | Intercept"</td>
+<td>"variance"</td>
+<td>33.45</td>
+</tr>
+<tr class="even">
+<td>"replicate | Intercept"</td>
+<td>"std_dev"</td>
+<td>5.783</td>
+</tr>
+<tr class="odd">
+<td>"replicate | recipe[B]"</td>
+<td>"variance"</td>
+<td>3.397</td>
+</tr>
+<tr class="even">
+<td>"replicate | recipe[B]"</td>
+<td>"std_dev"</td>
+<td>1.843</td>
+</tr>
+<tr class="odd">
+<td>"replicate | recipe[C]"</td>
+<td>"variance"</td>
+<td>8.684</td>
+</tr>
+<tr class="even">
+<td>"replicate | recipe[C]"</td>
+<td>"std_dev"</td>
+<td>2.947</td>
+</tr>
+<tr class="odd">
+<td>"ICC"</td>
+<td>"icc"</td>
+<td>0.6385</td>
+</tr>
+<tr class="even">
+<td>"Residual"</td>
+<td>"variance"</td>
+<td>21.21</td>
+</tr>
+<tr class="odd">
+<td>"Residual"</td>
+<td>"std_dev"</td>
+<td>4.606</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Just for comparison purposes lets also estimate a random-intercepts only model</p>
+<div id="d874a879" class="cell" data-execution_count="27">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Random intercepts only</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>m_cake_ri <span class="op">=</span> model(<span class="st">"angle ~ recipe * temperature + (1 | replicate)"</span>, cake).fit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="a3f6f09e" class="cell" data-execution_count="28">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>m_cake_ri.varying_spread</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">metric</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"replicate | Intercept"</td>
+<td>"variance"</td>
+<td>39.2</td>
+</tr>
+<tr class="even">
+<td>"replicate | Intercept"</td>
+<td>"std_dev"</td>
+<td>6.261</td>
+</tr>
+<tr class="odd">
+<td>"ICC"</td>
+<td>"icc"</td>
+<td>0.6268</td>
+</tr>
+<tr class="even">
+<td>"Residual"</td>
+<td>"variance"</td>
+<td>23.34</td>
+</tr>
+<tr class="odd">
+<td>"Residual"</td>
+<td>"std_dev"</td>
+<td>4.831</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="use-model-comparison-compare" class="level3">
+<h3 class="anchored" data-anchor-id="use-model-comparison-compare">4. Use model comparison (<code>compare()</code>)</h3>
+<p>Now we use <code>compare()</code> to test whether the added complexity is “worth it.” For mixed models, <code>compare()</code> uses a <strong>likelihood ratio test</strong> instead of an F-test.</p>
+<p>You can see that our maximal model has 28 parameters while our simplest model has only 8. The p-value column compares successive models and is suggsting we might still consider there’s an improvement from the <code>m_cake_ri</code> (intercept only) model which successfully converged and the <code>m_cake_recipe_nocorr</code> model:</p>
+<div id="1a9af36f" class="cell" data-execution_count="29">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>compare(m_cake_ri,m_cake_recipe_nocorr, m_cake_recipe, m_cake_add, m_cake_max)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 9)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">model</th>
+<th data-quarto-table-cell-role="th">chi2</th>
+<th data-quarto-table-cell-role="th">npar</th>
+<th data-quarto-table-cell-role="th">AIC</th>
+<th data-quarto-table-cell-role="th">BIC</th>
+<th data-quarto-table-cell-role="th">loglik</th>
+<th data-quarto-table-cell-role="th">deviance</th>
+<th data-quarto-table-cell-role="th">df</th>
+<th data-quarto-table-cell-role="th">p_value</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+<td>i64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>i64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"angle ~ recipe * temperature +…</td>
+<td>null</td>
+<td>8</td>
+<td>1689.0</td>
+<td>1718.0</td>
+<td>-836.5</td>
+<td>1673.0</td>
+<td>null</td>
+<td>null</td>
+</tr>
+<tr class="even">
+<td>"angle ~ recipe * temperature +…</td>
+<td>6.124</td>
+<td>10</td>
+<td>1687.0</td>
+<td>1723.0</td>
+<td>-833.5</td>
+<td>1667.0</td>
+<td>2</td>
+<td>0.0468</td>
+</tr>
+<tr class="odd">
+<td>"angle ~ recipe * temperature +…</td>
+<td>10.66</td>
+<td>13</td>
+<td>1682.0</td>
+<td>1729.0</td>
+<td>-828.1</td>
+<td>1656.0</td>
+<td>3</td>
+<td>0.01371</td>
+</tr>
+<tr class="even">
+<td>"angle ~ recipe * temperature +…</td>
+<td>2.961</td>
+<td>17</td>
+<td>1687.0</td>
+<td>1748.0</td>
+<td>-826.7</td>
+<td>1653.0</td>
+<td>4</td>
+<td>0.5643</td>
+</tr>
+<tr class="odd">
+<td>"angle ~ recipe * temperature +…</td>
+<td>2.291</td>
+<td>28</td>
+<td>1707.0</td>
+<td>1808.0</td>
+<td>-825.5</td>
+<td>1651.0</td>
+<td>11</td>
+<td>0.9972</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Let’s look at the diagnostics for those 2 models specifically:</p>
+<div id="4df64183" class="cell" data-execution_count="30">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Intercept only</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>m_cake_ri.diagnostics</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 11)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">df_model</th>
+<th data-quarto-table-cell-role="th">df_resid</th>
+<th data-quarto-table-cell-role="th">sigma</th>
+<th data-quarto-table-cell-role="th">deviance</th>
+<th data-quarto-table-cell-role="th">mse</th>
+<th data-quarto-table-cell-role="th">rsquared_marginal</th>
+<th data-quarto-table-cell-role="th">rsquared_conditional</th>
+<th data-quarto-table-cell-role="th">icc</th>
+<th data-quarto-table-cell-role="th">aic</th>
+<th data-quarto-table-cell-role="th">bic</th>
+<th data-quarto-table-cell-role="th">loglik</th>
+</tr>
+<tr class="even">
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>5.0</td>
+<td>264.0</td>
+<td>4.831</td>
+<td>1673.0</td>
+<td>21.65</td>
+<td>0.1108</td>
+<td>0.6681</td>
+<td>0.6268</td>
+<td>1689.0</td>
+<td>1718.0</td>
+<td>-836.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="116d7e1c" class="cell" data-execution_count="31">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recipe intercept, slope, but no correlation</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>m_cake_recipe_nocorr.diagnostics</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 11)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">df_model</th>
+<th data-quarto-table-cell-role="th">df_resid</th>
+<th data-quarto-table-cell-role="th">sigma</th>
+<th data-quarto-table-cell-role="th">deviance</th>
+<th data-quarto-table-cell-role="th">mse</th>
+<th data-quarto-table-cell-role="th">rsquared_marginal</th>
+<th data-quarto-table-cell-role="th">rsquared_conditional</th>
+<th data-quarto-table-cell-role="th">icc</th>
+<th data-quarto-table-cell-role="th">aic</th>
+<th data-quarto-table-cell-role="th">bic</th>
+<th data-quarto-table-cell-role="th">loglik</th>
+</tr>
+<tr class="even">
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>5.0</td>
+<td>264.0</td>
+<td>4.606</td>
+<td>1667.0</td>
+<td>18.65</td>
+<td>0.1045</td>
+<td>0.7154</td>
+<td>0.6821</td>
+<td>1687.0</td>
+<td>1723.0</td>
+<td>-833.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>The <code>mse</code> for the second model is a bit lower and adding the 2 additional parameters improves the fit.</p>
+</section>
+<section id="now-use-jointtest-and-explore-to-understand-fixed-effects" class="level3">
+<h3 class="anchored" data-anchor-id="now-use-jointtest-and-explore-to-understand-fixed-effects">5. Now use <code>jointtest()</code> and <code>explore()</code> to understand fixed effects</h3>
+<p>With the varying effects structure settled, return to the same workflow as before — the formula changes, the analysis doesn’t:</p>
+<p>Since we’re just exploring this dataset and don’t have strong hypothesis lets run omnibus F-tests:</p>
+<div id="45fe007d" class="cell" data-execution_count="32">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>m_cake_recipe_nocorr.jointtest()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 5)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">df1</th>
+<th data-quarto-table-cell-role="th">df2</th>
+<th data-quarto-table-cell-role="th">f_ratio</th>
+<th data-quarto-table-cell-role="th">p_value</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>i64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"recipe"</td>
+<td>2</td>
+<td>264.0</td>
+<td>0.102038</td>
+<td>0.903031</td>
+</tr>
+<tr class="even">
+<td>"temperature"</td>
+<td>1</td>
+<td>264.0</td>
+<td>92.705488</td>
+<td>2.2204e-16</td>
+</tr>
+<tr class="odd">
+<td>"recipe:temperature"</td>
+<td>2</td>
+<td>264.0</td>
+<td>0.041047</td>
+<td>0.95979</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>You just ran a “<em>repeated measures ANOVA</em>”! And it shows a clear <em>main effect</em> of temperature!</p>
+<p>Now let’s use <code>.explore()</code> just like we’ve done to see how model predictions change for different temperature levels:</p>
+<div id="d3114e47" class="cell" data-execution_count="33">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>m_cake_recipe_nocorr.explore(<span class="st">"temperature@[175, 185, 195, 205, 215, 225]"</span>).infer().effects</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (6, 8)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">temperature</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+<th data-quarto-table-cell-role="th">se</th>
+<th data-quarto-table-cell-role="th">ci_lower</th>
+<th data-quarto-table-cell-role="th">ci_upper</th>
+<th data-quarto-table-cell-role="th">statistic</th>
+<th data-quarto-table-cell-role="th">df</th>
+<th data-quarto-table-cell-role="th">p_value</th>
+</tr>
+<tr class="even">
+<td>i64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>175</td>
+<td>28.17</td>
+<td>1.602</td>
+<td>24.78</td>
+<td>31.56</td>
+<td>17.59</td>
+<td>16.28</td>
+<td>5.1480e-12</td>
+</tr>
+<tr class="even">
+<td>185</td>
+<td>29.75</td>
+<td>1.568</td>
+<td>26.41</td>
+<td>33.09</td>
+<td>18.97</td>
+<td>14.96</td>
+<td>7.0950e-12</td>
+</tr>
+<tr class="odd">
+<td>195</td>
+<td>31.33</td>
+<td>1.551</td>
+<td>28.01</td>
+<td>34.65</td>
+<td>20.21</td>
+<td>14.32</td>
+<td>6.3030e-12</td>
+</tr>
+<tr class="even">
+<td>205</td>
+<td>32.91</td>
+<td>1.551</td>
+<td>29.59</td>
+<td>36.23</td>
+<td>21.22</td>
+<td>14.32</td>
+<td>3.1830e-12</td>
+</tr>
+<tr class="odd">
+<td>215</td>
+<td>34.49</td>
+<td>1.568</td>
+<td>31.15</td>
+<td>37.84</td>
+<td>22.0</td>
+<td>14.96</td>
+<td>8.3530e-13</td>
+</tr>
+<tr class="even">
+<td>225</td>
+<td>36.07</td>
+<td>1.602</td>
+<td>32.68</td>
+<td>39.46</td>
+<td>22.52</td>
+<td>16.28</td>
+<td>1.0710e-13</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="summary" class="level3">
+<h3 class="anchored" data-anchor-id="summary">Summary</h3>
+<p>Starting maximal and simplifying is a <em>process</em>, not a recipe. The convergence warnings told us the data couldn’t support all those random slopes — and <code>compare()</code> confirmed that the simpler structure fit just as well. In practice, this means the differences between replicates are mostly about <em>baseline</em> breakage angle, not about how recipes or temperatures affect breakage differently across replicates. <strong>The RM-ANOVA connection</strong>: A mixed model with a categorical fixed effect and random intercepts per subject is equivalent to a <strong>repeated-measures ANOVA</strong>. The <code>.jointtest()</code> F-test and the RM-ANOVA F-test will give you the same answer. But mixed models are more flexible — they handle unbalanced designs, missing data, continuous predictors, and complex varying effects structures that RM-ANOVA cannot.</p>
+<p>Mixed models extend the GLM to handle <strong>clustered data</strong> — repeated measures, nested observations, or any situation where independence is violated.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>What you already knew</th>
+<th>What’s new</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>model("y ~ x", data)</code></td>
+<td><code>model("y ~ x + (1 \| group)", data)</code></td>
+</tr>
+<tr class="even">
+<td><code>.params</code> — fixed effects</td>
+<td><code>.varying_params</code> — group-specific estimates</td>
+</tr>
+<tr class="odd">
+<td><code>.explore()</code> — marginal predictions</td>
+<td>Same! (population-averaged)</td>
+</tr>
+<tr class="even">
+<td><code>.jointtest()</code> — omnibus F-test</td>
+<td>Same! (≈ repeated-measures ANOVA)</td>
+</tr>
+<tr class="odd">
+<td><code>compare(m1, m2)</code> — F-test</td>
+<td><code>compare(m1, m2)</code> — likelihood ratio test</td>
+</tr>
+<tr class="even">
+<td><code>family="binomial"</code> — logistic</td>
+<td><code>family="binomial" + (1 \| group)</code> — GLMM</td>
+</tr>
+</tbody>
+</table>
+<p>The core insight: <strong>the formula changes, the workflow doesn’t</strong>.</p>
+</section>
+</section>
+<section id="your-turn-growth-curves" class="level2">
+<h2 class="anchored" data-anchor-id="your-turn-growth-curves">Your Turn: Growth Curves</h2>
+<p>The <strong>chickweight</strong> dataset tracks the weight of 50 chicks over 12 timepoints (days 0–21), with each chick assigned to one of 4 diets:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>chick <span class="op">=</span> load_dataset(<span class="st">"chickweight"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Follow the same 5-step workflow:</p>
+<ol type="1">
+<li><strong>Start maximal</strong>: <code>weight ~ Time * Diet + (Time * Diet | Chick)</code> — what happens?</li>
+<li><strong>Diagnose</strong>: Why does it fail? (<em>Hint</em>: is <code>Diet</code> a within-Chick or between-Chick variable?)</li>
+<li><strong>Simplify</strong>: What’s the most complex structure that <em>makes sense</em> given the design?</li>
+<li><strong>Compare</strong>: Use <code>compare()</code> to pick the best varying effects structure</li>
+<li><strong>Infer</strong>: Use <code>jointtest()</code> and <code>explore()</code> on your best model</li>
+</ol>
+<p>Feel free to make any visualizations to help you out!</p>
+<div id="7e8b3672" class="cell" data-execution_count="34">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Load data and try maximal model</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="b65416c5" class="cell" data-execution_count="35">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Diagnose</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="acc7af95" class="cell" data-execution_count="36">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Simplify</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="a8098ddb" class="cell" data-execution_count="37">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: Compare</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="9aeeb9a0" class="cell" data-execution_count="38">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 5: Fixed effects inference</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p><em>Your interpretation here: What did you learn about the diet effects on chick growth? Why couldn’t the maximal model work?</em></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

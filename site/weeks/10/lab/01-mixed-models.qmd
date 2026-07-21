@@ -1,0 +1,463 @@
+---
+sidebar: weeks
+title: "Mixed Models — Extending the GLM"
+author: "Eshin Jolly"
+date: "Mar 10, 2026"
+code-line-numbers: false
+code-fold: show
+code-overflow: wrap
+execute:
+  warning: false
+resources:
+  - data
+---
+
+```{python}
+# Import what we need
+import polars as pl
+from polars import col
+import seaborn as sns
+import numpy as np
+from bossanova import model, compare, load_dataset
+```
+
+
+Over the past few notebooks we've built a solid GLM toolkit:
+
+- Parameter inference using asymptotic (formula), bootstrap, and permutation approaches with `.infer(how='asym|boot|perm')`
+- The marginal effects with the mixing board using `.explore()`
+- Generalized Linear Models like Logistic regression for binary outcomes using `family='binomial'`
+
+Thus far, every model we've fit so far has assumed that **each observation is independent** — knowing one data point tells you nothing about another and therefore errors are **independent & identitically distributed (iid)** .
+
+But that assumption breaks down all the time in real data:
+
+- The same *person* measured on multiple days (repeated measures)
+- *trials* nested within *participants* in an experiment
+- *students* nested within **classrooms**
+
+When observations share a **cluster** they tend to be more similar to each other than to observations from other clusters. Ignoring this leads to **overconfident estimates** — your standard errors are too small and your p-values too optimistic.
+
+The fix? **Mixed models:** they're just another extension of the GLM you already know. Same `model()` function, same `.explore()` mixing board, same `compare()` for model comparison. We just add a new ingredient to the **formula.**
+
+
+## Simpson's Paradox: Why Independence Matters
+
+Before we get to the mechanics, let's see *why* ignoring data structure can go badly wrong.
+
+Here's a simple dataset with 10 observations. There's a variable `x1235` and an outcome `y`. There's also a column `group` which reflects which group **repeated observations** came from.
+
+First, let's fit a simple regression ignoring `group`:
+
+```{python}
+simpson = pl.read_csv("data/simpson.csv")
+simpson.head()
+```
+
+We can do this visually first using `seaborn`
+
+```{python}
+(
+    sns.lmplot(
+        data=simpson,
+        x='x1235',
+        y='y5',
+        truncate=False,
+        ci=None,
+    )
+    .set(ylim=(0,12), xlim=(0,20), xlabel='X', ylabel='Y', title='Complete Pooling')
+)
+```
+
+Notice how the regression slope is *positive* but the trend within each cluster is clearly *negative*
+
+Lets estimate a model to confirm:
+
+*Tip: you can always chain the `.summary()` method to `.fit()`, `.infer()`, and `.explore()` to print an R style summary if you prefer that to polars dataframes accessible via `.params` and `.effects`*
+
+```{python}
+model('y5 ~ x1235', data=simpson).fit().summary()
+```
+
+Look at `Coefficients:` in the output above. Notice how the estimate for `x1235` is **positive**?
+
+Now we if we stratify data by the `group` column and re-plot/model we can see this trend reverse:
+
+```{python}
+(
+    sns.lmplot(
+        data=simpson,
+        x='x1235',
+        y='y5',
+        hue='group',
+        truncate=False,
+    )
+    .set(ylim=(0,12), xlim=(0,20), xlabel='X', ylabel='Y', title='Partial Pooling')
+)
+```
+
+```{python}
+# Fit a model with intercept per group
+m2 = model('y5 ~ x1235 + (1 | group)', data=simpson).fit()
+
+m2.summary()
+```
+
+Look at the `Fixed effects` towards to bottom (same as `.params`):
+
+By `x1235` now has a **negative** estimate — the opposite of what the pooled regression told us!
+
+This is **Simpson's Paradox**: the overall trend reverses when you account for groups.
+
+The problem is that participants differ in their *baseline* levels of both `x` and `y`. When we pool everyone together, those between-person differences create a spurious positive trend. This is exactly what happens when you violate the independence assumption — you confuse *between-cluster* variation with *within-cluster* effects.
+
+## Three Approaches to Clustered Data
+
+Let's work through a classic dataset to see how different approaches handle clustering. The **sleep deprivation study** (Belenky et al., 2003) measured reaction times for 18 participants over 10 days of sleep deprivation:
+
+| Variable   | Description                              |
+|------------|------------------------------------------|
+| Subject    | Participant ID                           |
+| Days       | Days of sleep deprivation (0–9)          |
+| Reaction   | Average reaction time (ms)               |
+
+The question: **How does sleep deprivation affect reaction time?**
+
+```{python}
+sleep = load_dataset("sleep")
+sleep.head()
+```
+
+```{python}
+sns.relplot(
+    data=sleep.to_pandas(),
+    x="Days",
+    y="Reaction",
+    hue="Subject",
+    kind="line",
+    height=4,
+    aspect=1.5,
+    palette="tab20",
+    legend=False,
+)
+```
+
+Notice two things:
+
+1. **Overall trend**: reaction time increases with days of deprivation
+2. **Individual differences**: some people start fast and stay fast, others start slow and get much slower
+
+Let's review the three approaches for dealing with dependent data we discussed in lecture:
+
+### Approach 1: Complete Pooling
+
+Ignore the grouping entirely — fit one regression line through all 180 observations:
+
+$$
+Reaction_i = \beta_0 + \beta_1 \cdot Days_i + \epsilon_i
+$$
+
+This is what we've been doing in every model so far. It assumes all observations are independent.
+
+```{python}
+m_complete = model("Reaction ~ Days", sleep).fit()
+m_complete.params
+```
+
+The model says reaction time increases by ~10.5 ms per day. But this estimate pretends all 180 data points are independent — it doesn't know that groups of 10 come from the same person. The standard errors will be **too small**.
+
+### Approach 2: No Pooling
+
+Fit a *separate* regression for each participant — 18 independent models:
+
+```{python}
+# Fit a separate model per subject
+no_pool_results = []
+
+# Loop over unique subjects
+for subj in sleep.select("Subject").unique().sort("Subject").to_series():
+
+    # Get just their data points
+    subj_data = sleep.filter(pl.col("Subject") == subj)
+
+    # Fit a model
+    m = model("Reaction ~ Days", subj_data).fit()
+
+    # Save estimates
+    no_pool_results.append({
+        "Subject": subj,
+        "Intercept": m.params["estimate"][0],
+        "Slope": m.params["estimate"][1],
+    })
+
+no_pool = pl.DataFrame(no_pool_results)
+no_pool
+```
+
+Now each person gets their own intercept and slope. But this approach has problems too:
+
+- Subjects with noisy data get **extreme estimates** (no borrowing of information across people)
+- We can't make **population-level** statements — we just have 18 separate stories
+- If someone has very few observations, their estimates are unreliable
+
+### Approach 3: Partial Pooling (Mixed Models)
+
+The sweet spot. A mixed model estimates **one population-level trend** while allowing each participant to deviate from it:
+
+$$
+Reaction_{ij} = (\beta_0 + u_{0j}) + (\beta_1 + u_{1j}) \cdot Days_{ij} + \epsilon_{ij}
+$$
+
+- $\beta_0, \beta_1$ are the **fixed effects** — the population average intercept and slope
+- $u_{0j}, u_{1j}$ are the **varying effects** — how much subject $j$ deviates from the population
+- The varying effects are assumed to come from a normal distribution: $u_j \sim N(0, \tau^2)$
+
+This is called **partial pooling** because each person's estimate is pulled ("shrunk") toward the population average. People with noisy data get pulled more; people with clear patterns keep their individuality.
+
+#### Random Intercepts
+
+In `bossanova` and `lme4` in R, **varying effects term** use the followin formula syntax:
+
+| Formula part | Meaning |
+|---|---|
+| `(1 \| Subject)` | Random **intercept only** per `Subject` |
+| `(0 + Days \| Subject)` | Random **slope only**  per `Subject` |
+| `(1 \| Subject) + (0 + Days \| Subject)` | Random **intercept + slope** per `Subject` |
+| `(Days \| Subject)` | Random **intercept + slope + correlation** per `Subject` |
+
+Let's start with random intercepts — each person can have a different baseline reaction time, but the *effect* of sleep deprivation is the same for everyone:
+
+```{python}
+m_ri = model("Reaction ~ Days + (1 | Subject)", sleep)
+m_ri.fit()
+m_ri.summary()
+```
+
+Let's unpack the new parts of the output:
+
+**Fixed effects** (`.params`) — same as before. The population-average intercept and slope:
+
+```{python}
+m_ri.params
+```
+
+**Variance components** (`.varying_spread`) — how much variability is there *between* subjects?
+
+```{python}
+m_ri.varying_spread
+```
+
+- `Subject | Intercept` - variability around Subjects' mean Reaction Time
+- `ICC` — **intraclass correlation**: the proportion of total variance that's between subjects. Here ~0.59, meaning almost 60% of the variability in reaction time is due to *who the person is*, not how many days they've been deprived. That's a lot of clustering!
+- `Residual` - error variance not accounted for by terms in the model
+
+**Subject-specific estimates** (`.varying_params`) — also called the "best linear unbiased predictors" (BLUPs)
+
+These are each subject's intercept, *after* shrinkage toward the population mean. Notice how only the `Intercept` is different across participants beause we didn't estimate a random slope. This is similar to the `fixef(model)` function in R:
+
+```{python}
+m_ri.varying_params
+```
+
+The `.varying_offsets` shows how much each person *deviates* from the population average (the varying effect itself). This the same as the `ranef(model)` function in R:
+
+```{python}
+m_ri.varying_offsets
+```
+
+#### Your Turn
+
+Try estimating a model with intercepts, slopes, and their correlation using the formula refrence above. What do you see now in the model's `.varying_params`?
+
+```{python}
+# Your code here
+```
+
+```{python}
+# Your code here
+```
+
+## How to Choose Varying Effects: Keep it Maximal
+
+We've seen how to fit mixed models — but how do you decide *which* varying effects to include? The recommended approach (Barr et al., 2013) is:
+
+> **Start maximal, then simplify.**
+
+Begin with the most complex random effects structure your design can support. If it doesn't converge (or produces warnings), simplify step by step — using convergence diagnostics and model comparison to guide you.
+
+Let's walk through this process with a new dataset.
+
+The **cake** dataset records the breakage angle of 3 cake recipes (A, B, C), each baked at 6 temperatures (175°–225°), with 15 replicates:
+
+```{python}
+cake = load_dataset("cake")
+(
+    sns.catplot(
+        data=cake.to_pandas(),
+        y='angle',
+        x='recipe',
+        hue='temperature',
+        kind='box'
+    )
+)
+```
+
+### 1. Start with the maximal structure
+
+Each replicate saw all 3 recipes at all 6 temperatures — so both `recipe` and `temperature` are **within-replicate** factors. The maximal model lets each replicate have its own intercept, recipe effects, temperature slope, *and* recipe × temperature interactions:
+
+```{python}
+m_cake_max = model("angle ~ recipe * temperature + (recipe * temperature | replicate)", cake).fit()
+```
+
+### 2. Diagnose *why* convergence fails
+
+The model fit, but those warnings tell us something important. **Singular fit** means some variance components were estimated at (essentially) zero — the model is trying to estimate more random variation than the data can support.
+
+Let's look at the variance components to see which ones collapsed:
+
+```{python}
+m_cake_max.varying_spread
+```
+
+### 3. Simplify starting with higher-order terms
+
+The interaction slopes have near-zero variance — replicates don't differ in their recipe × temperature interactions. Follow the hierarchy: drop **interactions** first, then **slopes**, then **correlations**:
+
+```{python}
+# Drop interaction from RE
+m_cake_add = model("angle ~ recipe * temperature + (recipe + temperature | replicate)", cake).fit()
+```
+
+```{python}
+m_cake_add.varying_spread
+```
+
+```{python}
+# Drop temperature slope (near-zero in additive model too)
+m_cake_recipe = model("angle ~ recipe * temperature + (recipe | replicate)", cake).fit()
+```
+
+```{python}
+m_cake_recipe.varying_spread
+```
+
+```{python}
+# Drop correlation between slope and interept for recipe
+m_cake_recipe_nocorr = model("angle ~ recipe * temperature + (1 | replicate) + (0 + recipe | replicate)", cake).fit()
+```
+
+```{python}
+m_cake_recipe_nocorr.varying_spread
+```
+
+Just for comparison purposes lets also estimate a random-intercepts only model
+
+```{python}
+# Random intercepts only
+m_cake_ri = model("angle ~ recipe * temperature + (1 | replicate)", cake).fit()
+```
+
+```{python}
+m_cake_ri.varying_spread
+```
+
+### 4. Use model comparison (`compare()`)
+
+Now we use `compare()` to test whether the added complexity is "worth it." For mixed models, `compare()` uses a **likelihood ratio test** instead of an F-test.
+
+You can see that our maximal model has 28 parameters while our simplest model has only 8. The p-value column compares successive models and is suggsting we might still consider there's an improvement from the `m_cake_ri` (intercept only) model which successfully converged and the `m_cake_recipe_nocorr` model:
+
+```{python}
+compare(m_cake_ri,m_cake_recipe_nocorr, m_cake_recipe, m_cake_add, m_cake_max)
+```
+
+Let's look at the diagnostics for those 2 models specifically:
+
+```{python}
+# Intercept only
+m_cake_ri.diagnostics
+```
+
+```{python}
+# Recipe intercept, slope, but no correlation
+m_cake_recipe_nocorr.diagnostics
+```
+
+The `mse` for the second model is a bit lower and adding the 2 additional parameters improves the fit.
+
+### 5. Now use `jointtest()` and `explore()` to understand fixed effects
+
+With the varying effects structure settled, return to the same workflow as before — the formula changes, the analysis doesn't:
+
+Since we're just exploring this dataset and don't have strong hypothesis lets run omnibus F-tests:
+
+```{python}
+m_cake_recipe_nocorr.jointtest()
+```
+
+You just ran a "*repeated measures ANOVA*"! And it shows a clear *main effect* of temperature!
+
+Now let's use `.explore()` just like we've done to see how model predictions change for different temperature levels:
+
+```{python}
+m_cake_recipe_nocorr.explore("temperature@[175, 185, 195, 205, 215, 225]").infer().effects
+```
+
+### Summary
+Starting maximal and simplifying is a *process*, not a recipe. The convergence warnings told us the data couldn't support all those random slopes — and `compare()` confirmed that the simpler structure fit just as well. In practice, this means the differences between replicates are mostly about *baseline* breakage angle, not about how recipes or temperatures affect breakage differently across replicates. **The RM-ANOVA connection**: A mixed model with a categorical fixed effect and random intercepts per subject is equivalent to a **repeated-measures ANOVA**. The `.jointtest()` F-test and the RM-ANOVA F-test will give you the same answer. But mixed models are more flexible — they handle unbalanced designs, missing data, continuous predictors, and complex varying effects structures that RM-ANOVA cannot.
+
+Mixed models extend the GLM to handle **clustered data** — repeated measures, nested observations, or any situation where independence is violated.
+
+| What you already knew | What's new |
+|---|---|
+| `model("y ~ x", data)` | `model("y ~ x + (1 \| group)", data)` |
+| `.params` — fixed effects | `.varying_params` — group-specific estimates |
+| `.explore()` — marginal predictions | Same! (population-averaged) |
+| `.jointtest()` — omnibus F-test | Same! (≈ repeated-measures ANOVA) |
+| `compare(m1, m2)` — F-test | `compare(m1, m2)` — likelihood ratio test |
+| `family="binomial"` — logistic | `family="binomial" + (1 \| group)` — GLMM |
+
+The core insight: **the formula changes, the workflow doesn't**.
+
+## Your Turn: Growth Curves
+
+The **chickweight** dataset tracks the weight of 50 chicks over 12 timepoints (days 0–21), with each chick assigned to one of 4 diets:
+
+```python
+chick = load_dataset("chickweight")
+```
+
+Follow the same 5-step workflow:
+
+1. **Start maximal**: `weight ~ Time * Diet + (Time * Diet | Chick)` — what happens?
+2. **Diagnose**: Why does it fail? (*Hint*: is `Diet` a within-Chick or between-Chick variable?)
+3. **Simplify**: What's the most complex structure that *makes sense* given the design?
+4. **Compare**: Use `compare()` to pick the best varying effects structure
+5. **Infer**: Use `jointtest()` and `explore()` on your best model
+
+Feel free to make any visualizations to help you out!
+
+```{python}
+# Step 1: Load data and try maximal model
+```
+
+```{python}
+# Step 2: Diagnose
+```
+
+```{python}
+# Step 3: Simplify
+```
+
+```{python}
+# Step 4: Compare
+```
+
+```{python}
+# Step 5: Fixed effects inference
+```
+
+*Your interpretation here: What did you learn about the diet effects on chick growth? Why couldn't the maximal model work?*
+
+

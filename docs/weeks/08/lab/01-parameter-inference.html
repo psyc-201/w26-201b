@@ -1,0 +1,2506 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eshin Jolly">
+<meta name="dcterms.date" content="2026-02-24">
+
+<title>Parameter Inference – PSYC 201B</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-0441d281c0042f78ca5e6da214781463.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/custom.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../logo25.png" alt="" class="navbar-logo light-content">
+    <img src="../../../logo25.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">PSYC 201B</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../weeks/final/project.html"> 
+<span class="menu-text">Final Project</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../datasets.html"> 
+<span class="menu-text">Open Datasets</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../guides/terminology.html"> 
+<span class="menu-text">Glossary</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-guides--resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Guides &amp; Resources</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-guides--resources">    
+        <li>
+    <a class="dropdown-item" href="../../../guides/git-guide.html">
+ <span class="dropdown-text">Git &amp; Github</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/classroom-guide.html">
+ <span class="dropdown-text">Github Classroom</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/python-resources.html">
+ <span class="dropdown-text">Python Resources</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/notation.html">
+ <span class="dropdown-text">Mathematical Notation Reference</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../guides/formulas.html">
+ <span class="dropdown-text">Common Formulas Reference</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://forms.gle/eXfTXVqYxCCFbv9c7"> 
+<span class="menu-text">Anonymous Feedback</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://psyc201b.github.io/PSYC-201B/"> 
+<span class="menu-text">Previous course versions</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/psyc-201/w26-201b" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../weeks/08/index.html">Week 8</a></li><li class="breadcrumb-item"><a href="../../../weeks/08/lab/01-parameter-inference.html">Parameter Inference</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+  <div id="quarto-announcement" data-announcement-id="463ac3992fb02f6015f02a46d3fd5318" class="alert alert-success hidden"><i class="bi bi-megaphone-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>Site Updates:</strong> Week 10 Slides</p>
+</div></div>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/lab/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">“Pre-flight” Lab Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/lab/python-fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python Fundamentals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/01/lab/polars-crash-course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Polars (dataframes) Crash Course</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/lab/seaborn-crash-course.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Seaborn (plotting) Crash Course</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/lab/eda-workflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EDA Workflows</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/02/hw/hw1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HW 1: Data Exploration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/03/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/lab/01-sampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Simulation &amp; Bootstrapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/lab/02-explanation-prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Permutation &amp; Cross-Validation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/04/hw/hw2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HW 2: Resampling Inference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 5</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/05/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 6</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/06/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/06/lab/01-glm-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regression Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/06/lab/02-categorical-coding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Categorical Predictors</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 8</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/08/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/08/lab/01-parameter-inference.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Parameter Inference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 9</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/lab/01-marginal-effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Marginal Effects &amp; the Mixing Board</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/lab/02-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Logistic Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/09/lab/challenge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HW/Challenge 3: Modeling Workflow</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 10</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/10/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/10/lab/01-mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mixed Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../weeks/10/lab/02-odds-and-ends.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Odds &amp; Ends</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a></li>
+  <li><a href="#visual-exploration" id="toc-visual-exploration" class="nav-link" data-scroll-target="#visual-exploration">Visual Exploration</a></li>
+  <li><a href="#estimation-comparison" id="toc-estimation-comparison" class="nav-link" data-scroll-target="#estimation-comparison">Estimation &amp; Comparison</a></li>
+  <li><a href="#model-diagnostics" id="toc-model-diagnostics" class="nav-link" data-scroll-target="#model-diagnostics">Model Diagnostics</a></li>
+  <li><a href="#parameter-inference-.infer" id="toc-parameter-inference-.infer" class="nav-link" data-scroll-target="#parameter-inference-.infer">Parameter Inference <code>.infer()</code></a>
+  <ul>
+  <li><a href="#what-standard-error-actually-means" id="toc-what-standard-error-actually-means" class="nav-link" data-scroll-target="#what-standard-error-actually-means">What Standard Error Actually Means</a></li>
+  <li><a href="#the-t-statistic-signal-to-noise" id="toc-the-t-statistic-signal-to-noise" class="nav-link" data-scroll-target="#the-t-statistic-signal-to-noise">The t-statistic: Signal-to-Noise</a></li>
+  <li><a href="#the-p-value-how-surprised-should-i-be" id="toc-the-p-value-how-surprised-should-i-be" class="nav-link" data-scroll-target="#the-p-value-how-surprised-should-i-be">The p-value: “How surprised should I be?”</a></li>
+  <li><a href="#confidence-intervals-whats-plausible" id="toc-confidence-intervals-whats-plausible" class="nav-link" data-scroll-target="#confidence-intervals-whats-plausible">Confidence intervals: “What’s plausible?”</a></li>
+  <li><a href="#parametric-inference-summary" id="toc-parametric-inference-summary" class="nav-link" data-scroll-target="#parametric-inference-summary">Parametric Inference Summary</a></li>
+  </ul></li>
+  <li><a href="#multicollinearity-the-other-assumption" id="toc-multicollinearity-the-other-assumption" class="nav-link" data-scroll-target="#multicollinearity-the-other-assumption">Multicollinearity — The Other Assumption</a>
+  <ul>
+  <li><a href="#visualizing-the-problem" id="toc-visualizing-the-problem" class="nav-link" data-scroll-target="#visualizing-the-problem">Visualizing the Problem</a></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  <li><a href="#checking-for-collinearity-vif" id="toc-checking-for-collinearity-vif" class="nav-link" data-scroll-target="#checking-for-collinearity-vif">Checking for Collinearity: VIF</a></li>
+  <li><a href="#how-parameters-change" id="toc-how-parameters-change" class="nav-link" data-scroll-target="#how-parameters-change">How Parameters Change</a></li>
+  <li><a href="#handling-multicollinearity" id="toc-handling-multicollinearity" class="nav-link" data-scroll-target="#handling-multicollinearity">Handling Multicollinearity</a></li>
+  <li><a href="#challenge-z-scoring" id="toc-challenge-z-scoring" class="nav-link" data-scroll-target="#challenge-z-scoring">Challenge: Z-scoring</a></li>
+  </ul></li>
+  <li><a href="#non-parametric-inference" id="toc-non-parametric-inference" class="nav-link" data-scroll-target="#non-parametric-inference">Non-Parametric Inference</a>
+  <ul>
+  <li><a href="#bootstrap-building-the-sampling-distribution" id="toc-bootstrap-building-the-sampling-distribution" class="nav-link" data-scroll-target="#bootstrap-building-the-sampling-distribution">Bootstrap: Building the Sampling Distribution</a></li>
+  <li><a href="#permutation-building-the-null-distribution" id="toc-permutation-building-the-null-distribution" class="nav-link" data-scroll-target="#permutation-building-the-null-distribution">Permutation: Building the Null Distribution</a></li>
+  <li><a href="#statistical-significance-neq-practical-significance" id="toc-statistical-significance-neq-practical-significance" class="nav-link" data-scroll-target="#statistical-significance-neq-practical-significance">Statistical Significance <span class="math inline">\(\neq\)</span> Practical Significance</a></li>
+  </ul></li>
+  <li><a href="#challenge-is-newspaper-worth-it" id="toc-challenge-is-newspaper-worth-it" class="nav-link" data-scroll-target="#challenge-is-newspaper-worth-it">Challenge: Is Newspaper Worth It?</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../weeks/08/index.html">Week 8</a></li><li class="breadcrumb-item"><a href="../../../weeks/08/lab/01-parameter-inference.html">Parameter Inference</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Parameter Inference</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eshin Jolly </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 24, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In the previous notebooks we learned to fit GLMs and compare nested models using <code>compare()</code>. We asked: <em>“Is this predictor worth adding?”</em></p>
+<p>In this notebook we’ll go deeper and build intuitions for:</p>
+<ul>
+<li><strong>Parameter inference</strong>: How certain are we in our estimates? What do SE, <em>t</em>, <em>p</em>, and confidence intervals actually mean?</li>
+<li><strong>Model diagnostics</strong>: Are the assumptions behind our model reasonable?</li>
+<li><strong>Multicollinearity</strong>: What happens when predictors are correlated with each other?</li>
+<li><strong>Non-parametric alternatives</strong>: What if we don’t want to assume a specific distribution?</li>
+</ul>
+<p>Throughout, we’ll frame inference as a <strong>signal-to-noise ratio</strong>: how large is our estimate relative to the uncertainty in that estimate?</p>
+<p><span class="math display">\[
+t = \frac{\hat{\beta}}{SE_{\hat{\beta}}} = \frac{\text{signal}}{\text{noise}}
+\]</span></p>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>We’ll use a dataset of advertisement spending on different types of media and the resulting sales:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>tv</td>
+<td>TV ad spending (in $1000s)</td>
+</tr>
+<tr class="even">
+<td>radio</td>
+<td>Radio ad spending (in $1000s)</td>
+</tr>
+<tr class="odd">
+<td>newspaper</td>
+<td>Newspaper ad spending (in $1000s)</td>
+</tr>
+<tr class="even">
+<td>sales</td>
+<td>Sales generated (in $1000s)</td>
+</tr>
+</tbody>
+</table>
+<div id="6c0eecec" class="cell" data-execution_count="1">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> polars <span class="im">as</span> pl</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> polars <span class="im">import</span> col</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bossanova <span class="im">import</span> model, compare, load_dataset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="00f20b86" class="cell" data-execution_count="2">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ads <span class="op">=</span> load_dataset(<span class="st">"advertising"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ads.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 4)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">tv</th>
+<th data-quarto-table-cell-role="th">radio</th>
+<th data-quarto-table-cell-role="th">newspaper</th>
+<th data-quarto-table-cell-role="th">sales</th>
+</tr>
+<tr class="even">
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>230.1</td>
+<td>37.8</td>
+<td>69.2</td>
+<td>22.1</td>
+</tr>
+<tr class="even">
+<td>44.5</td>
+<td>39.3</td>
+<td>45.1</td>
+<td>10.4</td>
+</tr>
+<tr class="odd">
+<td>17.2</td>
+<td>45.9</td>
+<td>69.3</td>
+<td>9.3</td>
+</tr>
+<tr class="even">
+<td>151.5</td>
+<td>41.3</td>
+<td>58.5</td>
+<td>18.5</td>
+</tr>
+<tr class="odd">
+<td>180.8</td>
+<td>10.8</td>
+<td>58.4</td>
+<td>12.9</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="visual-exploration" class="level2">
+<h2 class="anchored" data-anchor-id="visual-exploration">Visual Exploration</h2>
+<p>Before building any model you should <strong>always plot your data first</strong>. This gives you a better idea of what your data looks like and informs the modeling choices you’ll make.</p>
+<p>A <code>pairplot</code> shows the scatterplot between every pair of variables:</p>
+<div id="4e33a915" class="cell" data-execution_count="3">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sns.pairplot(ads.to_pandas())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-parameter-inference_files/figure-html/cell-4-output-1.png" width="946" height="947" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A <strong>correlation heatmap</strong> is another great way to summarize all pairwise relationships. We use <code>.corr()</code> in polars to compute pairwise correlations, then visualize with <code>sns.heatmap</code>:</p>
+<div id="1ffa3e7e" class="cell" data-execution_count="4">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>_corr_mat <span class="op">=</span> ads.corr()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>_ax <span class="op">=</span> sns.heatmap(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    _corr_mat,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'vlag'</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    vmin<span class="op">=-</span><span class="dv">1</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    vmax<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    xticklabels<span class="op">=</span>_corr_mat.columns,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    yticklabels<span class="op">=</span>_corr_mat.columns,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    annot<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">=</span><span class="st">'.3f'</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>_ax.set_title(<span class="st">'Correlation Matrix'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>Text(0.5, 1.0, 'Correlation Matrix')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-parameter-inference_files/figure-html/cell-5-output-2.png" width="553" height="431" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This tells us:</p>
+<ul>
+<li><span class="math inline">\(r_{tv, sales} = 0.78\)</span> — TV spending is strongly correlated with sales</li>
+<li><span class="math inline">\(r_{radio, sales} = 0.58\)</span> — Radio spending has a moderate correlation with sales</li>
+<li><span class="math inline">\(r_{tv, radio} = 0.05\)</span> — The two predictors are nearly uncorrelated with each other (we’ll revisit this…)</li>
+</ul>
+<p>Another way we can look at these data is my mapping one of our continuous predictors to <code>hue</code> and <code>size</code> in a scatterplot. Since we’re interested in whether the <em>addition of radio</em> as a predictor changes our ability to predict sales, let’s put <span class="math inline">\(tv\)</span> on the x-axis, <span class="math inline">\(sales\)</span> on the y-axis, and <span class="math inline">\(radio\)</span> on the hue.</p>
+<p>Visualized this way it looks like the relationship between <span class="math inline">\(TV\)</span> and <span class="math inline">\(sales\)</span> might get <em>steeper</em> as <span class="math inline">\(radio\)</span> increases.</p>
+<div id="cede9c51" class="cell" data-execution_count="5">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>_grid <span class="op">=</span> sns.relplot(data<span class="op">=</span>ads, kind<span class="op">=</span><span class="st">'scatter'</span>, x<span class="op">=</span><span class="st">'tv'</span>, y<span class="op">=</span><span class="st">'sales'</span>, hue<span class="op">=</span><span class="st">'radio'</span>, size<span class="op">=</span><span class="st">'radio'</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>_grid.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'TV Spending ($1000)'</span>, ylabel<span class="op">=</span><span class="st">'Sales ($1000)'</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>_grid.legend.set_title(<span class="st">'Radio Spending ($1000)'</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>_grid.legend.set_bbox_to_anchor((<span class="fl">0.45</span>, <span class="fl">0.8</span>))</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>_grid</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-parameter-inference_files/figure-html/cell-6-output-1.png" width="471" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="estimation-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="estimation-comparison">Estimation &amp; Comparison</h2>
+<p>The primary question we want to answer is:</p>
+<p><strong>Can we predict sales better when we consider radio ads <em>in addition to</em> TV ads?</strong></p>
+<p>We formalize this as a comparison between two nested models:</p>
+<p><span class="math display">\[
+\begin{align*}
+\text{Compact:} \quad sales_i &amp;= \beta_0 + \beta_1 \cdot tv_i \\
+\text{Augmented:} \quad sales_i &amp;= \beta_0 + \beta_1 \cdot tv_i + \beta_2 \cdot radio_i
+\end{align*}
+\]</span></p>
+<div data-align="center">
+<p><img src="./figs/multr.png" width="60%" alt="Multiple Regression"></p>
+</div>
+<div id="1a9d8af8" class="cell" data-execution_count="6">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>compact <span class="op">=</span> model(<span class="st">'sales ~ tv'</span>, ads).fit()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>augmented <span class="op">=</span> model(<span class="st">'sales ~ tv + radio'</span>, ads).fit()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>compare(compact, augmented)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (2, 8)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">model</th>
+<th data-quarto-table-cell-role="th">PRE</th>
+<th data-quarto-table-cell-role="th">F</th>
+<th data-quarto-table-cell-role="th">rss</th>
+<th data-quarto-table-cell-role="th">ss</th>
+<th data-quarto-table-cell-role="th">df</th>
+<th data-quarto-table-cell-role="th">df_resid</th>
+<th data-quarto-table-cell-role="th">p_value</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"sales ~ tv"</td>
+<td>null</td>
+<td>null</td>
+<td>2103.0</td>
+<td>null</td>
+<td>null</td>
+<td>198.0</td>
+<td>null</td>
+</tr>
+<tr class="even">
+<td>"sales ~ tv + radio"</td>
+<td>0.7351</td>
+<td>546.7</td>
+<td>556.9</td>
+<td>1546.0</td>
+<td>1.0</td>
+<td>197.0</td>
+<td>1.1100e-16</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>The large F-statistic and PRE tell us: <strong>yes, adding radio is worth it!</strong></p>
+<p>The PRE (Proportional Reduction in Error) tells us how much additional variance radio explains beyond TV alone.</p>
+<p>Now let’s evaluate <em>how</em> well our augmented model is doing overall.</p>
+</section>
+<section id="model-diagnostics" class="level2">
+<h2 class="anchored" data-anchor-id="model-diagnostics">Model Diagnostics</h2>
+<p>Before interpreting our parameter estimates, we should check whether the model’s <strong>assumptions</strong> are reasonable. Recall the key assumptions:</p>
+<ul>
+<li><strong>Independence</strong>: Errors are independent of each other</li>
+<li><strong>Normality</strong>: Errors are approximately normally distributed</li>
+<li><strong>Homoscedasticity</strong>: Error variance is constant across predictions</li>
+</ul>
+<p><code>bossanova</code> provides a built-in 4-panel diagnostic plot via <code>.plot_resid()</code>:</p>
+<div id="f66055ad" class="cell" data-execution_count="7">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>augmented.plot_resid()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-parameter-inference_files/figure-html/cell-8-output-1.png" width="663" height="690" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>How to read these panels:</p>
+<ul>
+<li><strong>Residuals vs Fitted</strong> (top-left): Look for patterns. If there’s a clear curve or fan shape, the model might be missing something (like a non-linear relationship or interaction).</li>
+<li><strong>Q-Q Plot</strong> (top-right): Points should follow the diagonal line. Deviations in the tails indicate non-normality.</li>
+<li><strong>Scale-Location</strong> (bottom-left): The spread of residuals should be roughly constant across fitted values. A funnel shape indicates heteroscedasticity.</li>
+<li><strong>Residuals vs Leverage</strong> (bottom-right): Identifies influential observations that disproportionately affect the regression.</li>
+</ul>
+<p>We can also inspect our model’s overall fit by plotting predicted vs.&nbsp;observed values and checking the <code>.diagnostics</code> table:</p>
+<div id="c967de34" class="cell" data-execution_count="8">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>_grid <span class="op">=</span> sns.relplot(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>augmented.data,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'sales'</span>, y<span class="op">=</span><span class="st">'fitted'</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">'scatter'</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">5</span>, aspect<span class="op">=</span><span class="fl">1.5</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>_grid.set_axis_labels(<span class="st">'Sales (observed)'</span>, <span class="st">'Sales (predicted)'</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>_grid.<span class="bu">set</span>(title<span class="op">=</span><span class="ss">f"Model R² = </span><span class="sc">{</span>augmented<span class="sc">.</span>diagnostics[<span class="st">'rsquared'</span>]<span class="sc">.</span>item()<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-parameter-inference_files/figure-html/cell-9-output-1.png" width="710" height="490" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="9b2a2ed1" class="cell" data-execution_count="9">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>augmented.diagnostics</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (1, 15)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">df_model</th>
+<th data-quarto-table-cell-role="th">df_resid</th>
+<th data-quarto-table-cell-role="th">rsquared</th>
+<th data-quarto-table-cell-role="th">rsquared_adj</th>
+<th data-quarto-table-cell-role="th">fstatistic</th>
+<th data-quarto-table-cell-role="th">fstatistic_pvalue</th>
+<th data-quarto-table-cell-role="th">sigma</th>
+<th data-quarto-table-cell-role="th">null_deviance</th>
+<th data-quarto-table-cell-role="th">deviance</th>
+<th data-quarto-table-cell-role="th">dispersion</th>
+<th data-quarto-table-cell-role="th">mse</th>
+<th data-quarto-table-cell-role="th">pseudo_rsquared</th>
+<th data-quarto-table-cell-role="th">aic</th>
+<th data-quarto-table-cell-role="th">bic</th>
+<th data-quarto-table-cell-role="th">loglik</th>
+</tr>
+<tr class="even">
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2.0</td>
+<td>197.0</td>
+<td>0.8972</td>
+<td>0.8962</td>
+<td>859.6</td>
+<td>2.2200e-16</td>
+<td>1.681</td>
+<td>5417.0</td>
+<td>556.9</td>
+<td>2.827</td>
+<td>2.785</td>
+<td>0.8972</td>
+<td>780.4</td>
+<td>793.6</td>
+<td>-386.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Our <span class="math inline">\(R^2\)</span> of ~0.90 tells us the model accounts for about 90% of the variance in sales. That’s strong. The residual diagnostics look reasonable — some slight non-normality in the tails, but nothing too concerning for now.</p>
+</section>
+<section id="parameter-inference-.infer" class="level2">
+<h2 class="anchored" data-anchor-id="parameter-inference-.infer">Parameter Inference <code>.infer()</code></h2>
+<p>Now let’s move from <em>model-level</em> evaluation (does adding radio help?) to <em>parameter-level</em> inference (how certain are we in each estimate?).</p>
+<p>After fitting, <code>.params</code> shows us the bare estimates:</p>
+<div id="89c32b7d" class="cell" data-execution_count="10">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>augmented.params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>2.921</td>
+</tr>
+<tr class="even">
+<td>"tv"</td>
+<td>0.04575</td>
+</tr>
+<tr class="odd">
+<td>"radio"</td>
+<td>0.188</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>These tell us <em>what</em> the model estimated, but not <em>how certain</em> we should be. When we call <code>.infer()</code> (which we already did when creating this model), <code>bossanova</code> computes standard errors, confidence intervals, t-statistics, and p-values.</p>
+<div id="78e43b73" class="cell" data-execution_count="11">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>augmented.infer().params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 8)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+<th data-quarto-table-cell-role="th">se</th>
+<th data-quarto-table-cell-role="th">ci_lower</th>
+<th data-quarto-table-cell-role="th">ci_upper</th>
+<th data-quarto-table-cell-role="th">statistic</th>
+<th data-quarto-table-cell-role="th">df</th>
+<th data-quarto-table-cell-role="th">p_value</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>2.921</td>
+<td>0.2945</td>
+<td>2.34</td>
+<td>3.502</td>
+<td>9.919</td>
+<td>197.0</td>
+<td>2.2200e-16</td>
+</tr>
+<tr class="even">
+<td>"tv"</td>
+<td>0.04575</td>
+<td>0.00139</td>
+<td>0.04301</td>
+<td>0.0485</td>
+<td>32.91</td>
+<td>197.0</td>
+<td>2.2200e-16</td>
+</tr>
+<tr class="odd">
+<td>"radio"</td>
+<td>0.188</td>
+<td>0.00804</td>
+<td>0.1721</td>
+<td>0.2038</td>
+<td>23.38</td>
+<td>197.0</td>
+<td>2.2200e-16</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Let’s break down what each column means:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 47%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Column</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>estimate</strong></td>
+<td>Our best guess for <span class="math inline">\(\hat{\beta}\)</span> — the estimated slope or intercept</td>
+</tr>
+<tr class="even">
+<td><strong>se</strong></td>
+<td>Standard error — how much <span class="math inline">\(\hat{\beta}\)</span> would vary across different samples</td>
+</tr>
+<tr class="odd">
+<td><strong>ci_lower</strong></td>
+<td>Lower range of the 95% confidence interval based on <span class="math inline">\(SE\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>ci_upper</strong></td>
+<td>Upper range of the 95% confidence interval based on <span class="math inline">\(SE\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>statistic</strong></td>
+<td>Signal-to-noise ratio: <span class="math inline">\(t = \hat{\beta} / SE\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>df</strong></td>
+<td>degrees-of-freedom (how many data points are free to vary based on what we estimated)</td>
+</tr>
+<tr class="odd">
+<td><strong>p_value</strong></td>
+<td>p-value — assuming no true effect, how surprising is this <em>t</em>?</td>
+</tr>
+</tbody>
+</table>
+<p>We can also <em>method-chain</em> <code>.summary()</code> to get an R-style summary:</p>
+<div id="5de5e06d" class="cell" data-execution_count="12">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>augmented.infer().summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>Linear Model: sales ~ tv + radio
+
+Residuals:
+    Min      1Q  Median      3Q     Max
+ -8.798  -0.875   0.242   1.171   2.833
+
+Coefficients:
+             Estimate  Std.Err     [2.5%    97.5%]    df  t value  Pr(&gt;|t|)    
+  Intercept     2.921    0.294     2.340     3.502   197     9.92  &lt;2.2e-16 ***
+         tv     0.046    0.001     0.043     0.048   197    32.91  &lt;2.2e-16 ***
+      radio     0.188    0.008     0.172     0.204   197    23.38  &lt;2.2e-16 ***
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+           Interc      tv
+       tv  -0.659
+    radio  -0.597  -0.055
+
+Residual std error: 1.681 on 197 df
+Multiple R-squared: 0.897, Adjusted R-squared: 0.896
+AIC: 778.4, BIC: 788.3</code></pre>
+</div>
+</div>
+<p>Here’s how we’d interpret the <code>radio</code> estimate in plain English:</p>
+<p><em>For a given amount of TV advertising, an additional $1,000 spending on radio is associated with approximately 188 additional units in sales.</em></p>
+<blockquote class="blockquote">
+<p>The $1,000 and 188 units come from the <em>measurement scale</em> of our variables — they’re in units of “$1000 of spending” so we shift by 3 decimal places to make it concrete.</p>
+</blockquote>
+<section id="what-standard-error-actually-means" class="level3">
+<h3 class="anchored" data-anchor-id="what-standard-error-actually-means">What Standard Error Actually Means</h3>
+<div data-align="center">
+<p><img src="./figs/sampling.png" width="60%" alt="Sampling"></p>
+</div>
+<p>Remember: we’re trying to learn about a <strong>population</strong> from a single <strong>sample</strong>. Our estimates <span class="math inline">\(\hat{\beta}\)</span> will change every time we collect a new sample. The standard error tells us <em>how much</em> we’d expect them to change — it’s the <strong>expected average deviation</strong> from the true population value.</p>
+<p>The formula for <span class="math inline">\(SE_{\hat{\beta}}\)</span> captures a fundamental trade-off:</p>
+<div data-align="center">
+<p><img src="./figs/se.png" width="60%" alt="SE Formula"></p>
+</div>
+<p><span class="math display">\[
+SE_{\hat{\beta}} = \sqrt{\sigma^2 (X^T X)^{-1}}
+\]</span></p>
+<p>Where <span class="math inline">\(\sigma^2\)</span> is the average model error (MSE). The key insight is that our precision is approximately:</p>
+<p><span class="math display">\[
+SE \approx \frac{var(errors)}{\sqrt{DF_{error}}}
+\]</span></p>
+<p>This tells us:</p>
+<ul>
+<li><strong>More data</strong> → more degrees of freedom → <strong>better precision</strong> (smaller SE)</li>
+<li><strong>More parameters</strong> → fewer degrees of freedom → <strong>worse precision</strong> (larger SE)</li>
+<li><strong>More model error</strong> → <strong>worse precision</strong> (larger SE)</li>
+</ul>
+<div id="a44e8010" class="cell" data-execution_count="13">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear algebra library</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Design matrix</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> augmented.designmat.to_numpy()</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Average model error - squared</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>sigma_squared <span class="op">=</span> augmented.diagnostics.select(<span class="st">'sigma'</span>).to_numpy() <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Square-root of the diagonal elements</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>np.sqrt(</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    np.diagonal(</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Average error * matrix "undo"</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        sigma_squared <span class="op">*</span> np.linalg.inv(X.T <span class="op">@</span> X)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>array([0.29442646, 0.00139006, 0.00803825])</code></pre>
+</div>
+</div>
+<div id="e9b818cf" class="cell" data-execution_count="14">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Standard errors</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>augmented.params.select(<span class="st">'se'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 1)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">se</th>
+</tr>
+<tr class="even">
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0.2945</td>
+</tr>
+<tr class="even">
+<td>0.00139</td>
+</tr>
+<tr class="odd">
+<td>0.00804</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>This is the connection to model comparison: the reason we compare models with an accuracy-simplicity trade-off is <em>because</em> more parameters consume degrees of freedom, making each estimate <em>less precise</em>.</p>
+<div data-align="center">
+<p><img src="./figs/bias_variance.png" width="30%" alt="Bias-Variance"></p>
+</div>
+</section>
+<section id="the-t-statistic-signal-to-noise" class="level3">
+<h3 class="anchored" data-anchor-id="the-t-statistic-signal-to-noise">The t-statistic: Signal-to-Noise</h3>
+<p>The <em>t</em>-statistic is the ratio of our estimate to its uncertainty:</p>
+<p><span class="math display">\[
+t = \frac{\hat{\beta}}{SE_{\hat{\beta}}} = \frac{\text{signal}}{\text{noise}}
+\]</span></p>
+<div id="c22179b7" class="cell" data-execution_count="15">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Manually divide columns</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>augmented.params.select(<span class="st">'estimate'</span>) <span class="op">/</span> augmented.params.select(<span class="st">'se'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 1)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>9.918506</td>
+</tr>
+<tr class="even">
+<td>32.913669</td>
+</tr>
+<tr class="odd">
+<td>23.383085</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="583400f8" class="cell" data-execution_count="16">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># T-stat</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>augmented.params.select(<span class="st">'statistic'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (3, 1)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">statistic</th>
+</tr>
+<tr class="even">
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>9.919</td>
+</tr>
+<tr class="even">
+<td>32.91</td>
+</tr>
+<tr class="odd">
+<td>23.38</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>The larger the <span class="math inline">\(|t|\)</span>, the more confidence we have in the <strong>precision</strong> of <span class="math inline">\(\hat{\beta}\)</span>.</p>
+</section>
+<section id="the-p-value-how-surprised-should-i-be" class="level3">
+<h3 class="anchored" data-anchor-id="the-p-value-how-surprised-should-i-be">The p-value: “How surprised should I be?”</h3>
+<p>The p-value asks: <strong>assuming no true signal exists</strong> (<span class="math inline">\(\beta = 0\)</span>), how likely am I to observe a signal-to-noise ratio as extreme as this <span class="math inline">\(t\)</span>?</p>
+<p>If we assume this ratio follows a <em>t-distribution</em> (which has fatter tails than a normal distribution, especially at smaller sample sizes), we can “look up” the p-value:</p>
+<ul>
+<li>Small p-value → our observed <span class="math inline">\(t\)</span> would be very surprising under the null → evidence <em>against</em> <span class="math inline">\(\beta = 0\)</span></li>
+<li>Large p-value → our observed <span class="math inline">\(t\)</span> is unsurprising under the null → no strong evidence against <span class="math inline">\(\beta = 0\)</span></li>
+</ul>
+</section>
+<section id="confidence-intervals-whats-plausible" class="level3">
+<h3 class="anchored" data-anchor-id="confidence-intervals-whats-plausible">Confidence intervals: “What’s plausible?”</h3>
+<p>A 95% CI tells us: if we repeated this study many times, 95% of the resulting intervals would contain the true <span class="math inline">\(\beta\)</span>. It gives a range of <em>plausible</em> values, which is often more informative than a single p-value.</p>
+</section>
+<section id="parametric-inference-summary" class="level3">
+<h3 class="anchored" data-anchor-id="parametric-inference-summary">Parametric Inference Summary</h3>
+<p>The process <code>.infer()</code> performs by default (called “asymptotic” or “parametric” inference):</p>
+<ol type="1">
+<li>Estimate <span class="math inline">\(\hat{\beta}\)</span> from the data</li>
+<li>Estimate uncertainty <span class="math inline">\(SE_{\hat{\beta}}\)</span> using the analytic formula</li>
+<li>Compute signal-to-noise: <span class="math inline">\(t = \hat{\beta} / SE_{\hat{\beta}}\)</span></li>
+<li>Look up the p-value: assuming <span class="math inline">\(\beta = 0\)</span>, what’s the probability of observing <span class="math inline">\(|t|\)</span> this large?</li>
+</ol>
+<p>This works well when:</p>
+<ul>
+<li>You have enough data</li>
+<li>Model assumptions are reasonably met (check your diagnostics!)</li>
+</ul>
+<p>If assumptions are violated, the assumed t-distribution may not be correct, and the p-values become unreliable. That’s where non-parametric alternatives come in (we’ll get to those later).</p>
+</section>
+</section>
+<section id="multicollinearity-the-other-assumption" class="level2">
+<h2 class="anchored" data-anchor-id="multicollinearity-the-other-assumption">Multicollinearity — The Other Assumption</h2>
+<div data-align="center">
+<p><img src="./figs/mc.png" width="40%" alt="Multicollinearity"></p>
+</div>
+<p>Previously we checked assumptions about the <strong>errors</strong> (iid: independent, identically distributed). Now let’s talk about an assumption about the <strong>predictors</strong>: that they aren’t too correlated with each other.</p>
+<p><strong>Multicollinearity</strong> occurs when predictors in a GLM are highly correlated. In the worst case — perfect correlation — we literally <em>can’t tell the difference</em> between how much each variable uniquely predicts <span class="math inline">\(y\)</span>!</p>
+<div data-align="center">
+<p><img src="./figs/x1.png" width="30%" alt="X1 only"> <img src="./figs/x12.png" width="30%" alt="X1 and X2"> <img src="./figs/x12c.png" width="30%" alt="X1 and X2 collinear"></p>
+</div>
+<p>In these Venn diagrams, the overlap shows how much each predictor explains <span class="math inline">\(y\)</span>. In the rightmost figure, <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> overlap so much that including both is nearly redundant.</p>
+<section id="visualizing-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-the-problem">Visualizing the Problem</h3>
+<p>Here’s what this looks like with 3D regression planes. With <strong>uncorrelated</strong> predictors, the regression plane is stable across samples:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/movie_regression_2preds.gif" class="img-fluid figure-img"></p>
+<figcaption>Stable regression plane</figcaption>
+</figure>
+</div>
+<p>But with <strong>correlated</strong> predictors, the plane tips on a ridge and becomes unstable:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/movie_regression_colinear.gif" class="img-fluid figure-img"></p>
+<figcaption>Unstable regression plane</figcaption>
+</figure>
+</div>
+</section>
+<section id="key-takeaways" class="level3">
+<h3 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h3>
+<p>Multicollinearity has specific, predictable effects:</p>
+<ul>
+<li>Parameter estimates can become <strong>very large</strong> and even <strong>flip sign</strong></li>
+<li>Standard errors <strong>always increase</strong> → confidence intervals get <strong>wider</strong></li>
+<li>Statistical <strong>power decreases</strong> — we’re less certain of our estimates</li>
+<li>But overall model fit (<span class="math inline">\(R^2\)</span>) <strong>does not change</strong> — the model predicts just as well, it just becomes <em>less interpretable</em></li>
+</ul>
+<p>You can see this in the figure below — as collinearity between predictors increases, the estimates become more variable and the confidence intervals balloon:</p>
+<div data-align="center">
+<p><img src="./figs/collinear.png" width="70%" alt="Collinearity Effects"></p>
+</div>
+</section>
+<section id="checking-for-collinearity-vif" class="level3">
+<h3 class="anchored" data-anchor-id="checking-for-collinearity-vif">Checking for Collinearity: VIF</h3>
+<p>The <strong>Variance Inflation Factor (VIF)</strong> generalizes the idea of pairwise correlations to tell us how much each predictor is correlated with <em>all other</em> predictors:</p>
+<p><span class="math display">\[
+\text{VIF}_k = \frac{1}{1 - R^2_{(-k)}}
+\]</span></p>
+<p>where <span class="math inline">\(R^2_{(-k)}\)</span> is the R-squared you’d get if you used predictor <span class="math inline">\(X_k\)</span> as the outcome and all other predictors as inputs. The square root of VIF tells you how much <strong>wider</strong> the confidence interval is compared to what you’d get with uncorrelated predictors.</p>
+<p><strong>Rule of thumb</strong>: VIF &gt; 5 is a flag (it means CIs are 2.2x wider than they’d be with no collinearity). But this isn’t a hard rule — it depends on your goals.</p>
+<p>Always use a model’s <code>.vif()</code> method to inspect this <strong>before</strong> you estimate parameters.</p>
+<p>Let’s see it in action with an <strong>interaction</strong> model, where collinearity is especially common.</p>
+<div id="14fdbbed" class="cell" data-execution_count="17">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>interaction_raw <span class="op">=</span> model(<span class="st">'sales ~ tv * radio'</span>, ads)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>interaction_raw.plot_vif()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-parameter-inference_files/figure-html/cell-18-output-1.png" width="372" height="371" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="eb8a1b39" class="cell" data-execution_count="18">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>interaction_centered <span class="op">=</span> model(<span class="st">'sales ~ center(tv) * center(radio)'</span>, ads)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>interaction_centered.plot_vif()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-parameter-inference_files/figure-html/cell-19-output-1.png" width="372" height="371" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Look at the difference! Without centering, the interaction term <code>tv:radio</code> has a VIF near 7 — meaning its CI is ~2.6x wider than it needs to be. With centering, all VIFs drop to near 1.</p>
+<p><strong>Why?</strong> The product of two uncentered variables (<span class="math inline">\(tv \times radio\)</span>) is naturally correlated with each variable individually — if either goes up, the product goes up. Centering removes this <strong>artificial correlation.</strong></p>
+</section>
+<section id="how-parameters-change" class="level3">
+<h3 class="anchored" data-anchor-id="how-parameters-change">How Parameters Change</h3>
+<p>Centering doesn’t change the overall fit — <span class="math inline">\(R^2\)</span> and predictions are identical. But notice how the <em>individual parameter estimates</em> differ:</p>
+<div id="8343d3a4" class="cell" data-execution_count="19">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>interaction_raw.fit().params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (4, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>6.75</td>
+</tr>
+<tr class="even">
+<td>"tv"</td>
+<td>0.0191</td>
+</tr>
+<tr class="odd">
+<td>"radio"</td>
+<td>0.02886</td>
+</tr>
+<tr class="even">
+<td>"tv:radio"</td>
+<td>0.001086</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="ecac67d8" class="cell" data-execution_count="20">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>interaction_centered.fit().params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (4, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>13.95</td>
+</tr>
+<tr class="even">
+<td>"center(tv)"</td>
+<td>0.04438</td>
+</tr>
+<tr class="odd">
+<td>"center(radio)"</td>
+<td>0.1886</td>
+</tr>
+<tr class="even">
+<td>"center(tv):center(radio)"</td>
+<td>0.001086</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Notice:</p>
+<ul>
+<li>The <strong>interaction</strong> estimate (<code>tv:radio</code> / <code>center(tv):center(radio)</code>) is the same — centering doesn’t change the interaction slope</li>
+<li>The <strong>main effect</strong> estimates differ — because centering changes what “the effect of tv when radio = 0” means (now it’s “…when radio = its mean”)</li>
+<li>The <strong>standard errors</strong> are much smaller in the centered model — that’s the VIF reduction at work</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Key insight</strong>: Centering is purely a <em>reparameterization</em>. The model is the same, but the <em>interpretation</em> and <em>precision</em> of individual parameters changes.</p>
+</blockquote>
+</section>
+<section id="handling-multicollinearity" class="level3">
+<h3 class="anchored" data-anchor-id="handling-multicollinearity">Handling Multicollinearity</h3>
+<p>Common remedies:</p>
+<ul>
+<li><strong>Center</strong> or <strong>z-score</strong> predictors before creating interactions (most common fix)</li>
+<li><strong>Remove</strong> a redundant predictor</li>
+<li>Use <strong>regularization</strong> (Ridge or Lasso regression — beyond this course)</li>
+</ul>
+<p>If the collinearity is <em>structural</em> (e.g., height in cm and height in inches), just drop one. If it’s from <strong>interactions</strong>, centering or z-scoring usually fixes it.</p>
+</section>
+<section id="challenge-z-scoring" class="level3">
+<h3 class="anchored" data-anchor-id="challenge-z-scoring">Challenge: Z-scoring</h3>
+<p>In the centering example above, we used <code>center()</code> in the formula. <code>bossanova</code> also supports <code>zscore()</code>, which both centers <em>and</em> scales by the standard deviation.</p>
+<ol type="1">
+<li>Fit a new interaction model using <code>zscore(tv) * zscore(radio)</code> in the formula</li>
+<li>Inspect the <code>.vif()</code> — how does it compare to the centered model?</li>
+<li>Compare the parameter estimates with the centered model — what changed and why?</li>
+<li><strong>Hint</strong>: Z-scoring puts all predictors on the same scale (standard deviations), so the <em>magnitudes</em> of the estimates become directly comparable. How would you interpret the estimates in natural language?</li>
+</ol>
+<div id="4e2437bb" class="cell" data-execution_count="21">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="4537f1b4" class="cell" data-execution_count="22">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="non-parametric-inference" class="level2">
+<h2 class="anchored" data-anchor-id="non-parametric-inference">Non-Parametric Inference</h2>
+<p>Parametric inference relies on <em>assuming</em> the shape of the sampling distribution (a t-distribution). But what if we’re not confident our assumptions hold?</p>
+<p>We have two resampling-based alternatives:</p>
+<ol type="1">
+<li><strong>Bootstrapping</strong> — estimate uncertainty by resampling <em>with replacement</em></li>
+<li><strong>Permutation</strong> — estimate p-values by <em>shuffling</em> the data</li>
+</ol>
+<section id="bootstrap-building-the-sampling-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="bootstrap-building-the-sampling-distribution">Bootstrap: Building the Sampling Distribution</h3>
+<div data-align="center">
+<p><img src="./figs/boots.png" width="60%" alt="Bootstrap"></p>
+</div>
+<p>The idea: if we want to know how much <span class="math inline">\(\hat{\beta}\)</span> would change across different samples, we can <em>simulate</em> different samples by resampling from our data with replacement.</p>
+<p>Conceptually, this is what’s happening behind the scenes:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PSEUDO-CODE — what bootstrapping looks like conceptually</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>boot_estimates <span class="op">=</span> []</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000</span>):</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create a "new" dataset by resampling rows with replacement</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    new_data <span class="op">=</span> ads.sample(fraction<span class="op">=</span><span class="fl">1.0</span>, with_replacement<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fit the same model to this resampled data</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    boot_model <span class="op">=</span> model(<span class="st">'sales ~ tv + radio'</span>, new_data).fit()</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Save the parameter estimates</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    boot_estimates.append(boot_model.params)</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="co"># The spread of boot_estimates IS the sampling distribution</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Its standard deviation IS the standard error</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>But <code>bossanova</code> makes this super easy for you using the <code>how</code> argument to <code>.infer()</code>. It offers the following options:</p>
+<ul>
+<li><code>.infer(how='asymp')</code>: default asymptotic assumption</li>
+<li><code>.infer(how='boot')</code>: bootstrap (resampling with replacement)</li>
+<li><code>infer(how='perm')</code>: permutation (shuffling)</li>
+</ul>
+<p>Let’s look at how bootstrapping affects the <code>se</code> and <code>ci</code> columns compared to the default approach:</p>
+<div id="b2686abd" class="cell" data-execution_count="23">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Default, you don't need to explicitly say how='asymp'</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>interaction_centered.infer(how<span class="op">=</span><span class="st">'asymp'</span>).params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (4, 8)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+<th data-quarto-table-cell-role="th">se</th>
+<th data-quarto-table-cell-role="th">ci_lower</th>
+<th data-quarto-table-cell-role="th">ci_upper</th>
+<th data-quarto-table-cell-role="th">statistic</th>
+<th data-quarto-table-cell-role="th">df</th>
+<th data-quarto-table-cell-role="th">p_value</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>13.95</td>
+<td>0.06682</td>
+<td>13.82</td>
+<td>14.08</td>
+<td>208.7</td>
+<td>196.0</td>
+<td>2.2200e-16</td>
+</tr>
+<tr class="even">
+<td>"center(tv)"</td>
+<td>0.04438</td>
+<td>0.000783</td>
+<td>0.04283</td>
+<td>0.04592</td>
+<td>56.67</td>
+<td>196.0</td>
+<td>2.2200e-16</td>
+</tr>
+<tr class="odd">
+<td>"center(radio)"</td>
+<td>0.1886</td>
+<td>0.004512</td>
+<td>0.1797</td>
+<td>0.1975</td>
+<td>41.81</td>
+<td>196.0</td>
+<td>2.2200e-16</td>
+</tr>
+<tr class="even">
+<td>"center(tv):center(radio)"</td>
+<td>0.001086</td>
+<td>0.000052</td>
+<td>0.0009831</td>
+<td>0.00119</td>
+<td>20.73</td>
+<td>196.0</td>
+<td>2.2200e-16</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="f262031d" class="cell" data-execution_count="24">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bootstrap with 1k resamples by default</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>interaction_centered.infer(how<span class="op">=</span><span class="st">'boot'</span>, seed<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>interaction_centered.params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (4, 8)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+<th data-quarto-table-cell-role="th">se</th>
+<th data-quarto-table-cell-role="th">ci_lower</th>
+<th data-quarto-table-cell-role="th">ci_upper</th>
+<th data-quarto-table-cell-role="th">statistic</th>
+<th data-quarto-table-cell-role="th">df</th>
+<th data-quarto-table-cell-role="th">p_value</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>13.95</td>
+<td>0.06777</td>
+<td>13.79</td>
+<td>14.06</td>
+<td>205.8</td>
+<td>1000.0</td>
+<td>0.001998</td>
+</tr>
+<tr class="even">
+<td>"center(tv)"</td>
+<td>0.04438</td>
+<td>0.001105</td>
+<td>0.04245</td>
+<td>0.04688</td>
+<td>40.18</td>
+<td>1000.0</td>
+<td>0.001998</td>
+</tr>
+<tr class="odd">
+<td>"center(radio)"</td>
+<td>0.1886</td>
+<td>0.004807</td>
+<td>0.1784</td>
+<td>0.197</td>
+<td>39.24</td>
+<td>1000.0</td>
+<td>0.001998</td>
+</tr>
+<tr class="even">
+<td>"center(tv):center(radio)"</td>
+<td>0.001086</td>
+<td>0.000073</td>
+<td>0.0009549</td>
+<td>0.001238</td>
+<td>14.95</td>
+<td>1000.0</td>
+<td>0.001998</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (4, 8)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+<th data-quarto-table-cell-role="th">se</th>
+<th data-quarto-table-cell-role="th">ci_lower</th>
+<th data-quarto-table-cell-role="th">ci_upper</th>
+<th data-quarto-table-cell-role="th">statistic</th>
+<th data-quarto-table-cell-role="th">df</th>
+<th data-quarto-table-cell-role="th">p_value</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>13.95</td>
+<td>0.06777</td>
+<td>13.79</td>
+<td>14.06</td>
+<td>205.8</td>
+<td>1000.0</td>
+<td>0.001998</td>
+</tr>
+<tr class="even">
+<td>"center(tv)"</td>
+<td>0.04438</td>
+<td>0.001105</td>
+<td>0.04245</td>
+<td>0.04688</td>
+<td>40.18</td>
+<td>1000.0</td>
+<td>0.001998</td>
+</tr>
+<tr class="odd">
+<td>"center(radio)"</td>
+<td>0.1886</td>
+<td>0.004807</td>
+<td>0.1784</td>
+<td>0.197</td>
+<td>39.24</td>
+<td>1000.0</td>
+<td>0.001998</td>
+</tr>
+<tr class="even">
+<td>"center(tv):center(radio)"</td>
+<td>0.001086</td>
+<td>0.000073</td>
+<td>0.0009549</td>
+<td>0.001238</td>
+<td>14.95</td>
+<td>1000.0</td>
+<td>0.001998</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Compare the bootstrap SEs to the parametric SEs — bootstrap SEs tend to be <em>slightly larger</em> and CIs <em>slightly wider</em>, because we’re making fewer distributional assumptions.</p>
+<p>We can visualize the bootstrap distributions with <code>.plot_resamples()</code>:</p>
+<div id="a5c1bf07" class="cell" data-execution_count="25">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>interaction_centered.plot_resamples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-parameter-inference_files/figure-html/cell-26-output-1.png" width="1027" height="299" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Each histogram shows how <span class="math inline">\(\hat{\beta}\)</span> varied across 1000 bootstrap resamples. The <em>width</em> of each distribution IS the standard error, and the 2.5th/97.5th percentiles give us the confidence interval.</p>
+</section>
+<section id="permutation-building-the-null-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="permutation-building-the-null-distribution">Permutation: Building the Null Distribution</h3>
+<div data-align="center">
+<p><img src="./figs/null.png" width="70%" alt="Null Distribution"></p>
+</div>
+<p>While bootstrapping answers <em>“how uncertain are our estimates?”</em>, permutation answers <em>“what would we expect under the null hypothesis?”</em></p>
+<p>The idea: <strong>shuffle</strong> the response variable (<span class="math inline">\(y\)</span>) to break its relationship with the predictors, then refit the model. Do this many times to build up a distribution of t-statistics you’d expect <em>if there were no true relationship</em>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PSEUDO-CODE — what permutation looks like conceptually</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>perm_tstats <span class="op">=</span> []</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000</span>):</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Shuffle ONLY the response variable — break the y ~ X relationship</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    shuffled_data <span class="op">=</span> ads.with_columns(</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>        ads[<span class="st">'sales'</span>].sample(fraction<span class="op">=</span><span class="fl">1.0</span>, shuffle<span class="op">=</span><span class="va">True</span>).alias(<span class="st">'sales'</span>)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fit the same model to shuffled data</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    perm_model <span class="op">=</span> model(<span class="st">'sales ~ tv + radio'</span>, shuffled_data).fit().infer()</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Save the t-statistics</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    perm_tstats.append(perm_model.params[<span class="st">'statistic'</span>])</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="co"># The p-value = proportion of permuted |t| &gt;= observed |t|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Again, <code>bossanova</code> handles this with <code>.infer("perm")</code>:</p>
+<p>In this case lets look at how the default <code>p_value</code> column changes compared to permutation testing:</p>
+<div id="63637548" class="cell" data-execution_count="26">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>interaction_centered.infer(how<span class="op">=</span><span class="st">'asymp'</span>).params.select(<span class="st">'term'</span>, <span class="st">'estimate'</span>, <span class="st">'p_value'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (4, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+<th data-quarto-table-cell-role="th">p_value</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>13.95</td>
+<td>2.2200e-16</td>
+</tr>
+<tr class="even">
+<td>"center(tv)"</td>
+<td>0.04438</td>
+<td>2.2200e-16</td>
+</tr>
+<tr class="odd">
+<td>"center(radio)"</td>
+<td>0.1886</td>
+<td>2.2200e-16</td>
+</tr>
+<tr class="even">
+<td>"center(tv):center(radio)"</td>
+<td>0.001086</td>
+<td>2.2200e-16</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="1851b8ca" class="cell" data-execution_count="27">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Permute with 1k resamples by default</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>interaction_centered.infer(how<span class="op">=</span><span class="st">'perm'</span>, seed<span class="op">=</span><span class="dv">0</span>, ).params.select(<span class="st">'term'</span>, <span class="st">'estimate'</span>, <span class="st">'p_value'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (4, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">term</th>
+<th data-quarto-table-cell-role="th">estimate</th>
+<th data-quarto-table-cell-role="th">p_value</th>
+</tr>
+<tr class="even">
+<td>str</td>
+<td>f64</td>
+<td>f64</td>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>"Intercept"</td>
+<td>13.95</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td>"center(tv)"</td>
+<td>0.04438</td>
+<td>0.000999</td>
+</tr>
+<tr class="odd">
+<td>"center(radio)"</td>
+<td>0.1886</td>
+<td>0.000999</td>
+</tr>
+<tr class="even">
+<td>"center(tv):center(radio)"</td>
+<td>0.001086</td>
+<td>0.000999</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Notice that the <em>smallest</em> possible p-value is determined by the number of permutation tests we run. In this case because the estimates are very reliable the observed statistics are more extreme than <em>all</em> permuted samples (1000), reflect in the following formula:</p>
+<p><span class="math display">\[\frac{1}{1000} = 0.001\]</span></p>
+<p>In practice for stability we add 1 to both the denominator and numerator to avoid division errors:</p>
+<p><span class="math display">\[\frac{2}{1001} = 0.000999\]</span></p>
+</section>
+<section id="statistical-significance-neq-practical-significance" class="level3">
+<h3 class="anchored" data-anchor-id="statistical-significance-neq-practical-significance">Statistical Significance <span class="math inline">\(\neq\)</span> Practical Significance</h3>
+<p>Regardless of which inference method you use, it’s critical to understand:</p>
+<blockquote class="blockquote">
+<p><strong>Statistical significance is about signal detection, not importance.</strong></p>
+</blockquote>
+<p>The standard error (and hence <em>t</em> and <em>p</em>) depends on:</p>
+<ul>
+<li>The size of <span class="math inline">\(\hat{\beta}\)</span></li>
+<li>How bad the model is overall</li>
+<li>The sample size</li>
+<li>The variance of the predictor</li>
+<li>The correlation of that predictor with others</li>
+</ul>
+<p>As your sample size grows, <em>every</em> non-zero effect becomes “statistically significant” — but how much data you collected has nothing to do with whether the effect <em>matters</em> in the real world.</p>
+<p>From <a href="https://stat-intuitions.com/_downloads/f310e3f537dfd55cd52f36eb33e96313/TALR_23.pdf">The Truth About Linear Regression</a>:</p>
+<blockquote class="blockquote">
+<p><em>The most important variables are not those with the largest-magnitude t statistics or smallest p-values. Statistical significance is always about what “signals” can be picked out clearly from background noise.</em></p>
+</blockquote>
+<p><strong>Bottom line</strong>: Always pair statistical inference with practical interpretation. A “significant” coefficient of 0.001 might be meaningless in your domain, while a “non-significant” coefficient of 5.0 might be practically important but estimated with too much noise.</p>
+</section>
+</section>
+<section id="challenge-is-newspaper-worth-it" class="level2">
+<h2 class="anchored" data-anchor-id="challenge-is-newspaper-worth-it">Challenge: Is Newspaper Worth It?</h2>
+<p>Now we want to know whether spending on <strong>newspaper</strong> ads is a worthwhile <em>addition</em> to our model that already includes <strong>TV</strong> and <strong>radio</strong>.</p>
+<ol type="1">
+<li>Use <code>sns.lmplot</code> or <code>sns.heatmap</code> to visualize the relationships between <code>newspaper</code> and the other variables (<code>sales</code>, <code>tv</code>, <code>radio</code>)</li>
+<li>Fit the three-predictor model: <span class="math inline">\(sales \sim tv + radio + newspaper\)</span></li>
+<li>Use <code>compare()</code> to test whether adding newspaper is <strong>worth it</strong></li>
+<li>Then run a model with interactions <span class="math inline">\(sales \sim tv * radio * newspaper\)</span> and see if the interaction terms are worth it (think about centering/z-scoring)</li>
+<li>Call <code>.infer().summary()</code> on the best fitting model</li>
+<li>Does anything change if you use bootstrapping or permutation testing?</li>
+<li>Write a natural language interpretation of the results as if you were writing them up in a Results section</li>
+</ol>
+<div id="3d154681" class="cell" data-execution_count="28">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="fd2d6b6f" class="cell" data-execution_count="29">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="226073aa" class="cell" data-execution_count="30">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p><em>Your results write-up here…</em></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

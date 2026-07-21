@@ -1,0 +1,385 @@
+---
+sidebar: weeks
+title: "Marginal Effects & the Mixing Board"
+author: "Eshin Jolly"
+date: "Mar 2, 2026"
+code-line-numbers: false
+code-fold: show
+code-overflow: wrap
+execute:
+  warning: false
+---
+
+In the previous notebooks we built a toolkit for working with regression models — fitting, diagnosing, and running inference on parameter estimates. We asked: *"How certain are we in $\hat{\beta}$?"*
+
+We learned that by default, the parameters reflect how the GLM can **see** and this is controlled by the **design matrix**. Remember for categorical variables (switches) we have a choice of a variety of different encoding schemes to choose from (dummy, sum, poly). This means that if you want the model to "see" that data differently you need to change the design matrix (i.e. use a different coding scheme, center variables, etc).
+
+
+In this notebook we shift focus from the model's **internal wiring** (parameters) to its **predictions**. We'll learn to:
+
+- **Ask models questions directly** using `.explore()` — no more puzzling over what an estimate means
+- **Compute marginal effects** — predicted values at specific levels of a predictor
+- **Make comparisons** — pairwise and interaction contrasts
+
+## Marginal What?
+
+Consider a typical statistical setting where you ask a research question and selects a model to answer it. Perhaps the model is designed to capture a salient feature of the data-generating process, achieve a satisfactory level of goodness-of-fit, or control for confounders that could introduce bias in a causal estimate. You fits your model using an estimator, and obtain parameter estimates along with standard errors (uncertainty).
+
+Even if a fitted model is relatively simple, the parameter estimates it generates may not map directly onto an *estimand* that directly informs you **research question.** The raw parameters may be very difficult to interpret substantively. This can become especially true when we meet Generalized Linear Models soon, e.g. logistic regression for a binary outcome. Typically we get estimates expressed as log-odds-ratios. Despite the simple nature of this model, its parameters are still expressed as complicated functions of probabilities and [interactions don't mean what we think they do](https://pmc.ncbi.nlm.nih.gov/articles/PMC1447969/)!.
+
+If interactions between simple probabilities are challenging to grasp, how can we expect to interpret the estimates produced by fancy regression models with splines, non-linearites, etc? How can we help our audience understand the results produced by mixed-effects Bayesian models, or by complex machine learning algorithms?
+
+This is the main goal of **marginal effects analysis**. The big idea is that in most cases, analysts should *not* focus on the raw parameters of their models. Instead we should **ask the model what it predicts** for different values of our variables based on what its learned from the data. Instead of decoding what $\hat{\beta}_2 = 0.188$ means, we ask: *"What does the model predict when radio = 20 vs radio = 40?"*
+
+## The Mixing Board
+
+Remember the analogy we learned in class about how the GLM *sees* variables:
+
+- Continuous: *sliders*
+- Categorical: *switches*
+
+Let’s make a complex mixer-board-esque regression model with multiple continuous (slider) and categorical (switch) explanatory variables:
+
+A **marginal effect** is what happens to the output when you move *one* slider or flip *one* switch, holding everything else in place.
+
+In `bossanova` each model has a `.explore()` method that provides an interface that lets you set the knobs and ask: *"What does the model predict at these settings?"*
+
+It returns **marginal estimated means** for categorical variables and **marginal estimated slopes** for continuous variables — always with proper standard errors and confidence intervals.
+
+The key advantage over the default `.params`:
+
+marginal effects are **invariant to coding schemes**. Since we're always working with model *predictions*, they don't depend upon parameterization!
+
+## Warm-Up: Credit Dataset
+
+Let's start with the credit dataset and build up from simple to complex, so the `.explore()` syntax becomes second nature.
+
+| Variable   | Description                       |
+|------------|-----------------------------------|
+| Balance    | Average credit card balance ($)   |
+| Income     | Annual income ($1000s)            |
+| Ethnicity  | African American, Asian, Caucasian|
+| Student    | Yes / No                          |
+
+```{python}
+import polars as pl
+from polars import col
+import seaborn as sns
+
+from bossanova import model, load_dataset
+```
+
+```{python}
+credit = load_dataset("credit")
+```
+
+### Continuous Predictor: The Slope
+
+Let's fit a simple model and use `.explore()` to ask it questions.
+
+```{python}
+m_income = model("Balance ~ Income", credit).fit()
+m_income.params
+```
+
+`.params` tells us the slope is ~6.05 — for each additional $1000 in income, balance increases by about $6. Let's verify this with `.explore()`
+
+```{python}
+m_income.explore("Income")
+```
+
+That 6.048 is the same as our $\hat{\beta}_1$ from `.params` — for a simple model with one continuous predictor, the marginal slope *is* the parameter estimate. But as we'll see, this equivalence breaks down with interactions.
+
+The **super-power** of marginal effects estimation is that it allows you to ask the model all kinds of questions. For example, what if we wanted to zoom into *predicted balance* at specific income levels?
+
+We can use the `@[]` syntax to **zoom** into specific values or levels of any of our predictors:
+
+```{python}
+m_income.explore("Income@[20, 50, 80]")
+```
+
+We asked: *"What does the model predict at Income = 20, 50, and 80?"* The `@` syntax pins the predictor at specific values.
+
+For a continuous predictor, `.explore()` without `@` returns the **marginal slope** — how much the prediction changes per unit increase.
+
+### Categorical Predictor: Estimated Marginal Means
+
+Now let's fit a model with a categorical predictor:
+
+```{python}
+m_eth = model("Balance ~ Ethnicity", credit).fit()
+
+m_eth.params
+```
+
+With treatment coding (the default), `.params` gives us: an Intercept (the mean for African American, the reference level), and differences from that reference. To get the actual predicted balance for Asian, we'd have to compute $531.0 + (-18.69) = 512.3$.
+
+Or... we just ask:
+
+```{python}
+m_eth.explore("Ethnicity")
+```
+
+These are the **marginal estimated means** — the model's predicted Balance for each Ethnicity group. No reference level, no mental arithmetic. Just the predictions.
+
+What about group *differences*? Treatment coding only gave us differences from the reference. To get *all* pairwise comparisons:
+
+```{python}
+# We can use .effects just like .params to get a nicer dataframe
+m_eth.explore("pairwise(Ethnicity)").effects
+```
+
+Every pairwise comparison — with SEs, CIs, and p-values — regardless of how the model was coded internally. None of these differences are significant here (all $p > .05$), consistent with Ethnicity not being a strong predictor of Balance.
+
+### Multiple Predictors & Interactions
+
+Now let's add an interaction. With `Balance ~ Income * Student`, the relationship between Income and Balance can differ for students vs non-students:
+
+```{python}
+m_int = model("Balance ~ Income * Student", credit).fit()
+m_int.params
+```
+
+4 parameters — and interpreting them requires remembering what "the effect of Income when Student = No" means vs "the additional effect when Student = Yes." Let's use the mixing board instead.
+
+**EMMs** — *"What's the predicted Balance for students vs non-students?"*
+
+We can use `pairwise()` like before *or* we can use Python style indexing to select levels within a variable to compare:
+
+```{python}
+m_int.explore("Student[Yes - No]")
+```
+
+Notice how this differs from the parameter estimate above!
+
+That's because we didn't *center* Income, so the estimate assumes Income = 0
+But if we center it, we'll see that the estimate now matches the **marginal effect**
+
+```{python}
+model("Balance ~ center(Income) * Student", credit).fit().infer()
+```
+
+Students carry about $386 more in balance — averaged across all Income levels.
+
+Another **super-power**of marginal effects is helping you **unpack complex interactions**.
+
+For example, we can see that the interaction between Income (centered) and Student is -1.99 above. But what does this mean and in which direction?
+
+If you remember the default treatment/dummy-coding, then you'll remember that "No" is the default reference group for Student. So this is the Income slope for Students - the Income slope for Non-Students.
+
+But if we used a different encoding scheme this would change:
+
+```{python}
+# Sum/deviation coding
+model("Balance ~ center(Income) * sum(Student)", credit).fit().infer()
+```
+
+Notice that the *estimate* for the interaction change but the inference test result did not (same t-statistic and p-value).
+
+You can imagine with more complex models with additional interactions (e.g. 3-way, 4-way) things will get really hard to interpret really fast!
+
+But we can simplify things by relying on *marginal effects* to do the right thing. `.explore()` supports a formula syntax similar to the formula syntax you use when creating models so you can slice-and-dice your data to ask the model any number of questions:
+
+**Slopes by group** — *"How does the Income-Balance relationship differ?"*
+
+```{python}
+m_int.explore("Income ~ Student")
+```
+
+The Income slope is ~$6.2/thousand for non-students vs ~$4.2/thousand for students. The interaction means income has a *weaker* effect on balance for students. This is why the original interaction estimate with the default dummy coding was -1.99! It reflects the difference in these two numbers!
+
+You can combine this with the `@[]` syntax to **focus** on specific values.
+
+The `~` separates the focal variable (what you want EMMs/slopes for) from the conditioning variables (what you want to hold fixed):
+
+```{python}
+# Compare students and non-students at specific income levels
+m_int.explore("Student[Yes - No] ~ Income@[20, 50, 80]")
+```
+
+## Penguins - A Complex Model
+
+The credit examples had at most one categorical and one continuous predictor. Now let's build a model with **multiple categorical and continuous predictors interacting**, where `.explore()` really becomes essential.
+
+We'll model penguin body mass as a function of sex, species, and flipper length — with a full three-way interaction:
+
+$$
+\text{body\_mass\_g} \sim \text{sex} \times \text{species} \times \text{flipper\_length\_mm}
+$$
+
+This model allows the relationship between flipper length and body mass to differ across *every combination* of sex and species.
+
+### Data Loading (& a quick lesson on missing values)
+
+Before modeling, let's check our data quality. A quick habit to build: **always inspect your data for missing or unexpected values before fitting a model**.
+
+```{python}
+penguins_raw = load_dataset("penguins")
+
+# Check for nulls
+penguins_raw.null_count()
+```
+
+```{python}
+# Check unique values in the sex column
+penguins_raw.select("sex").unique()
+```
+
+```{python}
+# Check unique values in the sex column
+penguins_raw.select("species").unique()
+```
+
+Notice something sneaky: `sex` has **three** unique values — `"female"`, `"male"`, and `"NA"`. That `"NA"` is a **string**, not a true missing value! Polars's `.null_count()` shows 0 nulls for `sex` because the string `"NA"` isn't null — it's just a text label.
+
+This is a common gotcha in real datasets. If we tried to fit a model without catching this, `sex` would become a *three*-level factor, creating nonsense parameters.
+
+The fix: explicitly filter out the string `"NA"`, *then* drop any remaining null rows from other columns:
+
+```{python}
+penguins = penguins_raw.filter(col("sex") != "NA").drop_nulls()
+penguins.shape
+```
+
+333 clean rows with 2 sex levels. Now we can fit our model.
+
+### Fitting the 3-Way Interaction
+
+Below we've setup the full model for you (with default coding scheme) and outputted the parameter estimates.
+
+**12 parameters.** Good luck interpreting `sex[male]:species[Gentoo]:flipper_length_mm = -23.27` from the parameter table alone.
+
+Let's use `.explore()` to try unpack the estimates. We'll start by using `.jointtest()` and then use `.explore()` to zoom in.
+
+```{python}
+m_penguin = model("body_mass_g ~ sex * species * flipper_length_mm",penguins).fit()
+m_penguin.params
+```
+
+```{python}
+# ANOVA
+m_penguin.jointtest()
+```
+
+Let's try to understand this 3-way interaction (last-row above)
+
+### Estimated Marginal Means
+
+*"What's the model's predicted body mass for each species?"*
+
+```{python}
+m_penguin.explore("species")
+```
+
+Gentoo penguins are the heaviest (~4703g), with Adelie (~3885g) and Chinstrap (~3823g) close together. These EMMs are averaged across both sexes and all flipper lengths.
+
+*"What about by sex?"*
+
+```{python}
+m_penguin.explore("pairwise(sex)")
+```
+
+Males are about 666g heavier than females on average.
+
+To get the full picture, we can **cross** species with sex:
+
+```{python}
+m_penguin.explore("species ~ sex[male - female]")
+```
+
+Now we're starting to see the interaction: the sex difference is much larger for Gentoo (~844g) than for Chinstrap (~343g) or Adelie (~670g).
+
+### Marginal Slopes
+
+*"How does body mass change with flipper length?"*
+
+```{python}
+m_penguin.explore("flipper_length_mm")
+```
+
+Overall, each additional mm of flipper length is associated with ~22.9g more body mass. But this is the *average* slope — our 3-way interaction means it varies by group:
+
+```{python}
+m_penguin.explore("flipper_length_mm ~ species")
+```
+
+The flipper-mass slope is weakest for Adelie (~15.8 g/mm) and strongest for Gentoo (~26.7 g/mm) and Chinstrap (~26.1 g/mm). We can also break it out by sex:
+
+```{python}
+m_penguin.explore("flipper_length_mm ~ sex")
+```
+
+```{python}
+m_penguin.explore("flipper_length_mm ~ species + sex")
+```
+
+**Interaction Contrasts: "Difference of Differences"**
+
+The direction reversal raises a natural question: *"Is the Chinstrap-Adelie difference between males and females?"*
+
+That's an **interaction contrast** — a difference of differences. We use brackets on *both* sides:
+
+```{python}
+m_penguin.explore("species[Chinstrap - Adelie] ~ sex[male - female]").infer()
+```
+
+The Chinstrap-Adelie gap is ~327g more negative for males than females ($p = .0267$). This is the sex × species interaction, focused on exactly the comparison we care about.
+
+### Slope Contrasts: "Does the relationship differ?"
+
+We can also compare how the flipper-mass slope differs between groups:
+
+```{python}
+# Does the flipper slope differ between Gentoo and Adelie?
+m_penguin.explore("flipper_length_mm ~ species[Gentoo - Adelie]").infer()
+m_penguin.effects
+```
+
+The flipper-mass slope is ~10.9 g/mm steeper for Gentoo than Adelie — each additional mm of flipper length "buys" more body mass in Gentoo penguins.
+
+## Summary
+
+We now have three complementary tools for interrogating a fitted model:
+
+| Question | Tool | What it tells you |
+|----------|------|-------------------|
+| *"Is this predictor worth including?"* | `.jointtest()` or `compare()` | Yes/no — invariant to coding |
+| *"What are the model's internal weights?"* | `.params` | Coefficients — depend on coding |
+| *"What does the model predict for ___?"* | `.explore()` | Predictions — invariant to coding |
+| *"How uncertain am I??"* | `.infer()` | Inference - after `.fit()` or `.explore()` |
+
+## Challenge: Exploring the Credit Dataset
+
+Now it's your turn. The credit dataset has many predictors — use the mixing board to investigate:
+
+1. Fit a model: `Balance ~ Income * Student + Ethnicity * Gender`
+2. Use `.jointtest()` — which terms matter?
+3. Compute EMMs for `Student` and `Ethnicity` — what are the predicted Balances?
+4. Compare Income slopes for students vs non-students — does Income affect Balance differently?
+5. Use `pairwise()` or bracket contrasts to compare Ethnicity groups
+6. Condition on specific Income values with `@` — how do predictions change?
+8. Write up anything you find as if you were writing a Results section
+
+```{python}
+# Your code here
+```
+
+```{python}
+# Your code here
+```
+
+```{python}
+# Your code here
+```
+
+```{python}
+# Your code here
+```
+
+```{python}
+# Your code here
+```
+
+*Your summary here...*
+
+

@@ -31,6 +31,10 @@ title: "Week 2"
 [Github Classroom Assignment](https://classroom.github.com/a/PGYWDvzO)
 :::
 
+:::{.callout-caution icon=false title="📝 HW 1 - Data Exploration with Python and Polars"}
+[HW 1 notebook](hw/hw1.qmd)
+:::
+
 ## Mentioned References
 
 :::{.callout-note icon=false title="Statistical Thinking (Chap 1) - What is statistical thinking?" collapse=true}

@@ -1,0 +1,403 @@
+---
+sidebar: weeks
+title: "Odds and Ends (stuff we didn't get to)"
+author: "Eshin Jolly"
+date: "Mar 11, 2026"
+code-line-numbers: false
+code-fold: show
+code-overflow: wrap
+execute:
+  warning: false
+---
+
+```{python}
+import numpy as np
+import polars as pl
+import seaborn as sns
+import matplotlib.pyplot as plt
+from bossanova import model, load_dataset
+from sklearn.datasets import load_diabetes, load_digits, load_iris, make_moons
+from sklearn.linear_model import LinearRegression, Ridge, RidgeCV, Lasso, LassoCV
+from sklearn.model_selection import (
+    cross_val_score,
+    LeaveOneGroupOut,
+    TimeSeriesSplit,
+)
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import make_pipeline
+from sklearn.decomposition import PCA, FastICA, FactorAnalysis
+from sklearn.svm import SVC
+from sklearn.naive_bayes import GaussianNB
+```
+
+
+This notebook demos additional topics we did not get to cover in depth. For most of your statistical needs your first stop should be the `sklearn` library that we met once before in the course. This notebook demos many of the common topics you might want to apply to your own data
+
+
+## Cross-validation
+
+Cross-validation estimates how well a model **generalizes** to unseen data. Instead of evaluating on the same data you trained on (which is overoptimistic), you repeatedly hold out a portion of data for testing and train on the rest. The most common variant is **k-fold CV**: split data into $k$ equal parts, train on $k-1$, test on the held-out fold, rotate through all $k$ folds, and average.
+
+$$
+\text{CV}(k) = \frac{1}{k} \sum_{i=1}^{k} L\bigl(y_{\text{test}}^{(i)},\; \hat{f}^{(-i)}(X_{\text{test}}^{(i)})\bigr)
+$$
+
+where $\hat{f}^{(-i)}$ is the model trained on all folds *except* fold $i$, and $L$ is a loss function (e.g. MSE, R²).
+
+### Using `bossanova`
+
+In `bossanova`, `.infer(how="cv")` runs k-fold CV and computes a **PRE** (Proportion Reduction in Error) for each predictor — how much worse does out-of-sample prediction get when you drop that term? This is the cross-validated analogue of the PRE you already know from `compare()`.
+
+```{python}
+adv = load_dataset("advertising")
+
+m_adv = model("sales ~ tv + radio + newspaper", adv).fit()
+m_adv.infer(how="cv", k=5, seed=42)
+m_adv.params
+```
+
+### More generally using `sklearn`
+
+[Scikit Learn](https://scikit-learn.org/stable/index.html) (`sklearn`) is the de-facto machine-learning library for Python. It also has fantastic [tutorials and documentations](https://scikit-learn.org/stable/user_guide.html) to help you learn many additional concepts easily.
+
+Once of those is a huge set of options for fully controllong how you do [cross-validation](https://scikit-learn.org/stable/modules/cross_validation.html). Common splitters include `KFold` (default), `LeaveOneGroupOut` (hold out entire clusters — critical for repeated measures), and `TimeSeriesSplit` (respects temporal ordering so you never train on the future).
+
+While we didn't cover it in detail, `sklearn` makes heavy use of the `numpy` library and expects any $X$ or $y$ to be a `numpy` array (1d or 2d vector or matrix):
+
+```{python}
+X_diabetes, y_diabetes = load_diabetes(return_X_y=True)
+
+# Design matrix
+X_diabetes.shape
+```
+
+```{python}
+y_diabetes.shape
+```
+
+```{python}
+# 1) Create the model
+lr = LinearRegression()
+
+# 2) Use cross-validator
+scores = cross_val_score(lr, X_diabetes, y_diabetes, cv=5, scoring="r2")
+
+print(f"5-fold R²: {scores.mean():.3f} ± {scores.std():.3f}")
+print(f"Per-fold:  {np.round(scores, 3)}")
+```
+
+**Scoring functions** control what metric is computed on each fold. Common choices:
+
+| Scoring string | What it measures |
+|---|---|
+| `"r2"` | Proportion of variance explained (regression) |
+| `"neg_mean_squared_error"` | Negative MSE (regression; negative so "higher is better") |
+| `"accuracy"` | Fraction correct (classification) |
+| `"roc_auc"` | Area under ROC curve (classification) |
+
+## Decomposition
+
+`sklearn` also offers many methods for **decomposition**, when our model only has an $X$ — there's no outcome $y$. These fall under the broader topic of **unsupervised learning** and work by factorizing the data matrix into lower-rank components. The goal is to find a small number of latent dimensions that capture most of the structure in high-dimensional data.
+
+$$
+X_{n \times p} \approx W_{n \times k} \cdot H_{k \times p}
+$$
+
+where $k \ll p$. Different methods impose different constraints on $W$ and $H$.
+
+### Principal Components Analysis (PCA)
+
+PCA finds orthogonal directions of **maximum variance** in the data. The first principal component captures the most variance, the second captures the most remaining variance (orthogonal to the first), and so on. Mathematically, PCA computes the eigendecomposition of the covariance matrix:
+
+$$
+\Sigma = \frac{1}{n} X^\top X = V \Lambda V^\top
+$$
+
+where $V$ are the eigenvectors (principal directions) and $\Lambda$ are the eigenvalues (variance explained per component).
+
+```{python}
+# Dataset of handwritten digits as images
+digits = load_digits()
+
+# Create estimator
+pca = PCA(n_components=2)
+
+# Fit it and project data to PC space
+X_pca = pca.fit_transform(digits.data)
+```
+
+```{python}
+# Plot it
+_pca_df = pl.DataFrame({
+    "PC1": X_pca[:, 0],
+    "PC2": X_pca[:, 1],
+    "digit": [str(d) for d in digits.target],
+})
+
+sns.relplot(
+    data=_pca_df.to_pandas(),
+    x="PC1", y="PC2",
+    hue="digit", palette="tab10",
+    kind="scatter", s=10, alpha=0.6,
+    height=5, aspect=1.5,
+).set(title="Handwritten digits projected to 2D (PCA)")
+```
+
+```{python}
+_pca_full = PCA().fit(load_digits().data)
+
+_scree_df = pl.DataFrame({
+    "component": list(range(1, 21)),
+    "variance_explained": _pca_full.explained_variance_ratio_[:20].tolist(),
+})
+
+sns.relplot(
+    data=_scree_df.to_pandas(),
+    x="component", y="variance_explained",
+    kind="line", marker="o",
+    height=4, aspect=1.5,
+).set(title="Scree plot", xlabel="Component", ylabel="Variance explained")
+```
+
+### Factor Analysis
+
+Factor Analysis assumes the observed variables are **linear combinations of latent factors** plus noise. Unlike PCA, it explicitly models measurement error and tries to recover interpretable latent constructs:
+
+$$
+X = \mu + L F + \epsilon, \qquad \epsilon \sim \mathcal{N}(0, \Psi)
+$$
+
+where $L$ is the **loading matrix**, $F$ are the latent factors, and $\Psi$ is a diagonal matrix of variable-specific noise. The key difference from PCA: Factor Analysis separates shared variance (factors) from unique variance (noise).
+
+```{python}
+iris = load_iris()
+
+fa = FactorAnalysis(n_components=2, random_state=42)
+fa.fit(iris.data)
+
+# Build long-format loadings DataFrame
+_loadings_df = pl.DataFrame({
+    "feature": iris.feature_names * 2,
+    "factor": ["Factor 1"] * 4 + ["Factor 2"] * 4,
+    "loading": fa.components_.T[:, 0].tolist() + fa.components_.T[:, 1].tolist(),
+})
+
+sns.catplot(
+    data=_loadings_df.to_pandas(),
+    x="feature", y="loading", hue="factor",
+    kind="bar", height=4, aspect=1.5,
+).set(title="Factor loadings (Iris)", xlabel="", ylabel="Loading")
+```
+
+### Independent Components Analysis (ICA)
+
+ICA finds components that are **statistically independent** (not just uncorrelated). The classic application is the "cocktail party problem": separating mixed audio signals back into their original sources. ICA assumes the observed data are linear mixtures of independent non-Gaussian sources:
+
+$$
+X = A \cdot S \qquad \Rightarrow \qquad S = W \cdot X
+$$
+
+where $A$ is the unknown mixing matrix and $W = A^{-1}$ is the unmixing matrix that ICA estimates.
+
+```{python}
+_t = np.linspace(0, 8, 2000)
+
+# Original independent signals
+_S_true = np.c_[np.sin(2 * _t), np.sign(np.sin(3 * _t))]
+
+# Mix them with an unknown matrix
+_X_mixed = _S_true @ np.array([[1, 1], [0.5, 2]]).T
+
+# Recover with ICA
+_S_recovered = FastICA(n_components=2, random_state=42).fit_transform(_X_mixed)
+
+# Build long-format DataFrame for faceted plotting
+_n = len(_t)
+_ica_df = pl.DataFrame({
+    "time": _t.tolist() * 6,
+    "value": np.concatenate([
+        _S_true[:, 0], _S_true[:, 1],
+        _X_mixed[:, 0], _X_mixed[:, 1],
+        _S_recovered[:, 0], _S_recovered[:, 1],
+    ]).tolist(),
+    "signal": (["Signal 1"] * _n + ["Signal 2"] * _n) * 3,
+    "stage": (
+        ["1. Original"] * (2 * _n)
+        + ["2. Mixed (observed)"] * (2 * _n)
+        + ["3. ICA recovered"] * (2 * _n)
+    ),
+})
+
+sns.relplot(
+    data=_ica_df.to_pandas(),
+    x="time", y="value",
+    hue="signal", col="stage",
+    kind="line", height=3, aspect=1.3,
+    facet_kws={"sharey": False},
+).set(xlabel="Time", ylabel="Amplitude")
+```
+
+## Regularization
+
+When predictors are correlated or you have many features relative to observations, OLS estimates become **unstable** — small changes in data cause large swings in coefficients. Regularization adds a penalty term to the loss function that shrinks coefficients toward zero, trading a little bias for a lot less variance.
+
+$$
+\hat{\beta}_{\text{reg}} = \arg\min_\beta \left[ \sum_i (y_i - X_i \beta)^2 + \lambda \cdot \text{penalty}(\beta) \right]
+$$
+
+The **penalty strength** $\lambda$ controls the bias-variance tradeoff. We use cross-validation to pick the best $\lambda$.
+
+### Ridge Regression
+
+Ridge adds an **L2 penalty** — the sum of squared coefficients. This shrinks all coefficients toward zero but never sets them exactly to zero. It's especially useful when predictors are correlated (multicollinearity):
+
+$$
+\hat{\beta}_{\text{ridge}} = \arg\min_\beta \left[ \|y - X\beta\|^2 + \lambda \sum_j \beta_j^2 \right]
+$$
+
+```{python}
+X_d, y_d = load_diabetes(return_X_y=True)
+
+# Compare OLS vs Ridge at different penalty strengths
+_alphas = [0, 0.01, 0.1, 1.0, 10.0, 100.0]
+for _a in _alphas:
+    _est = LinearRegression() if _a == 0 else Ridge(alpha=_a)
+    _s = cross_val_score(_est, X_d, y_d, cv=5, scoring="r2")
+    print(f"alpha={_a:<6}  R²={_s.mean():.3f} ± {_s.std():.3f}")
+```
+
+```{python}
+# Let CV pick the best alpha automatically
+ridge_cv = RidgeCV(alphas=np.logspace(-3, 3, 50), scoring="r2")
+ridge_cv.fit(X_d, y_d)
+print(f"Best alpha: {ridge_cv.alpha_:.4f}")
+print(f"Coefficients: {np.round(ridge_cv.coef_, 2)}")
+```
+
+### LASSO Regression
+
+LASSO uses an **L1 penalty** — the sum of absolute values. Unlike Ridge, LASSO can shrink coefficients all the way to **exactly zero**, performing automatic feature selection:
+
+$$
+\hat{\beta}_{\text{lasso}} = \arg\min_\beta \left[ \|y - X\beta\|^2 + \lambda \sum_j |\beta_j| \right]
+$$
+
+```{python}
+lasso_cv = LassoCV(alphas=np.logspace(-3, 1, 50), cv=5)
+lasso_cv.fit(X_d, y_d)
+print(f"Best alpha: {lasso_cv.alpha_:.4f}")
+print(f"Coefficients: {np.round(lasso_cv.coef_, 2)}")
+print(f"Non-zero: {np.sum(lasso_cv.coef_ != 0)}/{len(lasso_cv.coef_)}")
+
+# Compare OLS vs Ridge vs Lasso
+for _name, _est in [
+    ("OLS", LinearRegression()),
+    ("Ridge-best", Ridge(alpha=1.0)),
+    ("Lasso-best", Lasso(alpha=lasso_cv.alpha_)),
+]:
+    _s = cross_val_score(_est, X_d, y_d, cv=5, scoring="r2")
+    print(f"{_name:<12} R²={_s.mean():.3f}")
+```
+
+## Classification
+
+Logistic regression is one approach to classification, but there are many others. Each makes different assumptions about the **decision boundary** — the surface separating classes in feature space.
+
+### Support Vector Machines (SVM)
+
+SVMs find the **maximum-margin hyperplane** separating classes — the decision boundary with the widest gap between the nearest points of each class (the "support vectors"). The **kernel trick** lets SVMs handle non-linear boundaries by implicitly mapping data to a higher-dimensional space:
+
+$$
+\hat{y} = \text{sign}\!\left(\sum_{i \in SV} \alpha_i \, y_i \, K(x_i, x) + b\right)
+$$
+
+where $K(x_i, x)$ is a kernel function (e.g. linear: $x_i^\top x$, or RBF: $\exp(-\gamma \|x_i - x\|^2)$) and the sum is only over support vectors.
+
+```{python}
+# Generate non-linearly separable data
+X_moons, y_moons = make_moons(n_samples=200, noise=0.2, random_state=42)
+
+_moons_df = pl.DataFrame({
+    "x1": X_moons[:, 0], "x2": X_moons[:, 1],
+    "class": [str(c) for c in y_moons],
+})
+
+# Decision boundaries require contourf (matplotlib), so we use plt.subplots
+# with sns.scatterplot layered on top
+_fig, _axes = plt.subplots(1, 3, figsize=(14, 4))
+
+for _ax, (_label, _kern) in zip(_axes, [("Data", None), ("Linear SVM", "linear"), ("RBF SVM", "rbf")]):
+    if _kern is None:
+        sns.scatterplot(data=_moons_df.to_pandas(), x="x1", y="x2", hue="class", palette="Set1", ax=_ax)
+        _ax.set(title=_label)
+    else:
+        _svm = SVC(kernel=_kern).fit(X_moons, y_moons)
+        _xx, _yy = np.meshgrid(
+            np.linspace(X_moons[:, 0].min() - 0.5, X_moons[:, 0].max() + 0.5, 200),
+            np.linspace(X_moons[:, 1].min() - 0.5, X_moons[:, 1].max() + 0.5, 200),
+        )
+        _ax.contourf(_xx, _yy, _svm.predict(np.c_[_xx.ravel(), _yy.ravel()]).reshape(_xx.shape), alpha=0.3, cmap="RdBu")
+        sns.scatterplot(data=_moons_df.to_pandas(), x="x1", y="x2", hue="class", palette="Set1", ax=_ax, legend=False)
+        _ax.set(title=f"{_label} (acc={_svm.score(X_moons, y_moons):.2f})")
+    _ax.set(xlabel="x₁", ylabel="x₂")
+
+plt.tight_layout()
+sns.despine()
+_fig
+```
+
+```{python}
+# Pipeline: scale → classify → cross-validate
+pipe_svm = make_pipeline(StandardScaler(), SVC(kernel="rbf"))
+scores_svm = cross_val_score(pipe_svm, X_moons, y_moons, cv=5, scoring="accuracy")
+print(f"SVM pipeline 5-fold accuracy: {scores_svm.mean():.3f} ± {scores_svm.std():.3f}")
+```
+
+### Naive Bayes
+
+Naive Bayes uses **Bayes' theorem** with a strong ("naive") assumption: all features are **conditionally independent** given the class. Despite this simplification, it works surprisingly well for many problems, especially text classification:
+
+$$
+P(y \mid x_1, \ldots, x_p) \propto P(y) \prod_{j=1}^{p} P(x_j \mid y)
+$$
+
+For continuous features, `GaussianNB` assumes each $P(x_j \mid y)$ is a normal distribution with class-specific mean and variance.
+
+```{python}
+X_iris, y_iris = load_iris(return_X_y=True)
+_iris_info = load_iris()
+
+nb = GaussianNB()
+nb.fit(X_iris, y_iris)
+
+# Build long-format DataFrame of class-conditional Gaussian densities
+_rows = []
+for _feat_idx in [2, 3]:
+    _feat_name = _iris_info.feature_names[_feat_idx]
+    _x_range = np.linspace(X_iris[:, _feat_idx].min() - 0.5, X_iris[:, _feat_idx].max() + 0.5, 200)
+    for _cls in range(3):
+        _mu = nb.theta_[_cls, _feat_idx]
+        _sigma = np.sqrt(nb.var_[_cls, _feat_idx])
+        _density = (1 / (_sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((_x_range - _mu) / _sigma) ** 2)
+        for _x, _d in zip(_x_range, _density):
+            _rows.append({"feature": _feat_name, "value": _x, "density": _d, "class": _iris_info.target_names[_cls]})
+
+_nb_df = pl.DataFrame(_rows)
+
+sns.relplot(
+    data=_nb_df.to_pandas(),
+    x="value", y="density",
+    hue="class", col="feature",
+    kind="line", height=4, aspect=1.3,
+    facet_kws={"sharex": False},
+).set_titles("{col_name}").set(ylabel="Density")
+```
+
+```{python}
+# Pipeline: scale → classify → cross-validate
+pipe_nb = make_pipeline(StandardScaler(), GaussianNB())
+scores_nb = cross_val_score(pipe_nb, X_iris, y_iris, cv=5, scoring="accuracy")
+print(f"NB pipeline 5-fold accuracy: {scores_nb.mean():.3f} ± {scores_nb.std():.3f}")
+```
+
+
