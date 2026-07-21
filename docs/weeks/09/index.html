@@ -271,6 +271,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">EDA Workflows</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/02/hw/hw1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HW 1: Data Exploration</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -315,6 +321,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../weeks/04/lab/02-explanation-prediction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Permutation &amp; Cross-Validation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/04/hw/hw2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HW 2: Resampling Inference</span></a>
   </div>
 </li>
       </ul>
@@ -380,6 +392,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Overview</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/08/lab/01-parameter-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Parameter Inference</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -395,6 +413,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../weeks/09/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/09/lab/01-marginal-effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Marginal Effects &amp; the Mixing Board</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/09/lab/02-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Logistic Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/09/lab/challenge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HW/Challenge 3: Modeling Workflow</span></a>
   </div>
 </li>
       </ul>
@@ -414,6 +450,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Overview</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/10/lab/01-mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mixed Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/10/lab/02-odds-and-ends.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Odds &amp; Ends</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -431,6 +479,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link" data-scroll-target="#learning-goals">Learning Goals</a></li>
   </ul></li>
   <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
+  <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials">Materials</a></li>
   <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings">Readings</a></li>
   <li><a href="#updating-assignments-more-easily" id="toc-updating-assignments-more-easily" class="nav-link" data-scroll-target="#updating-assignments-more-easily">Updating Assignments More Easily</a>
   <ul>
@@ -470,6 +519,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="learning-goals">Learning Goals</h3>
 <ul class="task-list">
 <li><label><input type="checkbox">Understand Marginal Effects Estimation</label></li>
+<li><label><input type="checkbox">Understand Logistic Regression</label></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Marginal Effects Mixing Board">
 <div class="callout-header d-flex align-content-center">
@@ -481,7 +531,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You can play with an interactive <em>mixing board</em> using the Palmer penguins dataset at: <a href="https://model-mixing-board.surge.sh">https://model-mixing-board.surge.sh</a>. See it it helps build your intuitions!</p>
+<p>You can play with an interactive <a href="mixing-board/index.html"><em>mixing board</em></a> using the Palmer penguins dataset. See if it helps build your intuitions!</p>
 </div>
 </div>
 </section>
@@ -502,6 +552,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="callout-body-container callout-body">
 <p><embed src="slides/03-02.pdf" style="width:100.0%" height="600"></p>
 </div>
+</div>
+</div>
+</section>
+<section id="materials" class="level2">
+<h2 class="anchored" data-anchor-id="materials">Materials</h2>
+<div class="callout callout-style-default callout-caution no-icon callout-titled" title="📚 Lab">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>📚 Lab
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="https://classroom.github.com/a/hI4DwE-w">Github Classroom Assignment</a></p>
+<p><em>Same Classroom assignment as <a href="../../weeks/08/index.html">week 8</a> — it contained all the lab notebooks for weeks 8–10.</em></p>
+<p>Lab notebooks:</p>
+<ul>
+<li><a href="../../weeks/09/lab/01-marginal-effects.html">Marginal Effects &amp; the Mixing Board</a></li>
+<li><a href="../../weeks/09/lab/02-logistic-regression.html">Logistic Regression &amp; Marginal Effects</a></li>
+<li><a href="../../weeks/09/lab/challenge.html">HW/Challenge 3: Full Modeling Workflow</a></li>
+</ul>
 </div>
 </div>
 </section>

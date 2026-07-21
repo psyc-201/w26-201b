@@ -11,7 +11,7 @@ title: "Week 9"
 - [ ] Understand Logistic Regression
 
 :::{.callout-note title="Marginal Effects Mixing Board"}
-You can play with an interactive *mixing board* using the Palmer penguins dataset at: [https://model-mixing-board.surge.sh](https://model-mixing-board.surge.sh). See it it helps build your intuitions!
+You can play with an interactive [*mixing board*](mixing-board/index.html) using the Palmer penguins dataset. See if it helps build your intuitions!
 :::
 
 

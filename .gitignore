@@ -43,6 +43,7 @@ site/assets/pdfs/
 
 # Grading workspace (roster, student submissions)
 grades/
+/mixing-board/
 
 # GitHub Classroom (assignments developed locally, pushed to separate repos)
 classroom/

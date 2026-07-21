@@ -7,6 +7,8 @@ project:
     - "*.qmd"
     - "!**/wip/*"
     - "!**/prep/*"
+  resources:
+    - weeks/09/mixing-board/
 
 external-env: true
 jupyter: w26-201b
