@@ -6,7 +6,7 @@ Python and all its dependencies are managed by `uv` in an isolated environment. 
 
 ## Quick guide
 
-- Always `uv run quarto render` **before** `git commit` and `git push` to build the site to the `docs/` folder
+- Always `cd site/ && uv run quarto render` **before** `git commit` and `git push` to build the site to the `docs/` folder
 - Run `npx serve docs/` to see the built-site locally
 - The website is automatically updated from this folder each push!
 

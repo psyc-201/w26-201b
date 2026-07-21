@@ -23,41 +23,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -481,13 +446,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
   <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials">Materials</a></li>
   <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings">Readings</a></li>
-  <li><a href="#updating-assignments-more-easily" id="toc-updating-assignments-more-easily" class="nav-link" data-scroll-target="#updating-assignments-more-easily">Updating Assignments More Easily</a>
-  <ul>
-  <li><a href="#check-for-the-update" id="toc-check-for-the-update" class="nav-link" data-scroll-target="#check-for-the-update">1. Check for the update</a></li>
-  <li><a href="#fetch-and-merge-the-update" id="toc-fetch-and-merge-the-update" class="nav-link" data-scroll-target="#fetch-and-merge-the-update">2. Fetch and merge the update</a></li>
-  <li><a href="#resolve-conflicts-in-vs-code" id="toc-resolve-conflicts-in-vs-code" class="nav-link" data-scroll-target="#resolve-conflicts-in-vs-code">3. Resolve conflicts in VS Code</a></li>
-  <li><a href="#push-and-re-setup" id="toc-push-and-re-setup" class="nav-link" data-scroll-target="#push-and-re-setup">4. Push and re-setup</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -588,51 +546,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://matthewbjane.quarto.pub/">Guide to Effect Sizes &amp; Confidence Intervals</a></li>
 <li><a href="https://sciminds.ucsd.edu/bossanova/cheatsheet/"><code>bossanova</code> documentation</a></li>
 </ul>
-<hr>
-</section>
-<section id="updating-assignments-more-easily" class="level2">
-<h2 class="anchored" data-anchor-id="updating-assignments-more-easily">Updating Assignments More Easily</h2>
-<p><em>These instructions are also on <a href="https://stat-intuitions.com/guides/classroom-guide.html">classroom guide page</a></em></p>
-<section id="check-for-the-update" class="level3">
-<h3 class="anchored" data-anchor-id="check-for-the-update">1. Check for the update</h3>
-<p>Open a terminal, <code>cd</code> into your assignment folder, and run:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="ex">gh</span> pr list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If you see a PR titled “GitHub Classroom: Sync Assignment”, continue below.</p>
-</section>
-<section id="fetch-and-merge-the-update" class="level3">
-<h3 class="anchored" data-anchor-id="fetch-and-merge-the-update">2. Fetch and merge the update</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">git</span> fetch origin</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">git</span> merge origin/psyc-201/main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>If the merge completes with no errors</strong>, skip to Step 4.</p>
-<p><strong>If you see <code>CONFLICT</code></strong>, continue to Step 3.</p>
-</section>
-<section id="resolve-conflicts-in-vs-code" class="level3">
-<h3 class="anchored" data-anchor-id="resolve-conflicts-in-vs-code">3. Resolve conflicts in VS Code</h3>
-<p><code>git merge</code> will tell you which files have conflicts. First, make sure VS Code is configured as your merge tool (you only need to do this once):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="va">VSCODE</span><span class="op">=</span><span class="st">"/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">git</span> config merge.tool vscode</span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">git</span> config mergetool.vscode.cmd <span class="st">"</span><span class="va">$VSCODE</span><span class="st"> --wait --merge </span><span class="dt">\$</span><span class="st">REMOTE </span><span class="dt">\$</span><span class="st">LOCAL </span><span class="dt">\$</span><span class="st">BASE </span><span class="dt">\$</span><span class="st">MERGED"</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">git</span> config mergetool.keepBackup false</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Then run this to open each conflicted file in VS Code’s merge editor:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">git</span> mergetool</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>For each file, VS Code will open a 3-panel merge editor. The key terms to know:</p>
-<ul>
-<li><strong>Current</strong> (also called “ours” or “local”) = the version on <em>your</em> branch, i.e.&nbsp;your work</li>
-<li><strong>Incoming</strong> (also called “theirs” or “remote”) = the version being merged <em>in</em>, i.e.&nbsp;instructor updates</li>
-</ul>
-<p>For each conflicting section, click <strong>Accept Current</strong> to keep your version or <strong>Accept Incoming</strong> to take the instructor’s version. The <strong>bottom panel</strong> shows the result of your choices. When you’re happy with it, click <strong>Complete Merge</strong> (bottom-right) to finish that file.</p>
-<p><code>git mergetool</code> will automatically move to the next conflicted file until all are resolved. Then commit the merge:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Merge instructor updates"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="push-and-re-setup" class="level3">
-<h3 class="anchored" data-anchor-id="push-and-re-setup">4. Push and re-setup</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">git</span> push</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="ex">uv</span> sync</span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="ex">uv</span> run poe setup</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The PR on GitHub will automatically close after you push. If everything worked you should see the new/updated files in your local folder, and you can hack on them as you normally would.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
